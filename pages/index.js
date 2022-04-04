@@ -40,7 +40,7 @@ export async function getStaticProps() {
       books: books.map(book => ({
         title: book.title,
         author: book.author,
-        image: book.image,
+        //image: book.image,
         user: book.user,
         square: book.square,
         id: book._id.toString()
