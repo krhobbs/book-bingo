@@ -1,0 +1,30 @@
+.bookInput {
+    border: none;
+    width: 100%;
+    background: rgba(237, 236, 233, 0.5);
+}
+
+.title {
+    font-size: 0.8rem;
+}
+
+.author {
+    font-size: 0.6rem;
+}
+
+.bookCover {
+    object-fit: contain;
+    width: 100%;
+}
+
+.completeCardButton {
+    background: #EDECE9;
+    z-index: 3;
+}
+
+.infoContainer {
+    border-radius: 15px;
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+}
