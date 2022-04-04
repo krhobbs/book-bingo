@@ -35,10 +35,10 @@ function AddBookForm(props) {
         <label htmlFor="author">Author</label>
         <input type="text" required id="author" ref={authorInputRef} />
       </div>
-      <div className={styles.control}>
+      {/* <div className={styles.control}>
         <label htmlFor="author">Book Cover</label>
         <input type="url" required id="image" ref={imageInputRef} />
-      </div>
+      </div> */}
       <div className={styles.actions}>
         <button>Add Book</button>
       </div>
