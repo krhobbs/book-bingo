@@ -5,21 +5,21 @@ import { useRouter } from "next/router";
 function AddBookForm(props) {
   const titleInputRef = useRef();
   const authorInputRef = useRef();
-  const imageInputRef = useRef();
+  //const imageInputRef = useRef();
 
   function submitHandler(event) {
     event.preventDefault();
 
     const enteredTitle = titleInputRef.current.value;
     const enteredAuthor = authorInputRef.current.value;
-    const enteredImage = imageInputRef.current.value;
+    //const enteredImage = imageInputRef.current.value;
 
     const bookData = {
       square: props.square,
       user: props.user,
       title: enteredTitle,
       author: enteredAuthor,
-      image: enteredImage,
+      //image: enteredImage,
     };
 
     props.onAddBook(bookData);
