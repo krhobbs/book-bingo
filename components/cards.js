@@ -3,7 +3,7 @@ import BingoCard from './bingo-card/bingo-card';
 function Cards(props) {
 
     return (
-        <div>
+        <div style={{marginBottom: '2rem'}}>
             {props.names.map((name) => {
                 const cardBooks = props.books.filter((book) => {
                     return book.user === name;
