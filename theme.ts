@@ -45,6 +45,15 @@ export const theme: Theme = {
         }
     },
     buttons: {
+        primary: {
+            color: 'text',
+            cursor: 'pointer',
+            bg: 'primary',
+            padding: '0.5rem 1.5rem',
+            '&:hover': {
+                boxShadow: 'inset 0px 0px 15px -10px #000000'
+            }
+        },
         addBook: {
             color: 'text',
             cursor: 'pointer',
