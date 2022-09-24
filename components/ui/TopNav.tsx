@@ -18,10 +18,10 @@ function TopNav(props) {
   return (
     <Box sx={containerStyles}>
       <Box>
-        <Text variant={'heading1'}>Book Bingo</Text>
+        <Text variant={'heading1'}>BookBingo</Text>
       </Box>
       <Box sx={{ display: 'flex', gap: '2rem' }}>
-        <Link href="/">Profile</Link>
+        <Link href="/profile">Profile</Link>
         <Link href="/">Friends</Link>
       </Box>
     </Box>
