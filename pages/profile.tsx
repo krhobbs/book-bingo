@@ -1,9 +1,9 @@
-import BingoCard from '../components/bingo-card/bingo-card';
 
-function Login(props) {
+export default function Profile(props) {
 
-
-    return <BingoCard />
+  return (
+    <h1>Profile Page</h1>
+  );
 }
 
-export default Login;
+
