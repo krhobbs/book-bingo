@@ -1,9 +1,10 @@
 import BingoCard from './bingo-card/bingo-card';
+import { Box } from 'theme-ui'
 
 function Cards(props) {
 
     return (
-        <div style={{marginBottom: '2rem'}}>
+        <Box sx={{marginTop: '7rem'}}>
             {props.names.map((name) => {
                 const cardBooks = props.books.filter((book) => {
                     return book.user === name;
@@ -12,7 +13,7 @@ function Cards(props) {
                     <BingoCard key={name} books={cardBooks} name={name} />
                 );
             })}
-        </div>
+        </Box>
     )
 
 }
