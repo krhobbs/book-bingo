@@ -4,7 +4,7 @@ import type { Theme } from "theme-ui";
 export const theme: Theme = {
     colors: {
         text: '#141419',
-        background: '#333333',
+        background: '#F5F5F5',
         primary: '#BDCFB5',
         secondary: '#E8AC9B'
     },
@@ -24,22 +24,22 @@ export const theme: Theme = {
         heading1: {
             fontFamily: 'heading',
             fontWeight: ['semiBold', 'semiBold', 'bold'],
-            fontSize: [3, 4]
+            fontSize: [2, 3]
         },
         heading2: {
             fontFamily: 'heading',
             fontWeight: ['semiBold', 'semiBold', 'bold'],
-            fontSize: [2, 3]
+            fontSize: [1, 2]
         },
         body1: {
             fontFamily: 'body',
             fontWeight: 'normal',
-            fontSize: [2, 3]
+            fontSize: [0, 1]
         },
         body2: {
             fontFamily: 'body',
             fontWeight: 'normal',
-            fontSize: [1, 2]
+            fontSize: [0, 1]
         }
     }
 
