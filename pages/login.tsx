@@ -22,13 +22,3 @@ function Login(props) {
 }
 
 export default Login;
-
-// export async function getServerSideProps(context) {
-    
-//     return {
-//         props: {
-//             user: context.query.user,
-//             square: context.query.square
-//         }
-//     }
-// }

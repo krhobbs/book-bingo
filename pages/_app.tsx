@@ -1,14 +1,15 @@
-import '../styles/globals.css'
 import { ThemeProvider } from 'theme-ui';
 import { theme } from '../theme';
 
-import TopNav from '../components/ui/TopNav';
+import Layout from '../components/layout/layout';
+
 
 function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider theme={theme}>
-      <TopNav />
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </ThemeProvider>
   )
   

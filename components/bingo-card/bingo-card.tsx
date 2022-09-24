@@ -1,12 +1,14 @@
-import styles from './bingo-card.module.scss';
 import BingoItem from './bingo-item';
+import Spacer from '../ui/Spacer';
+import { Box, Text } from 'theme-ui';
 
 function BingoCard(props) {
 
     return (
-        <div>
-            <h2 className={styles.bingoCardTitle}>{props.name || 'No name'}</h2>
-            <div className={styles.bingoGrid}>
+        <Box sx={{maxInlineSize: '532px', mx: 'auto'}}>
+            <Text variant={'heading2'}>{props.name || 'No name'}</Text>
+            <Spacer size={['1.25rem', '1.5rem']} />
+            <Box sx={{display: 'grid', gridTemplateColumns: 'repeat(5, auto)', gridTemplateRows: 'repeat(5, auto)', gap: '0.5rem'}}>
                 <BingoItem user={props.name} square="1A" bookReq="LGBTQIA List Book" book={props.books.find((book) => book.square === "1A")}/>
                 <BingoItem user={props.name} square="1B" bookReq="Weird Ecology" book={props.books.find((book) => book.square === "1B")}/>
                 <BingoItem user={props.name} square="1C" bookReq="Two or More Authors" book={props.books.find((book) => book.square === "1C")}/>
@@ -32,9 +34,10 @@ function BingoCard(props) {
                 <BingoItem user={props.name} square="5C" bookReq="Shape-shifters" book={props.books.find((book) => book.square === "5C")} />
                 <BingoItem user={props.name} square="5D" bookReq="No Ifs, Ands, or Buts" book={props.books.find((book) => book.square === "5D")} />
                 <BingoItem user={props.name} square="5E" bookReq="Family Matters" book={props.books.find((book) => book.square === "5E")} />
-            </div>
-        </div>
-    )
+            </Box>
+            <Spacer size={['3rem', '4rem']} />
+        </Box>
+    );
 
 }
 
