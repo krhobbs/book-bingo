@@ -45,6 +45,7 @@ function ItemBack({ user, square, book }: ItemBackProps) {
                                 user: user,
                                 square: square
                         }}}
+                        passHref
                     >
                         <Button variant='addBook'>
                             Add Book
