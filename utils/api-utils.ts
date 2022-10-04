@@ -1,6 +1,6 @@
 export async function getBooks() {
   try {
-    const response = await fetch('http://localhost:3000/api/books');
+    const response = await fetch(process.env.HOST + '/api/books');
     const data = await response.json();
     const books = data.books;
 
@@ -9,12 +9,11 @@ export async function getBooks() {
     console.log(error);
     return;
   }
-  
 }
 
 export async function getUser(username: string) {
   try {
-    const response = await fetch('http://localhost:3000/api/users/' + username);
+    const response = await fetch(process.env.HOST + '/api/users/' + username);
     const data = await response.json();
 
     return data.user;
@@ -26,7 +25,7 @@ export async function getUser(username: string) {
 
 export async function getCard(cardId: string) {
   try {
-    const response = await fetch('http://localhost:3000/api/cards/' + cardId);
+    const response = await fetch(process.env.HOST + '/api/cards/' + cardId);
     const data = await response.json();
 
     return data.card;
@@ -38,7 +37,7 @@ export async function getCard(cardId: string) {
 
 export async function getCards() {
   try {
-    const response = await fetch('http://localhost:3000/api/cards');
+    const response = await fetch(process.env.HOST + '/api/cards');
     const data = await response.json();
     const cards = data.cards;
 
