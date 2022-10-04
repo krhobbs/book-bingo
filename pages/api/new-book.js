@@ -4,14 +4,29 @@ async function handler(req, res) {
     if (req.method === 'POST') {
         const data = req.body;
 
-        const { title, author, image } = data;
+        const { title, author, user, square } = data;
 
         const client = await MongoClient.connect('mongodb+srv://***REMOVED***:***REMOVED***@***REMOVED***?retryWrites=true&w=majority');
         const db = client.db();
 
-        const booksCollection = db.collection('books');
+        const booksCollection = db.collection('cards');
 
-        const result = await booksCollection.insertOne(data);
+        console.log(title, author, user, square);
+
+        const addBook = await booksCollection.updateOne(
+            {
+                user: user,
+                'squares.id': square
+            },
+                {
+                    $set: {
+                        'squares.$.book': {
+                            title: title,
+                            author: author
+                        }
+                    }
+                }
+        );
 
         client.close();
 

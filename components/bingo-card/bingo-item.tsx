@@ -7,10 +7,7 @@ interface BingoItemProps {
     user: string,
     square: string,
     bookReq: string,
-    book: {
-        title: string,
-        author: string
-    }
+    book: string
 }
 
 function BingoItem({ user, square, bookReq, book }: BingoItemProps) {

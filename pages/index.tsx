@@ -1,16 +1,14 @@
 
 import { useEffect, useState } from 'react';
-import { MongoClient } from 'mongodb';
+import { getCards } from '../utils/api-utils';
 import Cards from '../components/cards';
 import Head from 'next/head';
 
 export default function Home(props) {
-  const [loadedBooks, setLoadedBooks] = useState([])
+  const [loadedCards, setLoadedCards] = useState([])
 
   useEffect(() => {
-    //Request
-    setLoadedBooks(props.books);
-
+    setLoadedCards(props.cards);
   }, [])
 
   return (
@@ -18,7 +16,7 @@ export default function Home(props) {
       <Head>
         <title>Book Bingo</title>
       </Head>
-      <Cards books={loadedBooks} names={['Kyle', 'Rachel', 'Simon']}/>
+      <Cards cards={loadedCards} />
     </>
     
     
@@ -26,25 +24,12 @@ export default function Home(props) {
 }
 
 export async function getStaticProps() {
-  const client = await MongoClient.connect('mongodb+srv://***REMOVED***:***REMOVED***@***REMOVED***?retryWrites=true&w=majority');
-  const db = client.db();
 
-  const booksCollection = db.collection('books');
-
-  const books = await booksCollection.find().toArray();
-
-  client.close();
+  const cards = await getCards();
 
   return {
     props: {
-      books: books.map(book => ({
-        title: book.title,
-        author: book.author,
-        //image: book.image,
-        user: book.user,
-        square: book.square,
-        id: book._id.toString()
-      }))
+      cards: cards
     },
     revalidate: 1
   };
