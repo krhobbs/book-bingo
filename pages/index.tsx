@@ -9,7 +9,7 @@ export default function Home(props) {
 
   useEffect(() => {
     setLoadedCards(props.cards);
-  }, [])
+  }, [props.cards])
 
   return (
     <>
