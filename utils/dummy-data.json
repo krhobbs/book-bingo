@@ -1,0 +1,500 @@
+[
+  {
+    "_id": "",
+    "user": "kylehobbs",
+    "squares": [
+      {
+        "id": "1A",
+        "req": "LGBTQIA List Book",
+        "book": {
+          "title": "The Song of Achilles",
+          "author": "Madeline Miller"
+        }
+      },
+      {
+        "id": "1B",
+        "req": "Weird Ecology",
+        "book": {
+          "title": "The Cloud Roads",
+          "author": "Martha Wells"
+        }
+      },
+      {
+        "id": "1C",
+        "req": "Two or More Authors",
+        "book": {
+          "title": "This is How You Lose the Time War",
+          "author": "Amal El-Mohtar & Max Gladstone"
+        }
+      },
+      {
+        "id": "1D",
+        "req": "Historical SFF",
+        "book": null
+      },
+      {
+        "id": "1E",
+        "req": "Set in Space",
+        "book": {
+          "title": "The Darkness Outside Us",
+          "author": "Eliot Shrefer"
+        }
+      },
+      {
+        "id": "2A",
+        "req": "Stand alone",
+        "book": null
+      },
+      {
+        "id": "2B",
+        "req": "Anti-hero",
+        "book": null
+      },
+      {
+        "id": "2C",
+        "req": "Book Club or Readalong Book",
+        "book": null
+      },
+      {
+        "id": "2D",
+        "req": "Cool Weapon",
+        "book": null
+      },
+      {
+        "id": "2E",
+        "req": "Revolutions and Rebellions",
+        "book": null
+      },
+      {
+        "id": "3A",
+        "req": "Name in the Title",
+        "book": {
+          "title": "Jonathan Strange & Mr. Norrell",
+          "author": "Susanna Clarke"
+        }
+      },
+      {
+        "id": "3B",
+        "req": "Author uses Initials",
+        "book": null
+      },
+      {
+        "id": "3C",
+        "req": "Published in 2022",
+        "book": null
+      },
+      {
+        "id": "3D",
+        "req": "Urban Fantasy",
+        "book": {
+          "title": "Glass Magician",
+          "author": "Charlie N. Holmberg"
+        }
+      },
+      {
+        "id": "3E",
+        "req": "Set in Africa",
+        "book": {
+          "title": "A Master of Djinn",
+          "author": "P. Djeli Clark"
+        }
+      },
+      {
+        "id": "4A",
+        "req": "Non-Human Protaganist",
+        "book": {
+          "title": "The Golem & the Jinni",
+          "author": "Helene Wecker"
+        }
+      },
+      {
+        "id": "4B",
+        "req": "Wibbly Wobbly Timey Wimey",
+        "book": {
+          "title": "The 7 1/2 Deaths of Evelyn Hardcastle",
+          "author": "Stuart Turton"
+        }
+      },
+      {
+        "id": "4C",
+        "req": "Five Short Stories",
+        "book": null
+      },
+      {
+        "id": "4D",
+        "req": "Mental Health",
+        "book": null
+      },
+      {
+        "id": "4E",
+        "req": "Self Published",
+        "book": {
+          "title": "Into the Labyrinth",
+          "author": "John Bierce"
+        }
+      },
+      {
+        "id": "5A",
+        "req": "Awards Finalist",
+        "book": null
+      },
+      {
+        "id": "5B",
+        "req": "BIPOC Author",
+        "book": null
+      },
+      {
+        "id": "5C",
+        "req": "Shape-shifters",
+        "book": null
+      },
+      {
+        "id": "5D",
+        "req": "No Ifs, Ands, or Buts",
+        "book": null
+      },
+      {
+        "id": "5E",
+        "req": "Family Matters",
+        "book": {
+          "title": "The Cartographers",
+          "author": "Peng Shepherd"
+        }
+      }
+    ]
+  },
+  {
+    "_id": "",
+    "user": "rachelkrieger",
+    "squares": [
+      {
+        "id": "1A",
+        "req": "LGBTQIA List Book",
+        "book": {
+          "title": "Silver in the Wood",
+          "author": "Emily Tesh"
+        }
+      },
+      {
+        "id": "1B",
+        "req": "Weird Ecology",
+        "book": null
+      },
+      {
+        "id": "1C",
+        "req": "Two or More Authors",
+        "book": null
+      },
+      {
+        "id": "1D",
+        "req": "Historical SFF",
+        "book": {
+          "title": "A Marvelous Light",
+          "author": "Freya Marske"
+        }
+      },
+      {
+        "id": "1E",
+        "req": "Set in Space",
+        "book": null
+      },
+      {
+        "id": "2A",
+        "req": "Stand alone",
+        "book": {
+          "title": "The Binding",
+          "author": "Bridget Collins"
+        }
+      },
+      {
+        "id": "2B",
+        "req": "Anti-hero",
+        "book": null
+      },
+      {
+        "id": "2C",
+        "req": "Book Club or Readalong Book",
+        "book": null
+      },
+      {
+        "id": "2D",
+        "req": "Cool Weapon",
+        "book": null
+      },
+      {
+        "id": "2E",
+        "req": "Revolutions and Rebellions",
+        "book": null
+      },
+      {
+        "id": "3A",
+        "req": "Name in the Title",
+        "book": null
+      },
+      {
+        "id": "3B",
+        "req": "Author uses Initials",
+        "book": {
+          "title": "Gallant",
+          "author": "V.E Schwab"
+        }
+      },
+      {
+        "id": "3C",
+        "req": "Published in 2022",
+        "book": {
+          "title": "The Cartographers",
+          "author": "Peng Shepherd"
+        }
+      },
+      {
+        "id": "3D",
+        "req": "Urban Fantasy",
+        "book": null
+      },
+      {
+        "id": "3E",
+        "req": "Set in Africa",
+        "book": null
+      },
+      {
+        "id": "4A",
+        "req": "Non-Human Protaganist",
+        "book": null
+      },
+      {
+        "id": "4B",
+        "req": "Wibbly Wobbly Timey Wimey",
+        "book": {
+          "title": "Star Mother",
+          "author": "Charlie N. Holmberg"
+        }
+      },
+      {
+        "id": "4C",
+        "req": "Five Short Stories",
+        "book": null
+      },
+      {
+        "id": "4D",
+        "req": "Mental Health",
+        "book": null
+      },
+      {
+        "id": "4E",
+        "req": "Self Published",
+        "book": {
+          "title": "Necropolis",
+          "author": "Jordan L. Hawk"
+        }
+      },
+      {
+        "id": "5A",
+        "req": "Awards Finalist",
+        "book": null
+      },
+      {
+        "id": "5B",
+        "req": "BIPOC Author",
+        "book": null
+      },
+      {
+        "id": "5C",
+        "req": "Shape-shifters",
+        "book": null
+      },
+      {
+        "id": "5D",
+        "req": "No Ifs, Ands, or Buts",
+        "book": null
+      },
+      {
+        "id": "5E",
+        "req": "Family Matters",
+        "book": {
+          "title": "The Lord of Stariel",
+          "author": "AJ Lancaster"
+        }
+      }
+    ]
+  },
+  {
+    "_id": "",
+    "user": "simonkerr",
+    "squares": [
+      {
+        "id": "1A",
+        "req": "LGBTQIA List Book",
+        "book": {
+          "title": "The Song of Achilles",
+          "author": "Madeline Miller"
+        }
+      },
+      {
+        "id": "1B",
+        "req": "Weird Ecology",
+        "book": {
+          "title": "To Be Taught, If Fortunate",
+          "author": "Becky Chambers"
+        }
+      },
+      {
+        "id": "1C",
+        "req": "Two or More Authors",
+        "book": {
+          "title": "Aurora's End",
+          "author": "Amie Kaufman and Jay Kristoff"
+        }
+      },
+      {
+        "id": "1D",
+        "req": "Historical SFF",
+        "book": null
+      },
+      {
+        "id": "1E",
+        "req": "Set in Space",
+        "book": {
+          "title": "Harrow the Ninth",
+          "author": "Tamsyn Muir"
+        }
+      },
+      {
+        "id": "2A",
+        "req": "Stand alone",
+        "book": {
+            "title": "City of Thieves",
+            "author": "David Benioff"
+        }
+      },
+      {
+        "id": "2B",
+        "req": "Anti-hero",
+        "book": {
+            "title": "Hench",
+            "author": "Natalie Zina Walschots"
+        }
+      },
+      {
+        "id": "2C",
+        "req": "Book Club or Readalong Book",
+        "book": {
+            "title": "In the Dream House",
+            "author": "Carmen Maria Machado"
+        }
+      },
+      {
+        "id": "2D",
+        "req": "Cool Weapon",
+        "book": {
+            "title": "The Discord of Gods",
+            "author": "Jenn Lyons"
+        }
+      },
+      {
+        "id": "2E",
+        "req": "Revolutions and Rebellions",
+        "book": {
+            "title": "We Set the Dark on Fire",
+            "author": "Tehlor Kay Mejia"
+        }
+      },
+      {
+        "id": "3A",
+        "req": "Name in the Title",
+        "book": {
+          "title": "Gideon the Ninth",
+          "author": "Tamsyn Muir"
+        }
+      },
+      {
+        "id": "3B",
+        "req": "Author uses Initials",
+        "book": null
+      },
+      {
+        "id": "3C",
+        "req": "Published in 2022",
+        "book": null
+      },
+      {
+        "id": "3D",
+        "req": "Urban Fantasy",
+        "book": {
+          "title": "Mister Impossible",
+          "author": "Maggie Stiefvater"
+        }
+      },
+      {
+        "id": "3E",
+        "req": "Set in Africa",
+        "book": null
+      },
+      {
+        "id": "4A",
+        "req": "Non-Human Protaganist",
+        "book": null
+      },
+      {
+        "id": "4B",
+        "req": "Wibbly Wobbly Timey Wimey",
+        "book": {
+          "title": "Paper Girls",
+          "author": "Brian K Vaughan"
+        }
+      },
+      {
+        "id": "4C",
+        "req": "Five Short Stories",
+        "book": null
+      },
+      {
+        "id": "4D",
+        "req": "Mental Health",
+        "book": {
+            "title": "A Psalm for the Wild-Built",
+            "author": "Becky Chambers"
+        }
+      },
+      {
+        "id": "4E",
+        "req": "Self Published",
+        "book": {
+          "title": "Forger",
+          "author": "Simon Kerr :)"
+        }
+      },
+      {
+        "id": "5A",
+        "req": "Awards Finalist",
+        "book": null
+      },
+      {
+        "id": "5B",
+        "req": "BIPOC Author",
+        "book": null
+      },
+      {
+        "id": "5C",
+        "req": "Shape-shifters",
+        "book": {
+            "title": "Lobizona",
+            "author": "Romina Garber"
+        }
+      },
+      {
+        "id": "5D",
+        "req": "No Ifs, Ands, or Buts",
+        "book": {
+            "title": "I Kissed Shara Wheeler",
+            "author": "Casey McQuiston"
+        }
+      },
+      {
+        "id": "5E",
+        "req": "Family Matters",
+        "book": null
+      }
+    ]
+  }
+]

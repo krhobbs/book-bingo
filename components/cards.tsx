@@ -5,12 +5,9 @@ function Cards(props) {
 
     return (
         <Box sx={{marginTop: '7rem'}}>
-            {props.names.map((name) => {
-                const cardBooks = props.books.filter((book) => {
-                    return book.user === name;
-                })
+            {props.cards.map((card) => {
                 return (
-                    <BingoCard key={name} books={cardBooks} name={name} />
+                    <BingoCard key={card.user} card={card} />
                 );
             })}
         </Box>

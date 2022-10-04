@@ -1,40 +1,42 @@
 import { useEffect, useState } from 'react';
-import { MongoClient } from 'mongodb';
+import { getUser, getCard, getCardBooks } from '../utils/api-utils';
+import Spacer from '../components/ui/Spacer';
 import Cards from '../components/cards';
+import BingoCard from '../components/bingo-card/bingo-card';
 import Head from 'next/head';
+import { Box } from 'theme-ui';
 
 export default function Profile(props) {
+  const user = props.user;
+  const card = props.card;
+
+  if (!user || !card) {
+    return <p>Loading...</p>
+  }
 
   return (
     <>
       <Head>
         <title>Book Bingo | User Profile</title>
       </Head>
-      <Cards books={props.books} names={['Kyle']}/>
+      <Spacer size='6.5rem' />
+      <p>Username {props.user.username}</p>
+      <p>Password {props.user.password}</p>
+      <p>Friends {props.user.friends.toString()}</p>
+      <BingoCard card={props.card} />
     </>
   );
 }
 
 export async function getStaticProps() {
-  const client = await MongoClient.connect('mongodb+srv://kylehobbs:dumbledore7@cluster0.9evla.mongodb.net/books?retryWrites=true&w=majority');
-  const db = client.db();
-
-  const booksCollection = db.collection('books');
-
-  const books = await booksCollection.find().toArray();
-
-  client.close();
+  const user = await getUser('kylehobbs');
+  const cardId = user.card;
+  const card = await getCard(cardId);
 
   return {
     props: {
-      books: books.map(book => ({
-        title: book.title,
-        author: book.author,
-        //image: book.image,
-        user: book.user,
-        square: book.square,
-        id: book._id.toString()
-      }))
+      user: user,
+      card: card
     },
     revalidate: 1
   };
