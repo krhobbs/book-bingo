@@ -1,17 +1,30 @@
-import { MongoClient } from 'mongodb';
+import { connectDatabase } from '../../utils/db-utils';
 
 async function handler(req, res) {
     if (req.method === 'POST') {
         const data = req.body;
 
-        const { title, author, image } = data;
+        const { title, author, user, square } = data;
 
-        const client = await MongoClient.connect('mongodb+srv://kylehobbs:dumbledore7@cluster0.9evla.mongodb.net/books?retryWrites=true&w=majority');
+        const client = await connectDatabase();
         const db = client.db();
 
-        const booksCollection = db.collection('books');
+        const booksCollection = db.collection('cards');
 
-        const result = await booksCollection.insertOne(data);
+        const addBook = await booksCollection.updateOne(
+            {
+                user: user,
+                'squares.id': square
+            },
+                {
+                    $set: {
+                        'squares.$.book': {
+                            title: title,
+                            author: author
+                        }
+                    }
+                }
+        );
 
         client.close();
 
