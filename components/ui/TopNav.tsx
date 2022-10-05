@@ -4,7 +4,7 @@ import { Box, Text, ThemeUICSSObject } from 'theme-ui';
 const containerStyles: ThemeUICSSObject = {
   alignItems: 'center',
   backgroundColor: 'primary',
-  blockSize: '5rem',
+  blockSize: '4.5rem',
   display: 'flex',
   inlineSize: '100%',
   justifyContent: 'space-between',

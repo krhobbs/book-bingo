@@ -17,8 +17,8 @@ function ItemBack({ user, square, book }: ItemBackProps) {
         await fetch('/api/delete-book', {
             method: 'POST',
             body: JSON.stringify({
-                title: book?.title,
-                author: book?.author
+                user: user,
+                square: square
             }),
             headers: {
                 'Content-Type': 'application/json'
