@@ -1,4 +1,4 @@
-import { MongoClient } from 'mongodb';
+import { connectDatabase } from '../../utils/db-utils';
 
 async function handler(req, res) {
     if (req.method === 'POST') {
@@ -6,7 +6,7 @@ async function handler(req, res) {
 
         const { title, author, user, square } = data;
 
-        const client = await MongoClient.connect('mongodb+srv://***REMOVED***:***REMOVED***@***REMOVED***?retryWrites=true&w=majority');
+        const client = await connectDatabase();
         const db = client.db();
 
         const booksCollection = db.collection('cards');

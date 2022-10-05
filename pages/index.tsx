@@ -1,8 +1,8 @@
 
 import { useEffect, useState } from 'react';
-import { getCards } from '../utils/api-utils';
 import Cards from '../components/cards';
 import Head from 'next/head';
+import { connectDatabase, getDocuments } from '../utils/db-utils';
 
 export default function Home(props) {
   const [loadedCards, setLoadedCards] = useState([])
@@ -24,8 +24,10 @@ export default function Home(props) {
 }
 
 export async function getStaticProps() {
+  const client = await connectDatabase();
+  const cards = await getDocuments(client, 'cards');
 
-  const cards = await getCards();
+  client.close();
 
   return {
     props: {

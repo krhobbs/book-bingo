@@ -1,15 +1,3 @@
-export async function getBooks() {
-  try {
-    const response = await fetch(process.env.NEXT_PUBLIC_HOST + '/api/books');
-    const data = await response.json();
-    const books = data.books;
-
-    return books;
-  } catch (error) {
-    console.log(error);
-    return;
-  }
-}
 
 export async function getUser(username: string) {
   try {
@@ -47,14 +35,4 @@ export async function getCards() {
     return;
   }
 
-}
-
-export async function getCardBooks(cardId: string) {
-  try {
-    const card = await getCard(cardId);
-
-  } catch (error) {
-    console.log(error);
-    return;
-  }
 }
