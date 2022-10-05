@@ -1,10 +1,8 @@
-import { useEffect, useState } from 'react';
-import { getUser, getCard, getCardBooks } from '../utils/api-utils';
+import { getUser, getCard } from '../utils/api-utils';
+import { connectDatabase, getDocumentById, getDocumentByUsername } from '../utils/db-utils';
 import Spacer from '../components/ui/Spacer';
-import Cards from '../components/cards';
 import BingoCard from '../components/bingo-card/bingo-card';
 import Head from 'next/head';
-import { Box } from 'theme-ui';
 
 export default function Profile(props) {
   const user = props.user;
@@ -29,9 +27,10 @@ export default function Profile(props) {
 }
 
 export async function getStaticProps() {
-  const user = await getUser('kylehobbs');
+  const client = await connectDatabase();
+  const user = await getDocumentByUsername(client, 'users', 'kylehobbs');
   const cardId = user.card;
-  const card = await getCard(cardId);
+  const card = await getDocumentById(client, 'cards', cardId);
 
   return {
     props: {
