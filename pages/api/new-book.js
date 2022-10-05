@@ -11,8 +11,6 @@ async function handler(req, res) {
 
         const booksCollection = db.collection('cards');
 
-        console.log(title, author, user, square);
-
         const addBook = await booksCollection.updateOne(
             {
                 user: user,
