@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { Box, Text, ThemeUICSSObject } from 'theme-ui';
+import { useSession, signOut } from 'next-auth/react';
+import { Box, Button, Text, ThemeUICSSObject } from 'theme-ui';
 
 const containerStyles: ThemeUICSSObject = {
   alignItems: 'center',
@@ -15,6 +16,12 @@ const containerStyles: ThemeUICSSObject = {
 };
 
 function TopNav(props) {
+  const { data: session, status } = useSession();
+
+  function logoutHandler() {
+    signOut();
+  }
+
   return (
     <Box sx={containerStyles}>
       <Box>
@@ -23,6 +30,7 @@ function TopNav(props) {
       <Box sx={{ display: 'flex', gap: '2rem' }}>
         <Link href="/profile">Profile</Link>
         <Link href="/">Friends</Link>
+        {status === 'authenticated' && <Button variant='nav' onClick={logoutHandler}>Logout</Button>}
       </Box>
     </Box>
   );

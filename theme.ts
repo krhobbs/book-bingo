@@ -1,3 +1,4 @@
+import { text } from "stream/consumers";
 import type { Theme } from "theme-ui";
 
 
@@ -62,6 +63,12 @@ export const theme: Theme = {
             '&:hover': {
                 boxShadow: 'inset 0px 0px 15px -10px #000000'
             }
+        },
+        nav: {
+            color: 'text',
+            bg: 'transparent',
+            cursor: 'pointer',
+            padding: '0',
         }
     },
     styles: {
