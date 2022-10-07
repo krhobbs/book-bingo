@@ -43,6 +43,12 @@ export const theme: Theme = {
             fontFamily: 'body',
             fontWeight: 'normal',
             fontSize: [0, 1]
+        },
+        link: {
+            fontFamily: 'body',
+            fontWeight: 'normal',
+            fontSize: [0, 1],
+            textDecoration: 'underline'
         }
     },
     buttons: {

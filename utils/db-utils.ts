@@ -19,10 +19,16 @@ export async function getDocuments(client, collection, filter = {}) {
 
   const documents = await db.collection(collection).find(filter).toArray();
 
-  const serializable = documents.map((document) => ({
-    ...document,
-    _id: document._id.toString(),
-  }));
+  let serializable;
+
+  if (documents) {
+    serializable = documents.map((document) => ({
+      ...document,
+      _id: document._id.toString(),
+    }));
+  } else {
+    serializable = documents;
+  }
 
   return serializable;
 }
@@ -34,7 +40,13 @@ export async function getDocumentById(client, collection, id) {
     .collection(collection)
     .findOne({ _id: new ObjectId(id) });
 
-  const serializable = { ...document, _id: document._id.toString() };
+  let serializable;
+
+  if (document) {
+    serializable = { ...document, _id: document._id.toString() };
+  } else {
+    serializable = document;
+  }
 
   return serializable;
 }
@@ -46,7 +58,13 @@ export async function getDocumentByUsername(client, collection, username) {
     .collection(collection)
     .findOne({ username: username });
 
-  const serializable = { ...document, _id: document._id.toString() };
+  let serializable;
+
+  if (document) {
+    serializable = { ...document, _id: document._id.toString() };
+  } else {
+    serializable = document;
+  }
 
   return serializable;
 }
