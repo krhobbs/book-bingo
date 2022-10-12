@@ -1,8 +1,9 @@
-import { getUser, getCard } from '../utils/api-utils';
 import { connectDatabase, getDocumentById, getDocumentByUsername } from '../utils/db-utils';
+import { getSession } from 'next-auth/react';
 import Spacer from '../components/ui/Spacer';
 import BingoCard from '../components/bingo-card/bingo-card';
 import Head from 'next/head';
+import { useEffect } from 'react';
 
 export default function Profile(props) {
   const user = props.user;
@@ -11,6 +12,9 @@ export default function Profile(props) {
   if (!user || !card) {
     return <p>Loading...</p>
   }
+
+  console.log('Client Side');
+  console.log(props.session);
 
   return (
     <>
@@ -26,18 +30,30 @@ export default function Profile(props) {
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps(context) {
   const client = await connectDatabase();
   const user = await getDocumentByUsername(client, 'users', '***REMOVED***');
   const cardId = user.card;
   const card = await getDocumentById(client, 'cards', cardId);
 
+
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false
+      }
+    }
+  }
+
   return {
     props: {
+      session: session,
       user: user,
       card: card
-    },
-    revalidate: 1
+    }
   };
 }
 

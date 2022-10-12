@@ -5,6 +5,7 @@ import { connectDatabase, getDocumentByUsername } from '../../../utils/db-utils'
 export default NextAuth({
   session: {
     strategy: "jwt",
+    //maxAge: 3000
   },
   providers: [
     CredentialsProvider({
@@ -26,7 +27,11 @@ export default NextAuth({
 
             client.close();
 
-            return user;
+            const returnedUser = {
+              name: user.username
+            }
+
+            return Promise.resolve(returnedUser);
         }
     }),
   ],
