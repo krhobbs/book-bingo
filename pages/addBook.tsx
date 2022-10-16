@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router';
+import { getSession } from 'next-auth/react';
 import AddBookForm from '../components/add-book/add-book-form';
 
-function AddBook(props) {
+function AddBook({session, square}) {
   const router = useRouter();
 
   async function addBookHandler(enteredBookData) {
@@ -20,8 +21,8 @@ function AddBook(props) {
 
   return (
     <AddBookForm
-      user={props.user}
-      square={props.square}
+      user={session.user.username}
+      square={square}
       onAddBook={addBookHandler}
     />
   );
@@ -30,10 +31,12 @@ function AddBook(props) {
 export default AddBook;
 
 export async function getServerSideProps(context) {
-  if (!context.query.user || !context.query.square) {
+  const session = await getSession(context);
+
+  if (!session || !context.query.square) {
     return {
       redirect: {
-        destination: '/404',
+        destination: '/login',
         permanent: false,
       },
     };
@@ -41,7 +44,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      user: context.query.user,
+      session: session,
       square: context.query.square,
     },
   };
