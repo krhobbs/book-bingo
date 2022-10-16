@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router';
 import AddBookForm from '../components/add-book/add-book-form';
 
-function NewBookPage(props) {
+function AddBook(props) {
   const router = useRouter();
 
   async function addBookHandler(enteredBookData) {
-    const response = await fetch('/api/new-book', {
+    const response = await fetch('/api/add-book', {
       method: 'POST',
       body: JSON.stringify(enteredBookData),
       headers: {
@@ -27,7 +27,7 @@ function NewBookPage(props) {
   );
 }
 
-export default NewBookPage;
+export default AddBook;
 
 export async function getServerSideProps(context) {
   if (!context.query.user || !context.query.square) {
