@@ -1,5 +1,6 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { verifyPassword } from '../../../utils/auth-utils';
 import { connectDatabase, getDocumentByUsername } from '../../../utils/db-utils';
 
 export default NextAuth({
@@ -20,7 +21,9 @@ export default NextAuth({
                 throw new Error('User not found.');
             }
 
-            if (credentials.password !== user.password) {
+            const isValid = await verifyPassword(credentials.password, user.password);
+
+            if (!isValid) {
                 client.close();
                 throw new Error('Incorrect password.');
             }
