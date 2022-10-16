@@ -24,13 +24,21 @@ function TopNav(props) {
 
   return (
     <Box sx={containerStyles}>
-      <Box>
-        <Text variant={'heading1'}>BookBingo</Text>
-      </Box>
+      <Link href="/">
+        <a>
+          <Box>
+            <Text variant={'heading1'}>BookBingo</Text>
+          </Box>
+        </a>
+      </Link>
       <Box sx={{ display: 'flex', gap: '2rem' }}>
         <Link href="/profile">Profile</Link>
-        <Link href="/">Friends</Link>
-        {status === 'authenticated' && <Button variant='nav' onClick={logoutHandler}>Logout</Button>}
+        <Link href="/friends">Friends</Link>
+        {status === 'authenticated' && (
+          <Button variant="nav" onClick={logoutHandler}>
+            Logout
+          </Button>
+        )}
       </Box>
     </Box>
   );
