@@ -46,7 +46,6 @@ function ItemBack({ user, square, book }: ItemBackProps) {
                         href={{
                             pathname: '/addBook',
                             query: {
-                                user: user,
                                 square: square
                         }}}
                         passHref
