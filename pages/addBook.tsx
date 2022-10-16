@@ -1,34 +1,48 @@
-import { Router, useRouter } from "next/router";
-import AddBookForm from "../components/add-book/add-book-form";
+import { useRouter } from 'next/router';
+import AddBookForm from '../components/add-book/add-book-form';
 
 function NewBookPage(props) {
-    const router = useRouter();
+  const router = useRouter();
 
-    async function addBookHandler(enteredBookData) {
-        const response = await fetch('/api/new-book', {
-            method: 'POST',
-            body: JSON.stringify(enteredBookData),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
+  async function addBookHandler(enteredBookData) {
+    const response = await fetch('/api/new-book', {
+      method: 'POST',
+      body: JSON.stringify(enteredBookData),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
-        const data = await response.json();
-        
-        router.push('/');
-    }
+    const data = await response.json();
 
-    return <AddBookForm user={props.user} square={props.square} onAddBook={addBookHandler} />
+    router.push('/');
+  }
+
+  return (
+    <AddBookForm
+      user={props.user}
+      square={props.square}
+      onAddBook={addBookHandler}
+    />
+  );
 }
 
 export default NewBookPage;
 
 export async function getServerSideProps(context) {
-    
+  if (!context.query.user || !context.query.square) {
     return {
-        props: {
-            user: context.query.user,
-            square: context.query.square
-        }
-    }
+      redirect: {
+        destination: '/404',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      user: context.query.user,
+      square: context.query.square,
+    },
+  };
 }
