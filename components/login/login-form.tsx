@@ -37,7 +37,7 @@ function LoginForm(props) {
         <Spacer size={['2rem']} />
         <Box>
           <Label htmlFor="password">Password</Label>
-          <Input type="text" required id="password" ref={passwordInputRef} />
+          <Input type="password" required id="password" ref={passwordInputRef} />
         </Box>
         <Spacer size={['2.4rem']} />
         <Box>

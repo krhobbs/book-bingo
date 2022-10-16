@@ -1,4 +1,4 @@
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import RegisterForm from '../components/register/register-form';
 
 function Register(props) {
@@ -15,7 +15,7 @@ function Register(props) {
 
         const data = await response.json();
         
-        router.push('/');
+        router.push('/login');
     }
 
     return <RegisterForm  onLogin={registerHandler} />

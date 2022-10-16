@@ -68,3 +68,29 @@ export async function getDocumentByUsername(client, collection, username) {
 
   return serializable;
 }
+
+export async function getDocumentsByUsername(client, collection, usernames) {
+  const db = client.db();
+
+  const filter = { '$or': usernames.map((username) => {
+    return { user: username }
+  }) }
+
+  const documents = await db
+    .collection(collection)
+    .find(filter)
+    .toArray();
+
+  let serializable;
+
+  if (documents) {
+    serializable = documents.map((document) => ({
+      ...document,
+      _id: document._id.toString(),
+    }));
+  } else {
+    serializable = documents;
+  }
+
+  return serializable;
+}
