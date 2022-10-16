@@ -1,3 +1,4 @@
+import { hashPassword } from '../../../utils/auth-utils';
 import { connectDatabase, getDocumentByUsername } from '../../../utils/db-utils';
 
 async function handler(req, res) {
@@ -22,15 +23,17 @@ async function handler(req, res) {
     const existingUser = await getDocumentByUsername(client, 'users', username);
 
     if (existingUser) {
-        res.status(422).json({message: "The username is taken."});
+        res.status(422).json({message: "That username is taken."});
         client.close();
         return;
     }
 
+    const hashedPassword = await hashPassword(password);
+
 
     const result = await db.collection('users').insertOne({
       username: username,
-      password: password,
+      password: hashedPassword,
       friends: []
     });
 

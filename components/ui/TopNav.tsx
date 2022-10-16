@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
-import { Box, Button, Text, ThemeUICSSObject } from 'theme-ui';
+import { Box, Text, ThemeUICSSObject } from 'theme-ui';
 
 const containerStyles: ThemeUICSSObject = {
   alignItems: 'center',
@@ -15,7 +15,7 @@ const containerStyles: ThemeUICSSObject = {
   zIndex: '100',
 };
 
-function TopNav(props) {
+function TopNav() {
   const { data: session, status } = useSession();
 
   function logoutHandler() {
@@ -32,12 +32,19 @@ function TopNav(props) {
         </a>
       </Link>
       <Box sx={{ display: 'flex', gap: '2rem' }}>
-        <Link href="/profile">Profile</Link>
-        <Link href="/friends">Friends</Link>
-        {status === 'authenticated' && (
-          <Button variant="nav" onClick={logoutHandler}>
-            Logout
-          </Button>
+        {status === 'authenticated' ? (
+          <>
+            <Link href="/profile">Profile</Link>
+            <Link href="/friends">Friends</Link>
+            <Box onClick={logoutHandler}>
+              <Text>Logout</Text>
+            </Box>
+          </>
+        ) : (
+          <>
+            <Link href="/login">Login</Link>
+            <Link href="/register">Register</Link>
+          </>
         )}
       </Box>
     </Box>
