@@ -36,7 +36,7 @@ function TopNav() {
           <>
             <Link href="/profile">Profile</Link>
             <Link href="/friends">Friends</Link>
-            <Box onClick={logoutHandler}>
+            <Box onClick={logoutHandler} sx={{cursor: 'pointer'}}>
               <Text>Logout</Text>
             </Box>
           </>

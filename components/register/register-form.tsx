@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { useRouter } from 'next/router';
 import { Box, Label, Input, Button, Text } from 'theme-ui';
 import Spacer from '../ui/Spacer';
 import Link from 'next/link';
@@ -22,6 +23,7 @@ async function registerUser(username: string, password: string) {
 }
 
 function RegisterForm(props) {
+  const router = useRouter();
   const usernameInputRef = useRef<HTMLInputElement>();
   const passwordInputRef = useRef<HTMLInputElement>();
 
@@ -33,6 +35,7 @@ function RegisterForm(props) {
 
     try {
       const result = await registerUser(enteredUsername, enteredPassword);
+      router.push('/login');
     } catch (error) {
       console.log(error);
     }
