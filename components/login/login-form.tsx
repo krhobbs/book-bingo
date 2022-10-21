@@ -47,7 +47,7 @@ function LoginForm(props) {
       <Spacer size={['2.4rem']} />
       <Link href="/register">
         <a>
-          <Text variant='link'>Don't have an account? Register</Text>
+          <Text variant='link'>Don&apos;t have an account? Register</Text>
         </a>
       </Link>
     </Box>
