@@ -1,15 +1,15 @@
-import { text } from "stream/consumers";
 import type { Theme } from "theme-ui";
 
 
 export const theme: Theme = {
     colors: {
-        text: '#141419',
-        background: '#F3EBE2',
-        primary: '#BDCFB5',
+        text: '#b2c0c0',
+        background: '#3C4141',
+        primary: '#82737d',
         secondary: '#E8AC9B',
-        primaryDark: '#131910',
-        secondaryDark: '#210D07'
+        bingoItemText: '#dbdbdb',
+        complete: '#738278',
+        incomplete: '#877d7d'
     },
     fonts: {
         body: '"Open Sans", sans-serif',
@@ -39,9 +39,18 @@ export const theme: Theme = {
             fontWeight: 'normal',
             fontSize: [1, 2]
         },
+        body1Light: {
+            variant: 'body1',
+            color: 'bingoItemText'
+        },
         body2: {
             fontFamily: 'body',
             fontWeight: 'normal',
+            fontSize: [0, 1]
+        },
+        body2Light: {
+            variant: 'body2',
+            color: 'bingoItemText',
             fontSize: [0, 1]
         },
         link: {
@@ -83,7 +92,10 @@ export const theme: Theme = {
             a: {
                 textDecoration: 'none',
                 color: 'inherit'
-            }
+            },
+            body: {
+                minHeight: '100vh',
+            },
         }
     }
 

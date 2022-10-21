@@ -4,13 +4,13 @@ import { Box, Text, ThemeUICSSObject } from 'theme-ui';
 
 const containerStyles: ThemeUICSSObject = {
   alignItems: 'center',
-  backgroundColor: 'primary',
+  backgroundColor: 'transparent',
   blockSize: '4.5rem',
   display: 'flex',
   inlineSize: '100%',
   justifyContent: 'space-between',
   padding: '0 2rem',
-  position: 'fixed',
+  position: 'absolute',
   top: '0',
   zIndex: '100',
 };

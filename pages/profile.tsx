@@ -2,6 +2,7 @@ import { connectDatabase, getDocumentById } from '../utils/db-utils';
 import { getSession } from 'next-auth/react';
 import Spacer from '../components/ui/Spacer';
 import BingoCard from '../components/bingo-card/bingo-card';
+import NewCard from '../components/new-card';
 import Head from 'next/head';
 
 export default function Profile(props) {
@@ -12,7 +13,7 @@ export default function Profile(props) {
         <title>Book Bingo | User Profile</title>
       </Head>
       <Spacer size='6.5rem' />
-      <BingoCard card={props.card} />
+      {props.card ? <BingoCard card={props.card} /> : <NewCard></NewCard>}
     </>
   );
 }
