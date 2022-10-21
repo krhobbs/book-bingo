@@ -6,7 +6,7 @@ interface ItemFrontProps {
 
 function ItemFront({ bookReq }: ItemFrontProps) {
     return (
-        <Text variant='body1'>
+        <Text variant='body1Light'>
             {bookReq}
         </Text>
     );

@@ -5,18 +5,13 @@ import Head from 'next/head';
 import { connectDatabase, getDocuments } from '../utils/db-utils';
 
 export default function Home(props) {
-  const [loadedCards, setLoadedCards] = useState([])
-
-  useEffect(() => {
-    setLoadedCards(props.cards);
-  }, [props.cards])
 
   return (
     <>
       <Head>
         <title>Book Bingo</title>
       </Head>
-      <Cards cards={loadedCards} />
+      <Cards cards={props.cards} />
     </>
     
     
