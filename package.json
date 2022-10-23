@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",
+    "@heroicons/react": "^2.0.12",
     "@mdx-js/react": "^2.1.5",
     "@types/node": "^18.7.18",
     "babel-preset-next": "^1.4.0",

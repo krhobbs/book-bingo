@@ -5,10 +5,10 @@ import { Box, Text } from 'theme-ui';
 function BingoCard(props) {
 
     return (
-        <Box sx={{maxInlineSize: '532px', mx: 'auto'}}>
+        <Box sx={{inlineSize: ['100%', 'min-content'], minInlineSize: '320px', mx: 'auto', px: ['2px', '0']}}>
             <Text variant={'heading2'}>{props.card.user || 'No name'}</Text>
             <Spacer size={['1.25rem', '1.5rem']} />
-            <Box sx={{display: 'grid', gridTemplateColumns: 'repeat(5, auto)', gridTemplateRows: 'repeat(5, auto)', gap: '0.5rem'}}>
+            <Box sx={{display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gridTemplateRows: 'repeat(5, auto)', gap: ['0.3rem', '0.5rem']}}>
                 {
                     props.card.squares.map((square) => {
                         return (
