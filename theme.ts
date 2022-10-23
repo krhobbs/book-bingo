@@ -15,7 +15,7 @@ export const theme: Theme = {
         body: '"Open Sans", sans-serif',
         heading: '"Open Sans", sans-serif',
     },
-    fontSizes: [8, 12, 14, 20, 24, 32],
+    fontSizes: [8, 10, 12, 14, 16, 20, 24, 32],
     fontWeights: {
         light: 200,
         normal: 400,
@@ -27,12 +27,12 @@ export const theme: Theme = {
         heading1: {
             fontFamily: 'heading',
             fontWeight: ['semiBold', 'semiBold', 'bold'],
-            fontSize: [4, 5]
+            fontSize: [4, 6]
         },
         heading2: {
             fontFamily: 'heading',
             fontWeight: ['semiBold', 'semiBold', 'bold'],
-            fontSize: [3, 4]
+            fontSize: [5, 6]
         },
         body1: {
             fontFamily: 'body',
@@ -41,7 +41,8 @@ export const theme: Theme = {
         },
         body1Light: {
             variant: 'body1',
-            color: 'bingoItemText'
+            color: 'bingoItemText',
+            fontSize: [1, 3]
         },
         body2: {
             fontFamily: 'body',
@@ -52,6 +53,11 @@ export const theme: Theme = {
             variant: 'body2',
             color: 'bingoItemText',
             fontSize: [0, 1]
+        },
+        navLink: {
+            fontFamily: 'body',
+            fontWeight: 'normal',
+            fontSize: [3, 4]
         },
         link: {
             fontFamily: 'body',
@@ -74,7 +80,8 @@ export const theme: Theme = {
             color: 'text',
             cursor: 'pointer',
             bg: 'primary',
-            padding: '0.2rem 0.3rem',
+            lineHeight: ['11px', '22px'],
+            padding: ['0.3rem 0.4rem', '0.2rem 0.3rem'],
             '&:hover': {
                 boxShadow: 'inset 0px 0px 15px -10px #000000'
             }

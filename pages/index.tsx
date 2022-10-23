@@ -28,7 +28,7 @@ export async function getStaticProps() {
     props: {
       cards: cards
     },
-    revalidate: 1
+    revalidate: 1600
   };
 }
 
