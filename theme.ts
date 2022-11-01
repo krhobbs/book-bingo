@@ -4,9 +4,12 @@ import type { Theme } from "theme-ui";
 export const theme: Theme = {
     colors: {
         text: '#b2c0c0',
+        muted: 'hsla(180, 10%, 73%, 0.5)',
         background: '#3C4141',
         primary: '#82737d',
         secondary: '#E8AC9B',
+        darker: '#1c231a',
+        darkerHover: '#262f23',
         bingoItemText: '#dbdbdb',
         complete: '#738278',
         incomplete: '#877d7d'
@@ -37,7 +40,8 @@ export const theme: Theme = {
         body1: {
             fontFamily: 'body',
             fontWeight: 'normal',
-            fontSize: [1, 2]
+            color: 'muted',
+            fontSize: [3, 4]
         },
         body1Light: {
             variant: 'body1',
@@ -90,7 +94,11 @@ export const theme: Theme = {
             color: 'text',
             bg: 'transparent',
             cursor: 'pointer',
-            padding: '0',
+            padding: '0.1rem 2rem',
+            fontSize: [3, 4],
+            '&:hover': {
+                bg: 'darkerHover'
+            }
         }
     },
     styles: {
