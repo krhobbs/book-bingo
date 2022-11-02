@@ -10,6 +10,8 @@ import {
   Button,
 } from 'theme-ui';
 import { BookOpenIcon, Cog6ToothIcon } from '@heroicons/react/24/outline';
+import ChangePasswordForm from '../changePasswordForm';
+import Modal from './Modal';
 
 const containerStyles: ThemeUICSSObject = {
   alignItems: 'center',
@@ -27,6 +29,7 @@ const containerStyles: ThemeUICSSObject = {
 function TopNav() {
   const { data: session, status } = useSession();
   const [showSettings, setShowSettings] = useState(false);
+  const [showChangePassword, setShowChangePassword] = useState(false);
 
   const logoutHandler = () => {
     signOut();
@@ -115,7 +118,7 @@ function TopNav() {
                     <Divider sx={{ py: '0.1rem', opacity: 0.3 }} />
                     <Button variant="nav">Add/Delete Friends</Button>
                     <Divider sx={{ py: '0.1rem', opacity: 0.3 }} />
-                    <Button variant="nav">Change Password</Button>
+                    <Button onClick={() => setShowChangePassword(!showChangePassword)} variant="nav">Change Password</Button>
                     <Divider sx={{ py: '0.1rem', opacity: 0.3 }} />
                     <Button onClick={logoutHandler} variant="nav">
                       Logout
@@ -124,6 +127,7 @@ function TopNav() {
                 </Box>
               </Box>
             )}
+            {showChangePassword && <Modal closeModal={() => setShowChangePassword(!showChangePassword)}><ChangePasswordForm /></Modal>}
           </>
         ) : (
           <>
