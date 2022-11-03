@@ -12,6 +12,7 @@ import {
 import { BookOpenIcon, Cog6ToothIcon } from '@heroicons/react/24/outline';
 import ChangePasswordForm from '../changePasswordForm';
 import Modal from './Modal';
+import FriendsList from '../FriendsList';
 
 const containerStyles: ThemeUICSSObject = {
   alignItems: 'center',
@@ -26,10 +27,13 @@ const containerStyles: ThemeUICSSObject = {
   zIndex: '100',
 };
 
+const TEST_FRIENDS = ['test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test'];
+
 function TopNav() {
   const { data: session, status } = useSession();
   const [showSettings, setShowSettings] = useState(false);
   const [showChangePassword, setShowChangePassword] = useState(false);
+  const [showFriendsList, setShowFriendsList] = useState(false);
 
   const logoutHandler = () => {
     signOut();
@@ -116,9 +120,9 @@ function TopNav() {
                   <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                     <Text variant='body1' sx={{mx: 'auto'}}>Username: {session.user.username}</Text>
                     <Divider sx={{ py: '0.1rem', opacity: 0.3 }} />
-                    <Button variant="nav">Add/Delete Friends</Button>
+                    <Button onClick={() => {setShowFriendsList(!showFriendsList); setShowChangePassword(false)}} variant="nav">Add/Delete Friends</Button>
                     <Divider sx={{ py: '0.1rem', opacity: 0.3 }} />
-                    <Button onClick={() => setShowChangePassword(!showChangePassword)} variant="nav">Change Password</Button>
+                    <Button onClick={() => {setShowChangePassword(!showChangePassword); setShowFriendsList(false)}} variant="nav">Change Password</Button>
                     <Divider sx={{ py: '0.1rem', opacity: 0.3 }} />
                     <Button onClick={logoutHandler} variant="nav">
                       Logout
@@ -128,6 +132,7 @@ function TopNav() {
               </Box>
             )}
             {showChangePassword && <Modal closeModal={() => setShowChangePassword(!showChangePassword)}><ChangePasswordForm /></Modal>}
+            {showFriendsList && <Modal closeModal={() => setShowFriendsList(!showFriendsList)}><FriendsList friends={session.user.friends} /></Modal>}
           </>
         ) : (
           <>
