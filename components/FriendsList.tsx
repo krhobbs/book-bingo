@@ -1,14 +1,21 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Box, Button, Input, Label, Text, IconButton } from 'theme-ui';
 import Spacer from './ui/Spacer';
 import { TrashIcon } from '@heroicons/react/20/solid';
 
-function FriendsList({ friends }) {
+function FriendsList({ friends, onDeleteFriend }) {
+  const newFriendRef = useRef<HTMLInputElement>();
+
+  function addHandler(event) : void {
+    event.preventDefault();
+
+  }
+
   return (
-    <Box sx={{ maxBlockSize: ['85vh', '70vh'], overflowX: 'scroll' }}>
+    <Box>
       <Text variant="heading2">Friends</Text>
       <Spacer size={['1rem']} />
-      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', maxBlockSize: ['70vh', '55vh'], overflowX: 'scroll' }}>
         {friends.map((friend, index) => {
           return (
             <Box
@@ -34,6 +41,7 @@ function FriendsList({ friends }) {
                   width: ['16px', '22px'],
                   height: ['18px', '24px'],
                 }}
+                onClick={() => onDeleteFriend({friendToDelete: friend})}
               >
                 <TrashIcon style={{ inlineSize: '100%' }} />
               </IconButton>
@@ -42,10 +50,10 @@ function FriendsList({ friends }) {
         })}
       </Box>
       <Spacer size={['2rem']} />
-      <Box as="form" sx={{ display: 'flex', gap: '1rem' }}>
+      <Box as="form" onSubmit={addHandler} sx={{ display: 'flex', gap: '1rem' }}>
         <Box sx={{ display: 'inline' }}>
           <Label htmlFor="add-friend">Add Friend</Label>
-          <Input type="text" id="add-friend" />
+          <Input type="text" id="add-friend" ref={newFriendRef} />
         </Box>
         <Button sx={{ display: 'inline', marginTop: '1rem' }}>Add</Button>
       </Box>
