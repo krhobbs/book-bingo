@@ -10,7 +10,7 @@ import {
   Button,
 } from 'theme-ui';
 import { BookOpenIcon, Cog6ToothIcon } from '@heroicons/react/24/outline';
-import ChangePasswordForm from '../changePasswordForm';
+import ChangePasswordForm from '../ChangePasswordForm';
 import Modal from './Modal';
 import FriendsList from '../FriendsList';
 
@@ -27,7 +27,35 @@ const containerStyles: ThemeUICSSObject = {
   zIndex: '100',
 };
 
-const TEST_FRIENDS = ['test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test'];
+const TEST_FRIENDS = [
+  'test',
+  'test',
+  'test',
+  'test',
+  'test',
+  'test',
+  'test',
+  'test',
+  'test',
+  'test',
+  'test',
+  'test',
+  'test',
+  'test',
+  'test',
+  'test',
+  'test',
+  'test',
+  'test',
+  'test',
+  'test',
+  'test',
+  'test',
+  'test',
+  'test',
+  'test',
+  'test',
+];
 
 function TopNav() {
   const { data: session, status } = useSession();
@@ -38,6 +66,18 @@ function TopNav() {
   const logoutHandler = () => {
     signOut();
   };
+
+  async function changePasswordHandler(passwordData) {
+    const response = await fetch('/api/user/change-password', {
+      method: 'PATCH',
+      body: JSON.stringify(passwordData),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const data = await response.json();
+  }
 
   return (
     <Box sx={containerStyles}>
@@ -118,11 +158,29 @@ function TopNav() {
                   }}
                 >
                   <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                    <Text variant='body1' sx={{mx: 'auto'}}>Username: {session.user.username}</Text>
+                    <Text variant="body1" sx={{ mx: 'auto' }}>
+                      Username: {session.user.username}
+                    </Text>
                     <Divider sx={{ py: '0.1rem', opacity: 0.3 }} />
-                    <Button onClick={() => {setShowFriendsList(!showFriendsList); setShowChangePassword(false)}} variant="nav">Add/Delete Friends</Button>
+                    <Button
+                      onClick={() => {
+                        setShowFriendsList(!showFriendsList);
+                        setShowChangePassword(false);
+                      }}
+                      variant="nav"
+                    >
+                      Add/Delete Friends
+                    </Button>
                     <Divider sx={{ py: '0.1rem', opacity: 0.3 }} />
-                    <Button onClick={() => {setShowChangePassword(!showChangePassword); setShowFriendsList(false)}} variant="nav">Change Password</Button>
+                    <Button
+                      onClick={() => {
+                        setShowChangePassword(!showChangePassword);
+                        setShowFriendsList(false);
+                      }}
+                      variant="nav"
+                    >
+                      Change Password
+                    </Button>
                     <Divider sx={{ py: '0.1rem', opacity: 0.3 }} />
                     <Button onClick={logoutHandler} variant="nav">
                       Logout
@@ -131,8 +189,18 @@ function TopNav() {
                 </Box>
               </Box>
             )}
-            {showChangePassword && <Modal closeModal={() => setShowChangePassword(!showChangePassword)}><ChangePasswordForm /></Modal>}
-            {showFriendsList && <Modal closeModal={() => setShowFriendsList(!showFriendsList)}><FriendsList friends={session.user.friends} /></Modal>}
+            {showChangePassword && (
+              <Modal
+                closeModal={() => setShowChangePassword(!showChangePassword)}
+              >
+                <ChangePasswordForm onChangePassword={changePasswordHandler}/>
+              </Modal>
+            )}
+            {showFriendsList && (
+              <Modal closeModal={() => setShowFriendsList(!showFriendsList)}>
+                <FriendsList friends={session.user.friends} />
+              </Modal>
+            )}
           </>
         ) : (
           <>

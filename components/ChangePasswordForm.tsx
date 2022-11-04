@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { Box, Label, Input, Button } from 'theme-ui';
 import Spacer from './ui/Spacer';
 
-function AddBookForm(props) {
+function ChangePasswordForm({ onChangePassword }) {
   const oldPasswordRef = useRef<HTMLInputElement>();
   const newPasswordRef = useRef<HTMLInputElement>();
 
@@ -11,6 +11,8 @@ function AddBookForm(props) {
 
     const enteredOldPassword = oldPasswordRef.current.value;
     const enteredNewPassword = newPasswordRef.current.value;
+
+    onChangePassword({oldPassword: enteredOldPassword, newPassword: enteredNewPassword})
 
   }
 
@@ -37,4 +39,4 @@ function AddBookForm(props) {
   );
 }
 
-export default AddBookForm;
+export default ChangePasswordForm;
