@@ -79,6 +79,18 @@ function TopNav() {
     const data = await response.json();
   }
 
+  async function deleteFriendHandler(friendData) {
+    const response = await fetch('/api/user/delete-friend', {
+      method: 'PATCH',
+      body: JSON.stringify(friendData),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const data = await response.json();
+  }
+
   return (
     <Box sx={containerStyles}>
       <Link href="/">
@@ -193,12 +205,12 @@ function TopNav() {
               <Modal
                 closeModal={() => setShowChangePassword(!showChangePassword)}
               >
-                <ChangePasswordForm onChangePassword={changePasswordHandler}/>
+                <ChangePasswordForm onChangePassword={changePasswordHandler} />
               </Modal>
             )}
             {showFriendsList && (
               <Modal closeModal={() => setShowFriendsList(!showFriendsList)}>
-                <FriendsList friends={session.user.friends} />
+                <FriendsList friends={session.user.friends} onDeleteFriend={deleteFriendHandler} />
               </Modal>
             )}
           </>
