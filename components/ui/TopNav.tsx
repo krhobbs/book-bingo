@@ -92,7 +92,6 @@ function TopNav() {
   }
 
   async function addFriendHandler(newFriendData) {
-    console.log(newFriendData);
     const response = await fetch('/api/user/add-friend', {
       method: 'POST',
       body: JSON.stringify(newFriendData),
