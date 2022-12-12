@@ -3,11 +3,15 @@ import { Box, Button, Input, Label, Text, IconButton } from 'theme-ui';
 import Spacer from './ui/Spacer';
 import { TrashIcon } from '@heroicons/react/20/solid';
 
-function FriendsList({ friends, onDeleteFriend }) {
+function FriendsList({ friends, onDeleteFriend, onAddFriend }) {
   const newFriendRef = useRef<HTMLInputElement>();
 
   function addHandler(event) : void {
     event.preventDefault();
+
+    const enteredNewFriend = newFriendRef.current.value;
+
+    onAddFriend({ friendToAdd: enteredNewFriend })
 
   }
 

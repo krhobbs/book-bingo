@@ -91,6 +91,17 @@ function TopNav() {
     const data = await response.json();
   }
 
+  async function addFriendHandler(newFriendData) {
+    console.log(newFriendData);
+    const response = await fetch('/api/user/add-friend', {
+      method: 'POST',
+      body: JSON.stringify(newFriendData),
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    }) 
+  }
+
   return (
     <Box sx={containerStyles}>
       <Link href="/">
@@ -210,7 +221,7 @@ function TopNav() {
             )}
             {showFriendsList && (
               <Modal closeModal={() => setShowFriendsList(!showFriendsList)}>
-                <FriendsList friends={session.user.friends} onDeleteFriend={deleteFriendHandler} />
+                <FriendsList friends={session.user.friends} onDeleteFriend={deleteFriendHandler} onAddFriend={addFriendHandler} />
               </Modal>
             )}
           </>
