@@ -6,11 +6,6 @@ import Cards from '../components/cards';
 import Head from 'next/head';
 
 export default function Friends(props) {
-//   console.log('PROPS');
-//   console.log(props);
-
-//   console.log('Client Side');
-//   console.log(props.session);
 
   if (props.cards.length === 0) {
     return (
