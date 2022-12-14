@@ -50,7 +50,7 @@ function ItemBack({ user, square, book }: ItemBackProps) {
               }}
               onClick={removeBookHandler}
             >
-              <TrashIcon />
+              <TrashIcon style={{ inlineSize: '100%' }} />
             </IconButton>
           )}
           <BookInfo book={book} />

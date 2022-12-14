@@ -1,6 +1,18 @@
 import { Box, Text, IconButton } from 'theme-ui';
 
-function NewCard(props) {
+function NewCard() {
+  async function newCardHandler() {
+    const response = await fetch('/api/user/add-card', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const data = await response.json();
+
+  }
+
   return (
     <Box
       sx={{
@@ -15,6 +27,7 @@ function NewCard(props) {
         borderRadius: '1rem',
         mx: 'auto',
       }}
+      onClick={newCardHandler}
     >
         <Text color="#ABB0B8">New Bingo Card</Text>
       <IconButton sx={{cursor: 'pointer', height: '128px', width: '128px'}}>

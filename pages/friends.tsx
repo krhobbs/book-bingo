@@ -1,15 +1,20 @@
 import { connectDatabase, getDocumentsByUsername } from '../utils/db-utils';
 import { getSession } from 'next-auth/react';
 import Spacer from '../components/ui/Spacer';
+import { Box, Text } from 'theme-ui';
 import Cards from '../components/cards';
 import Head from 'next/head';
 
 export default function Friends(props) {
-//   console.log('PROPS');
-//   console.log(props);
 
-//   console.log('Client Side');
-//   console.log(props.session);
+  if (props.cards.length === 0) {
+    return (
+      <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+        <Spacer size='9rem' />
+        <Text>No friends.</Text>
+      </Box>
+    )
+  }
 
   return (
     <>
