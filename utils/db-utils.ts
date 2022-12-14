@@ -72,6 +72,10 @@ export async function getDocumentByUsername(client, collection, username) {
 export async function getDocumentsByUsername(client, collection, usernames) {
   const db = client.db();
 
+  if (usernames.length <= 0) {
+    return [];
+  }
+
   const filter = { '$or': usernames.map((username) => {
     return { user: username }
   }) }

@@ -13,7 +13,7 @@ export default function Profile(props) {
         <title>Book Bingo | User Profile</title>
       </Head>
       <Spacer size='6.5rem' />
-      {props.card ? <BingoCard card={props.card} /> : <NewCard></NewCard>}
+      {props.card ? <BingoCard card={props.card} /> : <NewCard />}
     </>
   );
 }
