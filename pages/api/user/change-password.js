@@ -19,6 +19,11 @@ async function handler(req, res) {
   const oldPassword = req.body.oldPassword;
   const newPassword = req.body.newPassword;
 
+  if (newPassword.trim().length < 7) {
+    res.status(422).json({ message: 'Password must be >= 8 characters.' });
+      return;
+  }
+
   const client = await connectDatabase();
   const usersCollection = client.db().collection('users');
 
@@ -32,7 +37,7 @@ async function handler(req, res) {
   const verified = await verifyPassword(oldPassword, currentPassword);
 
   if (!verified) {
-    res.status(403).json({ message: 'Incorrect password!' });
+    res.status(403).json({ message: 'Incorrect old password!' });
     client.close();
     return;
   }

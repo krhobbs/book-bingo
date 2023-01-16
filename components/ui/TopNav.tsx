@@ -77,6 +77,13 @@ function TopNav() {
     });
 
     const data = await response.json();
+
+    if (response.ok) {
+      return 'success'
+    } else {
+      return data.message;
+    }
+
   }
 
   async function deleteFriendHandler(friendData) {
@@ -89,6 +96,8 @@ function TopNav() {
     });
 
     const data = await response.json();
+
+    return data;
   }
 
   async function addFriendHandler(newFriendData) {
@@ -98,7 +107,11 @@ function TopNav() {
       headers: {
         'Content-Type': 'application/json',
       }
-    }) 
+    });
+    
+    const data = await response.json();
+
+    return data;
   }
 
   return (
