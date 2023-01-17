@@ -111,7 +111,11 @@ function TopNav() {
     
     const data = await response.json();
 
-    return data;
+    if (response.ok) {
+      return 'success'
+    } else {
+      return data.message;
+    }
   }
 
   return (
