@@ -25,11 +25,13 @@ async function handler(req, res) {
   const newFriend = await usersCollection.findOne({ username: friendToAdd });
 
   if (!newFriend) {
-    res.status(404).json({ message: 'Unable to add friend. User not found.'})
+    res.status(404).json({ message: 'Unable to add friend. User not found.'});
+    return;
   }
 
   if (!user) {
     res.status(404).json({ message: 'User not found.' });
+    return;
   }
 
   const result = await usersCollection.updateOne(
