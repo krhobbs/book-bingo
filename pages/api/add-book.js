@@ -1,35 +1,43 @@
 import { connectDatabase } from '../../utils/db-utils';
 
 async function handler(req, res) {
-    if (req.method === 'POST') {
-        const data = req.body;
+  if (req.method === 'POST') {
+    const data = req.body;
 
-        const { title, author, user, square } = data;
+    const { title, author, user, square } = data;
 
-        const client = await connectDatabase();
-        const db = client.db();
+    try {
+      const client = await connectDatabase();
 
-        const booksCollection = db.collection('cards');
+      const db = client.db();
 
-        const addBook = await booksCollection.updateOne(
-            {
-                user: user,
-                'squares.id': square
+      const booksCollection = db.collection('cards');
+
+      const addBook = await booksCollection.updateOne(
+        {
+          user: user,
+          'squares.id': square,
+        },
+        {
+          $set: {
+            'squares.$.book': {
+              title: title,
+              author: author,
             },
-                {
-                    $set: {
-                        'squares.$.book': {
-                            title: title,
-                            author: author
-                        }
-                    }
-                }
-        );
+          },
+        }
+      );
 
-        client.close();
-
-        res.status(201).json({message: 'Book Added!'});
+      client.close();
+    } catch (error) {
+      res
+        .status(422)
+        .json({ message: 'Unable to connect to database. Try again later.' });
+      return;
     }
+
+    res.status(201).json({ message: 'Book Added!' });
+  }
 }
 
 export default handler;
