@@ -6,41 +6,43 @@ import NewCard from '../components/new-card';
 import Head from 'next/head';
 
 export default function Profile(props) {
-
   return (
     <>
       <Head>
         <title>Book Bingo | User Profile</title>
       </Head>
-      <Spacer size='6.5rem' />
+      <Spacer size="6.5rem" />
       {props.card ? <BingoCard card={props.card} /> : <NewCard />}
     </>
   );
 }
 
 export async function getServerSideProps(context) {
-
   const session = await getSession(context);
 
   if (!session) {
     return {
       redirect: {
         destination: '/login',
-        permanent: false
-      }
-    }
+        permanent: false,
+      },
+    };
   }
 
-  const client = await connectDatabase();
-  const card = await getDocumentById(client, 'cards', session.user.card);
+  try {
+    const client = await connectDatabase();
+    const card = await getDocumentById(client, 'cards', session.user.card);
 
-  client.close();
+    client.close();
 
-  return {
-    props: {
-      card: card
-    }
-  };
+    return {
+      props: {
+        card: card,
+      },
+    };
+  } catch (error) {
+    return {
+      notFound: true,
+    };
+  }
 }
-
-
