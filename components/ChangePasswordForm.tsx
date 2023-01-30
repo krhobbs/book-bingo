@@ -1,19 +1,31 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Box, Label, Input, Button } from 'theme-ui';
+import ErrorPopup from './ui/ErrorPopup';
 import Spacer from './ui/Spacer';
 
 function ChangePasswordForm({ onChangePassword }) {
+  const [errorMessage, setErrorMessage] = useState('');
   const oldPasswordRef = useRef<HTMLInputElement>();
   const newPasswordRef = useRef<HTMLInputElement>();
 
-  function submitHandler(event) : void {
+  async function submitHandler(event) {
     event.preventDefault();
 
     const enteredOldPassword = oldPasswordRef.current.value;
     const enteredNewPassword = newPasswordRef.current.value;
 
-    onChangePassword({oldPassword: enteredOldPassword, newPassword: enteredNewPassword})
+    const result = await onChangePassword({oldPassword: enteredOldPassword, newPassword: enteredNewPassword})
 
+    if (result !== 'success') {
+      setErrorMessage(result);
+    } else {
+      setErrorMessage('');
+    }
+
+  }
+
+  function closeErrorPopup() : void {
+    setErrorMessage('');
   }
 
   return (
@@ -32,6 +44,10 @@ function ChangePasswordForm({ onChangePassword }) {
         <Input type="text" required id="new-password" ref={newPasswordRef} />
       </Box>
       <Spacer size={['2.4rem']} />
+      {errorMessage && <Box>
+        <ErrorPopup message={errorMessage} close={closeErrorPopup} sx={{margin: 'auto'}}></ErrorPopup>
+        <Spacer size={['2.4rem']} />
+      </Box>}
       <Box>
         <Button>Change Password</Button>
       </Box>

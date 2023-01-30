@@ -1,12 +1,14 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Box, Label, Input, Button } from 'theme-ui';
+import ErrorPopup from '../ui/ErrorPopup';
 import Spacer from '../ui/Spacer';
 
 function AddBookForm(props) {
+  const [errorMessage, setErrorMessage] = useState('');
   const titleInputRef = useRef<HTMLInputElement>();
   const authorInputRef = useRef<HTMLInputElement>();
 
-  function submitHandler(event) : void {
+  async function submitHandler(event) {
     event.preventDefault();
 
     const enteredTitle = titleInputRef.current.value;
@@ -19,7 +21,17 @@ function AddBookForm(props) {
       author: enteredAuthor,
     };
 
-    props.onAddBook(bookData);
+    const result = await props.onAddBook(bookData);
+    
+    if (result !== 'success') {
+      setErrorMessage(result);
+    } else {
+      setErrorMessage('');
+    }
+  }
+
+  function closeErrorPopup(): void {
+    setErrorMessage('');
   }
 
   return (
@@ -41,6 +53,16 @@ function AddBookForm(props) {
       <Box>
         <Button>Add Book</Button>
       </Box>
+      {errorMessage && (
+        <Box>
+          <Spacer size={['2.4rem']} />
+          <ErrorPopup
+            message={errorMessage}
+            close={closeErrorPopup}
+            sx={{ margin: 'auto' }}
+          ></ErrorPopup>
+        </Box>
+      )}
     </Box>
   );
 }

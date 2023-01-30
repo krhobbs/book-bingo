@@ -1,18 +1,30 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Box, Button, Input, Label, Text, IconButton } from 'theme-ui';
 import Spacer from './ui/Spacer';
 import { TrashIcon } from '@heroicons/react/20/solid';
+import ErrorPopup from './ui/ErrorPopup';
 
 function FriendsList({ friends, onDeleteFriend, onAddFriend }) {
+  const [errorMessage, setErrorMessage] = useState('');
   const newFriendRef = useRef<HTMLInputElement>();
 
-  function addHandler(event) : void {
+  async function addHandler(event) {
     event.preventDefault();
 
     const enteredNewFriend = newFriendRef.current.value;
 
-    onAddFriend({ friendToAdd: enteredNewFriend })
+    const result = await onAddFriend({ friendToAdd: enteredNewFriend })
 
+    if (result !== 'success') {
+      setErrorMessage(result);
+    } else {
+      setErrorMessage('');
+    }
+
+  }
+
+  function closeErrorPopup() : void {
+    setErrorMessage('');
   }
 
   return (
@@ -61,6 +73,10 @@ function FriendsList({ friends, onDeleteFriend, onAddFriend }) {
         </Box>
         <Button sx={{ display: 'inline', marginTop: '1rem' }}>Add</Button>
       </Box>
+      {errorMessage && <Box>
+        <Spacer size={['2.4rem']} />
+        <ErrorPopup message={errorMessage} close={closeErrorPopup} sx={{margin: 'auto'}}></ErrorPopup>
+      </Box>}
     </Box>
   );
 }
