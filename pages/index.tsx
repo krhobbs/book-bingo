@@ -1,11 +1,9 @@
-
 import { useEffect, useState } from 'react';
 import Cards from '../components/cards';
 import Head from 'next/head';
 import { connectDatabase, getDocuments } from '../utils/db-utils';
 
 export default function Home(props) {
-
   return (
     <>
       <Head>
@@ -13,23 +11,25 @@ export default function Home(props) {
       </Head>
       <Cards cards={props.cards} />
     </>
-    
-    
   );
 }
 
 export async function getStaticProps() {
-  const client = await connectDatabase();
-  const cards = await getDocuments(client, 'cards');
+  try {
+    const client = await connectDatabase();
+    const cards = await getDocuments(client, 'cards');
 
-  client.close();
+    client.close();
 
-  return {
-    props: {
-      cards: cards
-    },
-    revalidate: 1600
-  };
+    return {
+      props: {
+        cards: cards,
+      },
+      revalidate: 1600,
+    };
+  } catch (error) {
+    return {
+      notFound: true,
+    };
+  }
 }
-
-

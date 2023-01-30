@@ -6,14 +6,15 @@ import Cards from '../components/cards';
 import Head from 'next/head';
 
 export default function Friends(props) {
-
   if (props.cards.length === 0) {
     return (
-      <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-        <Spacer size='9rem' />
+      <Box
+        sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+      >
+        <Spacer size="9rem" />
         <Text>No friends.</Text>
       </Box>
-    )
+    );
   }
 
   return (
@@ -27,29 +28,36 @@ export default function Friends(props) {
 }
 
 export async function getServerSideProps(context) {
-
   const session = await getSession(context);
 
   if (!session) {
     return {
       redirect: {
         destination: '/login',
-        permanent: false
-      }
-    }
+        permanent: false,
+      },
+    };
   }
 
-  const client = await connectDatabase();
-  const cards = await getDocumentsByUsername(client, 'cards', session.user.friends);
+  try {
+    const client = await connectDatabase();
+    const cards = await getDocumentsByUsername(
+      client,
+      'cards',
+      session.user.friends
+    );
 
-  client.close();
+    client.close();
 
-  return {
-    props: {
-      session: session,
-      cards: cards
-    }
-  };
+    return {
+      props: {
+        session: session,
+        cards: cards,
+      },
+    };
+  } catch (error) {
+    return {
+      notFound: true,
+    };
+  }
 }
-
-

@@ -1,9 +1,12 @@
 import { MongoClient, ObjectId } from 'mongodb';
 
 export async function connectDatabase() {
-  const client = await MongoClient.connect(process.env.DB_HOST);
-
-  return client;
+  try {
+    const client = await MongoClient.connect(process.env.DB_HOST);
+    return client;
+  } catch (error) {
+    throw new Error('Unable to connect to the database. Please try again later.');
+  }
 }
 
 export async function insertDocument(client, collection, document) {

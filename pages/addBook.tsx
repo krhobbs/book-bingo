@@ -16,7 +16,14 @@ function AddBook({session, square}) {
 
     const data = await response.json();
 
-    router.push('/');
+    if (response.ok) {
+      router.push('/');
+      return 'success';
+    } else {
+      return data.message;
+    }
+
+    
   }
 
   return (

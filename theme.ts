@@ -12,7 +12,8 @@ export const theme: Theme = {
         darkerHover: '#262f23',
         bingoItemText: '#dbdbdb',
         complete: '#738278',
-        incomplete: '#877d7d'
+        incomplete: '#877d7d',
+        error: '#ffa2a2'
     },
     fonts: {
         body: '"Open Sans", sans-serif',
