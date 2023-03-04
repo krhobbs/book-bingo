@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import ItemFront from './item-front';
-import ItemBack from './item-back';
+import CompleteFront from './CompleteFront';
+import CompleteBack from './CompleteBack';
+import Incomplete from './Incomplete';
 import { Box } from 'theme-ui';
 
 interface BingoItemProps {
@@ -37,10 +38,10 @@ function BingoItem({ user, square, bookReq, book }: BingoItemProps) {
       }}
       onClick={handleFlip}
     >
-      {cardFlipped ? (
-        <ItemBack user={user} square={square} book={book} />
+      {book ? (
+        cardFlipped ? <CompleteBack user={user} square={square} book={book} /> : <CompleteFront bookReq={bookReq} />
       ) : (
-        <ItemFront bookReq={bookReq} />
+        <Incomplete bookReq={bookReq} square={square} user={user} />
       )}
     </Box>
   );
