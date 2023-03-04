@@ -31,7 +31,7 @@ function BingoItem({ user, square, bookReq, book }: BingoItemProps) {
         position: 'relative',
         blockSize: ['98px', '138px'],
         inlineSize: ['auto', '112px'],
-        borderRadius: '15px',
+        borderRadius: '5px',
         boxShadow: '4px 4px 15px -10px #000000',
         padding: ['0.05rem', '0.1rem'],
       }}

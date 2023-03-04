@@ -3,17 +3,16 @@ import type { Theme } from "theme-ui";
 
 export const theme: Theme = {
     colors: {
-        text: '#b2c0c0',
-        muted: 'hsla(180, 10%, 73%, 0.5)',
-        background: '#3C4141',
-        primary: '#82737d',
-        secondary: '#E8AC9B',
-        darker: '#1c231a',
-        darkerHover: '#262f23',
-        bingoItemText: '#dbdbdb',
-        complete: '#738278',
-        incomplete: '#877d7d',
-        error: '#ffa2a2'
+        whiteText: '#FFFFFF',
+        lightGrayText: '#A1A1A1',
+        darkGrayText: '#4D4D4D',
+        text: '#000000',
+        pageBackground: '#D5E1D6',
+        complete: '#AFE1AF',
+        incomplete: '#D8BFD8',
+        primary: '#87CEEB',
+        secondary: '#FFBF00',
+        destructive: '#DC143C',
     },
     fonts: {
         body: '"Open Sans", sans-serif',
@@ -41,12 +40,10 @@ export const theme: Theme = {
         body1: {
             fontFamily: 'body',
             fontWeight: 'normal',
-            color: 'muted',
             fontSize: [3, 4]
         },
         body1Light: {
             variant: 'body1',
-            color: 'bingoItemText',
             fontSize: [1, 3]
         },
         body2: {
@@ -56,7 +53,6 @@ export const theme: Theme = {
         },
         body2Light: {
             variant: 'body2',
-            color: 'bingoItemText',
             fontSize: [0, 1]
         },
         navLink: {
