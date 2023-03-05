@@ -2,6 +2,7 @@ import BookInfo from '../book/book-info';
 import { Box, Button, IconButton, Text } from 'theme-ui';
 import { useSession } from 'next-auth/react';
 import { TrashIcon } from '@heroicons/react/24/outline';
+import Spacer from '../ui/Spacer';
 
 interface CompleteBackProps {
   user: string;
@@ -31,26 +32,30 @@ function CompleteBack({ user, square, book }: CompleteBackProps) {
   }
 
   return (
-    <Box>
-      {usersCard && (
-        <IconButton
-          sx={{
-            backgroundColor: 'secondary',
-            color: '#17202a',
-            cursor: 'pointer',
-            padding: '0px',
-            position: 'absolute',
-            top: '0.3rem',
-            right: '0.3rem',
-            width: ['16px', '22px'],
-            height: ['18px', '24px'],
-          }}
-          onClick={removeBookHandler}
-        >
-          <TrashIcon style={{ inlineSize: '100%' }} />
-        </IconButton>
-      )}
+    <Box
+      sx={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}
+    >
       <BookInfo book={book} />
+      {usersCard && (
+        <>
+          <Spacer size={['1.1rem']} />
+          <IconButton
+            sx={{
+              backgroundColor: 'destructive',
+              color: '#17202a',
+              cursor: 'pointer',
+              position: 'absolute',
+              bottom: ['8px', '12px'],
+              padding: '0px',
+              inlineSize: ['38px', '60px'],
+              blockSize: ['16px', '26px'],
+            }}
+            onClick={removeBookHandler}
+          >
+            <TrashIcon style={{ blockSize: '100%' }} />
+          </IconButton>
+        </>
+      )}
     </Box>
   );
 }

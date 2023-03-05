@@ -174,26 +174,14 @@ function TopNav() {
               >
                 <Box
                   sx={{
-                    backgroundColor: 'darker',
+                    backgroundColor: 'background',
                     borderRadius: '20px',
                     padding: '1.3rem 0.6rem',
                     position: 'absolute',
                     top: '65px',
                     right: ['3px', '16px'],
                     zIndex: 2,
-                    boxShadow: '10px 10px 10px -10px rgba(0,0,0,0.75)',
-                    '&::before': {
-                      content: "''",
-                      display: 'block',
-                      width: 0,
-                      height: 0,
-                      position: 'absolute',
-                      borderRight: '8px solid transparent',
-                      borderLeft: '8px solid transparent',
-                      borderBottom: '8px solid #1c231a',
-                      left: ['170px', '182px'],
-                      top: '-8px',
-                    },
+                    boxShadow: (theme) => `1px 1px 0px 2px ${theme.colors.complete}`
                   }}
                 >
                   <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -206,7 +194,7 @@ function TopNav() {
                         setShowFriendsList(!showFriendsList);
                         setShowChangePassword(false);
                       }}
-                      variant="nav"
+                      variant="settings"
                     >
                       Add/Delete Friends
                     </Button>
@@ -216,12 +204,12 @@ function TopNav() {
                         setShowChangePassword(!showChangePassword);
                         setShowFriendsList(false);
                       }}
-                      variant="nav"
+                      variant="settings"
                     >
                       Change Password
                     </Button>
                     <Divider sx={{ py: '0.1rem', opacity: 0.3 }} />
-                    <Button onClick={logoutHandler} variant="nav">
+                    <Button onClick={logoutHandler} variant="settings">
                       Logout
                     </Button>
                   </Box>

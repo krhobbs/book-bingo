@@ -24,7 +24,7 @@ function BingoItem({ user, square, bookReq, book }: BingoItemProps) {
   return (
     <Box
       sx={{
-        backgroundColor: book ? 'complete' : 'incomplete',
+        backgroundColor: 'background',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -33,7 +33,7 @@ function BingoItem({ user, square, bookReq, book }: BingoItemProps) {
         blockSize: ['98px', '138px'],
         inlineSize: ['auto', '112px'],
         borderRadius: '5px',
-        boxShadow: '4px 4px 15px -10px #000000',
+        boxShadow: (theme) => `1px 1px 0px 2px ${ book ? theme.colors.complete : theme.colors.incomplete}`,
         padding: ['0.05rem', '0.1rem'],
       }}
       onClick={handleFlip}

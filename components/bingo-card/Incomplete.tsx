@@ -1,7 +1,7 @@
 import { PlusIcon } from '@heroicons/react/24/outline';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { Box, IconButton, Text } from 'theme-ui';
+import { Box, Button, Text } from 'theme-ui';
 import Spacer from '../ui/Spacer';
 
 interface IncompleteProps {
@@ -18,12 +18,10 @@ function CompleteFront({ bookReq, square, user }: IncompleteProps) {
     <Box
       sx={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}
     >
-      <Text variant="body1Light" as="p">
-        {bookReq}
-      </Text>
+      <Text variant="body1">{bookReq}</Text>
       {usersCard && (
         <>
-          <Spacer size="0.5rem" />
+          <Spacer size={['1rem']} />
           <Link
             href={{
               pathname: '/addBook',
@@ -33,18 +31,20 @@ function CompleteFront({ bookReq, square, user }: IncompleteProps) {
             }}
             passHref
           >
-            <IconButton
+            <Button
               sx={{
-                backgroundColor: 'secondary',
+                backgroundColor: 'complete',
                 color: '#17202a',
                 cursor: 'pointer',
+                position: 'absolute',
+                bottom: '12px',
                 padding: '0px',
-                inlineSize: '100%',
-                height: ['20px', '26px'],
+                inlineSize: ['38px', '60px'],
+                blockSize: ['16px', '26px'],
               }}
             >
               <PlusIcon style={{ blockSize: '100%' }} />
-            </IconButton>
+            </Button>
           </Link>
         </>
       )}
