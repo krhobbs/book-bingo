@@ -1,5 +1,5 @@
 import BookInfo from '../book/book-info';
-import { Box, Button, IconButton, Text } from 'theme-ui';
+import { Box, Button } from 'theme-ui';
 import { useSession } from 'next-auth/react';
 import { TrashIcon } from '@heroicons/react/24/outline';
 import Spacer from '../ui/Spacer';
@@ -39,7 +39,7 @@ function CompleteBack({ user, square, book }: CompleteBackProps) {
       {usersCard && (
         <>
           <Spacer size={['1.1rem']} />
-          <IconButton
+          <Button
             sx={{
               backgroundColor: 'destructive',
               color: '#17202a',
@@ -53,7 +53,7 @@ function CompleteBack({ user, square, book }: CompleteBackProps) {
             onClick={removeBookHandler}
           >
             <TrashIcon style={{ blockSize: '100%' }} />
-          </IconButton>
+          </Button>
         </>
       )}
     </Box>
