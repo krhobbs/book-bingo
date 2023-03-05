@@ -11,8 +11,8 @@ function BookInfo({ book }: BookInfoProps) {
 
     return (
         <Flex sx={{flexDirection: 'column'}}>
-            <Text variant='body1Light'>{book.title}</Text>
-            <Text variant='body2Light'>By {book.author}</Text>
+            <Text variant='body1'>{book.title}</Text>
+            <Text variant='body2'>By {book.author}</Text>
         </Flex>
     )
 }

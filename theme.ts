@@ -1,114 +1,116 @@
-import type { Theme } from "theme-ui";
-
+import type { Theme } from 'theme-ui';
 
 export const theme: Theme = {
-    colors: {
-        whiteText: '#FFFFFF',
-        lightGrayText: '#A1A1A1',
-        darkGrayText: '#4D4D4D',
-        text: '#000000',
-        pageBackground: '#D5E1D6',
-        complete: '#AFE1AF',
-        incomplete: '#D8BFD8',
-        primary: '#87CEEB',
+  colors: {
+    text: '#000000',
+    background: '#C1C0A4',
+    primary: '#FFFFFF',
+    secondary: '#FFBF00',
+    complete: '#339900',
+    incomplete: '#CC6666',
+    destructive: '#FF9999',
+    modes: {
+      dark: {
+        text: '#E6E6E6',
+        background: '#1C1C1C',
+        primary: '#FFFFFF',
         secondary: '#FFBF00',
-        destructive: '#DC143C',
+        complete: '#339900',
+        incomplete: '#CC6666',
+        destructive: '#FF9999',
+      },
     },
-    fonts: {
-        body: '"Open Sans", sans-serif',
-        heading: '"Open Sans", sans-serif',
+  },
+  fonts: {
+    body: '"Open Sans", sans-serif',
+    heading: '"Open Sans", sans-serif',
+  },
+  fontSizes: [9, 10, 12, 14, 15, 16, 23, 26, 28, 32],
+  fontWeights: {
+    caption: 300,
+    body: 400,
+    heading: 600,
+  },
+  breakpoints: ['600px', '1024px'],
+  text: {
+    heading1: {
+      fontFamily: 'heading',
+      fontWeight: 'heading',
+      fontSize: [7, 9],
     },
-    fontSizes: [8, 10, 12, 14, 16, 20, 24, 32],
-    fontWeights: {
-        light: 200,
-        normal: 400,
-        semiBold: 500,
-        bold: 700
+    heading2: {
+      fontFamily: 'heading',
+      fontWeight: 'heading',
+      fontSize: [6, 8],
     },
-    breakpoints: ['600px', '1024px'],
-    text: {
-        heading1: {
-            fontFamily: 'heading',
-            fontWeight: ['semiBold', 'semiBold', 'bold'],
-            fontSize: [4, 6]
-        },
-        heading2: {
-            fontFamily: 'heading',
-            fontWeight: ['semiBold', 'semiBold', 'bold'],
-            fontSize: [5, 6]
-        },
-        body1: {
-            fontFamily: 'body',
-            fontWeight: 'normal',
-            fontSize: [3, 4]
-        },
-        body1Light: {
-            variant: 'body1',
-            fontSize: [1, 3]
-        },
-        body2: {
-            fontFamily: 'body',
-            fontWeight: 'normal',
-            fontSize: [0, 1]
-        },
-        body2Light: {
-            variant: 'body2',
-            fontSize: [0, 1]
-        },
-        navLink: {
-            fontFamily: 'body',
-            fontWeight: 'normal',
-            fontSize: [3, 4]
-        },
-        link: {
-            fontFamily: 'body',
-            fontWeight: 'normal',
-            fontSize: [0, 1],
-            textDecoration: 'underline'
-        }
+    body1: {
+      fontFamily: 'body',
+      fontWeight: 'body',
+      fontSize: [1, 3],
     },
-    buttons: {
-        primary: {
-            color: 'text',
-            cursor: 'pointer',
-            bg: 'primary',
-            padding: '0.5rem 1.5rem',
-            '&:hover': {
-                boxShadow: 'inset 0px 0px 15px -10px #000000'
-            }
-        },
-        addBook: {
-            color: 'text',
-            cursor: 'pointer',
-            bg: 'primary',
-            lineHeight: ['11px', '22px'],
-            padding: ['0.3rem 0.4rem', '0.2rem 0.3rem'],
-            '&:hover': {
-                boxShadow: 'inset 0px 0px 15px -10px #000000'
-            }
-        },
-        nav: {
-            color: 'text',
-            bg: 'transparent',
-            cursor: 'pointer',
-            padding: '0.1rem 2rem',
-            fontSize: [3, 4],
-            '&:hover': {
-                bg: 'darkerHover'
-            }
-        }
+    body2: {
+      fontFamily: 'body',
+      fontWeight: 'body',
+      fontSize: [0, 2],
     },
-    styles: {
-        root: {
-            fontFamily: 'body',
-            a: {
-                textDecoration: 'none',
-                color: 'inherit'
-            },
-            body: {
-                minHeight: '100vh',
-            },
-        }
+    navLink: {
+      fontFamily: 'body',
+      fontWeight: 'heading',
+      fontSize: [2, 4],
+    },
+    caption: {
+      fontFamily: 'body',
+      fontWeight: 'caption',
+      fontSize: [0, 1],
+      textDecoration: 'underline',
+    },
+  },
+  buttons: {
+    primary: {
+      color: 'text',
+      cursor: 'pointer',
+      bg: 'complete',
+      padding: '0.5rem 1.5rem',
+      '&:hover': {
+        boxShadow: 'inset 0px 0px 15px -10px #000000',
+      },
+    },
+    settings: {
+        bg: 'background',
+        fontWeight: 'heading',
+        fontSize: [2, 3],
+        color: 'text',
+        cursor: 'pointer',
+    },
+    closeModal: {
+        bg: 'complete',
+        color: 'text',
+        cursor: 'pointer',
+        blockSize: ['1.5rem', '2.25rem'],
+        inlineSize: ['1.5rem', '2.25rem'],
+        padding: '0px',
+        '&:hover': {
+            boxShadow: 'inset 0px 0px 15px -10px #000000',
+        },
     }
-
-}
+  },
+  forms: {
+    label: {
+        fontFamily: 'body',
+        fontWeight: 'body',
+        fontSize: [2, 3],
+    }
+  },
+  styles: {
+    root: {
+      fontFamily: 'body',
+      a: {
+        textDecoration: 'none',
+        color: 'inherit',
+      },
+      body: {
+        minHeight: '100vh',
+      },
+    },
+  },
+};

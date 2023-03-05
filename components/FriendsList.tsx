@@ -48,7 +48,7 @@ function FriendsList({ friends, onDeleteFriend, onAddFriend }) {
                 minInlineSize: '200px',
               }}
             >
-              <Text>{friend}</Text>
+              <Text variant='body1'>{friend}</Text>
               <IconButton
                 sx={{
                   color: 'text',
