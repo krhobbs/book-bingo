@@ -1,4 +1,4 @@
-import Cards from '../components/cards';
+import Cards from '../components/Cards';
 import Head from 'next/head';
 import { connectDatabase, getDocuments } from '../utils/db-utils';
 
