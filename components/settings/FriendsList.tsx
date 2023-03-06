@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react';
 import { Box, Button, Input, Label, Text, IconButton } from 'theme-ui';
-import Spacer from './ui/Spacer';
+import Spacer from '../ui/Spacer';
 import { TrashIcon } from '@heroicons/react/20/solid';
-import ErrorPopup from './ui/ErrorPopup';
+import ErrorPopup from '../ui/ErrorPopup';
 
 function FriendsList({ friends, onDeleteFriend, onAddFriend }) {
   const [errorMessage, setErrorMessage] = useState('');
