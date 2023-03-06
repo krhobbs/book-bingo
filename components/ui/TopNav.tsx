@@ -10,9 +10,9 @@ import {
   Button,
 } from 'theme-ui';
 import { BookOpenIcon, Cog6ToothIcon } from '@heroicons/react/24/outline';
-import ChangePasswordForm from '../ChangePasswordForm';
+import ChangePasswordForm from '../settings/ChangePasswordForm';
 import Modal from './Modal';
-import FriendsList from '../FriendsList';
+import FriendsList from '../settings/FriendsList';
 
 const containerStyles: ThemeUICSSObject = {
   alignItems: 'center',
