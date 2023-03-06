@@ -1,4 +1,4 @@
-import BingoCard from './bingo-card/bingo-card';
+import BingoCard from './bingo-card/BingoCard';
 import { Box } from 'theme-ui';
 import Spacer from './ui/Spacer';
 

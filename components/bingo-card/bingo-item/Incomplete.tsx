@@ -2,7 +2,7 @@ import { PlusIcon } from '@heroicons/react/24/outline';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { Box, Button, Text } from 'theme-ui';
-import Spacer from '../ui/Spacer';
+import Spacer from '../../ui/Spacer';
 
 interface IncompleteProps {
   bookReq: string;

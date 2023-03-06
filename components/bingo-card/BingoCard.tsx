@@ -1,4 +1,4 @@
-import BingoItem from './bingo-item';
+import BingoItem from './bingo-item/BingoItem';
 import Spacer from '../ui/Spacer';
 import { Box, Text } from 'theme-ui';
 
