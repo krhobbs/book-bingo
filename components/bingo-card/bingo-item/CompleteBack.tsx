@@ -1,8 +1,8 @@
-import BookInfo from '../book/book-info';
+import BookInfo from '../../book/book-info';
 import { Box, Button } from 'theme-ui';
 import { useSession } from 'next-auth/react';
 import { TrashIcon } from '@heroicons/react/24/outline';
-import Spacer from '../ui/Spacer';
+import Spacer from '../../ui/Spacer';
 
 interface CompleteBackProps {
   user: string;
