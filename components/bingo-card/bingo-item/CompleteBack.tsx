@@ -42,7 +42,7 @@ function CompleteBack({ user, square, book }: CompleteBackProps) {
           <Button
             sx={{
               backgroundColor: 'destructive',
-              color: '#17202a',
+              color: 'text',
               cursor: 'pointer',
               position: 'absolute',
               bottom: ['8px', '12px'],
@@ -52,7 +52,7 @@ function CompleteBack({ user, square, book }: CompleteBackProps) {
             }}
             onClick={removeBookHandler}
           >
-            <TrashIcon style={{ blockSize: '100%' }} />
+            <TrashIcon style={{ blockSize: '98%' }} />
           </Button>
         </>
       )}

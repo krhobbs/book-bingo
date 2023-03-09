@@ -11,13 +11,13 @@ export const theme: Theme = {
     destructive: '#FF9999',
     modes: {
       dark: {
-        text: '#E6E6E6',
-        background: '#1C1C1C',
-        primary: '#FFFFFF',
+        text: '#FFFFFF',
+        background: '#060606',
+        primary: '#1A1A1A',
         secondary: '#FFBF00',
-        complete: '#339900',
-        incomplete: '#CC6666',
-        destructive: '#FF9999',
+        complete: '#619801',
+        incomplete: '#A61322',
+        destructive: '#B23D3D',
       },
     },
   },
@@ -69,7 +69,7 @@ export const theme: Theme = {
     primary: {
       color: 'text',
       cursor: 'pointer',
-      bg: 'complete',
+      bg: 'primary',
       padding: '0.5rem 1.5rem',
       '&:hover': {
         boxShadow: 'inset 0px 0px 15px -10px #000000',
@@ -81,9 +81,12 @@ export const theme: Theme = {
         fontSize: [2, 3],
         color: 'text',
         cursor: 'pointer',
+        '&:hover': {
+          bg: 'primary'
+        }
     },
     closeModal: {
-        bg: 'complete',
+        bg: 'primary',
         color: 'text',
         cursor: 'pointer',
         blockSize: ['1.5rem', '2.25rem'],
