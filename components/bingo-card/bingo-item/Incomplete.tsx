@@ -32,9 +32,10 @@ function CompleteFront({ bookReq, square, user }: IncompleteProps) {
             passHref
           >
             <Button
+              variant="bingoItemButton"
               sx={{
-                backgroundColor: 'complete',
-                color: '#17202a',
+                backgroundColor: 'primary',
+                color: 'text',
                 cursor: 'pointer',
                 position: 'absolute',
                 bottom: ['8px', '12px'],

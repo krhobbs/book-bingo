@@ -31,7 +31,7 @@ function FriendsList({ friends, onDeleteFriend, onAddFriend }) {
     <Box>
       <Text variant="heading2">Friends</Text>
       <Spacer size={['1rem']} />
-      <Box sx={{ display: 'flex', flexDirection: 'column', maxBlockSize: ['70vh', '55vh'], overflowX: 'scroll' }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', maxBlockSize: ['70vh', '55vh'], overflowY: 'auto' }}>
         {friends.map((friend, index) => {
           return (
             <Box

@@ -27,36 +27,6 @@ const containerStyles: ThemeUICSSObject = {
   zIndex: '100',
 };
 
-const TEST_FRIENDS = [
-  'test',
-  'test',
-  'test',
-  'test',
-  'test',
-  'test',
-  'test',
-  'test',
-  'test',
-  'test',
-  'test',
-  'test',
-  'test',
-  'test',
-  'test',
-  'test',
-  'test',
-  'test',
-  'test',
-  'test',
-  'test',
-  'test',
-  'test',
-  'test',
-  'test',
-  'test',
-  'test',
-];
-
 function TopNav() {
   const { data: session, status } = useSession();
   const [showSettings, setShowSettings] = useState(false);
@@ -181,7 +151,7 @@ function TopNav() {
                     top: '65px',
                     right: ['3px', '16px'],
                     zIndex: 2,
-                    boxShadow: (theme) => `1px 1px 0px 2px ${theme.colors.complete}`
+                    boxShadow: (theme) => `1px 1px 0px 2px ${theme.colors.primary}`
                   }}
                 >
                   <Box sx={{ display: 'flex', flexDirection: 'column' }}>
