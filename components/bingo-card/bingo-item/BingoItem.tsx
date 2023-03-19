@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import ItemFront from './item-front';
-import ItemBack from './item-back';
+import CompleteFront from './CompleteFront';
+import CompleteBack from './CompleteBack';
+import Incomplete from './Incomplete';
 import { Box } from 'theme-ui';
 
 interface BingoItemProps {
@@ -23,7 +24,7 @@ function BingoItem({ user, square, bookReq, book }: BingoItemProps) {
   return (
     <Box
       sx={{
-        backgroundColor: book ? 'complete' : 'incomplete',
+        backgroundColor: 'background',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -31,16 +32,17 @@ function BingoItem({ user, square, bookReq, book }: BingoItemProps) {
         position: 'relative',
         blockSize: ['98px', '138px'],
         inlineSize: ['auto', '112px'],
-        borderRadius: '15px',
-        boxShadow: '4px 4px 15px -10px #000000',
+        border: (theme) => `solid 1px ${book ? theme.colors.complete : theme.colors.incomplete}`,
+        borderRadius: '5px',
+        boxShadow: (theme) => `1px 1px 0px 1px ${ book ? theme.colors.complete : theme.colors.incomplete}`,
         padding: ['0.05rem', '0.1rem'],
       }}
       onClick={handleFlip}
     >
-      {cardFlipped ? (
-        <ItemBack user={user} square={square} book={book} />
+      {book ? (
+        cardFlipped ? <CompleteBack user={user} square={square} book={book} /> : <CompleteFront bookReq={bookReq} />
       ) : (
-        <ItemFront bookReq={bookReq} />
+        <Incomplete bookReq={bookReq} square={square} user={user} />
       )}
     </Box>
   );
