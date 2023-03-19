@@ -2,8 +2,8 @@ import { connectDatabase, getDocumentsByUsername } from '../utils/db-utils';
 import { getSession } from 'next-auth/react';
 import Spacer from '../components/ui/Spacer';
 import { Box, Text } from 'theme-ui';
-import Cards from '../components/Cards';
 import Head from 'next/head';
+import Cards from '../components/cards';
 
 export default function Friends(props) {
   if (props.cards.length === 0) {
