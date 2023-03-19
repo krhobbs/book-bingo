@@ -1,5 +1,5 @@
-import Cards from '../components/Cards';
 import Head from 'next/head';
+import Cards from '../components/cards';
 import { connectDatabase, getDocuments } from '../utils/db-utils';
 
 export default function Home(props) {
