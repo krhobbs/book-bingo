@@ -1,8 +1,8 @@
 import { connectDatabase, getDocumentById } from '../utils/db-utils';
 import { getSession } from 'next-auth/react';
 import Spacer from '../components/ui/Spacer';
-import BingoCard from '../components/bingo-card/bingo-card';
-import NewCard from '../components/new-card';
+import BingoCard from '../components/bingo-card/BingoCard';
+import NewCard from '../components/NewCard';
 import Head from 'next/head';
 
 export default function Profile(props) {

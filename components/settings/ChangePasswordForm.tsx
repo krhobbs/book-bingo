@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { Box, Label, Input, Button } from 'theme-ui';
-import ErrorPopup from './ui/ErrorPopup';
-import Spacer from './ui/Spacer';
+import ErrorPopup from '../ui/ErrorPopup';
+import Spacer from '../ui/Spacer';
 
 function ChangePasswordForm({ onChangePassword }) {
   const [errorMessage, setErrorMessage] = useState('');
