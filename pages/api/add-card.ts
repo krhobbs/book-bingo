@@ -31,128 +31,153 @@ async function handler(req, res) {
     squares: [
         {
           id: "1A",
-          req: "LGBTQIA List Book",
-          book: null
+          req: "Title with a Title",
+          book: null,
+          color: null,
         },
         {
           id: "1B",
-          req: "Weird Ecology",
-          book: null
+          req: "Superheroes",
+          book: null,
+          color: null,
         },
         {
           id: "1C",
-          req: "Two or More Authors",
-          book: null
+          req: "Bottom of TBR",
+          book: null,
+          color: null,
         },
         {
           id: "1D",
-          req: "Historical SFF",
-          book: null
+          req: "Magical Realism",
+          book: null,
+          color: null,
         },
         {
           id: "1E",
-          req: "Set in Space",
-          book: null
+          req: "Young Adult",
+          book: null,
+          color: null,
         },
         {
           id: "2A",
-          req: "Stand alone",
-          book: null
+          req: "Mundane Jobs",
+          book: null,
+          color: null,
         },
         {
           id: "2B",
-          req: "Anti-hero",
-          book: null
+          req: "Published in 2000s",
+          book: null,
+          color: null,
         },
         {
           id: "2C",
-          req: "Book Club or Readalong Book",
-          book: null
+          req: "Angels and Demons",
+          book: null,
+          color: null,
         },
         {
           id: "2D",
-          req: "Cool Weapon",
-          book: null
+          req: "5 Short Stories",
+          book: null,
+          color: null,
         },
         {
           id: "2E",
-          req: "Revolutions and Rebellions",
-          book: null
+          req: "Horror",
+          book: null,
+          color: null,
         },
         {
           id: "3A",
-          req: "Name in the Title",
-          book: null
+          req: "Self/Indie Published",
+          book: null,
+          color: null,
         },
         {
           id: "3B",
-          req: "Author uses Initials",
-          book: null
+          req: "Set in Middle East",
+          book: null,
+          color: null,
         },
         {
           id: "3C",
-          req: "Published in 2022",
-          book: null
+          req: "Published in 2023",
+          book: null,
+          color: null,
         },
         {
           id: "3D",
-          req: "Urban Fantasy",
-          book: null
+          req: "Muliverses",
+          book: null,
+          color: null,
         },
         {
           id: "3E",
-          req: "Set in Africa",
-          book: null
+          req: "POC Author",
+          book: null,
+          color: null,
         },
         {
           id: "4A",
-          req: "Non-Human Protaganist",
-          book: null
+          req: "Book Club or Readalong Book",
+          book: null,
+          color: null,
         },
         {
           id: "4B",
-          req: "Wibbly Wobbly Timey Wimey",
-          book: null
+          req: "Novella",
+          book: null,
+          color: null,
         },
         {
           id: "4C",
-          req: "Five Short Stories",
-          book: null
+          req: "Mythical Beasts",
+          book: null,
+          color: null,
         },
         {
           id: "4D",
-          req: "Mental Health",
-          book: null
+          req: "Elemental Magic",
+          book: null,
+          color: null,
         },
         {
           id: "4E",
-          req: "Self Published",
-          book: null
+          req: "Myths and Retellings",
+          book: null,
+          color: null,
         },
         {
           id: "5A",
-          req: "Awards Finalist",
-          book: null
+          req: "Queernorm Setting",
+          book: null,
+          color: null,
         },
         {
           id: "5B",
-          req: "BIPOC Author",
-          book: null
+          req: "Coastal Setting",
+          book: null,
+          color: null,
         },
         {
           id: "5C",
-          req: "Shape-shifters",
-          book: null
+          req: "Druid",
+          book: null,
+          color: null,
         },
         {
           id: "5D",
-          req: "No Ifs, Ands, or Buts",
-          book: null
+          req: "Features Robots",
+          book: null,
+          color: null,
         },
         {
           id: "5E",
-          req: "Family Matters",
-          book: null
+          req: "Sequel",
+          book: null,
+          color: null,
         }
       ]
   });
