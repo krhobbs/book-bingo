@@ -6,8 +6,9 @@ export const theme: Theme = {
     background: '#C1C0A4',
     primary: '#FFFFFF',
     secondary: '#FFBF00',
-    complete: '#339900',
-    incomplete: '#CC6666',
+    accent: '#339900',
+    highlight: '#CC6666',
+    muted: '#FF9999',
     destructive: '#FF9999',
     modes: {
       dark: {
@@ -15,8 +16,9 @@ export const theme: Theme = {
         background: '#060606',
         primary: '#1A1A1A',
         secondary: '#FFBF00',
-        complete: '#619801',
-        incomplete: '#A61322',
+        accent: '#619801',
+        highlight: '#A61322',
+        muted: '#A61322',
         destructive: '#B23D3D',
       },
     },
@@ -114,6 +116,11 @@ export const theme: Theme = {
       body: {
         minHeight: '100vh',
       },
+      input: {
+        '&:focus': {
+          outline: 'none'
+        }
+      }
     },
   },
 };
