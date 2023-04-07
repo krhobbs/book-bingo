@@ -12,6 +12,7 @@ interface BingoItemProps {
     title: string;
     author: string;
   };
+  color?: string;
 }
 
 function BingoItem({ user, square, bookReq, book }: BingoItemProps) {
@@ -32,9 +33,9 @@ function BingoItem({ user, square, bookReq, book }: BingoItemProps) {
         position: 'relative',
         blockSize: ['98px', '138px'],
         inlineSize: ['auto', '112px'],
-        border: (theme) => `solid 1px ${book ? theme.colors.complete : theme.colors.incomplete}`,
+        border: (theme) => `solid 1px ${book ? theme.colors.primary : theme.colors.secondary}`,
         borderRadius: '5px',
-        boxShadow: (theme) => `1px 1px 0px 1px ${ book ? theme.colors.complete : theme.colors.incomplete}`,
+        boxShadow: (theme) => `1px 1px 0px 1px ${ book ? theme.colors.primary : theme.colors.secondary}`,
         padding: ['0.05rem', '0.1rem'],
       }}
       onClick={handleFlip}

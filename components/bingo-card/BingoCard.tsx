@@ -13,16 +13,7 @@ interface BingoSquareProps {
 
 export interface BingoCardProps {
   user: string;
-  squares: [
-    {
-      id: string;
-      req: string;
-      book: {
-        title: string;
-        author: string;
-      };
-    }
-  ];
+  squares: [BingoSquareProps];
 }
 
 function BingoCard(props) {
