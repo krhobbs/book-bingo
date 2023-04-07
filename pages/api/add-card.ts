@@ -1,5 +1,5 @@
 import { getSession } from 'next-auth/react';
-import { connectDatabase } from '../../../utils/db-utils';
+import { connectDatabase } from '../../utils/db-utils';
 
 async function handler(req, res) {
   if (req.method !== 'POST') {
