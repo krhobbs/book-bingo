@@ -12,9 +12,10 @@ interface BingoItemProps {
     title: string;
     author: string;
   };
+  color?: string;
 }
 
-function BingoItem({ user, square, bookReq, book }: BingoItemProps) {
+function BingoItem({ user, square, bookReq, book, color }: BingoItemProps) {
   const [cardFlipped, setCardFlipped] = useState(false);
 
   const handleFlip = () => {
@@ -24,7 +25,7 @@ function BingoItem({ user, square, bookReq, book }: BingoItemProps) {
   return (
     <Box
       sx={{
-        backgroundColor: 'background',
+        backgroundColor: 'primary',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -32,9 +33,9 @@ function BingoItem({ user, square, bookReq, book }: BingoItemProps) {
         position: 'relative',
         blockSize: ['98px', '138px'],
         inlineSize: ['auto', '112px'],
-        border: (theme) => `solid 1px ${book ? theme.colors.complete : theme.colors.incomplete}`,
+        border: (theme) => `solid 1px ${book ? color ?? theme.colors.accent : theme.colors.secondary}`,
         borderRadius: '5px',
-        boxShadow: (theme) => `1px 1px 0px 1px ${ book ? theme.colors.complete : theme.colors.incomplete}`,
+        boxShadow: (theme) => `1px 1px 0px 1px ${ book ? color ?? theme.colors.accent : theme.colors.secondary}`,
         padding: ['0.05rem', '0.1rem'],
       }}
       onClick={handleFlip}

@@ -3,20 +3,22 @@ import type { Theme } from 'theme-ui';
 export const theme: Theme = {
   colors: {
     text: '#000000',
-    background: '#C1C0A4',
-    primary: '#FFFFFF',
-    secondary: '#FFBF00',
-    complete: '#339900',
-    incomplete: '#CC6666',
+    background: '#FCFCFC',
+    primary: '#f1f5f4',
+    secondary: '#A8BAB6',
+    accent: '#BBD8FD',
+    highlight: '#f1f5f4',
+    muted: '#f6f6f6',
     destructive: '#FF9999',
     modes: {
       dark: {
-        text: '#FFFFFF',
-        background: '#060606',
+        text: '#ffffff',
+        background: '#030303',
         primary: '#1A1A1A',
-        secondary: '#FFBF00',
-        complete: '#619801',
-        incomplete: '#A61322',
+        secondary: '#353635',
+        accent: '#BBD8FD',
+        highlight: '#0c1a1f',
+        muted: '#191919',
         destructive: '#B23D3D',
       },
     },
@@ -114,6 +116,11 @@ export const theme: Theme = {
       body: {
         minHeight: '100vh',
       },
+      input: {
+        '&:focus': {
+          outline: 'none'
+        }
+      }
     },
   },
 };
