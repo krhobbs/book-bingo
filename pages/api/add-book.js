@@ -4,7 +4,7 @@ async function handler(req, res) {
   if (req.method === 'POST') {
     const data = req.body;
 
-    const { title, author, user, square } = data;
+    const { title, author, user, square, color } = data;
 
     try {
       const client = await connectDatabase();
@@ -20,6 +20,7 @@ async function handler(req, res) {
         },
         {
           $set: {
+            'squares.$.color': color,
             'squares.$.book': {
               title: title,
               author: author,

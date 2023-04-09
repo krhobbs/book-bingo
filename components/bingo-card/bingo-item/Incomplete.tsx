@@ -34,7 +34,7 @@ function CompleteFront({ bookReq, square, user }: IncompleteProps) {
             <Button
               variant="bingoItemButton"
               sx={{
-                backgroundColor: 'primary',
+                backgroundColor: 'secondary',
                 color: 'text',
                 cursor: 'pointer',
                 position: 'absolute',

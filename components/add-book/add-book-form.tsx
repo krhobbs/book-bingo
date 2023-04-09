@@ -7,18 +7,21 @@ function AddBookForm(props) {
   const [errorMessage, setErrorMessage] = useState('');
   const titleInputRef = useRef<HTMLInputElement>();
   const authorInputRef = useRef<HTMLInputElement>();
+  const colorInputRef = useRef<HTMLInputElement>();
 
   async function submitHandler(event) {
     event.preventDefault();
 
     const enteredTitle = titleInputRef.current.value;
     const enteredAuthor = authorInputRef.current.value;
+    const enteredColor = colorInputRef.current.value;
 
     const bookData = {
       square: props.square,
       user: props.user,
       title: enteredTitle,
       author: enteredAuthor,
+      color: enteredColor
     };
 
     const result = await props.onAddBook(bookData);
@@ -48,6 +51,11 @@ function AddBookForm(props) {
       <Box>
         <Label htmlFor="author">Author</Label>
         <Input type="text" required id="author" ref={authorInputRef} />
+      </Box>
+      <Spacer size={['2rem']} />
+      <Box>
+        <Label htmlFor="color">Color</Label>
+        <Input type="color" id="color" ref={colorInputRef} defaultValue="#FFFFFF" />
       </Box>
       <Spacer size={['2.4rem']} />
       <Box>

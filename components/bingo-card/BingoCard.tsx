@@ -9,20 +9,12 @@ interface BingoSquareProps {
     title: string;
     author: string;
   };
+  color?: string;
 }
 
 export interface BingoCardProps {
   user: string;
-  squares: [
-    {
-      id: string;
-      req: string;
-      book: {
-        title: string;
-        author: string;
-      };
-    }
-  ];
+  squares: [BingoSquareProps];
 }
 
 function BingoCard(props) {
@@ -53,6 +45,7 @@ function BingoCard(props) {
               square={square.id}
               bookReq={square.req}
               book={square.book}
+              color={square.color}
             />
           );
         })}
