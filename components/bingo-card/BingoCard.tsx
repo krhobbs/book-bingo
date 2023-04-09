@@ -9,6 +9,7 @@ interface BingoSquareProps {
     title: string;
     author: string;
   };
+  color?: string;
 }
 
 export interface BingoCardProps {
@@ -44,6 +45,7 @@ function BingoCard(props) {
               square={square.id}
               bookReq={square.req}
               book={square.book}
+              color={square.color}
             />
           );
         })}
