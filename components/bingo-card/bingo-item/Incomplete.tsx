@@ -5,12 +5,13 @@ import { Box, Button, Text } from 'theme-ui';
 import Spacer from '../../ui/Spacer';
 
 interface IncompleteProps {
+  cardId: string;
   bookReq: string;
   square: string;
   user: string;
 }
 
-function CompleteFront({ bookReq, square, user }: IncompleteProps) {
+function Incomplete({ cardId, bookReq, square, user }: IncompleteProps) {
   const { data: session, status } = useSession();
   const usersCard = session ? user === session.user.username : false;
 
@@ -26,6 +27,7 @@ function CompleteFront({ bookReq, square, user }: IncompleteProps) {
             href={{
               pathname: '/addBook',
               query: {
+                card: cardId,
                 square: square,
               },
             }}
@@ -53,4 +55,4 @@ function CompleteFront({ bookReq, square, user }: IncompleteProps) {
   );
 }
 
-export default CompleteFront;
+export default Incomplete;

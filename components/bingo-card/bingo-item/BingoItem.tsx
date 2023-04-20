@@ -5,6 +5,7 @@ import Incomplete from './Incomplete';
 import { Box } from 'theme-ui';
 
 interface BingoItemProps {
+  cardId: string;
   user: string;
   square: string;
   bookReq: string;
@@ -15,7 +16,7 @@ interface BingoItemProps {
   color?: string;
 }
 
-function BingoItem({ user, square, bookReq, book, color }: BingoItemProps) {
+function BingoItem({ cardId, user, square, bookReq, book, color }: BingoItemProps) {
   const [cardFlipped, setCardFlipped] = useState(false);
 
   const handleFlip = () => {
@@ -43,7 +44,7 @@ function BingoItem({ user, square, bookReq, book, color }: BingoItemProps) {
       {book ? (
         cardFlipped ? <CompleteBack user={user} square={square} book={book} /> : <CompleteFront bookReq={bookReq} />
       ) : (
-        <Incomplete bookReq={bookReq} square={square} user={user} />
+        <Incomplete cardId={cardId} bookReq={bookReq} square={square} user={user} />
       )}
     </Box>
   );

@@ -2,7 +2,7 @@ import { Box, Text, IconButton } from 'theme-ui';
 
 function NewCard() {
   async function newCardHandler() {
-    const response = await fetch('/api/add-card', {
+    const response = await fetch('/api/cards/add-card', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -11,6 +11,7 @@ function NewCard() {
 
     const data = await response.json();
 
+    window.location.reload();
   }
 
   return (

@@ -13,6 +13,7 @@ interface BingoSquareProps {
 }
 
 export interface BingoCardProps {
+  id: string;
   user: string;
   squares: [BingoSquareProps];
 }
@@ -41,6 +42,7 @@ function BingoCard(props) {
           return (
             <BingoItem
               key={square.id}
+              cardId={props.card._id}
               user={props.card.user}
               square={square.id}
               bookReq={square.req}
