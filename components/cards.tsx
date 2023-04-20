@@ -7,7 +7,7 @@ function Cards(props) {
     <Box>
       <Spacer size="6.5rem" />
       {props.cards.map((card: BingoCardProps) => {
-        return <BingoCard key={card.user} card={card} />;
+        return <BingoCard key={card.id} card={card} />;
       })}
     </Box>
   );

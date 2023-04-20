@@ -17,8 +17,8 @@ function AddBookForm(props) {
     const enteredColor = colorInputRef.current.value;
 
     const bookData = {
+      card: props.card,
       square: props.square,
-      user: props.user,
       title: enteredTitle,
       author: enteredAuthor,
       color: enteredColor

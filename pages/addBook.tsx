@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { getSession } from 'next-auth/react';
 import AddBookForm from '../components/add-book/add-book-form';
 
-function AddBook({session, square}) {
+function AddBook({session, square, card}) {
   const router = useRouter();
 
   async function addBookHandler(enteredBookData) {
@@ -28,6 +28,7 @@ function AddBook({session, square}) {
 
   return (
     <AddBookForm
+      card={card}
       user={session.user.username}
       square={square}
       onAddBook={addBookHandler}
@@ -53,6 +54,7 @@ export async function getServerSideProps(context) {
     props: {
       session: session,
       square: context.query.square,
+      card: context.query.card
     },
   };
 }

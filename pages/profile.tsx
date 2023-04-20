@@ -12,7 +12,15 @@ export default function Profile(props) {
         <title>Book Bingo | User Profile</title>
       </Head>
       <Spacer size="6.5rem" />
-      {props.card ? <BingoCard card={props.card} /> : <NewCard />}
+      {props.card ? (
+        <>
+          <BingoCard card={props.card} />
+          <Spacer size="3.5rem" />
+          <NewCard />
+        </>
+      ) : (
+        <NewCard />
+      )}
     </>
   );
 }
@@ -31,7 +39,7 @@ export async function getServerSideProps(context) {
 
   try {
     const client = await connectDatabase();
-    const card = await getDocumentById(client, 'cards', session.user.card);
+    const card = await getDocumentById(client, 'cards', session.user.cards[0]);
 
     client.close();
 
