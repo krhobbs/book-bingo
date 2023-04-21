@@ -5,13 +5,14 @@ import { Box, Button, Text } from 'theme-ui';
 import Spacer from '../../ui/Spacer';
 
 interface IncompleteProps {
+  archived: boolean;
   cardId: string;
   bookReq: string;
   square: string;
   user: string;
 }
 
-function Incomplete({ cardId, bookReq, square, user }: IncompleteProps) {
+function Incomplete({ archived, cardId, bookReq, square, user }: IncompleteProps) {
   const { data: session, status } = useSession();
   const usersCard = session ? user === session.user.username : false;
 
@@ -20,7 +21,7 @@ function Incomplete({ cardId, bookReq, square, user }: IncompleteProps) {
       sx={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}
     >
       <Text variant="body1">{bookReq}</Text>
-      {usersCard && (
+      {usersCard && !archived && (
         <>
           <Spacer size={['1rem']} />
           <Link
