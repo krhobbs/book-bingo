@@ -16,7 +16,7 @@ export default function Home(props) {
 export async function getStaticProps() {
   try {
     const client = await connectDatabase();
-    const cards = await getDocuments(client, 'cards');
+    const cards = await getDocuments(client, 'cards', {archived: false});
 
     client.close();
 

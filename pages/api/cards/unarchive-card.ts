@@ -8,7 +8,7 @@ async function handler(req, res) {
   }
 
   const { cardId } = req.body;
-  console.log(`Archiving ${cardId}`)
+  console.log(`Unarchiving ${cardId}`)
 
   const session = await getSession({ req: req });
 
@@ -32,14 +32,14 @@ async function handler(req, res) {
 
   await cardsCollection.updateOne(
     {_id: new ObjectId(cardId) },
-    { $set: { archived: true } }
+    { $set: { archived: false } }
   );
 
   const result = await usersCollection.updateOne(
     { username: username },
     {
-      $pull: { cards: cardId },
-      $push: { archivedCards: { $each: [cardId], $position: 0 } },
+      $pull: { archivedCards: cardId },
+      $push: { cards: cardId },
     }
   );
 
