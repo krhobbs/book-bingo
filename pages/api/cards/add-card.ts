@@ -28,6 +28,7 @@ async function handler(req, res) {
 
   const cardResult = await cardsCollection.insertOne({
     user: username,
+    archived: false,
     squares: [
       {
         id: '1A',
