@@ -8,7 +8,7 @@ declare module "next-auth" {
     user: {
       /** The user's postal address. */
       username: string,
-      card: string,
+      cards: string[],
       friends: string[]
     }
   }
@@ -19,7 +19,7 @@ declare module "next-auth" {
  */
  interface User {
     username: string,
-    card: string,
+    cards: string[],
     friends: string[]
  }
 }

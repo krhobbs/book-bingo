@@ -1,3 +1,4 @@
+import Spacer from '../ui/Spacer';
 import TopNav from '../ui/TopNav';
 
 function Layout(props) {
@@ -5,6 +6,7 @@ function Layout(props) {
     <>
       <TopNav />
       <main>{props.children}</main>
+      <Spacer size="2rem" />
     </>
   );
 }
