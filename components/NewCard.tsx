@@ -24,6 +24,7 @@ function NewCard() {
         cursor: 'pointer',
         blockSize: '682px',
         inlineSize: '532px',
+        maxInlineSize: '100%',
         border: '2px solid #ABB0B8',
         borderRadius: '1rem',
         mx: 'auto',
