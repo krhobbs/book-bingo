@@ -33,7 +33,7 @@ export default NextAuth({
             const returnedUser = {
               name: user.username, // hopefully can be removed in future? module augmentation not working with current next-auth version
               username: user.username,
-              card: user.card,
+              cards: user.cards,
               friends: user.friends
             }
 
@@ -64,7 +64,7 @@ export default NextAuth({
         session.user.username = token.name;
         const client = await connectDatabase();
         const userData = await getDocumentByUsername(client, 'users', token.name);
-        session.user.card = userData.card;
+        session.user.cards = userData.cards;
         session.user.friends = userData.friends;
       }
       // Send properties to the client, like an access_token from a provider.

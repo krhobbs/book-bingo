@@ -1,10 +1,11 @@
+import { ObjectId } from 'mongodb';
 import { connectDatabase } from '../../utils/db-utils';
 
 async function handler(req, res) {
   if (req.method === 'POST') {
     const data = req.body;
 
-    const { title, author, user, square, color } = data;
+    const { card, title, author, square, color } = data;
 
     try {
       const client = await connectDatabase();
@@ -15,7 +16,7 @@ async function handler(req, res) {
 
       const addBook = await booksCollection.updateOne(
         {
-          user: user,
+          _id: new ObjectId(card),
           'squares.id': square,
         },
         {

@@ -124,6 +124,11 @@ function TopNav() {
                 <Text variant="navLink">Friends</Text>
               </a>
             </Link>
+            <Link href="/archived">
+              <a>
+                <Text variant="navLink">Archived</Text>
+              </a>
+            </Link>
             <IconButton
               onClick={() => setShowSettings(!showSettings)}
               sx={{ cursor: 'pointer' }}

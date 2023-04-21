@@ -6,6 +6,7 @@ import Spacer from '../../ui/Spacer';
 
 interface CompleteBackProps {
   user: string;
+  archived: boolean;
   square: string;
   book: {
     title: string;
@@ -13,7 +14,7 @@ interface CompleteBackProps {
   };
 }
 
-function CompleteBack({ user, square, book }: CompleteBackProps) {
+function CompleteBack({ user, archived, square, book }: CompleteBackProps) {
   const { data: session, status } = useSession();
 
   const usersCard = session ? user === session.user.username : false;
@@ -36,7 +37,7 @@ function CompleteBack({ user, square, book }: CompleteBackProps) {
       sx={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}
     >
       <BookInfo book={book} />
-      {usersCard && (
+      {usersCard && !archived && (
         <>
           <Spacer size={['1.1rem']} />
           <Button
