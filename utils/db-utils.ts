@@ -72,7 +72,7 @@ export async function getDocumentByUsername(client, collection, username) {
   return serializable;
 }
 
-export async function getDocumentsByUsername(client, collection, usernames) {
+export async function getDocumentsByUsername(client, collection, usernames, filters = {}) {
   const db = client.db();
 
   if (usernames.length <= 0) {
@@ -81,7 +81,7 @@ export async function getDocumentsByUsername(client, collection, usernames) {
 
   const filter = { '$or': usernames.map((username) => {
     return { user: username }
-  }) }
+  }), ...filters }
 
   const documents = await db
     .collection(collection)

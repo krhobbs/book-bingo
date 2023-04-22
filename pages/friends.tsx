@@ -44,7 +44,8 @@ export async function getServerSideProps(context) {
     const cards = await getDocumentsByUsername(
       client,
       'cards',
-      session.user.friends
+      session.user.friends,
+      { archived: false }
     );
 
     client.close();
