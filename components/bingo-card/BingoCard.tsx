@@ -3,6 +3,7 @@ import Spacer from '../ui/Spacer';
 import { Box, Button, Text } from 'theme-ui';
 import { useSession } from 'next-auth/react';
 import { ArchiveBoxIcon, ArrowUturnLeftIcon } from '@heroicons/react/24/outline';
+import { useRouter } from 'next/router';
 
 interface BingoSquareProps {
   id: string;
@@ -24,6 +25,7 @@ export interface BingoCardProps {
 function BingoCard(props) {
   const { data: session, status } = useSession();
   const usersCard = session ? props.card.user === session.user.username : false;
+  const router = useRouter();
 
   async function archiveCardHandler() {
     await fetch('/api/cards/archive-card', {
@@ -60,7 +62,7 @@ function BingoCard(props) {
     >
       <Box sx={{alignItems: 'center', display: 'flex', gap: '1.5rem'}}>
         <Text variant={'heading2'}>{props.card.user || 'No name'}</Text>
-        {usersCard && !props.card.archived && (
+        {usersCard && !props.card.archived && router.asPath !== '/' && (
           <>
             <Button
               sx={{
