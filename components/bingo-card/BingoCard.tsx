@@ -1,9 +1,9 @@
 import BingoItem from './bingo-item/BingoItem';
 import Spacer from '../ui/Spacer';
-import { Box, Button, Text } from 'theme-ui';
+import { Box } from 'theme-ui';
 import { useSession } from 'next-auth/react';
-import { ArchiveBoxIcon, ArrowUturnLeftIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/router';
+import BingoCardTitle from './BingoCardTitle';
 
 interface BingoSquareProps {
   id: string;
@@ -43,11 +43,11 @@ function BingoCard(props) {
     await fetch('/api/cards/unarchive-card', {
       method: 'POST',
       body: JSON.stringify({
-        cardId: props.card._id
+        cardId: props.card._id,
       }),
       headers: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     });
   }
 
@@ -60,43 +60,13 @@ function BingoCard(props) {
         px: ['2px', '0'],
       }}
     >
-      <Box sx={{alignItems: 'center', display: 'flex', gap: '1.5rem'}}>
-        <Text variant={'heading2'}>{props.card.user || 'No name'}</Text>
-        {usersCard && !props.card.archived && router.asPath !== '/' && (
-          <>
-            <Button
-              sx={{
-                backgroundColor: 'primary',
-                color: 'text',
-                cursor: 'pointer',
-                padding: '0px',
-                inlineSize: ['38px', '60px'],
-                blockSize: ['16px', '26px'],
-              }}
-              onClick={archiveCardHandler}
-            >
-              <ArchiveBoxIcon style={{ blockSize: '98%' }} />
-            </Button>
-          </>
-        )}
-        {usersCard && props.card.archived && (
-          <>
-          <Button
-              sx={{
-                backgroundColor: 'primary',
-                color: 'text',
-                cursor: 'pointer',
-                padding: '0px',
-                inlineSize: ['38px', '60px'],
-                blockSize: ['16px', '26px'],
-              }}
-              onClick={unarchiveCardHandler}
-            >
-              <ArrowUturnLeftIcon style={{ blockSize: '80%' }} />
-            </Button>
-          </>
-        )}
-      </Box>
+      {(router.asPath === '/' || router.asPath === '/friends') && <BingoCardTitle
+        username={props.card.user}
+        usersCard={usersCard}
+        archived={props.card.archived}
+        onArchiveCard={archiveCardHandler}
+        onUnarchiveCard={unarchiveCardHandler}
+      />}
       <Spacer size={['1.25rem', '1.5rem']} />
       <Box
         sx={{
