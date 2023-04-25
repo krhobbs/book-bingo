@@ -26,7 +26,7 @@ function Incomplete({ archived, cardId, bookReq, square, user }: IncompleteProps
           <Spacer size={['1rem']} />
           <Link
             href={{
-              pathname: '/addBook',
+              pathname: '/add-book',
               query: {
                 card: cardId,
                 square: square,
