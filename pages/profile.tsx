@@ -11,7 +11,7 @@ export default function Profile(props) {
       <Head>
         <title>Book Bingo | User Profile</title>
       </Head>
-      <Spacer size="6.5rem" />
+      <Spacer size="3.5rem" />
       {props.cards.length >= 1 ? (
         <>
           <Cards cards={props.cards} />
