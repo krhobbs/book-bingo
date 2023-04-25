@@ -17,14 +17,13 @@ export async function getStaticProps() {
   try {
     const client = await connectDatabase();
     const cards = await getDocuments(client, 'cards', {archived: false});
-
     client.close();
 
     return {
       props: {
         cards: cards,
       },
-      revalidate: 1600,
+      revalidate: 800,
     };
   } catch (error) {
     return {

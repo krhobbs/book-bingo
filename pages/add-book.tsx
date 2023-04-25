@@ -1,8 +1,9 @@
 import { useRouter } from 'next/router';
 import { getSession } from 'next-auth/react';
 import AddBookForm from '../components/add-book/add-book-form';
+import Head from 'next/head';
 
-function AddBook({session, square, card}) {
+function AddBook({ session, square, card }) {
   const router = useRouter();
 
   async function addBookHandler(enteredBookData) {
@@ -22,17 +23,20 @@ function AddBook({session, square, card}) {
     } else {
       return data.message;
     }
-
-    
   }
 
   return (
-    <AddBookForm
-      card={card}
-      user={session.user.username}
-      square={square}
-      onAddBook={addBookHandler}
-    />
+    <>
+      <Head>
+        <title>Book Bingo | Add Book</title>
+      </Head>
+      <AddBookForm
+        card={card}
+        user={session.user.username}
+        square={square}
+        onAddBook={addBookHandler}
+      />
+    </>
   );
 }
 
@@ -54,7 +58,7 @@ export async function getServerSideProps(context) {
     props: {
       session: session,
       square: context.query.square,
-      card: context.query.card
+      card: context.query.card,
     },
   };
 }
