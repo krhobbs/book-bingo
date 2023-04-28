@@ -22,7 +22,6 @@ const containerStyles: ThemeUICSSObject = {
   inlineSize: '100%',
   justifyContent: 'space-between',
   padding: ['0 1rem', '0 2rem'],
-  position: 'absolute',
   top: '0',
   zIndex: '100',
 };
@@ -89,7 +88,7 @@ function TopNav() {
   }
 
   return (
-    <Box sx={containerStyles}>
+    <Box as="nav" sx={containerStyles}>
       <Link href="/">
         <a>
           <Box

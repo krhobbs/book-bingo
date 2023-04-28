@@ -1,22 +1,14 @@
-import Head from 'next/head';
-import Cards from '../components/cards';
+import HomeLayout from '../components/layout/pages/HomeLayout';
 import { connectDatabase, getDocuments } from '../utils/db-utils';
 
 export default function Home(props) {
-  return (
-    <>
-      <Head>
-        <title>Book Bingo</title>
-      </Head>
-      <Cards cards={props.cards} />
-    </>
-  );
+  return <HomeLayout cards={props.cards} />;
 }
 
 export async function getStaticProps() {
   try {
     const client = await connectDatabase();
-    const cards = await getDocuments(client, 'cards', {archived: false});
+    const cards = await getDocuments(client, 'cards', { archived: false });
     client.close();
 
     return {
