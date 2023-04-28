@@ -1,30 +1,9 @@
 import { connectDatabase, getDocumentsByUsername } from '../utils/db-utils';
 import { getSession } from 'next-auth/react';
-import Spacer from '../components/ui/Spacer';
-import { Box, Text } from 'theme-ui';
-import Head from 'next/head';
-import Cards from '../components/cards';
+import FriendsLayout from '../components/layout/pages/FriendsLayout';
 
 export default function Friends(props) {
-  if (props.cards.length === 0) {
-    return (
-      <Box
-        sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
-      >
-        <Spacer size="9rem" />
-        <Text>No friends.</Text>
-      </Box>
-    );
-  }
-
-  return (
-    <>
-      <Head>
-        <title>Book Bingo | Friends</title>
-      </Head>
-      <Cards cards={props.cards} />
-    </>
-  );
+  return <FriendsLayout cards={props.cards} />;
 }
 
 export async function getServerSideProps(context) {
@@ -52,7 +31,6 @@ export async function getServerSideProps(context) {
 
     return {
       props: {
-        session: session,
         cards: cards,
       },
     };

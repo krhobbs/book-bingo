@@ -1,43 +1,8 @@
-import { useRouter } from 'next/router';
 import { getSession } from 'next-auth/react';
-import AddBookForm from '../components/add-book/add-book-form';
-import Head from 'next/head';
+import AddBookLayout from '../components/layout/pages/AddBookLayout';
 
-function AddBook({ session, square, card }) {
-  const router = useRouter();
-
-  async function addBookHandler(enteredBookData) {
-    const response = await fetch('/api/add-book', {
-      method: 'POST',
-      body: JSON.stringify(enteredBookData),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    const data = await response.json();
-
-    if (response.ok) {
-      router.push('/');
-      return 'success';
-    } else {
-      return data.message;
-    }
-  }
-
-  return (
-    <>
-      <Head>
-        <title>Book Bingo | Add Book</title>
-      </Head>
-      <AddBookForm
-        card={card}
-        user={session.user.username}
-        square={square}
-        onAddBook={addBookHandler}
-      />
-    </>
-  );
+function AddBook({ square, cardId, username }) {
+  return <AddBookLayout cardId={cardId} username={username} square={square} />;
 }
 
 export default AddBook;
@@ -56,9 +21,9 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      session: session,
       square: context.query.square,
-      card: context.query.card,
+      cardId: context.query.card,
+      username: session.user.username
     },
   };
 }

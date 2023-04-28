@@ -2,12 +2,26 @@ import BingoCard, { BingoCardProps } from './bingo-card/BingoCard';
 import { Box } from 'theme-ui';
 import Spacer from './ui/Spacer';
 
-function Cards(props) {
+export interface Card {
+  _id: string;
+  user: string;
+  archived: boolean;
+  squares: {
+    id: string;
+    req: string;
+    color?: string;
+    book?: {
+      title: string;
+      author: string;
+    }
+  }[];
+};
+
+function Cards({ cards } : { cards: Card[]}) {
   return (
     <Box>
-      <Spacer size="6.5rem" />
-      {props.cards.map((card: BingoCardProps) => {
-        return <BingoCard key={card.id} card={card} />;
+      {cards.map((card: Card) => {
+        return <BingoCard key={card._id} card={card} />;
       })}
     </Box>
   );
