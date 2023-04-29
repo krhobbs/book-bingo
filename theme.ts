@@ -8,7 +8,7 @@ export const theme: Theme = {
     secondary: '#A8BAB6',
     accent: '#BBD8FD',
     highlight: '#f1f5f4',
-    muted: '#f6f6f6',
+    muted: '#B3B3B3',
     destructive: '#FF9999',
     modes: {
       dark: {
@@ -18,7 +18,7 @@ export const theme: Theme = {
         secondary: '#353635',
         accent: '#BBD8FD',
         highlight: '#0c1a1f',
-        muted: '#191919',
+        muted: '#4D4D4D',
         destructive: '#B23D3D',
       },
     },
@@ -76,6 +76,24 @@ export const theme: Theme = {
       '&:hover': {
         boxShadow: 'inset 0px 0px 15px -10px #000000',
       },
+    },
+    archival: {
+      bg: 'primary',
+      color: 'text',
+      cursor: 'pointer',
+      padding: '0px',
+      inlineSize: '100%',
+      blockSize: ['16px', '26px'],
+    },
+    bingoItem: {
+      bg: 'secondary',
+      color: 'text',
+      cursor: 'pointer',
+      position: 'absolute',
+      bottom: ['8px', '12px'],
+      padding: '0px',
+      inlineSize: ['38px', '60px'],
+      blockSize: ['16px', '26px'],
     },
     settings: {
         bg: 'background',

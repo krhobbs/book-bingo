@@ -1,5 +1,4 @@
 import { PlusIcon } from '@heroicons/react/24/outline';
-import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { Box, Button, Text } from 'theme-ui';
 import Spacer from '../../ui/Spacer';
@@ -8,14 +7,17 @@ interface IncompleteProps {
   archived: boolean;
   cardId: string;
   bookReq: string;
-  square: string;
-  user: string;
+  squareId: string;
+  usersCard: boolean;
 }
 
-function Incomplete({ archived, cardId, bookReq, square, user }: IncompleteProps) {
-  const { data: session, status } = useSession();
-  const usersCard = session ? user === session.user.username : false;
-
+function Incomplete({
+  archived,
+  cardId,
+  bookReq,
+  squareId,
+  usersCard,
+}: IncompleteProps) {
   return (
     <Box
       sx={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}
@@ -26,27 +28,15 @@ function Incomplete({ archived, cardId, bookReq, square, user }: IncompleteProps
           <Spacer size={['1rem']} />
           <Link
             href={{
-              pathname: '/addBook',
+              pathname: '/add-book',
               query: {
                 card: cardId,
-                square: square,
+                square: squareId,
               },
             }}
             passHref
           >
-            <Button
-              variant="bingoItemButton"
-              sx={{
-                backgroundColor: 'secondary',
-                color: 'text',
-                cursor: 'pointer',
-                position: 'absolute',
-                bottom: ['8px', '12px'],
-                padding: '0px',
-                inlineSize: ['38px', '60px'],
-                blockSize: ['16px', '26px'],
-              }}
-            >
+            <Button variant="bingoItem">
               <PlusIcon style={{ blockSize: '100%' }} />
             </Button>
           </Link>

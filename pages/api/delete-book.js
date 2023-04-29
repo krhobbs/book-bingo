@@ -1,17 +1,18 @@
 import { connectDatabase } from '../../utils/db-utils';
+import { ObjectId } from 'mongodb';
 
 async function handler(req, res) {
     if (req.method === 'POST') {
-        const { user, square } = req.body;
+        const { cardId, squareId } = req.body;
 
         const client = await connectDatabase();
         const db = client.db();
         const cardsCollection = db.collection('cards');
 
-        const removeBook = await cardsCollection.updateOne(
+        await cardsCollection.updateOne(
             {
-                user: user,
-                'squares.id': square
+                _id: new ObjectId(cardId),
+                'squares.id': squareId
             },
             {
                 $set: {
