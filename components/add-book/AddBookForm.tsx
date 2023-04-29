@@ -55,7 +55,7 @@ function AddBookForm(props) {
       <Spacer size={['2rem']} />
       <Box>
         <Label htmlFor="color">Color</Label>
-        <Input type="color" id="color" ref={colorInputRef} defaultValue="#FFFFFF" />
+        <Input type="color" id="color" ref={colorInputRef} defaultValue="#FFFFFF" sx={{padding: '0px', border: 'none'}} />
       </Box>
       <Spacer size={['2.4rem']} />
       <Box>
