@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { Box, Text } from 'theme-ui';
 import Spacer from '../../ui/Spacer';
-import Cards, { Card } from '../../Cards';
+import Cards from '../../Cards';
 
 function FriendsLayout({ cards }: { cards: Card[] }) {
   return (
