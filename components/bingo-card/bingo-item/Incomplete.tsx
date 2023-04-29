@@ -11,7 +11,13 @@ interface IncompleteProps {
   usersCard: boolean;
 }
 
-function Incomplete({ archived, cardId, bookReq, squareId, usersCard }: IncompleteProps) {
+function Incomplete({
+  archived,
+  cardId,
+  bookReq,
+  squareId,
+  usersCard,
+}: IncompleteProps) {
   return (
     <Box
       sx={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}
@@ -30,19 +36,7 @@ function Incomplete({ archived, cardId, bookReq, squareId, usersCard }: Incomple
             }}
             passHref
           >
-            <Button
-              variant="bingoItemButton"
-              sx={{
-                backgroundColor: 'secondary',
-                color: 'text',
-                cursor: 'pointer',
-                position: 'absolute',
-                bottom: ['8px', '12px'],
-                padding: '0px',
-                inlineSize: ['38px', '60px'],
-                blockSize: ['16px', '26px'],
-              }}
-            >
+            <Button variant="bingoItem">
               <PlusIcon style={{ blockSize: '100%' }} />
             </Button>
           </Link>

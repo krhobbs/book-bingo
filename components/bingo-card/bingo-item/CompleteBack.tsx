@@ -45,16 +45,8 @@ function CompleteBack({
         <>
           <Spacer size={['1.1rem']} />
           <Button
-            sx={{
-              backgroundColor: 'destructive',
-              color: 'text',
-              cursor: 'pointer',
-              position: 'absolute',
-              bottom: ['8px', '12px'],
-              padding: '0px',
-              inlineSize: ['38px', '60px'],
-              blockSize: ['16px', '26px'],
-            }}
+            variant="bingoItem"
+            sx={{background: 'destructive'}}
             onClick={removeBookHandler}
           >
             <TrashIcon style={{ blockSize: '98%' }} />
