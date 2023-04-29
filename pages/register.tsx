@@ -1,8 +1,15 @@
+import Head from 'next/head';
 import RegisterForm from '../components/register/register-form';
 
 function Register() {
-
-    return <RegisterForm />
+  return (
+    <>
+      <Head>
+        <title>Book Bingo | Register</title>
+      </Head>
+      <RegisterForm />
+    </>
+  );
 }
 
 export default Register;
