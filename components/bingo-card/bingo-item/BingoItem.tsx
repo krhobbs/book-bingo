@@ -3,13 +3,11 @@ import CompleteFront from './CompleteFront';
 import CompleteBack from './CompleteBack';
 import Incomplete from './Incomplete';
 import { Box } from 'theme-ui';
-import { BingoSquare } from '../BingoCardSquares';
-
 interface BingoItemProps {
   cardId: string;
   archived: boolean;
   usersCard: boolean;
-  square: BingoSquare;
+  square: Square;
 }
 
 function BingoItem({ archived, cardId, square, usersCard }: BingoItemProps) {

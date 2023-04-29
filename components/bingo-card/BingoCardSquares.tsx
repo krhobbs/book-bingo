@@ -1,20 +1,9 @@
 import BingoItem from './bingo-item/BingoItem';
 import { Box } from 'theme-ui';
-
-export interface BingoSquare {
-  id: string;
-  req: string;
-  book?: {
-    title: string;
-    author: string;
-  };
-  color?: string;
-}
-
 export interface BingoCardSquaresProps {
   archived: boolean;
   cardId: string;
-  squares: BingoSquare[];
+  squares: Square[];
   usersCard: boolean;
 }
 
@@ -28,7 +17,7 @@ function BingoCardSquares({ archived, cardId, squares, usersCard } : BingoCardSq
           gap: ['0.3rem', '0.5rem'],
         }}
       >
-        {squares.map((square: BingoSquare) => {
+        {squares.map((square: Square) => {
           return (
             <BingoItem
               key={square.id}

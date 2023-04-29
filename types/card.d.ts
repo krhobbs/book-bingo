@@ -12,3 +12,12 @@ interface Card {
     };
   }[];
 }
+interface Square {
+  id: string;
+  req: string;
+  book?: {
+    title: string;
+    author: string;
+  };
+  color?: string;
+}

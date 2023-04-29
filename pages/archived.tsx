@@ -2,8 +2,14 @@ import { connectDatabase, getDocuments } from '../utils/db-utils';
 import { getSession } from 'next-auth/react';
 import ArchivedLayout from '../components/layout/pages/ArchivedLayout';
 
-export default function Archived(props) {
-  return <ArchivedLayout cards={props.cards} username={props.username} />;
+export default function Archived({
+  cards,
+  username,
+}: {
+  cards: Card[];
+  username: string;
+}) {
+  return <ArchivedLayout cards={cards} username={username} />;
 }
 
 export async function getServerSideProps(context) {
