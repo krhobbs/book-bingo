@@ -4,6 +4,7 @@ import {
   ArrowUturnLeftIcon,
 } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/router';
+import { useMemo } from 'react';
 
 interface BingoCardTitleProps {
   username: string;
@@ -18,32 +19,30 @@ function BingoCardTitle({
   archived,
   onArchiveCard,
 }: BingoCardTitleProps) {
-  const router = useRouter();
+  const { asPath } = useRouter();
+
+  const showUsername = useMemo(
+    () => asPath === '/' || asPath === '/friends',
+    [asPath]
+  );
+  const showArchiveButton = useMemo(
+    () => (asPath === '/profile' || asPath === '/archived') && usersCard,
+    [asPath]
+  );
 
   return (
     <Box sx={{ alignItems: 'center', display: 'flex', gap: '1.5rem' }}>
-      {router.asPath !== '/profile' && router.asPath !== '/archived' && (
+      {showUsername && (
         <Text variant={'heading2'}>{username || 'No name'}</Text>
       )}
-      {usersCard && !archived && router.asPath !== '/' && (
-        <>
-          <Button
-            variant='archival'
-            onClick={() => onArchiveCard()}
-          >
+      {showArchiveButton && (
+        <Button variant="archival" onClick={() => onArchiveCard()}>
+          {archived ? (
+            <ArrowUturnLeftIcon style={{ blockSize: '98%' }} />
+          ) : (
             <ArchiveBoxIcon style={{ blockSize: '98%' }} />
-          </Button>
-        </>
-      )}
-      {usersCard && archived && (
-        <>
-          <Button
-            variant='archival'
-            onClick={() => onArchiveCard()}
-          >
-            <ArrowUturnLeftIcon style={{ blockSize: '80%' }} />
-          </Button>
-        </>
+          )}
+        </Button>
       )}
     </Box>
   );

@@ -1,14 +1,11 @@
-import BookInfo from '../../book/book-info';
+import BookInfo from '../../book/BookInfo';
 import { Box, Button } from 'theme-ui';
 import { TrashIcon } from '@heroicons/react/24/outline';
 import Spacer from '../../ui/Spacer';
 
 interface CompleteBackProps {
   archived: boolean;
-  book: {
-    title: string;
-    author: string;
-  };
+  book: Book;
   cardId: string;
   squareId: string;
   usersCard: boolean;
