@@ -30,14 +30,7 @@ function BingoCardTitle({
       {usersCard && !archived && router.asPath !== '/' && (
         <>
           <Button
-            sx={{
-              backgroundColor: 'primary',
-              color: 'text',
-              cursor: 'pointer',
-              padding: '0px',
-              inlineSize: '100%',
-              blockSize: ['16px', '26px'],
-            }}
+            variant='archival'
             onClick={() => onArchiveCard}
           >
             <ArchiveBoxIcon style={{ blockSize: '98%' }} />
@@ -47,14 +40,7 @@ function BingoCardTitle({
       {usersCard && archived && (
         <>
           <Button
-            sx={{
-              backgroundColor: 'primary',
-              color: 'text',
-              cursor: 'pointer',
-              padding: '0px',
-              inlineSize: '100%',
-              blockSize: ['16px', '26px'],
-            }}
+            variant='archival'
             onClick={() => onUnarchiveCard}
           >
             <ArrowUturnLeftIcon style={{ blockSize: '80%' }} />
