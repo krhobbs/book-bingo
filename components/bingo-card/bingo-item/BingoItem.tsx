@@ -3,21 +3,16 @@ import CompleteFront from './CompleteFront';
 import CompleteBack from './CompleteBack';
 import Incomplete from './Incomplete';
 import { Box } from 'theme-ui';
+import { BingoSquare } from '../BingoCardSquares';
 
 interface BingoItemProps {
   cardId: string;
   archived: boolean;
-  user: string;
-  square: string;
-  bookReq: string;
-  book: {
-    title: string;
-    author: string;
-  };
-  color?: string;
+  usersCard: boolean;
+  square: BingoSquare;
 }
 
-function BingoItem({ archived, cardId, user, square, bookReq, book, color }: BingoItemProps) {
+function BingoItem({ archived, cardId, square, usersCard }: BingoItemProps) {
   const [cardFlipped, setCardFlipped] = useState(false);
 
   const handleFlip = () => {
@@ -35,17 +30,17 @@ function BingoItem({ archived, cardId, user, square, bookReq, book, color }: Bin
         position: 'relative',
         blockSize: ['98px', '138px'],
         inlineSize: ['auto', '112px'],
-        border: (theme) => `solid 1px ${book ? color ?? theme.colors.accent : theme.colors.secondary}`,
+        border: (theme) => `solid 1px ${square.book ? square.color ?? theme.colors.accent : theme.colors.secondary}`,
         borderRadius: '5px',
-        boxShadow: (theme) => `1px 1px 0px 1px ${ book ? color ?? theme.colors.accent : theme.colors.secondary}`,
+        boxShadow: (theme) => `1px 1px 0px 1px ${ square.book ? square.color ?? theme.colors.accent : theme.colors.secondary}`,
         padding: ['0.05rem', '0.1rem'],
       }}
       onClick={handleFlip}
     >
-      {book ? (
-        cardFlipped ? <CompleteBack archived={archived} user={user} square={square} book={book} /> : <CompleteFront bookReq={bookReq} />
+      {square.book ? (
+        cardFlipped ? <CompleteBack archived={archived} cardId={cardId} usersCard={usersCard} squareId={square.id} book={square.book} /> : <CompleteFront bookReq={square.req} />
       ) : (
-        <Incomplete archived={archived} cardId={cardId} bookReq={bookReq} square={square} user={user} />
+        <Incomplete archived={archived} cardId={cardId} bookReq={square.req} squareId={square.id} usersCard={usersCard} />
       )}
     </Box>
   );

@@ -1,35 +1,39 @@
 import BookInfo from '../../book/book-info';
 import { Box, Button } from 'theme-ui';
-import { useSession } from 'next-auth/react';
 import { TrashIcon } from '@heroicons/react/24/outline';
 import Spacer from '../../ui/Spacer';
 
 interface CompleteBackProps {
-  user: string;
   archived: boolean;
-  square: string;
   book: {
     title: string;
     author: string;
   };
+  cardId: string;
+  squareId: string;
+  usersCard: boolean;
 }
 
-function CompleteBack({ user, archived, square, book }: CompleteBackProps) {
-  const { data: session, status } = useSession();
-
-  const usersCard = session ? user === session.user.username : false;
-
+function CompleteBack({
+  cardId,
+  usersCard,
+  archived,
+  squareId,
+  book,
+}: CompleteBackProps) {
   async function removeBookHandler() {
-    await fetch('/api/delete-book', {
+    const response = await fetch('/api/delete-book', {
       method: 'POST',
       body: JSON.stringify({
-        user: user,
-        square: square,
+        cardId: cardId,
+        squareId: squareId,
       }),
       headers: {
         'Content-Type': 'application/json',
       },
     });
+
+    if (response.ok) location.reload();
   }
 
   return (

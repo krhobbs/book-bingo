@@ -1,37 +1,21 @@
-import BingoItem from './bingo-item/BingoItem';
 import Spacer from '../ui/Spacer';
 import { Box } from 'theme-ui';
+import { Card } from '../Cards';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import BingoCardTitle from './BingoCardTitle';
+import BingoCardSquares from './BingoCardSquares';
 
-interface BingoSquareProps {
-  id: string;
-  req: string;
-  book?: {
-    title: string;
-    author: string;
-  };
-  color?: string;
-}
-
-export interface BingoCardProps {
-  id: string;
-  archived: boolean;
-  user: string;
-  squares: [BingoSquareProps];
-}
-
-function BingoCard(props) {
-  const { data: session, status } = useSession();
-  const usersCard = session ? props.card.user === session.user.username : false;
+function BingoCard({ card } : { card: Card }) {
+  const { data: session } = useSession();
+  const usersCard = session ? card.user === session.user.username : false;
   const router = useRouter();
 
   async function archiveCardHandler() {
     await fetch('/api/cards/archive-card', {
       method: 'POST',
       body: JSON.stringify({
-        cardId: props.card._id,
+        cardId: card._id,
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -43,7 +27,7 @@ function BingoCard(props) {
     await fetch('/api/cards/unarchive-card', {
       method: 'POST',
       body: JSON.stringify({
-        cardId: props.card._id,
+        cardId: card._id,
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -61,36 +45,14 @@ function BingoCard(props) {
       }}
     >
       {(router.asPath === '/' || router.asPath === '/friends') && <BingoCardTitle
-        username={props.card.user}
+        username={card.user}
         usersCard={usersCard}
-        archived={props.card.archived}
+        archived={card.archived}
         onArchiveCard={archiveCardHandler}
         onUnarchiveCard={unarchiveCardHandler}
       />}
       <Spacer size={['1.25rem', '1.5rem']} />
-      <Box
-        sx={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(5, 1fr)',
-          gridTemplateRows: 'repeat(5, auto)',
-          gap: ['0.3rem', '0.5rem'],
-        }}
-      >
-        {props.card.squares.map((square: BingoSquareProps) => {
-          return (
-            <BingoItem
-              key={square.id}
-              cardId={props.card._id}
-              archived={props.card.archived}
-              user={props.card.user}
-              square={square.id}
-              bookReq={square.req}
-              book={square.book}
-              color={square.color}
-            />
-          );
-        })}
-      </Box>
+      <BingoCardSquares archived={card.archived} cardId={card._id} squares={card.squares} usersCard={usersCard} />
       <Spacer size={['3rem', '4rem']} />
     </Box>
   );
