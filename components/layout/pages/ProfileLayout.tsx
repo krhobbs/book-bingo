@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { Text } from 'theme-ui';
-import Cards, { Card } from '../../Cards';
+import Cards from '../../Cards';
 import NewCard from '../../NewCard';
 import Spacer from '../../ui/Spacer';
 
