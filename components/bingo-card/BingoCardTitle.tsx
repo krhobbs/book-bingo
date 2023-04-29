@@ -10,7 +10,6 @@ interface BingoCardTitleProps {
   usersCard: boolean;
   archived: boolean;
   onArchiveCard: Function;
-  onUnarchiveCard: Function;
 }
 
 function BingoCardTitle({
@@ -18,7 +17,6 @@ function BingoCardTitle({
   usersCard,
   archived,
   onArchiveCard,
-  onUnarchiveCard,
 }: BingoCardTitleProps) {
   const router = useRouter();
 
@@ -31,7 +29,7 @@ function BingoCardTitle({
         <>
           <Button
             variant='archival'
-            onClick={() => onArchiveCard}
+            onClick={() => onArchiveCard()}
           >
             <ArchiveBoxIcon style={{ blockSize: '98%' }} />
           </Button>
@@ -41,7 +39,7 @@ function BingoCardTitle({
         <>
           <Button
             variant='archival'
-            onClick={() => onUnarchiveCard}
+            onClick={() => onArchiveCard()}
           >
             <ArrowUturnLeftIcon style={{ blockSize: '80%' }} />
           </Button>

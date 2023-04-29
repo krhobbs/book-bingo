@@ -7,8 +7,7 @@ async function handler(req, res) {
     return;
   }
 
-  const { cardId } = req.body;
-  console.log(`Archiving ${cardId}`)
+  const { cardId, archived } = req.body;
 
   const session = await getSession({ req: req });
 
@@ -30,17 +29,11 @@ async function handler(req, res) {
     res.status(404).json({ message: 'User not found.' });
   }
 
+  console.log(archived);
+
   await cardsCollection.updateOne(
     {_id: new ObjectId(cardId) },
-    { $set: { archived: true } }
-  );
-
-  const result = await usersCollection.updateOne(
-    { username: username },
-    {
-      $pull: { cards: cardId },
-      $push: { archivedCards: { $each: [cardId], $position: 0 } },
-    }
+    { $set: { archived: !archived } }
   );
 
   client.close();
