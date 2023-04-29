@@ -22,35 +22,44 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   if (newPassword.trim().length < 7) {
     res.status(422).json({ message: 'Password must be >= 8 characters.' });
-      return;
-  }
-
-  const client = await connectDatabase();
-  const usersCollection = client.db().collection('users');
-
-  const user = await usersCollection.findOne({ username: username });
-
-  if (!user) {
-    res.status(404).json({ message: 'User not found.' });
-  }
-
-  const currentPassword = user.password;
-  const verified = await verifyPassword(oldPassword, currentPassword);
-
-  if (!verified) {
-    res.status(403).json({ message: 'Incorrect old password!' });
-    client.close();
     return;
   }
 
-  const hashedPassword = await hashPassword(newPassword);
+  try {
+    const client = await connectDatabase();
+    const usersCollection = client.db().collection('users');
 
-  await usersCollection.updateOne(
-    { username: username },
-    { $set: { password: hashedPassword } }
-  );
+    const user = await usersCollection.findOne({ username: username });
 
-  client.close();
+    if (!user) {
+      res.status(404).json({ message: 'User not found.' });
+      return;
+    }
+
+    const currentPassword = user.password;
+    const verified = await verifyPassword(oldPassword, currentPassword);
+
+    if (!verified) {
+      res.status(403).json({ message: 'Incorrect old password!' });
+      client.close();
+      return;
+    }
+
+    const hashedPassword = await hashPassword(newPassword);
+
+    await usersCollection.updateOne(
+      { username: username },
+      { $set: { password: hashedPassword } }
+    );
+
+    client.close();
+  } catch (error) {
+    res
+      .status(422)
+      .json({ message: 'Unable to connect to database. Try again later.' });
+    return;
+  }
+
   res.status(200).json({ message: 'Password updated!' });
 }
 
