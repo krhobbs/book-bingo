@@ -18,22 +18,31 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   const username = session.user.username;
   const friendToDelete = req.body.friendToDelete;
 
-  const client = await connectDatabase();
-  const usersCollection = client.db().collection('users');
+  try {
+    const client = await connectDatabase();
+    const usersCollection = client.db().collection('users');
 
-  const user = await usersCollection.findOne({ username: username });
+    const user = await usersCollection.findOne({ username: username });
 
-  if (!user) {
-    res.status(404).json({ message: 'User not found.' });
+    if (!user) {
+      res.status(404).json({ message: 'User not found.' });
+      return;
+    }
+
+    await usersCollection.updateOne(
+      { username: username },
+      { $pull: { friends: friendToDelete } }
+    );
+
+    client.close();
+  } catch (error) {
+    res
+      .status(422)
+      .json({ message: 'Unable to connect to database. Try again later.' });
+    return;
   }
 
-  await usersCollection.updateOne(
-    { username: username },
-    { $pull: { friends: friendToDelete } }
-  );
-
-  client.close();
-  res.status(200).json({ message: 'Password updated!' });
+  res.status(200).json({ message: 'Friend Deleted!' });
 }
 
 export default handler;

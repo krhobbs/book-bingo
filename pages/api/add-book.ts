@@ -13,9 +13,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
       const db = client.db();
 
-      const booksCollection = db.collection('cards');
+      const cardsCollection = db.collection('cards');
 
-      await booksCollection.updateOne(
+      await cardsCollection.updateOne(
         {
           _id: new ObjectId(card),
           'squares.id': square,
