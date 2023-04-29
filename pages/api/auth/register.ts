@@ -1,7 +1,8 @@
+import type { NextApiRequest, NextApiResponse } from 'next';
 import { hashPassword } from '../../../utils/auth-utils';
 import { connectDatabase, getDocumentByUsername } from '../../../utils/db-utils';
 
-async function handler(req, res) {
+async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     const data = req.body;
 
@@ -31,7 +32,7 @@ async function handler(req, res) {
     const hashedPassword = await hashPassword(password);
 
 
-    const result = await db.collection('users').insertOne({
+    await db.collection('users').insertOne({
       username: username,
       password: hashedPassword,
       friends: []

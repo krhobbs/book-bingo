@@ -1,8 +1,9 @@
+import type { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
 import { connectDatabase } from '../../../utils/db-utils';
 import { verifyPassword, hashPassword } from '../../../utils/auth-utils';
 
-async function handler(req, res) {
+async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'PATCH') {
     return;
   }
@@ -44,7 +45,7 @@ async function handler(req, res) {
 
   const hashedPassword = await hashPassword(newPassword);
 
-  const result = await usersCollection.updateOne(
+  await usersCollection.updateOne(
     { username: username },
     { $set: { password: hashedPassword } }
   );
