@@ -16,7 +16,7 @@ function ProfileLayout({ cards, username }: ProfileLayoutProps) {
         <title>Book Bingo | Profile</title>
       </Head>
       <Text variant="heading1" as="h1" sx={{ textAlign: 'center' }}>
-        {username}'s Profile
+        {username}&apos;s Profile
       </Text>
       <Spacer size="2rem" />
       {cards.length >= 1 ? (

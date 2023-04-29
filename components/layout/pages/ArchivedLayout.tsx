@@ -15,7 +15,7 @@ function ArchivedLayout({ cards, username }: ArchivedLayoutProps) {
         <title>Book Bingo | Archived</title>
       </Head>
       <Text variant="heading1" as="h1" sx={{ textAlign: 'center' }}>
-        {username}'s Archived Cards
+        {username}&apos;s Archived Cards
       </Text>
       <Spacer size="2rem" />
       {cards.length === 0 ? (
