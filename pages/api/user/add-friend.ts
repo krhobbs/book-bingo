@@ -1,7 +1,8 @@
+import type { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
 import { connectDatabase } from '../../../utils/db-utils';
 
-async function handler(req, res) {
+async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
     return;
   }
@@ -34,7 +35,7 @@ async function handler(req, res) {
     return;
   }
 
-  const result = await usersCollection.updateOne(
+  await usersCollection.updateOne(
     { username: username },
     { $push: { friends: friendToAdd } }
   );
