@@ -1,6 +1,6 @@
 import Spacer from '../ui/Spacer';
 import { Box } from 'theme-ui';
-import { Card } from '../Cards';
+import type { Card } from '../Cards';
 import { useSession } from 'next-auth/react';
 import BingoCardTitle from './BingoCardTitle';
 import BingoCardSquares from './BingoCardSquares';
