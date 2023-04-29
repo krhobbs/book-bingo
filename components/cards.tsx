@@ -1,6 +1,5 @@
-import BingoCard, { BingoCardProps } from './bingo-card/BingoCard';
+import BingoCard from './bingo-card/BingoCard';
 import { Box } from 'theme-ui';
-import Spacer from './ui/Spacer';
 
 export interface Card {
   _id: string;

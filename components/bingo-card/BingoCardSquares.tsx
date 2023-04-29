@@ -1,7 +1,7 @@
 import BingoItem from './bingo-item/BingoItem';
 import { Box } from 'theme-ui';
 
-interface BingoSquareProps {
+export interface BingoSquare {
   id: string;
   req: string;
   book?: {
@@ -12,13 +12,13 @@ interface BingoSquareProps {
 }
 
 export interface BingoCardSquaresProps {
-  id: string;
   archived: boolean;
-  user: string;
-  squares: [BingoSquareProps];
+  cardId: string;
+  squares: BingoSquare[];
+  usersCard: boolean;
 }
 
-function BingoCardSquares(props) {
+function BingoCardSquares({ archived, cardId, squares, usersCard } : BingoCardSquaresProps) {
   return (
       <Box
         sx={{
@@ -28,17 +28,14 @@ function BingoCardSquares(props) {
           gap: ['0.3rem', '0.5rem'],
         }}
       >
-        {props.card.squares.map((square: BingoSquareProps) => {
+        {squares.map((square: BingoSquare) => {
           return (
             <BingoItem
               key={square.id}
-              cardId={props.card._id}
-              archived={props.card.archived}
-              user={props.card.user}
-              square={square.id}
-              bookReq={square.req}
-              book={square.book}
-              color={square.color}
+              cardId={cardId}
+              archived={archived}
+              square={square}
+              usersCard={usersCard}
             />
           );
         })}

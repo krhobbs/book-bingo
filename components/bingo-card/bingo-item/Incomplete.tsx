@@ -1,5 +1,4 @@
 import { PlusIcon } from '@heroicons/react/24/outline';
-import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { Box, Button, Text } from 'theme-ui';
 import Spacer from '../../ui/Spacer';
@@ -8,14 +7,11 @@ interface IncompleteProps {
   archived: boolean;
   cardId: string;
   bookReq: string;
-  square: string;
-  user: string;
+  squareId: string;
+  usersCard: boolean;
 }
 
-function Incomplete({ archived, cardId, bookReq, square, user }: IncompleteProps) {
-  const { data: session, status } = useSession();
-  const usersCard = session ? user === session.user.username : false;
-
+function Incomplete({ archived, cardId, bookReq, squareId, usersCard }: IncompleteProps) {
   return (
     <Box
       sx={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}
@@ -29,7 +25,7 @@ function Incomplete({ archived, cardId, bookReq, square, user }: IncompleteProps
               pathname: '/add-book',
               query: {
                 card: cardId,
-                square: square,
+                square: squareId,
               },
             }}
             passHref
