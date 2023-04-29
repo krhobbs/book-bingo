@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import BingoCardTitle from './BingoCardTitle';
 import BingoCardSquares from './BingoCardSquares';
 
-function BingoCard({ card } : { card: Card }) {
+function BingoCard({ card }: { card: Card }) {
   const { data: session } = useSession();
   const usersCard = session ? card.user === session.user.username : false;
   const router = useRouter();
@@ -44,15 +44,20 @@ function BingoCard({ card } : { card: Card }) {
         px: ['2px', '0'],
       }}
     >
-      {(router.asPath === '/' || router.asPath === '/friends') && <BingoCardTitle
+      <BingoCardTitle
         username={card.user}
         usersCard={usersCard}
         archived={card.archived}
         onArchiveCard={archiveCardHandler}
         onUnarchiveCard={unarchiveCardHandler}
-      />}
+      />
       <Spacer size={['1.25rem', '1.5rem']} />
-      <BingoCardSquares archived={card.archived} cardId={card._id} squares={card.squares} usersCard={usersCard} />
+      <BingoCardSquares
+        archived={card.archived}
+        cardId={card._id}
+        squares={card.squares}
+        usersCard={usersCard}
+      />
       <Spacer size={['3rem', '4rem']} />
     </Box>
   );

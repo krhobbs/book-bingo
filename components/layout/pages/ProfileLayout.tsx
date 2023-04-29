@@ -18,6 +18,7 @@ function ProfileLayout({ cards, username }: ProfileLayoutProps) {
       <Text variant="heading1" as="h1" sx={{ textAlign: 'center' }}>
         {username}'s Profile
       </Text>
+      <Spacer size="2rem" />
       {cards.length >= 1 ? (
         <>
           <Cards cards={cards} />

@@ -1,4 +1,3 @@
-import Spacer from '../ui/Spacer';
 import { Box, Button, Text } from 'theme-ui';
 import {
   ArchiveBoxIcon,
@@ -25,7 +24,9 @@ function BingoCardTitle({
 
   return (
     <Box sx={{ alignItems: 'center', display: 'flex', gap: '1.5rem' }}>
-      <Text variant={'heading2'}>{username || 'No name'}</Text>
+      {router.asPath !== '/profile' && router.asPath !== '/archived' && (
+        <Text variant={'heading2'}>{username || 'No name'}</Text>
+      )}
       {usersCard && !archived && router.asPath !== '/' && (
         <>
           <Button
@@ -34,7 +35,7 @@ function BingoCardTitle({
               color: 'text',
               cursor: 'pointer',
               padding: '0px',
-              inlineSize: ['38px', '60px'],
+              inlineSize: '100%',
               blockSize: ['16px', '26px'],
             }}
             onClick={() => onArchiveCard}
@@ -51,7 +52,7 @@ function BingoCardTitle({
               color: 'text',
               cursor: 'pointer',
               padding: '0px',
-              inlineSize: ['38px', '60px'],
+              inlineSize: '100%',
               blockSize: ['16px', '26px'],
             }}
             onClick={() => onUnarchiveCard}
