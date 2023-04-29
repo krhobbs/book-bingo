@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import LoginForm from '../components/login/login-form';
+import LoginForm from '../components/login/LoginForm';
 
 function Login() {
   return (
