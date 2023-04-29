@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import Cards, { Card } from '../../Cards';
+import Cards from '../../Cards';
 
 function HomeLayout({ cards } : { cards: Card[] }) {
   return (
