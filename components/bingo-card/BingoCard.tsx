@@ -14,18 +14,7 @@ function BingoCard({ card }: { card: Card }) {
       method: 'POST',
       body: JSON.stringify({
         cardId: card._id,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-  }
-
-  async function unarchiveCardHandler() {
-    await fetch('/api/cards/unarchive-card', {
-      method: 'POST',
-      body: JSON.stringify({
-        cardId: card._id,
+        archived: card.archived
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -47,7 +36,6 @@ function BingoCard({ card }: { card: Card }) {
         usersCard={usersCard}
         archived={card.archived}
         onArchiveCard={archiveCardHandler}
-        onUnarchiveCard={unarchiveCardHandler}
       />
       <Spacer size={['1.25rem', '1.5rem']} />
       <BingoCardSquares
