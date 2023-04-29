@@ -188,11 +188,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     const newCardId = cardResult.insertedId.toString();
 
-    await usersCollection.updateOne(
-      { username: username },
-      { $push: { cards: { $each: [newCardId], $position: 0 } } }
-    );
-
     client.close();
   } catch (error) {
     res
