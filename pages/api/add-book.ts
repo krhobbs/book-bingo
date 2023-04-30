@@ -1,7 +1,8 @@
+import type { NextApiRequest, NextApiResponse } from 'next';
 import { ObjectId } from 'mongodb';
 import { connectDatabase } from '../../utils/db-utils';
 
-async function handler(req, res) {
+async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     const data = req.body;
 
@@ -12,9 +13,9 @@ async function handler(req, res) {
 
       const db = client.db();
 
-      const booksCollection = db.collection('cards');
+      const cardsCollection = db.collection('cards');
 
-      const addBook = await booksCollection.updateOne(
+      await cardsCollection.updateOne(
         {
           _id: new ObjectId(card),
           'squares.id': square,

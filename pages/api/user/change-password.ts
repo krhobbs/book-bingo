@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
 import { connectDatabase } from '../../../utils/db-utils';
+import { verifyPassword, hashPassword } from '../../../utils/auth-utils';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'PATCH') {
@@ -11,12 +12,18 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   // Make sure the user is authenticated
   if (!session) {
-    res.status(401).json({ message: 'Not authenticated.' });
+    res.status(401).json({ message: 'Not auth' });
     return;
   }
 
   const username = session.user.username;
-  const friendToDelete = req.body.friendToDelete;
+  const oldPassword = req.body.oldPassword;
+  const newPassword = req.body.newPassword;
+
+  if (newPassword.trim().length < 7) {
+    res.status(422).json({ message: 'Password must be >= 8 characters.' });
+    return;
+  }
 
   try {
     const client = await connectDatabase();
@@ -29,9 +36,20 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       return;
     }
 
+    const currentPassword = user.password;
+    const verified = await verifyPassword(oldPassword, currentPassword);
+
+    if (!verified) {
+      res.status(403).json({ message: 'Incorrect old password!' });
+      client.close();
+      return;
+    }
+
+    const hashedPassword = await hashPassword(newPassword);
+
     await usersCollection.updateOne(
       { username: username },
-      { $pull: { friends: friendToDelete } }
+      { $set: { password: hashedPassword } }
     );
 
     client.close();
@@ -42,7 +60,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     return;
   }
 
-  res.status(200).json({ message: 'Friend Deleted!' });
+  res.status(200).json({ message: 'Password updated!' });
 }
 
 export default handler;

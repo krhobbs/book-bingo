@@ -2,8 +2,14 @@ import { connectDatabase, getDocuments } from '../utils/db-utils';
 import { getSession } from 'next-auth/react';
 import ProfileLayout from '../components/layout/pages/ProfileLayout';
 
-export default function Profile(props) {
-  return <ProfileLayout cards={props.cards} username={props.username} />;
+export default function Profile({
+  cards,
+  username,
+}: {
+  cards: Card[];
+  username: string;
+}) {
+  return <ProfileLayout cards={cards} username={username} />;
 }
 
 export async function getServerSideProps(context) {

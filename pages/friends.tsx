@@ -2,8 +2,8 @@ import { connectDatabase, getDocumentsByUsername } from '../utils/db-utils';
 import { getSession } from 'next-auth/react';
 import FriendsLayout from '../components/layout/pages/FriendsLayout';
 
-export default function Friends(props) {
-  return <FriendsLayout cards={props.cards} />;
+export default function Friends({ cards } : { cards: Card[] }) {
+  return <FriendsLayout cards={cards} />;
 }
 
 export async function getServerSideProps(context) {

@@ -1,10 +1,7 @@
 import { Flex, Text } from 'theme-ui';
 
 interface BookInfoProps {
-    book: {
-        title: string;
-        author: string;
-    }
+    book: Book;
 }
 
 function BookInfo({ book }: BookInfoProps) {

@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import RegisterForm from '../components/register/register-form';
+import RegisterForm from '../components/register/RegisterForm';
 
 function Register() {
   return (

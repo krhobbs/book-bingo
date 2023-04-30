@@ -19,7 +19,7 @@ function ArchivedLayout({ cards, username }: ArchivedLayoutProps) {
       </Text>
       <Spacer size="2rem" />
       {cards.length === 0 ? (
-        <Text>No Archived Cards.</Text>
+        <Text as="p" sx={{textAlign: 'center'}}>No Archived Cards.</Text>
       ) : (
         <Cards cards={cards} />
       )}
