@@ -1,8 +1,8 @@
 import HomeLayout from '../components/layout/pages/HomeLayout';
 import { connectDatabase, getDocuments } from '../utils/db-utils';
 
-export default function Home(props) {
-  return <HomeLayout cards={props.cards} />;
+export default function Home({ cards } : { cards: Card[] }) {
+  return <HomeLayout cards={cards} />;
 }
 
 export async function getStaticProps() {

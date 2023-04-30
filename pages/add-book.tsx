@@ -1,7 +1,15 @@
 import { getSession } from 'next-auth/react';
 import AddBookLayout from '../components/layout/pages/AddBookLayout';
 
-function AddBook({ square, cardId, username }) {
+function AddBook({
+  square,
+  cardId,
+  username,
+}: {
+  square: string;
+  cardId: string;
+  username: string;
+}) {
   return <AddBookLayout cardId={cardId} username={username} square={square} />;
 }
 
@@ -23,7 +31,7 @@ export async function getServerSideProps(context) {
     props: {
       square: context.query.square,
       cardId: context.query.card,
-      username: session.user.username
+      username: session.user.username,
     },
   };
 }
