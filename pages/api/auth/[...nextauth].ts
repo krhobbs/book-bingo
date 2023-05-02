@@ -1,9 +1,9 @@
-import NextAuth from 'next-auth';
+import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { verifyPassword } from '../../../utils/auth-utils';
 import { connectDatabase, getDocumentByUsername } from '../../../utils/db-utils';
 
-export default NextAuth({
+export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
     //maxAge: 3000
@@ -31,6 +31,7 @@ export default NextAuth({
             client.close();
 
             const returnedUser = {
+              id: user._id,
               name: user.username, // hopefully can be removed in future? module augmentation not working with current next-auth version
               username: user.username,
               friends: user.friends
@@ -69,4 +70,6 @@ export default NextAuth({
       return session
     }
   }
-});
+};
+
+export default NextAuth(authOptions);
