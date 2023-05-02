@@ -16,7 +16,6 @@ async function registerUser(username: string, password: string) {
 
   const data = await response.json();
 
-
   if (!response.ok) {
     throw new Error(data.message);
   }
@@ -76,9 +75,7 @@ function RegisterForm(props) {
         </Box>
         <Spacer size={['2.4rem']} />
         <Link href="/login">
-          <a>
-            <Text variant="link">Already have an account? Login</Text>
-          </a>
+          <Text variant="link">Already have an account? Login</Text>
         </Link>
       </Box>
       {errorMessage && (

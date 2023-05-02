@@ -32,7 +32,7 @@ function LoginForm() {
     }
   }
 
-  function closeErrorPopup() : void {
+  function closeErrorPopup(): void {
     setErrorMessage('');
   }
 
@@ -63,15 +63,19 @@ function LoginForm() {
         </Box>
         <Spacer size={['2.4rem']} />
         <Link href="/register">
-          <a>
-            <Text variant="link">Don&apos;t have an account? Register</Text>
-          </a>
+          <Text variant="link">Don&apos;t have an account? Register</Text>
         </Link>
       </Box>
-      {errorMessage && <Box>
-        <Spacer size={['2.4rem']} />
-        <ErrorPopup message={errorMessage} close={closeErrorPopup} sx={{margin: 'auto'}}></ErrorPopup>
-      </Box>}
+      {errorMessage && (
+        <Box>
+          <Spacer size={['2.4rem']} />
+          <ErrorPopup
+            message={errorMessage}
+            close={closeErrorPopup}
+            sx={{ margin: 'auto' }}
+          ></ErrorPopup>
+        </Box>
+      )}
     </>
   );
 }
