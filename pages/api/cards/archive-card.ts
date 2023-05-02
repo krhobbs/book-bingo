@@ -1,7 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { ObjectId } from 'mongodb';
-import { getSession } from 'next-auth/react';
 import { connectDatabase } from '../../../utils/db-utils';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '../auth/[...nextauth]';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
@@ -10,7 +11,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   const { cardId, archived } = req.body;
 
-  const session = await getSession({ req: req });
+  const session = await getServerSession(req, res, authOptions);
 
   // Make sure the user is authenticated
   if (!session) {

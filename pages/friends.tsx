@@ -1,5 +1,6 @@
 import { connectDatabase, getDocumentsByUsername } from '../utils/db-utils';
-import { getSession } from 'next-auth/react';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from './api/auth/[...nextauth]';
 import FriendsLayout from '../components/layout/pages/FriendsLayout';
 
 export default function Friends({ cards } : { cards: Card[] }) {
@@ -7,7 +8,7 @@ export default function Friends({ cards } : { cards: Card[] }) {
 }
 
 export async function getServerSideProps(context) {
-  const session = await getSession(context);
+  const session = await getServerSession(context.req, context.res, authOptions);
 
   if (!session) {
     return {

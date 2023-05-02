@@ -1,4 +1,5 @@
-import { getSession } from 'next-auth/react';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from './api/auth/[...nextauth]';
 import AddBookLayout from '../components/layout/pages/AddBookLayout';
 
 function AddBook({
@@ -16,7 +17,7 @@ function AddBook({
 export default AddBook;
 
 export async function getServerSideProps(context) {
-  const session = await getSession(context);
+  const session = await getServerSession(context.req, context.res, authOptions);
 
   if (!session || !context.query.square) {
     return {
