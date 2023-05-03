@@ -48,11 +48,10 @@ function TopNav() {
     const data = await response.json();
 
     if (response.ok) {
-      return 'success'
+      return 'success';
     } else {
       return data.message;
     }
-
   }
 
   async function deleteFriendHandler(friendData) {
@@ -75,13 +74,13 @@ function TopNav() {
       body: JSON.stringify(newFriendData),
       headers: {
         'Content-Type': 'application/json',
-      }
+      },
     });
-    
+
     const data = await response.json();
 
     if (response.ok) {
-      return 'success'
+      return 'success';
     } else {
       return data.message;
     }
@@ -90,23 +89,21 @@ function TopNav() {
   return (
     <Box as="nav" sx={containerStyles}>
       <Link href="/">
-        <a>
-          <Box
-            sx={{
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.75rem',
-            }}
-          >
-            <IconButton sx={{ padding: 0 }}>
-              <BookOpenIcon style={{ inlineSize: '100%' }} />
-            </IconButton>
-            <Text variant="heading1" sx={{ display: ['none', 'inline'] }}>
-              BookBingo
-            </Text>
-          </Box>
-        </a>
+        <Box
+          sx={{
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.75rem',
+          }}
+        >
+          <IconButton sx={{ padding: 0 }}>
+            <BookOpenIcon style={{ inlineSize: '100%' }} />
+          </IconButton>
+          <Text variant="heading1" sx={{ display: ['none', 'inline'] }}>
+            BookBingo
+          </Text>
+        </Box>
       </Link>
       <Box
         sx={{ display: 'flex', alignItems: 'center', gap: ['1rem', '2rem'] }}
@@ -114,19 +111,13 @@ function TopNav() {
         {status === 'authenticated' ? (
           <>
             <Link href="/profile">
-              <a>
-                <Text variant="navLink">Profile</Text>
-              </a>
+              <Text variant="navLink">Profile</Text>
             </Link>
             <Link href="/friends">
-              <a>
-                <Text variant="navLink">Friends</Text>
-              </a>
+              <Text variant="navLink">Friends</Text>
             </Link>
             <Link href="/archived">
-              <a>
-                <Text variant="navLink">Archived</Text>
-              </a>
+              <Text variant="navLink">Archived</Text>
             </Link>
             <IconButton
               onClick={() => setShowSettings(!showSettings)}
@@ -155,7 +146,8 @@ function TopNav() {
                     top: '65px',
                     right: ['3px', '16px'],
                     zIndex: 2,
-                    boxShadow: (theme) => `1px 1px 0px 2px ${theme.colors.primary}`
+                    boxShadow: (theme) =>
+                      `1px 1px 0px 2px ${theme.colors.primary}`,
                   }}
                 >
                   <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -199,7 +191,11 @@ function TopNav() {
             )}
             {showFriendsList && (
               <Modal closeModal={() => setShowFriendsList(!showFriendsList)}>
-                <FriendsList friends={session.user.friends} onDeleteFriend={deleteFriendHandler} onAddFriend={addFriendHandler} />
+                <FriendsList
+                  friends={session.user.friends}
+                  onDeleteFriend={deleteFriendHandler}
+                  onAddFriend={addFriendHandler}
+                />
               </Modal>
             )}
           </>
