@@ -1,13 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { getSession } from 'next-auth/react';
+import { getServerSession } from 'next-auth/next';
 import { connectDatabase } from '../../../utils/db-utils';
+import { authOptions } from '../auth/[...nextauth]';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
     return;
   }
 
-  const session = await getSession({ req: req });
+  const session = await getServerSession(req, res, authOptions);
 
   // Make sure the user is authenticated
   if (!session) {

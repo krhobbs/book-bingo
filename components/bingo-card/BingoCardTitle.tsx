@@ -27,7 +27,7 @@ function BingoCardTitle({
   );
   const showArchiveButton = useMemo(
     () => (asPath === '/profile' || asPath === '/archived') && usersCard,
-    [asPath]
+    [asPath, usersCard]
   );
 
   return (
