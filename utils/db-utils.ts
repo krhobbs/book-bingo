@@ -9,6 +9,7 @@ export async function connectDatabase() {
   }
 }
 
+// Not currently used anywhere ? Use in register function in future
 export async function insertDocument(client, collection, document) {
   const db = client.db();
 
@@ -17,10 +18,11 @@ export async function insertDocument(client, collection, document) {
   return result;
 }
 
-export async function getDocuments(client, collection, filter = {}) {
+// Used to get cards on archived, index, profile pages
+export async function getCards(client: MongoClient, filter = {}) {
   const db = client.db();
 
-  const documents = await db.collection(collection).find(filter).toArray();
+  const documents = await db.collection('cards').find(filter).sort({ user: 1 }).toArray();
 
   let serializable;
 
@@ -36,6 +38,7 @@ export async function getDocuments(client, collection, filter = {}) {
   return serializable;
 }
 
+// Not currently used anywhere
 export async function getDocumentById(client, collection, id) {
   const db = client.db();
 
@@ -54,6 +57,7 @@ export async function getDocumentById(client, collection, id) {
   return serializable;
 }
 
+// Used in the register function to make sure the username is not already taken
 export async function getDocumentByUsername(client, collection, username) {
   const db = client.db();
 
@@ -72,6 +76,7 @@ export async function getDocumentByUsername(client, collection, username) {
   return serializable;
 }
 
+// Used on the friends page to get all cards of friends
 export async function getDocumentsByUsername(client, collection, usernames, filters = {}) {
   const db = client.db();
 
@@ -86,6 +91,7 @@ export async function getDocumentsByUsername(client, collection, usernames, filt
   const documents = await db
     .collection(collection)
     .find(filter)
+    .sort({ user: 1 })
     .toArray();
 
   let serializable;
