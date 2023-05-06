@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Button, Divider, Text } from 'theme-ui';
+import { Box, Button, Divider, Text, Spinner } from 'theme-ui';
 import ChangePasswordForm from './ChangePasswordForm';
 import FriendsList from './FriendsList';
 import Modal from '../ui/Modal';
@@ -9,7 +9,7 @@ import { createPortal } from 'react-dom';
 function Settings() {
   const [showChangePassword, setShowChangePassword] = useState(false);
   const [showFriendsList, setShowFriendsList] = useState(false);
-  const { data: session, status } = useSession();
+  const { data: session, status, update } = useSession();
 
   const logoutHandler = () => {
     signOut();
@@ -27,6 +27,7 @@ function Settings() {
     const data = await response.json();
 
     if (response.ok) {
+      update();
       return 'success';
     } else {
       return data.message;
@@ -44,6 +45,10 @@ function Settings() {
 
     const data = await response.json();
 
+    if (response.ok) {
+      update();
+    }
+
     return data;
   }
 
@@ -59,6 +64,7 @@ function Settings() {
     const data = await response.json();
 
     if (response.ok) {
+      update();
       return 'success';
     } else {
       return data.message;
@@ -70,7 +76,7 @@ function Settings() {
   }
 
   if (status === 'loading') {
-    return <p>Loading...</p>;
+    return <Spinner sx={{display: 'block', marginInline: 'auto'}} />;
   }
 
   return (
