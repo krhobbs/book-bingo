@@ -121,7 +121,8 @@ function Settings() {
         <Modal closeModal={() => setShowChangePassword(!showChangePassword)}>
           <ChangePasswordForm onChangePassword={changePasswordHandler} />
         </Modal>,
-        document.body
+        document.body,
+        'change-password'
       )}
       {showFriendsList &&
         createPortal(
@@ -132,7 +133,8 @@ function Settings() {
               onAddFriend={addFriendHandler}
             />
           </Modal>,
-          document.body
+          document.body,
+          'friends'
         )}
     </>
   );
