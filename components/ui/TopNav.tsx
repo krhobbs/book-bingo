@@ -1,18 +1,7 @@
-import { useState } from 'react';
 import Link from 'next/link';
-import { useSession, signOut } from 'next-auth/react';
-import {
-  Box,
-  Divider,
-  Text,
-  IconButton,
-  ThemeUICSSObject,
-  Button,
-} from 'theme-ui';
+import { useSession } from 'next-auth/react';
+import { Box, Text, IconButton, ThemeUICSSObject } from 'theme-ui';
 import { BookOpenIcon, Cog6ToothIcon } from '@heroicons/react/24/outline';
-import ChangePasswordForm from '../settings/ChangePasswordForm';
-import Modal from './Modal';
-import FriendsList from '../settings/FriendsList';
 
 const containerStyles: ThemeUICSSObject = {
   alignItems: 'center',
@@ -27,64 +16,7 @@ const containerStyles: ThemeUICSSObject = {
 };
 
 function TopNav() {
-  const { data: session, status } = useSession();
-  const [showSettings, setShowSettings] = useState(false);
-  const [showChangePassword, setShowChangePassword] = useState(false);
-  const [showFriendsList, setShowFriendsList] = useState(false);
-
-  const logoutHandler = () => {
-    signOut();
-  };
-
-  async function changePasswordHandler(passwordData) {
-    const response = await fetch('/api/user/change-password', {
-      method: 'PATCH',
-      body: JSON.stringify(passwordData),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    const data = await response.json();
-
-    if (response.ok) {
-      return 'success';
-    } else {
-      return data.message;
-    }
-  }
-
-  async function deleteFriendHandler(friendData) {
-    const response = await fetch('/api/user/delete-friend', {
-      method: 'PATCH',
-      body: JSON.stringify(friendData),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    const data = await response.json();
-
-    return data;
-  }
-
-  async function addFriendHandler(newFriendData) {
-    const response = await fetch('/api/user/add-friend', {
-      method: 'POST',
-      body: JSON.stringify(newFriendData),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    const data = await response.json();
-
-    if (response.ok) {
-      return 'success';
-    } else {
-      return data.message;
-    }
-  }
+  const { status } = useSession();
 
   return (
     <Box as="nav" sx={containerStyles}>
@@ -119,85 +51,9 @@ function TopNav() {
             <Link href="/archived">
               <Text variant="navLink">Archived</Text>
             </Link>
-            <IconButton
-              onClick={() => setShowSettings(!showSettings)}
-              sx={{ cursor: 'pointer' }}
-            >
-              <Cog6ToothIcon style={{ inlineSize: '100%' }} />
-            </IconButton>
-            {showSettings && (
-              <Box
-                onClick={() => setShowSettings(false)}
-                sx={{
-                  position: 'absolute',
-                  inlineSize: '100%',
-                  blockSize: '100vh',
-                  top: 0,
-                  left: 0,
-                  zIndex: 1,
-                }}
-              >
-                <Box
-                  sx={{
-                    backgroundColor: 'background',
-                    borderRadius: '20px',
-                    padding: '1.3rem 0.6rem',
-                    position: 'absolute',
-                    top: '65px',
-                    right: ['3px', '16px'],
-                    zIndex: 2,
-                    boxShadow: (theme) =>
-                      `1px 1px 0px 2px ${theme.colors.primary}`,
-                  }}
-                >
-                  <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                    <Text variant="body1" sx={{ mx: 'auto' }}>
-                      Username: {session.user.username}
-                    </Text>
-                    <Divider sx={{ py: '0.1rem', opacity: 0.3 }} />
-                    <Button
-                      onClick={() => {
-                        setShowFriendsList(!showFriendsList);
-                        setShowChangePassword(false);
-                      }}
-                      variant="settings"
-                    >
-                      Add/Delete Friends
-                    </Button>
-                    <Divider sx={{ py: '0.1rem', opacity: 0.3 }} />
-                    <Button
-                      onClick={() => {
-                        setShowChangePassword(!showChangePassword);
-                        setShowFriendsList(false);
-                      }}
-                      variant="settings"
-                    >
-                      Change Password
-                    </Button>
-                    <Divider sx={{ py: '0.1rem', opacity: 0.3 }} />
-                    <Button onClick={logoutHandler} variant="settings">
-                      Logout
-                    </Button>
-                  </Box>
-                </Box>
-              </Box>
-            )}
-            {showChangePassword && (
-              <Modal
-                closeModal={() => setShowChangePassword(!showChangePassword)}
-              >
-                <ChangePasswordForm onChangePassword={changePasswordHandler} />
-              </Modal>
-            )}
-            {showFriendsList && (
-              <Modal closeModal={() => setShowFriendsList(!showFriendsList)}>
-                <FriendsList
-                  friends={session.user.friends}
-                  onDeleteFriend={deleteFriendHandler}
-                  onAddFriend={addFriendHandler}
-                />
-              </Modal>
-            )}
+            <Link href="/settings">
+              <Cog6ToothIcon style={{width: '24px'}} />
+            </Link>
           </>
         ) : (
           <>
