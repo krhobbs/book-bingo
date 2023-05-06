@@ -114,7 +114,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         },
         {
           id: '3D',
-          req: 'Muliverses',
+          req: 'Multiverses',
           book: null,
           color: null,
         },
