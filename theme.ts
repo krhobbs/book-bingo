@@ -99,14 +99,12 @@ export const theme: Theme = {
       blockSize: ['16px', '26px'],
     },
     settings: {
-        bg: 'background',
         fontWeight: 'heading',
         fontSize: [2, 3],
         color: 'text',
         cursor: 'pointer',
-        '&:hover': {
-          bg: 'primary'
-        }
+        bg: 'transparent',
+        textAlign: 'left'
     },
     closeModal: {
         bg: 'primary',
