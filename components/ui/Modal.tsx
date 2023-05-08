@@ -45,7 +45,7 @@ function Modal({ closeModal, children }) {
           id="modal-content-wrapper"
           sx={{
             position: 'relative',
-            background: 'background',
+            background: 'highlight',
             borderRadius: '25px',
             inlineSize: 'max-content',
             padding: '2rem',
