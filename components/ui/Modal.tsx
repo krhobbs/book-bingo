@@ -47,7 +47,7 @@ function Modal({ closeModal, children }) {
             position: 'relative',
             background: 'highlight',
             borderRadius: '25px',
-            inlineSize: 'max-content',
+            inlineSize: ['100%', 'max-content'],
             padding: '2rem',
             mx: 'auto',
             marginBlockStart: '4rem',
