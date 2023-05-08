@@ -1,23 +1,26 @@
 import type { Theme } from 'theme-ui';
 
 export const theme: Theme = {
+  config: {
+    initialColorModeName: 'light'
+  },
   colors: {
     text: '#000000',
-    background: '#FCFCFC',
-    primary: '#f1f5f4',
-    secondary: '#A8BAB6',
-    accent: '#BBD8FD',
-    highlight: '#f1f5f4',
+    background: '#FFFFFF',
+    primary: '#DADADA',
+    secondary: '#999999',
+    accent: '#D6AF38',
+    highlight: '#E2EBE0',
     muted: '#B3B3B3',
-    destructive: '#FF9999',
+    destructive: '#E08585',
     modes: {
       dark: {
-        text: '#ffffff',
+        text: '#FFFFFF',
         background: '#030303',
         primary: '#1A1A1A',
         secondary: '#353635',
-        accent: '#BBD8FD',
-        highlight: '#0c1a1f',
+        accent: '#FFCC33',
+        highlight: '#1F1F1F',
         muted: '#4D4D4D',
         destructive: '#B23D3D',
       },
@@ -65,7 +68,7 @@ export const theme: Theme = {
       fontWeight: 'caption',
       fontSize: [0, 1],
       textDecoration: 'underline',
-    },
+    }
   },
   buttons: {
     primary: {
@@ -99,14 +102,12 @@ export const theme: Theme = {
       blockSize: ['16px', '26px'],
     },
     settings: {
-        bg: 'background',
         fontWeight: 'heading',
         fontSize: [2, 3],
         color: 'text',
         cursor: 'pointer',
-        '&:hover': {
-          bg: 'primary'
-        }
+        bg: 'transparent',
+        textAlign: 'left'
     },
     closeModal: {
         bg: 'primary',

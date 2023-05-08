@@ -1,4 +1,4 @@
-import { connectDatabase, getDocuments } from '../utils/db-utils';
+import { connectDatabase, getCards } from '../utils/db-utils';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from './api/auth/[...nextauth]';
 import ProfileLayout from '../components/layout/pages/ProfileLayout';
@@ -27,7 +27,7 @@ export async function getServerSideProps(context) {
 
   try {
     const client = await connectDatabase();
-    const cards = await getDocuments(client, 'cards', {
+    const cards = await getCards(client, {
       archived: false,
       user: session.user.username,
     });

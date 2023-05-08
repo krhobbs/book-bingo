@@ -18,6 +18,7 @@ function FriendsList({ friends, onDeleteFriend, onAddFriend }) {
     if (result !== 'success') {
       setErrorMessage(result);
     } else {
+      event.target.reset();
       setErrorMessage('');
     }
 
