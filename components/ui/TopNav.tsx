@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
-import { Box, Text, IconButton, ThemeUICSSObject } from 'theme-ui';
-import { BookOpenIcon, Cog6ToothIcon } from '@heroicons/react/24/outline';
+import { Box, Text, IconButton, ThemeUICSSObject, useColorMode } from 'theme-ui';
+import { BookOpenIcon, Cog6ToothIcon, SunIcon, MoonIcon } from '@heroicons/react/24/outline';
 
 const containerStyles: ThemeUICSSObject = {
   alignItems: 'center',
@@ -17,6 +17,7 @@ const containerStyles: ThemeUICSSObject = {
 
 function TopNav() {
   const { status } = useSession();
+  const [colorMode, setColorMode] = useColorMode();
 
   return (
     <Box as="nav" sx={containerStyles}>
@@ -48,12 +49,14 @@ function TopNav() {
             <Link href="/friends">
               <Text variant="navLink">Friends</Text>
             </Link>
-            <Link href="/archived">
-              <Text variant="navLink">Archived</Text>
-            </Link>
             <Link href="/settings">
-              <Cog6ToothIcon style={{width: '24px'}} />
+              <IconButton as="div">
+                <Cog6ToothIcon style={{width: '24px', height: '24px'}} />
+              </IconButton>
             </Link>
+            <IconButton onClick={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}>
+              {colorMode === 'light' ? (<MoonIcon style={{width: '24px'}} />) : (<SunIcon style={{width: '24px'}} />)}
+            </IconButton>
           </>
         ) : (
           <>

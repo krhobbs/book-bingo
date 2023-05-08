@@ -5,6 +5,8 @@ import FriendsList from './FriendsList';
 import Modal from '../ui/Modal';
 import { useSession, signOut } from 'next-auth/react';
 import { createPortal } from 'react-dom';
+import Link from 'next/link';
+import Head from 'next/head';
 
 function Settings() {
   const [showChangePassword, setShowChangePassword] = useState(false);
@@ -72,15 +74,22 @@ function Settings() {
   }
 
   if (status === 'unauthenticated') {
-    return <p>Login</p>;
+    return (
+      <Text as="p" variant="body1" sx={{ mx: 'auto' }}>
+        Login
+      </Text>
+    );
   }
 
   if (status === 'loading') {
-    return <Spinner sx={{display: 'block', marginInline: 'auto'}} />;
+    return <Spinner sx={{ display: 'block', marginInline: 'auto' }} />;
   }
 
   return (
     <>
+      <Head>
+        <title>Book Bingo | Settings</title>
+      </Head>
       <Box
         sx={{
           display: 'flex',
@@ -94,10 +103,23 @@ function Settings() {
           as="p"
           variant="body1"
           color="muted"
-          sx={{ pl: '1rem', textAlign: 'left' }}
+          sx={{ padding: '0.5rem 1rem', textAlign: 'left' }}
         >
           Username: {session.user.username}
         </Text>
+        <Divider sx={{ py: '0.1rem', opacity: 0.3 }} />
+        <Link href="/archived">
+            <Text
+              sx={{
+                display: 'inline-block',
+                fontSize: [2, 3],
+                fontWeight: 'heading',
+                padding: '0.58rem 1rem 0.25rem 1rem'
+              }}
+            >
+              Archived
+            </Text>
+        </Link>
         <Divider sx={{ py: '0.1rem', opacity: 0.3 }} />
         <Button
           onClick={() => {
@@ -123,13 +145,14 @@ function Settings() {
           Logout
         </Button>
       </Box>
-      {showChangePassword && createPortal(
-        <Modal closeModal={() => setShowChangePassword(!showChangePassword)}>
-          <ChangePasswordForm onChangePassword={changePasswordHandler} />
-        </Modal>,
-        document.body,
-        'change-password'
-      )}
+      {showChangePassword &&
+        createPortal(
+          <Modal closeModal={() => setShowChangePassword(!showChangePassword)}>
+            <ChangePasswordForm onChangePassword={changePasswordHandler} />
+          </Modal>,
+          document.body,
+          'change-password'
+        )}
       {showFriendsList &&
         createPortal(
           <Modal closeModal={() => setShowFriendsList(!showFriendsList)}>
