@@ -23,7 +23,7 @@ function AddBookLayout({ cardId, username, square }: AddBookLayoutProps) {
     const data = await response.json();
 
     if (response.ok) {
-      router.push('/');
+      router.back();
       return 'success';
     } else {
       return data.message;

@@ -19,6 +19,7 @@ function ChangePasswordForm({ onChangePassword }) {
     if (result !== 'success') {
       setErrorMessage(result);
     } else {
+      event.target.reset();
       setErrorMessage('');
     }
 
