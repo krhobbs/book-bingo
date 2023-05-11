@@ -2,6 +2,7 @@ import BookInfo from '../../book/BookInfo';
 import { Box, Button } from 'theme-ui';
 import { TrashIcon } from '@heroicons/react/24/outline';
 import Spacer from '../../ui/Spacer';
+import BookButtons from './BookButtons';
 
 interface CompleteBackProps {
   archived: boolean;
@@ -41,13 +42,7 @@ function CompleteBack({
       {usersCard && !archived && (
         <>
           <Spacer size={['1.1rem']} />
-          <Button
-            variant="bingoItem"
-            sx={{background: 'destructive'}}
-            onClick={removeBookHandler}
-          >
-            <TrashIcon style={{ blockSize: '98%' }} />
-          </Button>
+          <BookButtons cardId={cardId} squareId={squareId} removeBook={removeBookHandler} />
         </>
       )}
     </Box>

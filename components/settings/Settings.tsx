@@ -75,9 +75,12 @@ function Settings() {
 
   if (status === 'unauthenticated') {
     return (
-      <Text as="p" variant="body1" sx={{ mx: 'auto' }}>
-        Login
-      </Text>
+      <Link href='/login'>
+        <Text as="p" variant="heading2" sx={{ display: 'block', textAlign: 'center', mx: 'auto' }}>
+          Login
+        </Text>
+      </Link>
+      
     );
   }
 
