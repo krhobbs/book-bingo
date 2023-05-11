@@ -11,7 +11,7 @@ interface EditBookLayoutProps {
 function EditBookLayout({ cardId, username, square }: EditBookLayoutProps) {
   const router = useRouter();
 
-  async function addBookHandler(enteredBookData) {
+  async function editBookHandler(enteredBookData) {
     const response = await fetch('/api/add-book', {
       method: 'POST',
       body: JSON.stringify(enteredBookData),
@@ -39,7 +39,7 @@ function EditBookLayout({ cardId, username, square }: EditBookLayoutProps) {
         card={cardId}
         user={username}
         square={square}
-        onAddBook={addBookHandler}
+        onEditBook={editBookHandler}
       />
     </>
   );
