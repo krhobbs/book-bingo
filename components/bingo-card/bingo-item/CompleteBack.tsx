@@ -19,21 +19,6 @@ function CompleteBack({
   squareId,
   book,
 }: CompleteBackProps) {
-  async function removeBookHandler() {
-    const response = await fetch('/api/delete-book', {
-      method: 'POST',
-      body: JSON.stringify({
-        cardId: cardId,
-        squareId: squareId,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (response.ok) location.reload();
-  }
-
   return (
     <Box
       sx={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}
@@ -42,7 +27,7 @@ function CompleteBack({
       {usersCard && !archived && (
         <>
           <Spacer size={['1.1rem']} />
-          <BookButtons cardId={cardId} squareId={squareId} removeBook={removeBookHandler} />
+          <BookButtons cardId={cardId} squareId={squareId} />
         </>
       )}
     </Box>

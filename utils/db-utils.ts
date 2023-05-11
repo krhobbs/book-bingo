@@ -38,6 +38,21 @@ export async function getCards(client: MongoClient, filter = {}) {
   return serializable;
 }
 
+export async function getSquare(client: MongoClient, cardId: string, squareId: string): Promise<Square> {
+  const db = client.db();
+
+  const card = await db.collection('cards').findOne({ _id: new ObjectId(cardId) });
+
+  if (!card) {
+    throw new Error('Card not found.') 
+  }
+
+  const square = card.squares.find((s: Square) => s.id === squareId);
+
+  return square;
+
+}
+
 // Not currently used anywhere
 export async function getDocumentById(client, collection, id) {
   const db = client.db();
