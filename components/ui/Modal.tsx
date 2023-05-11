@@ -20,7 +20,7 @@ function Modal({ closeModal, children }) {
           left: 0,
           blockSize: '100vh',
           inlineSize: '100%',
-          zIndex: 0,
+          zIndex: 10,
         }}
       >
         <Box
@@ -31,7 +31,7 @@ function Modal({ closeModal, children }) {
             backdropFilter: 'blur(5px)',
             inlineSize: '100%',
             blockSize: '100%',
-            zIndex: 1,
+            zIndex: 11,
           }}
         />
         <Button
@@ -51,7 +51,7 @@ function Modal({ closeModal, children }) {
             padding: '2rem',
             mx: 'auto',
             marginBlockStart: '4rem',
-            zIndex: 2,
+            zIndex: 12,
           }}
         >
           {children}
