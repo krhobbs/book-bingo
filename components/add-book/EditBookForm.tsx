@@ -24,7 +24,7 @@ function EditBookForm(props) {
       color: enteredColor,
     };
 
-    const result = await props.onAddBook(bookData);
+    const result = await props.onEditBook(bookData);
 
     if (result !== 'success') {
       setErrorMessage(result);
