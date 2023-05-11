@@ -36,7 +36,7 @@ function BookButtons({ cardId, squareId }: BookButtonsProps) {
       sx={{
         display: 'flex',
         blockSize: ['16px', '26px'],
-        inlineSize: '95%',
+        inlineSize: ['95%', '95%', '90%'],
         position: 'absolute',
         bottom: ['8px', '12px'],
         zIndex: 1
