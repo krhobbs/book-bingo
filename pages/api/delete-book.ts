@@ -32,8 +32,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         .json({ message: 'Unable to connect to database. Try again later.' });
       return;
     }
-
-    res.status(201).json({ message: 'Book Deleted!' });
   }
 }
 
