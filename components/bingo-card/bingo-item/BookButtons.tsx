@@ -7,15 +7,30 @@ import useBreakpoint from '../../../hooks/useBreakpoint';
 interface BookButtonsProps {
   cardId: string;
   squareId: string;
-  removeBook: Function;
 }
 
-function BookButtons({ cardId, squareId, removeBook }: BookButtonsProps) {
+function BookButtons({ cardId, squareId }: BookButtonsProps) {
   const breakpoint = useBreakpoint();
   const iconSize = useMemo(
     () => (breakpoint === 'sm' ? '14px' : '18px'),
     [breakpoint]
   );
+
+  async function removeBookHandler() {
+    const response = await fetch('/api/delete-book', {
+      method: 'POST',
+      body: JSON.stringify({
+        cardId: cardId,
+        squareId: squareId,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.ok) location.reload();
+  }
+
   return (
     <Box
       sx={{
@@ -40,6 +55,7 @@ function BookButtons({ cardId, squareId, removeBook }: BookButtonsProps) {
           justifyContent: 'center',
           padding: '0px',
         }}
+        onClick={removeBookHandler}
       >
         <TrashIcon style={{ inlineSize: iconSize, blockSize: iconSize }} />
       </Button>

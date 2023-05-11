@@ -18,7 +18,7 @@ function EditBookForm(props) {
 
     const bookData = {
       card: props.card,
-      square: props.square,
+      square: props.square.id,
       title: enteredTitle,
       author: enteredAuthor,
       color: enteredColor,
@@ -50,12 +50,12 @@ function EditBookForm(props) {
     >
       <Box>
         <Label htmlFor="title">Book Title</Label>
-        <Input type="text" required id="title" ref={titleInputRef} />
+        <Input type="text" required id="title" ref={titleInputRef} defaultValue={props.square.book.title} />
       </Box>
       <Spacer size={['2rem']} />
       <Box>
         <Label htmlFor="author">Author</Label>
-        <Input type="text" required id="author" ref={authorInputRef} />
+        <Input type="text" required id="author" ref={authorInputRef} defaultValue={props.square.book.author} />
       </Box>
       <Spacer size={['2rem']} />
       <Box>
@@ -64,7 +64,7 @@ function EditBookForm(props) {
           type="color"
           id="color"
           ref={colorInputRef}
-          defaultValue="#FFFFFF"
+          defaultValue={props.square.color}
           sx={{ padding: '0px', border: 'none' }}
         />
       </Box>

@@ -5,7 +5,7 @@ import EditBookForm from '../../add-book/EditBookForm';
 interface EditBookLayoutProps {
   cardId: string;
   username: string;
-  square: string;
+  square: Square;
 }
 
 function EditBookLayout({ cardId, username, square }: EditBookLayoutProps) {
