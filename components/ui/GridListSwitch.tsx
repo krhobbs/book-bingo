@@ -1,46 +1,48 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import { Box } from 'theme-ui';
 import { Squares2X2Icon, ListBulletIcon } from '@heroicons/react/24/outline';
+import { ViewContext } from '../layout/Layout';
 
 function GridListSwitch() {
-  const [list, setList] = useState(false);
+  const [ listView, setListView ] = useContext(ViewContext);
 
   return (
     <Box
       as="button"
       sx={{
-        display: 'flex',
-        position: 'relative',
-        background: 'secondary',
-        padding: '0rem',
-        inlineSize: ['6rem', '10rem'],
-        blockSize: ['1.6rem', '2rem'],
-        borderRadius: '5px',
-        border: 'none',
         alignItems: 'center',
+        background: 'secondary',
+        blockSize: ['1.6rem', '2rem'],
+        border: 'none',
+        borderRadius: '5px',
+        display: 'flex',
+        inlineSize: ['6rem', '10rem'],
         justifyContent: 'space-around',
+        marginInline: 'auto',
+        padding: '0rem',
+        position: 'relative',
       }}
-      onClick={() => setList(!list)}
+      onClick={() => setListView(!listView)}
     >
       <Box
         sx={{
-          position: 'absolute',
           background: 'highlight',
-          borderRadius: '5px',
-          top: '2px',
-          left: `${list ? '49.9%' : '0.8%'}`,
           blockSize: ['1.4rem', '1.8rem'],
+          borderRadius: '5px',
           inlineSize: '49%',
+          left: `${listView ? '49.9%' : '0.8%'}`,
+          position: 'absolute',
+          top: '1.5px',
+          transition: 'left .25s',
           zIndex: 1,
-          transition: 'left .25s'
         }}
       ></Box>
       <Box
         sx={{
-          position: 'relative',
-          color: 'text',
           blockSize: ['14px', '20px'],
+          color: 'text',
           inlineSize: ['14px', '20px'],
+          position: 'relative',
           zIndex: 2,
         }}
       >
@@ -48,10 +50,10 @@ function GridListSwitch() {
       </Box>
       <Box
         sx={{
-          position: 'relative',
-          color: 'text',
           blockSize: ['14px', '20px'],
+          color: 'text',
           inlineSize: ['14px', '20px'],
+          position: 'relative',
           zIndex: 2,
         }}
       >
