@@ -2,6 +2,7 @@ import Head from 'next/head';
 import { Box, Text } from 'theme-ui';
 import Spacer from '../../ui/Spacer';
 import Cards from '../../Cards';
+import GridListSwitch from '../../ui/GridListSwitch';
 
 function FriendsLayout({ cards }: { cards: Card[] }) {
   return (
@@ -9,6 +10,8 @@ function FriendsLayout({ cards }: { cards: Card[] }) {
       <Head>
         <title>Book Bingo | Friends</title>
       </Head>
+      <GridListSwitch />
+      <Spacer size="2rem" />
       {cards.length === 0 ? (
         <Box
           sx={{

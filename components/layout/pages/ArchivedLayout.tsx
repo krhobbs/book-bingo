@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Cards from '../../Cards';
 import { Text } from 'theme-ui';
 import Spacer from '../../ui/Spacer';
+import GridListSwitch from '../../ui/GridListSwitch';
 
 interface ArchivedLayoutProps {
   cards: Card[];
@@ -14,6 +15,8 @@ function ArchivedLayout({ cards, username }: ArchivedLayoutProps) {
       <Head>
         <title>Book Bingo | Archived</title>
       </Head>
+      <GridListSwitch />
+      <Spacer size="2rem" />
       <Text variant="heading1" as="h1" sx={{ textAlign: 'center' }}>
         {username}&apos;s Archived Cards
       </Text>
