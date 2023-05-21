@@ -20,7 +20,7 @@ function ListIncomplete({
 }: ListIncompleteProps) {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-      <Text as="h3" variant="navLink">
+      <Text as="h3" variant="navLink" sx={{textAlign: 'center'}}>
         {req}
       </Text>
       {!archived && usersCard && (
