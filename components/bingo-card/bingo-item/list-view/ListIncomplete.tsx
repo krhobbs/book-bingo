@@ -41,7 +41,7 @@ function ListIncomplete({
               sx={{
                 background: 'secondary',
                 inlineSize: ['38px', '60px'],
-                blockSize: ['16px', '26px'],
+                blockSize: ['18px', '26px'],
                 padding: '0px',
                 marginInline: 'auto',
               }}
