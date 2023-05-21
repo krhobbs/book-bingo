@@ -6,7 +6,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     const data = req.body;
 
-    const { card, title, author, square, color } = data;
+    const { card, title, author, square, color, cover } = data;
 
     try {
       const client = await connectDatabase();
@@ -26,6 +26,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             'squares.$.book': {
               title: title,
               author: author,
+              cover: cover
             },
           },
         }

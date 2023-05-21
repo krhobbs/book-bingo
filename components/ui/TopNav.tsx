@@ -33,7 +33,7 @@ function TopNav() {
           <IconButton sx={{ padding: 0 }}>
             <BookOpenIcon style={{ inlineSize: '100%' }} />
           </IconButton>
-          <Text variant="heading1" sx={{ display: ['none', 'inline'] }}>
+          <Text as="h1" variant="heading1" sx={{ display: ['none', 'inline'] }}>
             BookBingo
           </Text>
         </Box>
