@@ -1,6 +1,7 @@
 import { Box, Text } from 'theme-ui';
 import Spacer from '../../../ui/Spacer';
 import BookButtons from '../BookButtons';
+import Image from 'next/image';
 interface ListCompleteProps {
   archived: boolean;
   book: Book;
@@ -19,29 +20,44 @@ function ListComplete({
   usersCard,
 }: ListCompleteProps) {
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-      <Text as="h3" variant="navLink">
-        {req}
-      </Text>
-      <Spacer size="1rem" />
-      <Text as="p" variant="body1">
-        {book.title}
-      </Text>
-      <Spacer size="0.4rem" />
-      <Text as="p" variant="body2">
-        By. {book.author}
-      </Text>
-      {!archived && usersCard && (
-        <>
-          <Spacer size="1rem" />
-          <BookButtons
-            cardId={cardId}
-            squareId={squareId}
-            sx={{ blockSize: ['18px', '26px'], inlineSize: ['124px', '144px'] }}
+    <>
+      {book.cover && (
+        <Box sx={{ blockSize: '100%', inlineSize: '140px' }}>
+          <Image
+            alt={`${book.title} cover image`}
+            src={book.cover}
+            width={140}
+            height={210}
           />
-        </>
+        </Box>
       )}
-    </Box>
+      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+        <Text as="h3" variant="navLink">
+          {req}
+        </Text>
+        <Spacer size="1rem" />
+        <Text as="p" variant="body1">
+          {book.title}
+        </Text>
+        <Spacer size="0.4rem" />
+        <Text as="p" variant="body2">
+          By. {book.author}
+        </Text>
+        {!archived && usersCard && (
+          <>
+            <Spacer size="1rem" />
+            <BookButtons
+              cardId={cardId}
+              squareId={squareId}
+              sx={{
+                blockSize: ['18px', '26px'],
+                inlineSize: ['124px', '144px'],
+              }}
+            />
+          </>
+        )}
+      </Box>
+    </>
   );
 }
 
