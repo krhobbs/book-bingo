@@ -1,6 +1,7 @@
 interface Book {
   title: string;
   author: string;
+  cover?: string;
 }
 interface Square {
   id: string;

@@ -1,15 +1,16 @@
 import { TrashIcon, PencilIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { useMemo } from 'react';
-import { Box, Button } from 'theme-ui';
+import { Box, Button, ThemeUIStyleObject } from 'theme-ui';
 import useBreakpoint from '../../../hooks/useBreakpoint';
 
 interface BookButtonsProps {
   cardId: string;
   squareId: string;
+  sx?: ThemeUIStyleObject;
 }
 
-function BookButtons({ cardId, squareId }: BookButtonsProps) {
+function BookButtons({ cardId, squareId, sx }: BookButtonsProps) {
   const breakpoint = useBreakpoint();
   const iconSize = useMemo(
     () => (breakpoint === 'sm' ? '14px' : '18px'),
@@ -35,11 +36,7 @@ function BookButtons({ cardId, squareId }: BookButtonsProps) {
     <Box
       sx={{
         display: 'flex',
-        blockSize: ['16px', '26px'],
-        inlineSize: ['95%', '95%', '90%'],
-        position: 'absolute',
-        bottom: ['8px', '12px'],
-        zIndex: 1
+        ...sx
       }}
     >
       <Button
