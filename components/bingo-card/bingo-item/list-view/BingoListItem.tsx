@@ -38,6 +38,7 @@ function BingoListItem({
               ? square.color ?? theme.colors.accent
               : theme.colors.secondary
           }`,
+          marginInline: 'auto'
       }}
     >
       {square.book ? (
