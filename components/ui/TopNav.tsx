@@ -44,10 +44,10 @@ function TopNav() {
         {status === 'authenticated' ? (
           <>
             <Link href="/profile">
-              <Text variant="navLink">Profile</Text>
+              <Text variant="subheading">Profile</Text>
             </Link>
             <Link href="/friends">
-              <Text variant="navLink">Friends</Text>
+              <Text variant="subheading">Friends</Text>
             </Link>
             <Link href="/settings">
               <IconButton as="div">

@@ -32,41 +32,41 @@ export const theme: Theme = {
   },
   fontSizes: [9, 10, 12, 14, 15, 16, 23, 26, 28, 32],
   fontWeights: {
-    caption: 300,
-    body: 400,
-    heading: 600,
+    caption: 300, // light
+    body: 400, // regular
+    heading: 600, // semi-bold
   },
   breakpoints: ['600px', '1024px'],
   text: {
     heading1: {
       fontFamily: 'heading',
       fontWeight: 'heading',
-      fontSize: [7, 9],
+      fontSize: [7, 9], // 26, 32
     },
     heading2: {
       fontFamily: 'heading',
       fontWeight: 'heading',
-      fontSize: [6, 8],
+      fontSize: [6, 8], // 23, 28
+    },
+    subheading: {
+      fontFamily: 'body',
+      fontWeight: 'heading',
+      fontSize: [2, 4], // 12, 15
     },
     body1: {
       fontFamily: 'body',
       fontWeight: 'body',
-      fontSize: [1, 3],
+      fontSize: [1, 3], // 10, 14
     },
     body2: {
       fontFamily: 'body',
       fontWeight: 'body',
-      fontSize: [0, 2],
-    },
-    navLink: {
-      fontFamily: 'body',
-      fontWeight: 'heading',
-      fontSize: [2, 4],
+      fontSize: [0, 2], // 9, 12
     },
     caption: {
       fontFamily: 'body',
       fontWeight: 'caption',
-      fontSize: [0, 1],
+      fontSize: [0, 1], // 9, 10
       textDecoration: 'underline',
     }
   },

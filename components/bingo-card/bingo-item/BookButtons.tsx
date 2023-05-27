@@ -69,12 +69,14 @@ function BookButtons({ cardId, squareId, sx }: BookButtonsProps) {
         <Box
           sx={{
             background: 'muted',
-            borderTopRightRadius: '4px',
-            borderBottomRightRadius: '4px',
+            borderRadius: '0px 4px 4px 0px',
             flex: '1 1 0px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            '&:hover': {
+              boxShadow: 'inset 0px 0px 15px -10px #000000'
+            }
           }}
         >
           <PencilIcon style={{ inlineSize: iconSize, blockSize: iconSize }} />

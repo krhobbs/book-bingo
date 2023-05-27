@@ -1,17 +1,19 @@
-import { Flex, Text } from 'theme-ui';
+import { Text } from 'theme-ui';
+import Spacer from '../ui/Spacer';
 
 interface BookInfoProps {
-    book: Book;
+  book: Book;
+  gap?: string | string[];
 }
 
-function BookInfo({ book }: BookInfoProps) {
-
-    return (
-        <Flex sx={{flexDirection: 'column'}}>
-            <Text variant='body1'>{book.title}</Text>
-            <Text variant='body2'>By {book.author}</Text>
-        </Flex>
-    )
+function BookInfo({ book, gap = "0px" }: BookInfoProps) {
+  return (
+    <>
+      <Text as="p" variant="body1">{book.title}</Text>
+      <Spacer size={gap} />
+      <Text as="p" variant="body2">By {book.author}</Text>
+    </>
+  );
 }
 
 export default BookInfo;
