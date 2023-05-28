@@ -1,6 +1,6 @@
 import { PlusIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
-import { Box, Button, Text } from 'theme-ui';
+import { Box, Text } from 'theme-ui';
 import Spacer from '../../ui/Spacer';
 
 interface IncompleteProps {
@@ -34,11 +34,19 @@ function Incomplete({
                 square: squareId,
               },
             }}
-            passHref
           >
-            <Button variant="bingoItem">
-              <PlusIcon style={{ blockSize: '100%' }} />
-            </Button>
+            <Box
+              variant="links.item"
+              sx={{
+                bottom: ['8px', '12px'],
+                left: '0px',
+                marginInline: 'auto',
+                position: 'absolute',
+                right: '0px',
+              }}
+            >
+              <PlusIcon title="add new book" style={{ blockSize: '100%' }} />
+            </Box>
           </Link>
         </>
       )}

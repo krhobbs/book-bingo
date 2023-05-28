@@ -2,7 +2,7 @@ import type { Theme } from 'theme-ui';
 
 export const theme: Theme = {
   config: {
-    initialColorModeName: 'light'
+    initialColorModeName: 'light',
   },
   colors: {
     text: '#000000',
@@ -68,7 +68,7 @@ export const theme: Theme = {
       fontWeight: 'caption',
       fontSize: [0, 1], // 9, 10
       textDecoration: 'underline',
-    }
+    },
   },
   buttons: {
     primary: {
@@ -85,48 +85,47 @@ export const theme: Theme = {
       color: 'text',
       cursor: 'pointer',
       padding: '0px',
-      inlineSize: '100%',
-      blockSize: ['16px', '26px'],
-    },
-    bingoItem: {
-      bg: 'secondary',
-      color: 'text',
-      cursor: 'pointer',
-      position: 'absolute',
-      bottom: ['8px', '12px'],
-      right: '0px',
-      left: '0px',
-      marginInline: 'auto',
-      padding: '0px',
-      inlineSize: ['38px', '60px'],
       blockSize: ['16px', '26px'],
     },
     settings: {
-        fontWeight: 'heading',
-        fontSize: [2, 3],
-        color: 'text',
-        cursor: 'pointer',
-        bg: 'transparent',
-        textAlign: 'left'
+      fontWeight: 'heading',
+      fontSize: [2, 3],
+      color: 'text',
+      cursor: 'pointer',
+      bg: 'transparent',
+      textAlign: 'left',
     },
     closeModal: {
-        bg: 'primary',
-        color: 'text',
-        cursor: 'pointer',
-        blockSize: ['1.5rem', '2.25rem'],
-        inlineSize: ['1.5rem', '2.25rem'],
-        padding: '0px',
-        '&:hover': {
-            boxShadow: 'inset 0px 0px 15px -10px #000000',
-        },
-    }
+      bg: 'primary',
+      color: 'text',
+      cursor: 'pointer',
+      blockSize: ['1.5rem', '2.25rem'],
+      inlineSize: ['1.5rem', '2.25rem'],
+      padding: '0px',
+      '&:hover': {
+        boxShadow: 'inset 0px 0px 15px -10px #000000',
+      },
+    },
+  },
+  links: {
+    item: {
+      bg: 'secondary',
+      blockSize: ['16px', '26px'],
+      borderRadius: '5px',
+      color: 'text',
+      inlineSize: ['38px', '60px'],
+      textAlign: 'center',
+      '&:hover': {
+        boxShadow: 'inset 0px 0px 15px -10px #000000',
+      },
+    },
   },
   forms: {
     label: {
-        fontFamily: 'body',
-        fontWeight: 'body',
-        fontSize: [2, 3],
-    }
+      fontFamily: 'body',
+      fontWeight: 'body',
+      fontSize: [2, 3],
+    },
   },
   styles: {
     root: {
@@ -140,9 +139,9 @@ export const theme: Theme = {
       },
       input: {
         '&:focus': {
-          outline: 'none'
-        }
-      }
+          outline: 'none',
+        },
+      },
     },
   },
 };
