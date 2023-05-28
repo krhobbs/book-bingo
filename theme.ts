@@ -70,6 +70,9 @@ export const theme: Theme = {
       textDecoration: 'underline',
     },
   },
+  shadows: {
+    pushedIn: 'inset 0px 0px 15px -10px #000000',
+  },
   buttons: {
     primary: {
       color: 'text',
@@ -77,8 +80,12 @@ export const theme: Theme = {
       bg: 'primary',
       padding: '0.5rem 1.5rem',
       '&:hover': {
-        boxShadow: 'inset 0px 0px 15px -10px #000000',
+        boxShadow: 'pushedIn',
       },
+    },
+    icon: {
+      cursor: 'pointer',
+      padding: '0px',
     },
     archival: {
       bg: 'primary',
@@ -103,7 +110,7 @@ export const theme: Theme = {
       inlineSize: ['1.5rem', '2.25rem'],
       padding: '0px',
       '&:hover': {
-        boxShadow: 'inset 0px 0px 15px -10px #000000',
+        boxShadow: 'pushedIn',
       },
     },
   },
@@ -116,7 +123,7 @@ export const theme: Theme = {
       inlineSize: ['38px', '60px'],
       textAlign: 'center',
       '&:hover': {
-        boxShadow: 'inset 0px 0px 15px -10px #000000',
+        boxShadow: 'pushedIn',
       },
     },
   },
@@ -133,6 +140,7 @@ export const theme: Theme = {
       a: {
         textDecoration: 'none',
         color: 'inherit',
+        fontSize: 4,
       },
       body: {
         minHeight: '100vh',
