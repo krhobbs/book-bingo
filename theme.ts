@@ -87,13 +87,6 @@ export const theme: Theme = {
       cursor: 'pointer',
       padding: '0px',
     },
-    archival: {
-      bg: 'primary',
-      color: 'text',
-      cursor: 'pointer',
-      padding: '0px',
-      blockSize: ['16px', '26px'],
-    },
     settings: {
       fontWeight: 'heading',
       fontSize: [2, 3],

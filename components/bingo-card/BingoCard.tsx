@@ -31,7 +31,7 @@ function BingoCard({ card }: { card: Card }) {
         inlineSize: ['100%', 'min-content'],
         minInlineSize: '320px',
         mx: 'auto',
-        px: ['2px', '0'],
+        px: ['0.1rem', '0'],
       }}
     >
       <BingoCardTitle
@@ -47,7 +47,6 @@ function BingoCard({ card }: { card: Card }) {
         squares={card.squares}
         usersCard={usersCard}
       />
-      <Spacer size={['3rem', '4rem']} />
     </Box>
   );
 }

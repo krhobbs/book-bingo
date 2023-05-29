@@ -25,7 +25,7 @@ function ProfileLayout({ cards, username }: ProfileLayoutProps) {
       {cards.length >= 1 ? (
         <>
           <Cards cards={cards} />
-          <Spacer size="3.5rem" />
+          <Spacer size="2rem" />
           <NewCard />
         </>
       ) : (

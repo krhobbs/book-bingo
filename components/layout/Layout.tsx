@@ -8,7 +8,7 @@ function Layout(props) {
   return (
     <>
       <TopNav />
-      <Spacer size="1rem" />
+      <Spacer size="2rem" />
       <ViewContext.Provider value={useState(false)}>
         <main>{props.children}</main>
       </ViewContext.Provider>
