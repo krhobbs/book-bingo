@@ -43,10 +43,7 @@ function BookButtons({ cardId, squareId, sx }: BookButtonsProps) {
         sx={{
           alignItems: 'center',
           background: 'destructive',
-          border: 'none',
           borderRadius: '4px 0px 0px 4px',
-          color: 'text',
-          cursor: 'pointer',
           display: 'flex',
           flex: '1 1 0px',
           justifyContent: 'center',
@@ -72,14 +69,14 @@ function BookButtons({ cardId, squareId, sx }: BookButtonsProps) {
       >
         <Box
           sx={{
+            alignItems: 'center',
             background: 'muted',
             borderRadius: '0px 4px 4px 0px',
-            flex: '1 1 0px',
             display: 'flex',
-            alignItems: 'center',
+            flex: '1 1 0px',
             justifyContent: 'center',
             '&:hover': {
-              boxShadow: 'inset 0px 0px 15px -10px #000000',
+              boxShadow: 'pushedIn',
             },
           }}
         >
