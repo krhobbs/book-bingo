@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import AddBookForm from '../../add-book/AddBookForm';
+import AddBookForm from '../../forms/AddBookForm';
 
 interface AddBookLayoutProps {
   cardId: string;
