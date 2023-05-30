@@ -34,6 +34,7 @@ function Incomplete({
                 square: squareId,
               },
             }}
+            title="add new book"
           >
             <Box
               variant="links.item"
@@ -45,7 +46,7 @@ function Incomplete({
                 right: '0px',
               }}
             >
-              <PlusIcon title="add new book" style={{ blockSize: '100%' }} />
+              <PlusIcon style={{ blockSize: '100%' }} />
             </Box>
           </Link>
         </>

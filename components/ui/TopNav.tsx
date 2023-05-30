@@ -32,7 +32,7 @@ function TopNav() {
 
   return (
     <Box as="nav" sx={containerStyles}>
-      <Link href="/">
+      <Link href="/" title="home page (see all cards)">
         <Box
           sx={{
             cursor: 'pointer',

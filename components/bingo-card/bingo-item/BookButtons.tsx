@@ -36,7 +36,7 @@ function BookButtons({ cardId, squareId, sx }: BookButtonsProps) {
     <Box
       sx={{
         display: 'flex',
-        ...sx
+        ...sx,
       }}
     >
       <Button
@@ -53,18 +53,22 @@ function BookButtons({ cardId, squareId, sx }: BookButtonsProps) {
           padding: '0px',
         }}
         onClick={removeBookHandler}
+        title="delete book from square"
       >
-        <TrashIcon style={{ inlineSize: iconSize, blockSize: iconSize }} />
+        <TrashIcon
+          style={{ inlineSize: iconSize, blockSize: iconSize }}
+        />
       </Button>
       <Link
         href={{
           pathname: '/edit-book',
           query: {
             card: cardId,
-            square: squareId
-          }
+            square: squareId,
+          },
         }}
         style={{ display: 'contents' }}
+        title="edit square"
       >
         <Box
           sx={{
@@ -75,11 +79,13 @@ function BookButtons({ cardId, squareId, sx }: BookButtonsProps) {
             alignItems: 'center',
             justifyContent: 'center',
             '&:hover': {
-              boxShadow: 'inset 0px 0px 15px -10px #000000'
-            }
+              boxShadow: 'inset 0px 0px 15px -10px #000000',
+            },
           }}
         >
-          <PencilIcon style={{ inlineSize: iconSize, blockSize: iconSize }} />
+          <PencilIcon
+            style={{ inlineSize: iconSize, blockSize: iconSize }}
+          />
         </Box>
       </Link>
     </Box>

@@ -42,11 +42,16 @@ function BingoCardTitle({
           variant="primary"
           sx={{ inlineSize: '100%' }}
           onClick={() => onArchiveCard()}
+          title={`${archived ? 'unarchive' : 'archive'} card`}
         >
           {archived ? (
-            <ArrowUturnLeftIcon style={{ blockSize: '24px' }} />
+            <ArrowUturnLeftIcon
+              style={{ blockSize: '24px' }}
+            />
           ) : (
-            <ArchiveBoxIcon style={{ blockSize: '24px' }} />
+            <ArchiveBoxIcon
+              style={{ blockSize: '24px' }}
+            />
           )}
         </Button>
       )}

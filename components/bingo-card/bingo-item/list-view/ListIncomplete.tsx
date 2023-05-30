@@ -36,10 +36,10 @@ function ListIncomplete({
                 square: squareId,
               },
             }}
-            passHref
+            title="add new book"
           >
             <Box variant="links.item">
-              <PlusIcon title="add new book" style={{ blockSize: '100%' }} />
+              <PlusIcon style={{ blockSize: '100%' }} />
             </Box>
           </Link>
         </>
