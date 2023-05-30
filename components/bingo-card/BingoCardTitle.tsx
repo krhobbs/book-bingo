@@ -42,7 +42,7 @@ function BingoCardTitle({
           variant="primary"
           sx={{ inlineSize: '100%' }}
           onClick={() => onArchiveCard()}
-          title={`${archived ? 'unarchive' : 'archive'} card`}
+          aria-label={`${archived ? 'unarchive' : 'archive'} card`}
         >
           {archived ? (
             <ArrowUturnLeftIcon

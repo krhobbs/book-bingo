@@ -34,7 +34,7 @@ function Incomplete({
                 square: squareId,
               },
             }}
-            title="add new book"
+            aria-label="add new book"
           >
             <Box
               variant="links.item"

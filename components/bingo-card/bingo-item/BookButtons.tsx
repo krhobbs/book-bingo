@@ -53,7 +53,7 @@ function BookButtons({ cardId, squareId, sx }: BookButtonsProps) {
           padding: '0px',
         }}
         onClick={removeBookHandler}
-        title="delete book from square"
+        aria-label="delete book from square"
       >
         <TrashIcon
           style={{ inlineSize: iconSize, blockSize: iconSize }}
@@ -68,7 +68,7 @@ function BookButtons({ cardId, squareId, sx }: BookButtonsProps) {
           },
         }}
         style={{ display: 'contents' }}
-        title="edit square"
+        aria-label="edit square"
       >
         <Box
           sx={{
