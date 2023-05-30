@@ -33,10 +33,16 @@ function BingoCardTitle({
   return (
     <Box sx={{ alignItems: 'center', display: 'flex', gap: '1.5rem' }}>
       {showUsername && (
-        <Text as="h2" variant="heading2">{username || 'No name'}</Text>
+        <Text as="h2" variant="heading2">
+          {username || 'No name'}
+        </Text>
       )}
       {showArchiveButton && (
-        <Button variant="primary" onClick={() => onArchiveCard()}>
+        <Button
+          variant="primary"
+          sx={{ inlineSize: '100%' }}
+          onClick={() => onArchiveCard()}
+        >
           {archived ? (
             <ArrowUturnLeftIcon style={{ blockSize: '24px' }} />
           ) : (
