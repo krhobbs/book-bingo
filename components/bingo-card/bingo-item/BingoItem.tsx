@@ -26,7 +26,7 @@ function BingoItem({ archived, cardId, square, usersCard }: BingoItemProps) {
         justifyContent: 'center',
         textAlign: 'center',
         position: 'relative',
-        blockSize: ['98px', '138px'],
+        blockSize: ['100px', '138px'],
         inlineSize: ['auto', '112px'],
         border: (theme) => `solid 1px ${square.book ? square.color ?? theme.colors.accent : theme.colors.secondary}`,
         borderRadius: '5px',

@@ -27,6 +27,7 @@ function BingoCard({ card }: { card: Card }) {
 
   return (
     <Box
+      as="article"
       sx={{
         inlineSize: ['100%', 'min-content'],
         minInlineSize: '320px',

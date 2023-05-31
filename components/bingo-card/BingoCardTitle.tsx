@@ -31,10 +31,13 @@ function BingoCardTitle({
   );
 
   return (
-    <Box sx={{ alignItems: 'center', display: 'flex', gap: '1.5rem' }}>
+    <Box
+      as="section"
+      sx={{ alignItems: 'center', display: 'flex', gap: '1.5rem' }}
+    >
       {showUsername && (
         <Text as="h2" variant="heading2">
-          {username || 'No name'}
+          {username}
         </Text>
       )}
       {showArchiveButton && (
@@ -45,13 +48,9 @@ function BingoCardTitle({
           aria-label={`${archived ? 'unarchive' : 'archive'} card`}
         >
           {archived ? (
-            <ArrowUturnLeftIcon
-              style={{ blockSize: '24px' }}
-            />
+            <ArrowUturnLeftIcon style={{ blockSize: '24px' }} />
           ) : (
-            <ArchiveBoxIcon
-              style={{ blockSize: '24px' }}
-            />
+            <ArchiveBoxIcon style={{ blockSize: '24px' }} />
           )}
         </Button>
       )}

@@ -15,11 +15,11 @@ function ArchivedLayout({ cards, username }: ArchivedLayoutProps) {
       <Head>
         <title>Book Bingo | Archived</title>
       </Head>
-      <GridListSwitch />
-      <Spacer size="2rem" />
       <Text variant="heading1" as="h1" sx={{ textAlign: 'center' }}>
-        {username}&apos;s Archived Cards
+        Your Archived Cards
       </Text>
+      <Spacer size="2rem" />
+      <GridListSwitch />
       <Spacer size="2rem" />
       {cards.length === 0 ? (
         <Text as="p" sx={{textAlign: 'center'}}>No Archived Cards.</Text>
