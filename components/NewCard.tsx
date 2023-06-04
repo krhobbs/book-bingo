@@ -1,4 +1,4 @@
-import { Box, Text, IconButton } from 'theme-ui';
+import { Box, Text } from 'theme-ui';
 import { PlusIcon } from '@heroicons/react/24/outline';
 
 function NewCard() {
@@ -17,25 +17,28 @@ function NewCard() {
 
   return (
     <Box
+      as="button"
       sx={{
         alignItems: 'center',
-        justifyContent: 'center',
-        display: 'flex',
-        flexDirection: 'column',
-        cursor: 'pointer',
-        blockSize: '682px',
-        inlineSize: '532px',
-        maxInlineSize: '100%',
+        blockSize: ['520px', '682px'],
+        background: 'transparent',
         border: (theme) => `2px solid ${theme.colors.muted}`,
         borderRadius: '1rem',
+        color: 'muted',
+        cursor: 'pointer',
+        display: 'flex',
+        flexDirection: 'column',
+        inlineSize: ['95%', '532px'],
+        justifyContent: 'center',
+        maxInlineSize: '100%',
         mx: 'auto',
       }}
       onClick={newCardHandler}
     >
-        <Text variant="body2" color="muted">New Bingo Card</Text>
-      <IconButton sx={{cursor: 'pointer', height: '128px', width: '128px', color: 'muted'}}>
-        <PlusIcon />
-      </IconButton>
+      <Text variant="body2">
+        New Bingo Card
+      </Text>
+      <PlusIcon style={{blockSize: '96px', inlineSize: '96px'}} />
     </Box>
   );
 }

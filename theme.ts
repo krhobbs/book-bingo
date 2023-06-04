@@ -1,8 +1,9 @@
 import type { Theme } from 'theme-ui';
+import { Inter } from 'next/font/google';
 
 export const theme: Theme = {
   config: {
-    initialColorModeName: 'light'
+    initialColorModeName: 'light',
   },
   colors: {
     text: '#000000',
@@ -27,48 +28,51 @@ export const theme: Theme = {
     },
   },
   fonts: {
-    body: '"Open Sans", sans-serif',
-    heading: '"Open Sans", sans-serif',
+    body: '-apple-system, BlinkMacSystemFont, sans-serif',
+    heading: '-apple-system, BlinkMacSystemFont, sans-serif',
   },
   fontSizes: [9, 10, 12, 14, 15, 16, 23, 26, 28, 32],
   fontWeights: {
-    caption: 300,
-    body: 400,
-    heading: 600,
+    caption: 300, // light
+    body: 400, // regular
+    heading: 600, // semi-bold
   },
   breakpoints: ['600px', '1024px'],
   text: {
     heading1: {
       fontFamily: 'heading',
       fontWeight: 'heading',
-      fontSize: [7, 9],
+      fontSize: [7, 9], // 26, 32
     },
     heading2: {
       fontFamily: 'heading',
       fontWeight: 'heading',
-      fontSize: [6, 8],
+      fontSize: [6, 8], // 23, 28
+    },
+    subheading: {
+      fontFamily: 'body',
+      fontWeight: 'heading',
+      fontSize: [2, 4], // 12, 15
     },
     body1: {
       fontFamily: 'body',
       fontWeight: 'body',
-      fontSize: [1, 3],
+      fontSize: [1, 3], // 10, 14
     },
     body2: {
       fontFamily: 'body',
       fontWeight: 'body',
-      fontSize: [0, 2],
-    },
-    navLink: {
-      fontFamily: 'body',
-      fontWeight: 'heading',
-      fontSize: [2, 4],
+      fontSize: [0, 2], // 9, 12
     },
     caption: {
       fontFamily: 'body',
       fontWeight: 'caption',
-      fontSize: [0, 1],
+      fontSize: [0, 1], // 9, 10
       textDecoration: 'underline',
-    }
+    },
+  },
+  shadows: {
+    pushedIn: 'inset 0px 0px 15px -10px #000000',
   },
   buttons: {
     primary: {
@@ -77,56 +81,68 @@ export const theme: Theme = {
       bg: 'primary',
       padding: '0.5rem 1.5rem',
       '&:hover': {
-        boxShadow: 'inset 0px 0px 15px -10px #000000',
+        boxShadow: 'pushedIn',
       },
     },
-    archival: {
+    icon: {
+      cursor: 'pointer',
+      padding: '0px',
+    },
+    settings: {
+      fontWeight: 'heading',
+      fontSize: [2, 3],
+      color: 'text',
+      cursor: 'pointer',
+      bg: 'transparent',
+      textAlign: 'left',
+      '&:hover': {
+        bg: 'muted'
+      }
+    },
+    closeModal: {
       bg: 'primary',
       color: 'text',
       cursor: 'pointer',
+      blockSize: ['1.5rem', '2.25rem'],
+      inlineSize: ['1.5rem', '2.25rem'],
       padding: '0px',
-      inlineSize: '100%',
-      blockSize: ['16px', '26px'],
+      '&:hover': {
+        boxShadow: 'pushedIn',
+      },
     },
-    bingoItem: {
+  },
+  links: {
+    item: {
       bg: 'secondary',
-      color: 'text',
-      cursor: 'pointer',
-      position: 'absolute',
-      bottom: ['8px', '12px'],
-      right: '0px',
-      left: '0px',
-      marginInline: 'auto',
-      padding: '0px',
-      inlineSize: ['38px', '60px'],
       blockSize: ['16px', '26px'],
+      borderRadius: '5px',
+      color: 'text',
+      inlineSize: ['38px', '60px'],
+      textAlign: 'center',
+      '&:hover': {
+        boxShadow: 'pushedIn',
+      },
     },
     settings: {
-        fontWeight: 'heading',
-        fontSize: [2, 3],
-        color: 'text',
-        cursor: 'pointer',
-        bg: 'transparent',
-        textAlign: 'left'
-    },
-    closeModal: {
-        bg: 'primary',
-        color: 'text',
-        cursor: 'pointer',
-        blockSize: ['1.5rem', '2.25rem'],
-        inlineSize: ['1.5rem', '2.25rem'],
-        padding: '0px',
-        '&:hover': {
-            boxShadow: 'inset 0px 0px 15px -10px #000000',
-        },
+      fontWeight: 'heading',
+      fontSize: [2, 3],
+      color: 'text',
+      cursor: 'pointer',
+      bg: 'transparent',
+      borderRadius: '4px',
+      padding: '0.5rem 1rem',
+      textAlign: 'left',
+      '&:hover': {
+        bg: 'muted'
+      }
     }
   },
   forms: {
     label: {
-        fontFamily: 'body',
-        fontWeight: 'body',
-        fontSize: [2, 3],
-    }
+      fontFamily: 'body',
+      fontWeight: 'body',
+      fontSize: [2, 3],
+    },
   },
   styles: {
     root: {
@@ -134,15 +150,19 @@ export const theme: Theme = {
       a: {
         textDecoration: 'none',
         color: 'inherit',
+        fontSize: 4,
       },
       body: {
         minHeight: '100vh',
       },
+      button: {
+        fontFamily: 'body',
+      },
       input: {
         '&:focus': {
-          outline: 'none'
-        }
-      }
+          outline: 'none',
+        },
+      },
     },
   },
 };

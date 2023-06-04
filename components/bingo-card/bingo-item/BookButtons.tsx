@@ -36,48 +36,53 @@ function BookButtons({ cardId, squareId, sx }: BookButtonsProps) {
     <Box
       sx={{
         display: 'flex',
-        ...sx
+        ...sx,
       }}
     >
       <Button
         sx={{
           alignItems: 'center',
           background: 'destructive',
-          border: 'none',
           borderRadius: '4px 0px 0px 4px',
-          color: 'text',
-          cursor: 'pointer',
           display: 'flex',
           flex: '1 1 0px',
           justifyContent: 'center',
           padding: '0px',
         }}
         onClick={removeBookHandler}
+        aria-label="delete book from square"
       >
-        <TrashIcon style={{ inlineSize: iconSize, blockSize: iconSize }} />
+        <TrashIcon
+          style={{ inlineSize: iconSize, blockSize: iconSize }}
+        />
       </Button>
       <Link
         href={{
           pathname: '/edit-book',
           query: {
             card: cardId,
-            square: squareId
-          }
+            square: squareId,
+          },
         }}
         style={{ display: 'contents' }}
+        aria-label="edit square"
       >
         <Box
           sx={{
-            background: 'muted',
-            borderTopRightRadius: '4px',
-            borderBottomRightRadius: '4px',
-            flex: '1 1 0px',
-            display: 'flex',
             alignItems: 'center',
+            background: 'muted',
+            borderRadius: '0px 4px 4px 0px',
+            display: 'flex',
+            flex: '1 1 0px',
             justifyContent: 'center',
+            '&:hover': {
+              boxShadow: 'pushedIn',
+            },
           }}
         >
-          <PencilIcon style={{ inlineSize: iconSize, blockSize: iconSize }} />
+          <PencilIcon
+            style={{ inlineSize: iconSize, blockSize: iconSize }}
+          />
         </Box>
       </Link>
     </Box>

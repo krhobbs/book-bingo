@@ -1,6 +1,7 @@
 import { Box, Text } from 'theme-ui';
 import Spacer from '../../../ui/Spacer';
 import BookButtons from '../BookButtons';
+import BookInfo from '../../../book/BookInfo';
 import Image from 'next/image';
 interface ListCompleteProps {
   archived: boolean;
@@ -32,17 +33,11 @@ function ListComplete({
         </Box>
       )}
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-        <Text as="h3" variant="navLink">
+        <Text as="h3" variant="subheading">
           {req}
         </Text>
         <Spacer size="1rem" />
-        <Text as="p" variant="body1">
-          {book.title}
-        </Text>
-        <Spacer size="0.4rem" />
-        <Text as="p" variant="body2">
-          By. {book.author}
-        </Text>
+        <BookInfo book={book} gap="0.4rem" />
         {!archived && usersCard && (
           <>
             <Spacer size="1rem" />

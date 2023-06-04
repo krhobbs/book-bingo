@@ -1,7 +1,18 @@
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
-import { Box, Text, IconButton, ThemeUICSSObject, useColorMode } from 'theme-ui';
-import { BookOpenIcon, Cog6ToothIcon, SunIcon, MoonIcon } from '@heroicons/react/24/outline';
+import {
+  Box,
+  Text,
+  IconButton,
+  ThemeUICSSObject,
+  useColorMode,
+} from 'theme-ui';
+import {
+  BookOpenIcon,
+  Cog6ToothIcon,
+  SunIcon,
+  MoonIcon,
+} from '@heroicons/react/24/outline';
 
 const containerStyles: ThemeUICSSObject = {
   alignItems: 'center',
@@ -21,7 +32,7 @@ function TopNav() {
 
   return (
     <Box as="nav" sx={containerStyles}>
-      <Link href="/">
+      <Link href="/" aria-label="home page (see all cards)">
         <Box
           sx={{
             cursor: 'pointer',
@@ -30,9 +41,7 @@ function TopNav() {
             gap: '0.75rem',
           }}
         >
-          <IconButton sx={{ padding: 0 }}>
-            <BookOpenIcon style={{ inlineSize: '100%' }} />
-          </IconButton>
+          <BookOpenIcon style={{ blockSize: '32px', inlineSize: '32px' }} />
           <Text as="h1" variant="heading1" sx={{ display: ['none', 'inline'] }}>
             BookBingo
           </Text>
@@ -43,19 +52,21 @@ function TopNav() {
       >
         {status === 'authenticated' ? (
           <>
-            <Link href="/profile">
-              <Text variant="navLink">Profile</Text>
+            <Link href="/profile">Profile</Link>
+            <Link href="/friends">Friends</Link>
+            <Link href="/settings" style={{ display: 'contents' }}>
+              <Cog6ToothIcon style={{ blockSize: '24px', inlineSize: '24px' }} />
             </Link>
-            <Link href="/friends">
-              <Text variant="navLink">Friends</Text>
-            </Link>
-            <Link href="/settings">
-              <IconButton as="div">
-                <Cog6ToothIcon style={{width: '24px', height: '24px'}} />
-              </IconButton>
-            </Link>
-            <IconButton onClick={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}>
-              {colorMode === 'light' ? (<MoonIcon style={{width: '24px'}} />) : (<SunIcon style={{width: '24px'}} />)}
+            <IconButton
+              onClick={() =>
+                setColorMode(colorMode === 'light' ? 'dark' : 'light')
+              }
+            >
+              {colorMode === 'light' ? (
+                <MoonIcon style={{ blockSize: '24px', inlineSize: '24px' }} />
+              ) : (
+                <SunIcon style={{ blockSize: '24px', inlineSize: '24px' }} />
+              )}
             </IconButton>
           </>
         ) : (

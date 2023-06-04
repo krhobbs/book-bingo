@@ -16,16 +16,16 @@ function ProfileLayout({ cards, username }: ProfileLayoutProps) {
       <Head>
         <title>Book Bingo | Profile</title>
       </Head>
-      <GridListSwitch />
-      <Spacer size="2rem" />
       <Text variant="heading1" as="h1" sx={{ textAlign: 'center' }}>
-        {username}&apos;s Profile
+        Your Profile
       </Text>
+      <Spacer size="2rem" />
+      <GridListSwitch />
       <Spacer size="2rem" />
       {cards.length >= 1 ? (
         <>
           <Cards cards={cards} />
-          <Spacer size="3.5rem" />
+          <Spacer size="2rem" />
           <NewCard />
         </>
       ) : (

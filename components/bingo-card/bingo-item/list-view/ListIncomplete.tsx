@@ -1,6 +1,6 @@
 import PlusIcon from '@heroicons/react/24/outline/PlusIcon';
 import Link from 'next/link';
-import { Box, Button, Text } from 'theme-ui';
+import { Box, Text } from 'theme-ui';
 import Spacer from '../../../ui/Spacer';
 
 interface ListIncompleteProps {
@@ -19,8 +19,10 @@ function ListIncomplete({
   usersCard,
 }: ListIncompleteProps) {
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-      <Text as="h3" variant="navLink" sx={{textAlign: 'center'}}>
+    <Box
+      sx={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}
+    >
+      <Text as="h3" variant="subheading" sx={{ textAlign: 'center' }}>
         {req}
       </Text>
       {!archived && usersCard && (
@@ -34,20 +36,11 @@ function ListIncomplete({
                 square: squareId,
               },
             }}
-            passHref
-            style={{ display: 'flex' }}
+            aria-label="add new book"
           >
-            <Button
-              sx={{
-                background: 'secondary',
-                inlineSize: ['38px', '60px'],
-                blockSize: ['18px', '26px'],
-                padding: '0px',
-                marginInline: 'auto',
-              }}
-            >
+            <Box variant="links.item">
               <PlusIcon style={{ blockSize: '100%' }} />
-            </Button>
+            </Box>
           </Link>
         </>
       )}

@@ -1,6 +1,5 @@
 import BookInfo from '../../book/BookInfo';
-import { Box, Button } from 'theme-ui';
-import { TrashIcon } from '@heroicons/react/24/outline';
+import { Box } from 'theme-ui';
 import Spacer from '../../ui/Spacer';
 import BookButtons from './BookButtons';
 

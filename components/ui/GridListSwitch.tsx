@@ -23,6 +23,7 @@ function GridListSwitch() {
         position: 'relative',
       }}
       onClick={() => setListView(!listView)}
+      aria-label="toggle grid/list view"
     >
       <Box
         sx={{
@@ -36,7 +37,7 @@ function GridListSwitch() {
           transition: 'left .25s',
           zIndex: 1,
         }}
-      ></Box>
+      />
       <Box
         sx={{
           blockSize: ['14px', '20px'],

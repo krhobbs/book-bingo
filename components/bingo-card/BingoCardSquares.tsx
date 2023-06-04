@@ -21,6 +21,7 @@ function BingoCardSquares({
     <>
       {listView ? (
         <Box
+          as="section"
           sx={{
             display: 'flex',
             flexDirection: 'column',
@@ -41,6 +42,7 @@ function BingoCardSquares({
         </Box>
       ) : (
         <Box
+          as="section"
           sx={{
             display: 'grid',
             gap: ['0.3rem', '0.5rem'],

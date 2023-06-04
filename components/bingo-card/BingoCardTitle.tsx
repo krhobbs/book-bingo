@@ -31,16 +31,26 @@ function BingoCardTitle({
   );
 
   return (
-    <Box sx={{ alignItems: 'center', display: 'flex', gap: '1.5rem' }}>
+    <Box
+      as="section"
+      sx={{ alignItems: 'center', display: 'flex', gap: '1.5rem' }}
+    >
       {showUsername && (
-        <Text variant={'heading2'}>{username || 'No name'}</Text>
+        <Text as="h2" variant="heading2">
+          {username}
+        </Text>
       )}
       {showArchiveButton && (
-        <Button variant="archival" onClick={() => onArchiveCard()}>
+        <Button
+          variant="primary"
+          sx={{ inlineSize: '100%' }}
+          onClick={() => onArchiveCard()}
+          aria-label={`${archived ? 'unarchive' : 'archive'} card`}
+        >
           {archived ? (
-            <ArrowUturnLeftIcon style={{ blockSize: '98%' }} />
+            <ArrowUturnLeftIcon style={{ blockSize: '24px' }} />
           ) : (
-            <ArchiveBoxIcon style={{ blockSize: '98%' }} />
+            <ArchiveBoxIcon style={{ blockSize: '24px' }} />
           )}
         </Button>
       )}
