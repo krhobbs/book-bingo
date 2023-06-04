@@ -75,12 +75,15 @@ function Settings() {
 
   if (status === 'unauthenticated') {
     return (
-      <Link href='/login'>
-        <Text as="p" variant="heading2" sx={{ display: 'block', textAlign: 'center', mx: 'auto' }}>
+      <Link href="/login">
+        <Text
+          as="p"
+          variant="heading2"
+          sx={{ display: 'block', textAlign: 'center', mx: 'auto' }}
+        >
           Login
         </Text>
       </Link>
-      
     );
   }
 
@@ -112,16 +115,7 @@ function Settings() {
         </Text>
         <Divider sx={{ py: '0.1rem', opacity: 0.3 }} />
         <Link href="/archived">
-            <Text
-              sx={{
-                display: 'inline-block',
-                fontSize: [2, 3],
-                fontWeight: 'heading',
-                padding: '0.58rem 1rem 0.25rem 1rem'
-              }}
-            >
-              Archived
-            </Text>
+          <Box variant="links.settings">Archived</Box>
         </Link>
         <Divider sx={{ py: '0.1rem', opacity: 0.3 }} />
         <Button

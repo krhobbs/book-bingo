@@ -1,4 +1,5 @@
 import type { Theme } from 'theme-ui';
+import { Inter } from 'next/font/google';
 
 export const theme: Theme = {
   config: {
@@ -27,8 +28,8 @@ export const theme: Theme = {
     },
   },
   fonts: {
-    body: '"Open Sans", sans-serif',
-    heading: '"Open Sans", sans-serif',
+    body: '-apple-system, BlinkMacSystemFont, sans-serif',
+    heading: '-apple-system, BlinkMacSystemFont, sans-serif',
   },
   fontSizes: [9, 10, 12, 14, 15, 16, 23, 26, 28, 32],
   fontWeights: {
@@ -94,6 +95,9 @@ export const theme: Theme = {
       cursor: 'pointer',
       bg: 'transparent',
       textAlign: 'left',
+      '&:hover': {
+        bg: 'muted'
+      }
     },
     closeModal: {
       bg: 'primary',
@@ -119,6 +123,19 @@ export const theme: Theme = {
         boxShadow: 'pushedIn',
       },
     },
+    settings: {
+      fontWeight: 'heading',
+      fontSize: [2, 3],
+      color: 'text',
+      cursor: 'pointer',
+      bg: 'transparent',
+      borderRadius: '4px',
+      padding: '0.5rem 1rem',
+      textAlign: 'left',
+      '&:hover': {
+        bg: 'muted'
+      }
+    }
   },
   forms: {
     label: {
@@ -137,6 +154,9 @@ export const theme: Theme = {
       },
       body: {
         minHeight: '100vh',
+      },
+      button: {
+        fontFamily: 'body',
       },
       input: {
         '&:focus': {
