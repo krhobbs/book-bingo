@@ -18,7 +18,7 @@ function BookButtons({ cardId, squareId, sx }: BookButtonsProps) {
   );
 
   async function removeBookHandler() {
-    const response = await fetch('/api/delete-book', {
+    await fetch('/api/delete-book', {
       method: 'POST',
       body: JSON.stringify({
         cardId: cardId,
@@ -29,7 +29,7 @@ function BookButtons({ cardId, squareId, sx }: BookButtonsProps) {
       },
     });
 
-    if (response.ok) location.reload();
+    // if (response.ok) location.reload();
   }
 
   return (
