@@ -8,11 +8,11 @@ interface AddBookLayoutProps {
   square: string;
 }
 
-function AddBookLayout({ cardId, username, square }: AddBookLayoutProps) {
+function AddBookLayout({ cardId, square }: AddBookLayoutProps) {
   const router = useRouter();
 
   async function addBookHandler(enteredBookData) {
-    const response = await fetch('/api/add-book', {
+    const response = await fetch(`/api/card/${cardId}/add-book`, {
       method: 'POST',
       body: JSON.stringify(enteredBookData),
       headers: {
@@ -37,7 +37,6 @@ function AddBookLayout({ cardId, username, square }: AddBookLayoutProps) {
       </Head>
       <AddBookForm
         card={cardId}
-        user={username}
         square={square}
         onAddBook={addBookHandler}
       />

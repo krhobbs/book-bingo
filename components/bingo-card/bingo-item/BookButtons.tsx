@@ -18,7 +18,7 @@ function BookButtons({ cardId, squareId, sx }: BookButtonsProps) {
   );
 
   async function removeBookHandler() {
-    await fetch('/api/delete-book', {
+    await fetch(`/api/card/${cardId}/delete-book`, {
       method: 'POST',
       body: JSON.stringify({
         cardId: cardId,

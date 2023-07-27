@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { ObjectId } from 'mongodb';
-import { connectDatabase } from '../../utils/db-utils';
+import { connectDatabase } from '../../../../utils/db-utils';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {

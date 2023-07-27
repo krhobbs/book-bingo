@@ -4,15 +4,14 @@ import EditBookForm from '../../forms/EditBookForm';
 
 interface EditBookLayoutProps {
   cardId: string;
-  username: string;
   square: Square;
 }
 
-function EditBookLayout({ cardId, username, square }: EditBookLayoutProps) {
+function EditBookLayout({ cardId, square }: EditBookLayoutProps) {
   const router = useRouter();
 
   async function editBookHandler(enteredBookData) {
-    const response = await fetch('/api/add-book', {
+    const response = await fetch(`/api/card/${cardId}/add-book`, {
       method: 'POST',
       body: JSON.stringify(enteredBookData),
       headers: {
@@ -37,7 +36,6 @@ function EditBookLayout({ cardId, username, square }: EditBookLayoutProps) {
       </Head>
       <EditBookForm
         card={cardId}
-        user={username}
         square={square}
         onEditBook={editBookHandler}
       />

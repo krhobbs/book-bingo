@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { connectDatabase } from '../../utils/db-utils';
+import { connectDatabase } from '../../../../utils/db-utils';
 import { ObjectId } from 'mongodb';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
