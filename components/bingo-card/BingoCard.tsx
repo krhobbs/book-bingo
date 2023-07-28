@@ -9,10 +9,9 @@ function BingoCard({ card }: { card: Card }) {
   const usersCard = session ? card.user === session.user.username : false;
 
   async function archiveCardHandler() {
-    const response = await fetch('/api/cards/archive-card', {
+    const response = await fetch(`/api/card/${card._id}/archive`, {
       method: 'POST',
       body: JSON.stringify({
-        cardId: card._id,
         archived: card.archived,
       }),
       headers: {

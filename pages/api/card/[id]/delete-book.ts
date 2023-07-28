@@ -4,7 +4,8 @@ import { ObjectId } from 'mongodb';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
-    const { cardId, squareId } = req.body;
+    const id: string = req.query.id as string;
+    const { squareId } = req.body;
 
     try {
       const client = await connectDatabase();
@@ -13,7 +14,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
       await cardsCollection.updateOne(
         {
-          _id: new ObjectId(cardId),
+          _id: new ObjectId(id),
           'squares.id': squareId,
         },
         {

@@ -23,7 +23,6 @@ function AddBookForm(props) {
     }
 
     const bookData = {
-      card: props.card,
       square: props.square,
       title: enteredTitle,
       author: enteredAuthor,

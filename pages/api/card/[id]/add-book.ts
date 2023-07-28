@@ -4,9 +4,8 @@ import { connectDatabase } from '../../../../utils/db-utils';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
-    const data = req.body;
-
-    const { card, title, author, square, color, cover } = data;
+    const id: string = req.query.id as string;
+    const { title, author, square, color, cover } = req.body;
 
     try {
       const client = await connectDatabase();
@@ -17,7 +16,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
       await cardsCollection.updateOne(
         {
-          _id: new ObjectId(card),
+          _id: new ObjectId(id),
           'squares.id': square,
         },
         {

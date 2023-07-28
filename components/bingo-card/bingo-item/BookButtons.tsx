@@ -21,15 +21,12 @@ function BookButtons({ cardId, squareId, sx }: BookButtonsProps) {
     await fetch(`/api/card/${cardId}/delete-book`, {
       method: 'POST',
       body: JSON.stringify({
-        cardId: cardId,
         squareId: squareId,
       }),
       headers: {
         'Content-Type': 'application/json',
       },
     });
-
-    // if (response.ok) location.reload();
   }
 
   return (

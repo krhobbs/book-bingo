@@ -3,7 +3,7 @@ import { PlusIcon } from '@heroicons/react/24/outline';
 
 function NewCard() {
   async function newCardHandler() {
-    const response = await fetch('/api/cards/add-card', {
+    const response = await fetch('/api/card/new', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -11,8 +11,6 @@ function NewCard() {
     });
 
     const data = await response.json();
-
-    window.location.reload();
   }
 
   return (

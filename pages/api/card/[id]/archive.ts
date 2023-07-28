@@ -1,15 +1,16 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { ObjectId } from 'mongodb';
-import { connectDatabase } from '../../../utils/db-utils';
+import { connectDatabase } from '../../../../utils/db-utils';
 import { getServerSession } from 'next-auth/next';
-import { authOptions } from '../auth/[...nextauth]';
+import { authOptions } from '../../auth/[...nextauth]';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
     return;
   }
-
-  const { cardId, archived } = req.body;
+  
+  const id: string = req.query.id as string;
+  const { archived } = req.body;
 
   const session = await getServerSession(req, res, authOptions);
 
@@ -34,7 +35,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     }
 
     await cardsCollection.updateOne(
-      { _id: new ObjectId(cardId) },
+      { _id: new ObjectId(id) },
       { $set: { archived: !archived } }
     );
 
