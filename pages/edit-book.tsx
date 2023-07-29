@@ -12,7 +12,7 @@ function EditBook({
   cardId: string;
   username: string;
 }) {
-  return <EditBookLayout cardId={cardId} username={username} square={square} />;
+  return <EditBookLayout cardId={cardId} square={square} />;
 }
 
 export default EditBook;
