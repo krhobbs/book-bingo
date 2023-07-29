@@ -1,7 +1,7 @@
-import type { NextApiResponse } from 'next';
+import type { NextApiRequest, NextApiResponse } from 'next';
 import { connectDatabase } from '../../../utils/db-utils';
 
-async function handler(res: NextApiResponse) {
+async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     const client = await connectDatabase();
     const cards = await client.db().collection('cards').find({archived: false}).toArray();

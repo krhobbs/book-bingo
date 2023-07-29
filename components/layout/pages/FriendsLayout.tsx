@@ -3,8 +3,11 @@ import { Box, Text } from 'theme-ui';
 import Spacer from '../../ui/Spacer';
 import Cards from '../../Cards';
 import GridListSwitch from '../../ui/GridListSwitch';
+import { fetchFriendsCards } from '../../../utils/api-utils';
+import useSWR from 'swr';
 
-function FriendsLayout({ cards }: { cards: Card[] }) {
+function FriendsLayout({ cards, username }: { cards: Card[], username: string }) {
+  const { data, mutate } = useSWR(`/api/cards/${username}/friends`, fetchFriendsCards, { fallbackData: cards });
   return (
     <>
       <Head>
@@ -21,7 +24,7 @@ function FriendsLayout({ cards }: { cards: Card[] }) {
           None of your friends have cards to display.
         </Text>
       ) : (
-        <Cards cards={cards} />
+        <Cards cards={data} mutate={mutate} />
       )}
     </>
   );

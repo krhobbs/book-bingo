@@ -1,7 +1,7 @@
 import { Box, Text } from 'theme-ui';
 import { PlusIcon } from '@heroicons/react/24/outline';
 
-function NewCard() {
+function NewCard({ mutate }) {
   async function newCardHandler() {
     const response = await fetch('/api/card/new', {
       method: 'POST',
@@ -9,7 +9,7 @@ function NewCard() {
         'Content-Type': 'application/json',
       },
     });
-
+    mutate();
     const data = await response.json();
   }
 

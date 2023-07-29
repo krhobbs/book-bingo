@@ -1,38 +1,33 @@
 
-export async function getUser(username: string) {
+export async function fetchCards() {
   try {
-    const response = await fetch(process.env.NEXT_PUBLIC_HOST + '/api/users/' + username);
+    const response = await fetch('/api/cards');
     const data = await response.json();
-
-    return data.user;
+    return data;
   } catch (error) {
     console.log(error);
     return;
   }
 }
 
-export async function getCard(cardId: string) {
+export async function fetchUsersCards(url: string) {
   try {
-    const response = await fetch(process.env.NEXT_PUBLIC_HOST + '/api/cards/' + cardId);
+    const response = await fetch(url);
     const data = await response.json();
-
-    return data.card;
+    return data;
   } catch (error) {
     console.log(error);
     return;
   }
 }
 
-export async function getCards() {
+export async function fetchFriendsCards(url: string) {
   try {
-    const response = await fetch(process.env.NEXT_PUBLIC_HOST + '/api/cards');
+    const response = await fetch(url);
     const data = await response.json();
-    const cards = data.cards;
-
-    return cards;
+    return data;
   } catch (error) {
     console.log(error);
     return;
   }
-
 }

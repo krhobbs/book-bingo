@@ -3,8 +3,8 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from './api/auth/[...nextauth]';
 import FriendsLayout from '../components/layout/pages/FriendsLayout';
 
-export default function Friends({ cards } : { cards: Card[] }) {
-  return <FriendsLayout cards={cards} />;
+export default function Friends({ cards, username } : { cards: Card[], username: string }) {
+  return <FriendsLayout cards={cards} username={username} />;
 }
 
 export async function getServerSideProps(context) {
@@ -33,6 +33,7 @@ export async function getServerSideProps(context) {
     return {
       props: {
         cards: cards,
+        username: session.user.username,
       },
     };
   } catch (error) {

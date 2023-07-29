@@ -4,7 +4,7 @@ import { useSession } from 'next-auth/react';
 import BingoCardTitle from './BingoCardTitle';
 import BingoCardSquares from './BingoCardSquares';
 
-function BingoCard({ card }: { card: Card }) {
+function BingoCard({ card, mutate }: { card: Card, mutate: Function }) {
   const { data: session } = useSession();
   const usersCard = session ? card.user === session.user.username : false;
 
@@ -19,9 +19,7 @@ function BingoCard({ card }: { card: Card }) {
       },
     });
 
-    if (response.ok) {
-      location.reload();
-    }
+    mutate();
   }
 
   return (
