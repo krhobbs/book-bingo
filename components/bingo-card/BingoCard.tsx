@@ -4,15 +4,14 @@ import { useSession } from 'next-auth/react';
 import BingoCardTitle from './BingoCardTitle';
 import BingoCardSquares from './BingoCardSquares';
 
-function BingoCard({ card }: { card: Card }) {
+function BingoCard({ card, mutate }: { card: Card, mutate: Function }) {
   const { data: session } = useSession();
   const usersCard = session ? card.user === session.user.username : false;
 
   async function archiveCardHandler() {
-    const response = await fetch('/api/cards/archive-card', {
+    const response = await fetch(`/api/card/${card._id}/archive`, {
       method: 'POST',
       body: JSON.stringify({
-        cardId: card._id,
         archived: card.archived,
       }),
       headers: {
@@ -20,9 +19,7 @@ function BingoCard({ card }: { card: Card }) {
       },
     });
 
-    if (response.ok) {
-      location.reload();
-    }
+    mutate();
   }
 
   return (

@@ -1,3 +1,4 @@
+import { SWRConfig } from 'swr';
 import Spacer from '../ui/Spacer';
 import TopNav from '../ui/TopNav';
 import { createContext, useState } from 'react';
@@ -9,9 +10,11 @@ function Layout(props) {
     <>
       <TopNav />
       <Spacer size="2rem" />
-      <ViewContext.Provider value={useState(false)}>
-        <main>{props.children}</main>
-      </ViewContext.Provider>
+      <SWRConfig>
+        <ViewContext.Provider value={useState(false)}>
+          <main>{props.children}</main>
+        </ViewContext.Provider>
+      </SWRConfig>
       <Spacer size="2rem" />
     </>
   );

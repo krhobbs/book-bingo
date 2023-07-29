@@ -5,7 +5,9 @@ export async function connectDatabase() {
     const client = await MongoClient.connect(process.env.DB_HOST);
     return client;
   } catch (error) {
-    throw new Error('Unable to connect to the database. Please try again later.');
+    throw new Error(
+      'Unable to connect to the database. Please try again later.'
+    );
   }
 }
 
@@ -22,7 +24,11 @@ export async function insertDocument(client, collection, document) {
 export async function getCards(client: MongoClient, filter = {}) {
   const db = client.db();
 
-  const documents = await db.collection('cards').find(filter).sort({ user: 1 }).toArray();
+  const documents = await db
+    .collection('cards')
+    .find(filter)
+    .sort({ user: 1 })
+    .toArray();
 
   let serializable;
 
@@ -38,38 +44,39 @@ export async function getCards(client: MongoClient, filter = {}) {
   return serializable;
 }
 
-export async function getSquare(client: MongoClient, cardId: string, squareId: string): Promise<Square> {
+export async function getSquare(
+  client: MongoClient,
+  cardId: string,
+  squareId: string
+): Promise<Square> {
   const db = client.db();
 
-  const card = await db.collection('cards').findOne({ _id: new ObjectId(cardId) });
+  const card = await db
+    .collection('cards')
+    .findOne({ _id: new ObjectId(cardId) });
 
   if (!card) {
-    throw new Error('Card not found.') 
+    throw new Error('Card not found.');
   }
 
   const square = card.squares.find((s: Square) => s.id === squareId);
 
   return square;
-
 }
 
 // Not currently used anywhere
-export async function getDocumentById(client, collection, id) {
+export async function getDocumentById(
+  client: MongoClient,
+  collection: string,
+  id: string
+) {
   const db = client.db();
 
   const document = await db
     .collection(collection)
     .findOne({ _id: new ObjectId(id) });
 
-  let serializable;
-
-  if (document) {
-    serializable = { ...document, _id: document._id.toString() };
-  } else {
-    serializable = document;
-  }
-
-  return serializable;
+  return document;
 }
 
 // Used in the register function to make sure the username is not already taken
@@ -92,16 +99,24 @@ export async function getDocumentByUsername(client, collection, username) {
 }
 
 // Used on the friends page to get all cards of friends
-export async function getDocumentsByUsername(client, collection, usernames, filters = {}) {
+export async function getDocumentsByUsername(
+  client,
+  collection,
+  usernames,
+  filters = {}
+) {
   const db = client.db();
 
   if (usernames.length <= 0) {
     return [];
   }
 
-  const filter = { '$or': usernames.map((username) => {
-    return { user: username }
-  }), ...filters }
+  const filter = {
+    $or: usernames.map((username) => {
+      return { user: username };
+    }),
+    ...filters,
+  };
 
   const documents = await db
     .collection(collection)

@@ -1,6 +1,8 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import AddBookForm from '../../forms/AddBookForm';
+import { useSWRConfig } from 'swr';
+import { useSession } from 'next-auth/react';
 
 interface AddBookLayoutProps {
   cardId: string;
@@ -8,11 +10,13 @@ interface AddBookLayoutProps {
   square: string;
 }
 
-function AddBookLayout({ cardId, username, square }: AddBookLayoutProps) {
+function AddBookLayout({ cardId, square }: AddBookLayoutProps) {
   const router = useRouter();
+  const { data: session } = useSession();
+  const { mutate } = useSWRConfig();
 
   async function addBookHandler(enteredBookData) {
-    const response = await fetch('/api/add-book', {
+    const response = await fetch(`/api/card/${cardId}/add-book`, {
       method: 'POST',
       body: JSON.stringify(enteredBookData),
       headers: {
@@ -24,6 +28,9 @@ function AddBookLayout({ cardId, username, square }: AddBookLayoutProps) {
 
     if (response.ok) {
       router.back();
+      mutate('/api/cards');
+      mutate(`/api/cards/${session.user.username}/friends`);
+      mutate(`/api/cards/${session.user.username}`);
       return 'success';
     } else {
       return data.message;
@@ -37,7 +44,6 @@ function AddBookLayout({ cardId, username, square }: AddBookLayoutProps) {
       </Head>
       <AddBookForm
         card={cardId}
-        user={username}
         square={square}
         onAddBook={addBookHandler}
       />

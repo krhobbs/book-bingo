@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { useMemo } from 'react';
 import { Box, Button, ThemeUIStyleObject } from 'theme-ui';
 import useBreakpoint from '../../../hooks/useBreakpoint';
+import { useSWRConfig } from 'swr';
+import { useSession } from 'next-auth/react';
 
 interface BookButtonsProps {
   cardId: string;
@@ -16,12 +18,13 @@ function BookButtons({ cardId, squareId, sx }: BookButtonsProps) {
     () => (breakpoint === 'sm' ? '14px' : '18px'),
     [breakpoint]
   );
+  const { data: session } = useSession();
+  const { mutate } = useSWRConfig();
 
   async function removeBookHandler() {
-    const response = await fetch('/api/delete-book', {
+    const response = await fetch(`/api/card/${cardId}/delete-book`, {
       method: 'POST',
       body: JSON.stringify({
-        cardId: cardId,
         squareId: squareId,
       }),
       headers: {
@@ -29,7 +32,11 @@ function BookButtons({ cardId, squareId, sx }: BookButtonsProps) {
       },
     });
 
-    if (response.ok) location.reload();
+    if (response.ok) {
+      mutate('/api/cards');
+      mutate(`/api/cards/${session.user.username}/friends`);
+      mutate(`/api/cards/${session.user.username}`);
+    }
   }
 
   return (

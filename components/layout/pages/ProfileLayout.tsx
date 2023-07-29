@@ -4,6 +4,8 @@ import Cards from '../../Cards';
 import NewCard from '../../NewCard';
 import GridListSwitch from '../../ui/GridListSwitch';
 import Spacer from '../../ui/Spacer';
+import useSWR from 'swr';
+import { fetchUsersCards } from '../../../utils/api-utils';
 
 interface ProfileLayoutProps {
   cards: Card[];
@@ -11,6 +13,7 @@ interface ProfileLayoutProps {
 }
 
 function ProfileLayout({ cards, username }: ProfileLayoutProps) {
+  const { data, mutate } = useSWR(`/api/cards/${username}`, fetchUsersCards, { fallbackData: cards });
   return (
     <>
       <Head>
@@ -24,12 +27,12 @@ function ProfileLayout({ cards, username }: ProfileLayoutProps) {
       <Spacer size="2rem" />
       {cards.length >= 1 ? (
         <>
-          <Cards cards={cards} />
+          <Cards cards={data} mutate={mutate} />
           <Spacer size="2rem" />
-          <NewCard />
+          <NewCard mutate={mutate} />
         </>
       ) : (
-        <NewCard />
+        <NewCard mutate={mutate} />
       )}
     </>
   );

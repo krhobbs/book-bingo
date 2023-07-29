@@ -3,8 +3,11 @@ import Cards from '../../Cards';
 import GridListSwitch from '../../ui/GridListSwitch';
 import Spacer from '../../ui/Spacer';
 import { Text } from 'theme-ui';
+import useSWR from 'swr';
+import { fetchCards } from '../../../utils/api-utils';
 
 function HomeLayout({ cards } : { cards: Card[] }) {
+  const { data, mutate } = useSWR(`/api/cards`, fetchCards, { fallbackData: cards });
   return (
     <>
       <Head>
@@ -14,7 +17,7 @@ function HomeLayout({ cards } : { cards: Card[] }) {
       <Spacer size="2rem" />
       <GridListSwitch />
       <Spacer size="2rem" />
-      <Cards cards={cards} />
+      <Cards cards={data} mutate={mutate} />
     </>
   );
 }
