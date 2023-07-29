@@ -3,6 +3,8 @@ import Cards from '../../Cards';
 import { Text } from 'theme-ui';
 import Spacer from '../../ui/Spacer';
 import GridListSwitch from '../../ui/GridListSwitch';
+import useSWR from 'swr';
+import { fetchUsersCards } from '../../../utils/api-utils';
 
 interface ArchivedLayoutProps {
   cards: Card[];
@@ -10,6 +12,7 @@ interface ArchivedLayoutProps {
 }
 
 function ArchivedLayout({ cards, username }: ArchivedLayoutProps) {
+  const { data, mutate } = useSWR(`/api/cards/${username}/archived`, fetchUsersCards, { fallbackData: cards });
   return (
     <>
       <Head>
@@ -24,7 +27,7 @@ function ArchivedLayout({ cards, username }: ArchivedLayoutProps) {
       {cards.length === 0 ? (
         <Text as="p" sx={{textAlign: 'center'}}>No Archived Cards.</Text>
       ) : (
-        <Cards cards={cards} />
+        <Cards cards={data} mutate={mutate} />
       )}
     </>
   );
