@@ -137,3 +137,26 @@ export async function getDocumentsByUsername(
 
   return serializable;
 }
+
+// Used on the templates page to get all cards of a user
+export async function getTemplates(client: MongoClient) {
+  const db = client.db();
+
+  const documents = await db
+    .collection('templates')
+    .find({ createdBy: 'kyle' })
+    .toArray();
+
+  let serializable;
+
+  if (documents) {
+    serializable = documents.map((document) => ({
+      ...document,
+      _id: document._id.toString(),
+    }));
+  } else {
+    serializable = documents;
+  }
+
+  return serializable;
+}

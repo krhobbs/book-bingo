@@ -16,3 +16,10 @@ interface Card {
   archived: boolean;
   squares: Square[];
 }
+
+interface Template {
+  _id: string;
+  name: string;
+  createdBy: string;
+  reqs: string[];
+}
