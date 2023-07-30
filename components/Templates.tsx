@@ -5,7 +5,7 @@ function Templates({ templates } : { templates: Template[] }) {
   return (
     <Flex sx={{flexDirection: 'column', gap: '2rem'}}>
       {templates.map((template: Template) => {
-        return <Template />;
+        return <Template template={template}/>;
       })}
     </Flex>
   );
