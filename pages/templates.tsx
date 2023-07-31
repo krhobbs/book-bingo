@@ -1,8 +1,8 @@
-import Templates from '../components/Templates';
+import TemplatesLayout from '../components/layout/pages/TemplatesLayout';
 import { connectDatabase, getTemplates } from '../utils/db-utils';
 
-export default function TemplatePage({ templates }: { templates: Template[] }) {
-  return <Templates templates={templates}/>;
+export default function Template({ templates }: { templates: Template[] }) {
+  return <TemplatesLayout templates={templates} />;
 }
 
 export async function getStaticProps() {
