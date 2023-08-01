@@ -24,7 +24,7 @@ function Templates({ templates } : { templates: Template[] }) {
     return <Spinner sx={{ display: 'block', marginInline: 'auto' }} />;
   }
   return (
-    <Flex sx={{flexDirection: 'column', gap: '2rem'}}>
+    <Flex sx={{flexDirection: 'column', gap: '3rem'}}>
       {templates.map((template: Template) => {
         return <Template template={template}/>;
       })}

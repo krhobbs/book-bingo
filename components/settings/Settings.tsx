@@ -118,6 +118,10 @@ function Settings() {
           <Box variant="links.settings">Archived</Box>
         </Link>
         <Divider sx={{ py: '0.1rem', opacity: 0.3 }} />
+        <Link href="/templates">
+          <Box variant="links.settings">Templates</Box>
+        </Link>
+        <Divider sx={{ py: '0.1rem', opacity: 0.3 }} />
         <Button
           onClick={() => {
             setShowFriendsList(!showFriendsList);

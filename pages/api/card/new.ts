@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getServerSession } from 'next-auth/next';
-import { connectDatabase } from '../../../utils/db-utils';
+import { connectDatabase, getDocumentById } from '../../../utils/db-utils';
 import { authOptions } from '../auth/[...nextauth]';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -9,6 +9,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   const session = await getServerSession(req, res, authOptions);
+  const { templateId } = req.body;
 
   // Make sure the user is authenticated
   if (!session) {
@@ -24,6 +25,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     const cardsCollection = client.db().collection('cards');
 
     const user = await usersCollection.findOne({ username: username });
+    const { reqs } = await getDocumentById(client, 'templates', templateId);
 
     if (!user) {
       res.status(404).json({ message: 'User not found.' });
@@ -36,151 +38,151 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       squares: [
         {
           id: '1A',
-          req: 'Title with a Title',
+          req: reqs[0],
           book: null,
           color: null,
         },
         {
           id: '1B',
-          req: 'Superheroes',
+          req: reqs[1],
           book: null,
           color: null,
         },
         {
           id: '1C',
-          req: 'Bottom of TBR',
+          req: reqs[2],
           book: null,
           color: null,
         },
         {
           id: '1D',
-          req: 'Magical Realism',
+          req: reqs[3],
           book: null,
           color: null,
         },
         {
           id: '1E',
-          req: 'Young Adult',
+          req: reqs[4],
           book: null,
           color: null,
         },
         {
           id: '2A',
-          req: 'Mundane Jobs',
+          req: reqs[5],
           book: null,
           color: null,
         },
         {
           id: '2B',
-          req: 'Published in 2000s',
+          req: reqs[6],
           book: null,
           color: null,
         },
         {
           id: '2C',
-          req: 'Angels and Demons',
+          req: reqs[7],
           book: null,
           color: null,
         },
         {
           id: '2D',
-          req: '5 Short Stories',
+          req: reqs[8],
           book: null,
           color: null,
         },
         {
           id: '2E',
-          req: 'Horror',
+          req: reqs[9],
           book: null,
           color: null,
         },
         {
           id: '3A',
-          req: 'Self/Indie Published',
+          req: reqs[10],
           book: null,
           color: null,
         },
         {
           id: '3B',
-          req: 'Set in Middle East',
+          req: reqs[11],
           book: null,
           color: null,
         },
         {
           id: '3C',
-          req: 'Published in 2023',
+          req: reqs[12],
           book: null,
           color: null,
         },
         {
           id: '3D',
-          req: 'Multiverses',
+          req: reqs[13],
           book: null,
           color: null,
         },
         {
           id: '3E',
-          req: 'POC Author',
+          req: reqs[14],
           book: null,
           color: null,
         },
         {
           id: '4A',
-          req: 'Book Club or Readalong Book',
+          req: reqs[15],
           book: null,
           color: null,
         },
         {
           id: '4B',
-          req: 'Novella',
+          req: reqs[16],
           book: null,
           color: null,
         },
         {
           id: '4C',
-          req: 'Mythical Beasts',
+          req: reqs[17],
           book: null,
           color: null,
         },
         {
           id: '4D',
-          req: 'Elemental Magic',
+          req: reqs[18],
           book: null,
           color: null,
         },
         {
           id: '4E',
-          req: 'Myths and Retellings',
+          req: reqs[19],
           book: null,
           color: null,
         },
         {
           id: '5A',
-          req: 'Queernorm Setting',
+          req: reqs[20],
           book: null,
           color: null,
         },
         {
           id: '5B',
-          req: 'Coastal Setting',
+          req: reqs[21],
           book: null,
           color: null,
         },
         {
           id: '5C',
-          req: 'Druid',
+          req: reqs[22],
           book: null,
           color: null,
         },
         {
           id: '5D',
-          req: 'Features Robots',
+          req: reqs[23],
           book: null,
           color: null,
         },
         {
           id: '5E',
-          req: 'Sequel',
+          req: reqs[24],
           book: null,
           color: null,
         },
