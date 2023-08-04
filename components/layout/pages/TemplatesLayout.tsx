@@ -3,6 +3,7 @@ import { Text } from 'theme-ui';
 import Spacer from '../../ui/Spacer';
 import GridListSwitch from '../../ui/GridListSwitch';
 import Templates from '../../Templates';
+import NewTemplate from '../../NewTemplate';
 
 interface TemplateLayoutProps {
   templates: Template[];
@@ -21,9 +22,13 @@ function ArchivedLayout({ templates }: TemplateLayoutProps) {
       <GridListSwitch />
       <Spacer size="2rem" />
       {templates.length === 0 ? (
-        <Text as="p" sx={{textAlign: 'center'}}>No Templates.</Text>
+        <NewTemplate />
       ) : (
-        <Templates templates={templates} />
+        <>
+          <Templates templates={templates} />
+          <Spacer size="2rem" />
+          <NewTemplate />
+        </>
       )}
     </>
   );
