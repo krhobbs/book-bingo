@@ -1,7 +1,27 @@
-import { Box, Text } from 'theme-ui';
+import { Box, Text, Select } from 'theme-ui';
 import { PlusIcon } from '@heroicons/react/24/outline';
+import { useState } from 'react';
+import { createPortal } from 'react-dom';
+import Modal from './ui/Modal';
+import useSWR from 'swr';
+import { fetchTemplateNames } from '../utils/api-utils';
+
+const SelectTemplateForm = ({ templates }) => {
+  return (
+    <Box>
+      <Select>
+        {templates.map((template) => {
+          return <option key={template.name}>{template.name}</option>;
+        })}
+      </Select>
+    </Box>
+  )
+}
 
 function NewCard({ mutate }) {
+  const [showSelectTemplate, setShowSelectTemplate] = useState(false);
+  const { data } = useSWR('/api/templates', fetchTemplateNames);
+
   async function newCardHandler() {
     const response = await fetch('/api/card/new', {
       method: 'POST',
@@ -14,30 +34,37 @@ function NewCard({ mutate }) {
   }
 
   return (
-    <Box
-      as="button"
-      sx={{
-        alignItems: 'center',
-        blockSize: ['520px', '682px'],
-        background: 'transparent',
-        border: (theme) => `2px solid ${theme.colors.muted}`,
-        borderRadius: '1rem',
-        color: 'muted',
-        cursor: 'pointer',
-        display: 'flex',
-        flexDirection: 'column',
-        inlineSize: ['95%', '532px'],
-        justifyContent: 'center',
-        maxInlineSize: '100%',
-        mx: 'auto',
-      }}
-      onClick={newCardHandler}
-    >
-      <Text variant="body2">
-        New Bingo Card
-      </Text>
-      <PlusIcon style={{blockSize: '96px', inlineSize: '96px'}} />
-    </Box>
+    <>
+      <Box
+        as="button"
+        sx={{
+          alignItems: 'center',
+          blockSize: ['520px', '682px'],
+          background: 'transparent',
+          border: (theme) => `2px solid ${theme.colors.muted}`,
+          borderRadius: '1rem',
+          color: 'muted',
+          cursor: 'pointer',
+          display: 'flex',
+          flexDirection: 'column',
+          inlineSize: ['95%', '532px'],
+          justifyContent: 'center',
+          maxInlineSize: '100%',
+          mx: 'auto',
+        }}
+        onClick={() => {setShowSelectTemplate(true)}}
+      >
+        <Text variant="body2">New Bingo Card</Text>
+        <PlusIcon style={{ blockSize: '96px', inlineSize: '96px' }} />
+      </Box>
+      {showSelectTemplate &&
+        createPortal(
+          <Modal closeModal={() => setShowSelectTemplate(!showSelectTemplate)}><SelectTemplateForm templates={data} /></Modal>,
+          document.body,
+          'select-template'
+        )
+      }
+    </>
   );
 }
 

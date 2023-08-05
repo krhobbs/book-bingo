@@ -6,8 +6,7 @@ import { authOptions } from '../auth/[...nextauth]';
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     const client = await connectDatabase();
-    const session = await getServerSession(req, res, authOptions);
-    const templates = await client.db().collection<Template>('templates').find({createdBy: session.user.username}).toArray();
+    const templates = await client.db().collection<Template>('templates').find().toArray();
     
     res.status(200).json(templates);
   } catch (e) {

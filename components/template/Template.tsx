@@ -5,7 +5,6 @@ import TemplateHeader from './TemplateHeader';
 function Template({ template }: { template: Template }) {
 
   async function createFromHandler() {
-    console.log('Calling Create Template');
     const response = await fetch(`/api/card/new`, {
       method: 'POST',
       body: JSON.stringify({

@@ -31,3 +31,14 @@ export async function fetchFriendsCards(url: string) {
     return;
   }
 }
+
+export async function fetchTemplateNames(url: string) {
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+    return;
+  }
+}
