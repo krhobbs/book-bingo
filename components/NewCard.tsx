@@ -1,19 +1,23 @@
-import { Box, Text, Select } from 'theme-ui';
+import { Box, Text, Select, Button } from 'theme-ui';
 import { PlusIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import Modal from './ui/Modal';
 import useSWR from 'swr';
 import { fetchTemplateNames } from '../utils/api-utils';
+import { useForm } from 'react-hook-form';
 
-const SelectTemplateForm = ({ templates }) => {
+const SelectTemplateForm = ({ templates, handleCreateTemplate } : { templates: Template[]; handleCreateTemplate: Function; }) => {
+  const { register, handleSubmit } = useForm();
+  const onSubmit = ({ template }) => handleCreateTemplate(template);
   return (
-    <Box>
-      <Select>
+    <Box as="form" onSubmit={handleSubmit(onSubmit)} sx={{display: 'flex', flexDirection: ['column', 'row'], gap: ['1rem', '1rem']}}>
+      <Select sx={{minWidth: '15rem'}} {...register("template")}>
         {templates.map((template) => {
-          return <option key={template.name}>{template.name}</option>;
+          return <option key={template.name} value={template._id}>{template.name}</option>;
         })}
       </Select>
+      <Button>Create</Button>
     </Box>
   )
 }
@@ -22,15 +26,18 @@ function NewCard({ mutate }) {
   const [showSelectTemplate, setShowSelectTemplate] = useState(false);
   const { data } = useSWR('/api/templates', fetchTemplateNames);
 
-  async function newCardHandler() {
+  async function newCardHandler(templateId) {
     const response = await fetch('/api/card/new', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify({ templateId: templateId})
     });
     mutate();
-    const data = await response.json();
+    if (response.ok) {
+      setShowSelectTemplate(false);
+    }
   }
 
   return (
@@ -59,7 +66,7 @@ function NewCard({ mutate }) {
       </Box>
       {showSelectTemplate &&
         createPortal(
-          <Modal closeModal={() => setShowSelectTemplate(!showSelectTemplate)}><SelectTemplateForm templates={data} /></Modal>,
+          <Modal closeModal={() => setShowSelectTemplate(!showSelectTemplate)}><SelectTemplateForm templates={data} handleCreateTemplate={newCardHandler} /></Modal>,
           document.body,
           'select-template'
         )
