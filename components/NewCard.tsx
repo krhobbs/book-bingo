@@ -26,7 +26,7 @@ function NewCard({ mutate }) {
   const [showSelectTemplate, setShowSelectTemplate] = useState(false);
   const { data } = useSWR('/api/templates', fetchTemplateNames);
 
-  async function newCardHandler(templateId) {
+  async function newCardHandler(templateId: string) {
     const response = await fetch('/api/card/new', {
       method: 'POST',
       headers: {

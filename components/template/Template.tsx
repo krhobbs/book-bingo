@@ -3,12 +3,23 @@ import TemplateSquares from './TemplateSquares';
 import TemplateHeader from './TemplateHeader';
 
 function Template({ template }: { template: Template }) {
-
   async function createFromHandler() {
     const response = await fetch(`/api/card/new`, {
       method: 'POST',
       body: JSON.stringify({
         templateId: template._id,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+
+  async function deleteHandler() {
+    const response = await fetch(`/api/template/${template._id}/delete`, {
+      method: 'POST',
+      body: JSON.stringify({
+        id: template._id,
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -27,7 +38,12 @@ function Template({ template }: { template: Template }) {
         px: ['0.1rem', '0'],
       }}
     >
-      <TemplateHeader templateId={template._id} name={template.name} handleCreateFrom={createFromHandler} />
+      <TemplateHeader
+        templateId={template._id}
+        name={template.name}
+        handleDelete={deleteHandler}
+        handleCreateFrom={createFromHandler}
+      />
       <TemplateSquares templateId={template._id} reqs={template.reqs} />
     </Box>
   );
