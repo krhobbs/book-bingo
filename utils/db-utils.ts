@@ -11,21 +11,12 @@ export async function connectDatabase() {
   }
 }
 
-// Not currently used anywhere ? Use in register function in future
-export async function insertDocument(client, collection, document) {
-  const db = client.db();
-
-  const result = await db.collection(collection).insertOne(document);
-
-  return result;
-}
-
 // Used to get cards on archived, index, profile pages
-export async function getCards(client: MongoClient, filter = {}) {
+export async function getDocuments(client: MongoClient, collection: string, filter = {}) {
   const db = client.db();
 
   const documents = await db
-    .collection('cards')
+    .collection(collection)
     .find(filter)
     .sort({ user: 1 })
     .toArray();
@@ -122,29 +113,6 @@ export async function getDocumentsByUsername(
     .collection(collection)
     .find(filter)
     .sort({ user: 1 })
-    .toArray();
-
-  let serializable;
-
-  if (documents) {
-    serializable = documents.map((document) => ({
-      ...document,
-      _id: document._id.toString(),
-    }));
-  } else {
-    serializable = documents;
-  }
-
-  return serializable;
-}
-
-// Used on the templates page to get all cards of a user
-export async function getTemplates(client: MongoClient) {
-  const db = client.db();
-
-  const documents = await db
-    .collection('templates')
-    .find({ createdBy: 'kyle' })
     .toArray();
 
   let serializable;

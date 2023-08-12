@@ -3,7 +3,13 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from './api/auth/[...nextauth]';
 import FriendsLayout from '../components/layout/pages/FriendsLayout';
 
-export default function Friends({ cards, username } : { cards: Card[], username: string }) {
+export default function Friends({
+  cards,
+  username,
+}: {
+  cards: Card[];
+  username: string;
+}) {
   return <FriendsLayout cards={cards} username={username} />;
 }
 

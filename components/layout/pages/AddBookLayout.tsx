@@ -6,7 +6,6 @@ import { useSession } from 'next-auth/react';
 
 interface AddBookLayoutProps {
   cardId: string;
-  username: string;
   square: string;
 }
 

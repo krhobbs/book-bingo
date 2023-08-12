@@ -1,34 +1,13 @@
-import { getServerSession } from 'next-auth/next';
-import { authOptions } from './api/auth/[...nextauth]';
 import EditBookLayout from '../components/layout/pages/EditBookLayout';
 import { connectDatabase, getSquare } from '../utils/db-utils';
 
-function EditBook({
-  square,
-  cardId,
-  username,
-}: {
-  square: Square;
-  cardId: string;
-  username: string;
-}) {
+function EditBook({ square, cardId }: { square: Square; cardId: string }) {
   return <EditBookLayout cardId={cardId} square={square} />;
 }
 
 export default EditBook;
 
-export async function getServerSideProps(context) {
-  const session = await getServerSession(context.req, context.res, authOptions);
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
-      },
-    };
-  }
-
+export async function getStaticProps(context) {
   if (!context.query.square || !context.query.card) {
     return { notFound: true };
   }
@@ -44,7 +23,6 @@ export async function getServerSideProps(context) {
       props: {
         square: square,
         cardId: context.query.card,
-        username: session.user.username,
       },
     };
   } catch (error) {
