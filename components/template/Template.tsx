@@ -44,7 +44,7 @@ function Template({ template }: { template: Template }) {
         handleDelete={deleteHandler}
         handleCreateFrom={createFromHandler}
       />
-      <TemplateSquares templateId={template._id} reqs={template.reqs} />
+      <TemplateSquares reqs={template.reqs} />
     </Box>
   );
 }
