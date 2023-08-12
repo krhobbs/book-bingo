@@ -26,7 +26,7 @@ function Templates({ templates } : { templates: Template[] }) {
   return (
     <Flex sx={{flexDirection: 'column', gap: '3rem'}}>
       {templates.map((template: Template) => {
-        return <Template template={template}/>;
+        return <Template key={template._id} template={template}/>;
       })}
     </Flex>
   );

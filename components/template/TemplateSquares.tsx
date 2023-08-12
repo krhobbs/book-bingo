@@ -5,14 +5,10 @@ import TemplateListItem from './template-item/TemplateListItem';
 import TemplateItem from './template-item/TemplateItem';
 
 export interface TemplateSquaresProps {
-  templateId: string;
   reqs: string[];
 }
 
-function BingoCardSquares({
-  templateId,
-  reqs
-}: TemplateSquaresProps) {
+function BingoCardSquares({ reqs }: TemplateSquaresProps) {
   const [listView] = useContext(ViewContext);
   return (
     <>
@@ -26,9 +22,7 @@ function BingoCardSquares({
           }}
         >
           {reqs.map((req: string) => {
-            return (
-              <TemplateListItem req={req} />
-            );
+            return <TemplateListItem key={req} req={req} />;
           })}
         </Box>
       ) : (
@@ -42,9 +36,7 @@ function BingoCardSquares({
           }}
         >
           {reqs.map((req: string) => {
-            return (
-              <TemplateItem req={req} />
-            );
+            return <TemplateItem key={req} req={req} />;
           })}
         </Box>
       )}
