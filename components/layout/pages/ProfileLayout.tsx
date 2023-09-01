@@ -14,6 +14,16 @@ interface ProfileLayoutProps {
 
 function ProfileLayout({ cards, username }: ProfileLayoutProps) {
   const { data, mutate } = useSWR(`/api/cards/${username}`, fetchUsersCards, { fallbackData: cards });
+
+  // New Card Creation
+  // Take in template data
+  
+  //Create new card object
+
+  //API call to add it to the DB
+
+  //mutate call
+
   return (
     <>
       <Head>
@@ -25,7 +35,7 @@ function ProfileLayout({ cards, username }: ProfileLayoutProps) {
       <Spacer size="2rem" />
       <GridListSwitch />
       <Spacer size="2rem" />
-      {cards.length >= 1 ? (
+      {data.length >= 1 ? (
         <>
           <Cards cards={data} mutate={mutate} />
           <Spacer size="2rem" />

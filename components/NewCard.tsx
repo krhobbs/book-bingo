@@ -7,14 +7,14 @@ import useSWR from 'swr';
 import { fetchTemplateNames } from '../utils/api-utils';
 import { useForm } from 'react-hook-form';
 
-const SelectTemplateForm = ({ templates, handleCreateTemplate } : { templates: Template[]; handleCreateTemplate: Function; }) => {
+const SelectTemplateForm = ({ templates, onNewCard } : { templates: Template[]; onNewCard: Function; }) => {
   const { register, handleSubmit } = useForm();
-  const onSubmit = ({ template }) => handleCreateTemplate(template);
+  const onSubmit = ({ idx }) => onNewCard(templates[idx]);
   return (
     <Box as="form" onSubmit={handleSubmit(onSubmit)} sx={{display: 'flex', flexDirection: ['column', 'row'], gap: ['1rem', '1rem']}}>
       <Select sx={{minWidth: '15rem'}} {...register("template")}>
-        {templates.map((template) => {
-          return <option key={template.name} value={template._id}>{template.name}</option>;
+        {templates.map((template, idx) => {
+          return <option key={template.name} value={idx}>{template.name}</option>;
         })}
       </Select>
       <Button>Create</Button>
@@ -26,18 +26,19 @@ function NewCard({ mutate }) {
   const [showSelectTemplate, setShowSelectTemplate] = useState(false);
   const { data } = useSWR('/api/templates', fetchTemplateNames);
 
-  async function newCardHandler(templateId: string) {
-    const response = await fetch('/api/card/new', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ templateId: templateId})
-    });
-    mutate();
-    if (response.ok) {
-      setShowSelectTemplate(false);
-    }
+  async function handleNewCard(template: Template) {
+    console.log(template);
+    // const response = await fetch('/api/card/new', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({ templateId: templateId})
+    // });
+    // mutate();
+    // if (response.ok) {
+    //   setShowSelectTemplate(false);
+    // }
   }
 
   return (
@@ -66,7 +67,7 @@ function NewCard({ mutate }) {
       </Box>
       {showSelectTemplate &&
         createPortal(
-          <Modal closeModal={() => setShowSelectTemplate(!showSelectTemplate)}><SelectTemplateForm templates={data} handleCreateTemplate={newCardHandler} /></Modal>,
+          <Modal closeModal={() => setShowSelectTemplate(!showSelectTemplate)}><SelectTemplateForm templates={data} onNewCard={handleNewCard} /></Modal>,
           document.body,
           'select-template'
         )
