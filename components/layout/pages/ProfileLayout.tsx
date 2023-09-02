@@ -5,7 +5,7 @@ import NewCard from '../../NewCard';
 import GridListSwitch from '../../ui/GridListSwitch';
 import Spacer from '../../ui/Spacer';
 import useSWR from 'swr';
-import { fetchUsersCards } from '../../../utils/api-utils';
+import { addCard, fetchUsersCards } from '../../../utils/api-utils';
 
 interface ProfileLayoutProps {
   cards: Card[];
@@ -17,12 +17,29 @@ function ProfileLayout({ cards, username }: ProfileLayoutProps) {
 
   // New Card Creation
   // Take in template data
-  
-  //Create new card object
+  const handleNewCard = async (template: Template, closeModal: Function) => {
+    const card = {
+      user: username,
+      template: template.name,
+      archived: false,
+      squares: template.reqs.map((req, idx) => {
+        return {
+          id: `${idx}`,
+          req: req,
+          book: null,
+          color: null
+        } as Square;
+      })
+    }
 
-  //API call to add it to the DB
-
-  //mutate call
+    try {
+      const _id = await addCard(card);
+      mutate([ ...data, { _id: _id, ...card }]);
+      closeModal();
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <>
@@ -39,10 +56,10 @@ function ProfileLayout({ cards, username }: ProfileLayoutProps) {
         <>
           <Cards cards={data} mutate={mutate} />
           <Spacer size="2rem" />
-          <NewCard mutate={mutate} />
+          <NewCard handleNewCard={handleNewCard} />
         </>
       ) : (
-        <NewCard mutate={mutate} />
+        <NewCard handleNewCard={handleNewCard} />
       )}
     </>
   );
