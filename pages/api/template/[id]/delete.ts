@@ -1,15 +1,17 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { ObjectId } from 'mongodb';
+import { connectDatabase } from '../../../../utils/db-utils';
 import { getServerSession } from 'next-auth/next';
-import { connectDatabase } from '../../../utils/db-utils';
-import { authOptions } from '../auth/[...nextauth]';
+import { authOptions } from '../../auth/[...nextauth]';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
     return;
   }
 
+  const id: string = req.query.id as string;
+
   const session = await getServerSession(req, res, authOptions);
-  const card = req.body;
 
   // Make sure the user is authenticated
   if (!session) {
@@ -21,29 +23,24 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   try {
     const client = await connectDatabase();
-    const usersCollection = client.db().collection('users');
-    const cardsCollection = client.db().collection('cards');
+    const templatesCollection = client.db().collection('templates');
 
-    const user = await usersCollection.findOne({ username: username });
+    const template = await templatesCollection.findOne({ _id: new ObjectId(id)});
 
-    if (!user) {
-      res.status(404).json({ message: 'User not found.' });
-      return;
+    if (template.createdBy === username) {
+        await templatesCollection.deleteOne({ _id: new ObjectId(id) });
+        res.status(200).json({ message: 'Deleted template!' });
+    } else {
+        res.status(401).json({ message: 'Unauthorized!' });
     }
 
-    const cardResult = await cardsCollection.insertOne(card);
-
-    const newCardId = cardResult.insertedId.toString();
     client.close();
-    res.status(200).json({ _id: newCardId });
-
   } catch (error) {
     res
       .status(422)
       .json({ message: 'Unable to connect to database. Try again later.' });
     return;
   }
-
 }
 
 export default handler;

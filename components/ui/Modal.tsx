@@ -48,7 +48,7 @@ function Modal({ closeModal, children }) {
             background: 'highlight',
             borderRadius: '25px',
             inlineSize: ['100%', 'max-content'],
-            padding: '2rem',
+            padding: '1.5rem',
             mx: 'auto',
             marginBlockStart: '4rem',
             zIndex: 12,

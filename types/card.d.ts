@@ -13,6 +13,14 @@ interface Square {
 interface Card {
   _id: string;
   user: string;
+  template: string;
   archived: boolean;
   squares: Square[];
+}
+
+interface Template {
+  _id: string;
+  name: string;
+  createdBy: string;
+  reqs: string[];
 }

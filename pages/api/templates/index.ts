@@ -1,14 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { connectDatabase } from '../../../../utils/db-utils';
+import { connectDatabase } from '../../../utils/db-utils';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../auth/[...nextauth]';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { username } = req.query;
-  if (Array.isArray(username)) return;
   try {
     const client = await connectDatabase();
-    const cards = await client.db().collection('cards').find({ archived: false, user: username }).toArray();
-
-    res.status(200).json(cards);
+    const templates = await client.db().collection<Template>('templates').find().toArray();
+    
+    res.status(200).json(templates);
   } catch (e) {
     res
       .status(422)

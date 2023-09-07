@@ -9,7 +9,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   const session = await getServerSession(req, res, authOptions);
-  const card = req.body;
 
   // Make sure the user is authenticated
   if (!session) {
@@ -18,25 +17,19 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   const username = session.user.username;
+  const { name, reqs } = req.body;
 
   try {
     const client = await connectDatabase();
-    const usersCollection = client.db().collection('users');
-    const cardsCollection = client.db().collection('cards');
+    const templatesCollection = client.db().collection('templates');
 
-    const user = await usersCollection.findOne({ username: username });
+    await templatesCollection.insertOne({
+      name: name,
+      createdBy: username,
+      reqs: reqs,
+    });
 
-    if (!user) {
-      res.status(404).json({ message: 'User not found.' });
-      return;
-    }
-
-    const cardResult = await cardsCollection.insertOne(card);
-
-    const newCardId = cardResult.insertedId.toString();
     client.close();
-    res.status(200).json({ _id: newCardId });
-
   } catch (error) {
     res
       .status(422)
@@ -44,6 +37,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     return;
   }
 
+  res.status(200).json({ message: 'Added new template!' });
 }
 
 export default handler;

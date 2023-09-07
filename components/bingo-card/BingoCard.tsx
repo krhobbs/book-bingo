@@ -34,6 +34,7 @@ function BingoCard({ card, mutate }: { card: Card, mutate: Function }) {
     >
       <BingoCardTitle
         username={card.user}
+        template={card.template}
         usersCard={usersCard}
         archived={card.archived}
         onArchiveCard={archiveCardHandler}

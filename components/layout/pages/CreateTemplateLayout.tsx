@@ -1,23 +1,18 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import AddBookForm from '../../forms/AddBookForm';
 import { useSWRConfig } from 'swr';
 import { useSession } from 'next-auth/react';
+import CreateTemplateForm from '../../forms/CreateTemplateForm';
 
-interface AddBookLayoutProps {
-  cardId: string;
-  square: string;
-}
-
-function AddBookLayout({ cardId, square }: AddBookLayoutProps) {
+function CreateTemplateLayout() {
   const router = useRouter();
   const { data: session } = useSession();
   const { mutate } = useSWRConfig();
 
-  async function addBookHandler(enteredBookData) {
-    const response = await fetch(`/api/card/${cardId}/add-book`, {
+  async function addBookHandler(enteredTemplateData) {
+    const response = await fetch(`/api/template/new`, {
       method: 'POST',
-      body: JSON.stringify(enteredBookData),
+      body: JSON.stringify(enteredTemplateData),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -27,8 +22,6 @@ function AddBookLayout({ cardId, square }: AddBookLayoutProps) {
 
     if (response.ok) {
       router.back();
-      mutate('/api/cards');
-      mutate(`/api/cards/${session.user.username}`);
       return 'success';
     } else {
       return data.message;
@@ -40,13 +33,9 @@ function AddBookLayout({ cardId, square }: AddBookLayoutProps) {
       <Head>
         <title>Book Bingo | Add New Book</title>
       </Head>
-      <AddBookForm
-        card={cardId}
-        square={square}
-        onAddBook={addBookHandler}
-      />
+      <CreateTemplateForm />
     </>
   );
 }
 
-export default AddBookLayout;
+export default CreateTemplateLayout;
