@@ -7,7 +7,7 @@ function EditBook({ square, cardId }: { square: Square; cardId: string }) {
 
 export default EditBook;
 
-export async function getStaticProps(context: { query: { square: string; card: string; }; }) {
+export async function getServerSideProps(context) {
   if (!context.query.square || !context.query.card) {
     return { notFound: true };
   }

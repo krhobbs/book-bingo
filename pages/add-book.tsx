@@ -6,7 +6,7 @@ function AddBook({ square, cardId }: { square: string; cardId: string }) {
 
 export default AddBook;
 
-export async function getStaticProps(context: { query: { square: string; card: string; }; }) {
+export async function getServerSideProps(context) {
   if (!context.query.square || !context.query.card) {
     return { notFound: true };
   }
