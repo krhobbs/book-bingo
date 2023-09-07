@@ -28,7 +28,6 @@ function AddBookLayout({ cardId, square }: AddBookLayoutProps) {
     if (response.ok) {
       router.back();
       mutate('/api/cards');
-      mutate(`/api/cards/${session.user.username}/friends`);
       mutate(`/api/cards/${session.user.username}`);
       return 'success';
     } else {
