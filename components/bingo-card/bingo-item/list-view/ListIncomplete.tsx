@@ -34,6 +34,7 @@ function ListIncomplete({
               query: {
                 card: cardId,
                 square: squareId,
+                fromPage: 'home'
               },
             }}
             aria-label="add new book"

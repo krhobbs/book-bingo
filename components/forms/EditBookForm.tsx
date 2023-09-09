@@ -3,7 +3,7 @@ import { Box, Label, Input, Button, Text } from 'theme-ui';
 import ErrorPopup from '../ui/ErrorPopup';
 import Spacer from '../ui/Spacer';
 
-function EditBookForm(props) {
+function EditBookForm({ square, onEditBook } : { square: Square, onEditBook: Function; }) {
   const [errorMessage, setErrorMessage] = useState('');
   const titleInputRef = useRef<HTMLInputElement>();
   const authorInputRef = useRef<HTMLInputElement>();
@@ -22,16 +22,13 @@ function EditBookForm(props) {
       enteredCover = null;
     }
 
-    const bookData = {
-      card: props.card,
-      square: props.square.id,
+    const book: Book = {
       title: enteredTitle,
       author: enteredAuthor,
-      color: enteredColor,
       cover: enteredCover || null,
     };
 
-    const result = await props.onEditBook(bookData);
+    const result = await onEditBook(book, enteredColor);
 
     if (result !== 'success') {
       setErrorMessage(result);
@@ -62,7 +59,7 @@ function EditBookForm(props) {
           required
           id="title"
           ref={titleInputRef}
-          defaultValue={props.square.book.title}
+          defaultValue={square.book.title}
         />
       </Box>
       <Spacer size={['2rem']} />
@@ -73,7 +70,7 @@ function EditBookForm(props) {
           required
           id="author"
           ref={authorInputRef}
-          defaultValue={props.square.book.author}
+          defaultValue={square.book.author}
         />
       </Box>
       <Spacer size={['2rem']} />
@@ -83,7 +80,7 @@ function EditBookForm(props) {
           type="url"
           id="cover"
           ref={coverInputRef}
-          defaultValue={props.square.book.cover ?? ''}
+          defaultValue={square.book.cover ?? ''}
         />
         <Text as="p" variant="body2" sx={{mt: '0.1rem'}}>Only image urls from goodreads are compatible.</Text>
       </Box>
@@ -94,7 +91,7 @@ function EditBookForm(props) {
           type="color"
           id="color"
           ref={colorInputRef}
-          defaultValue={props.square.color}
+          defaultValue={square.color}
           sx={{ padding: '0px', border: 'none' }}
         />
       </Box>

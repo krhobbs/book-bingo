@@ -7,17 +7,31 @@ import { useSession } from 'next-auth/react';
 interface AddBookLayoutProps {
   cardId: string;
   square: string;
+  fromPage: string;
 }
 
-function AddBookLayout({ cardId, square }: AddBookLayoutProps) {
+function AddBookLayout({ cardId, square, fromPage }: AddBookLayoutProps) {
   const router = useRouter();
   const { data: session } = useSession();
-  const { mutate } = useSWRConfig();
+  const { mutate, cache } = useSWRConfig();
 
-  async function addBookHandler(enteredBookData) {
+  async function handleAddBook(book: Book, color: string) {
+    const key = fromPage === 'profile' ? `/api/cards/${session.user.username}` : '/api/cards';
+    const { data: cards } = cache.get(key);
+    const activeCard: Card = cards.filter((c: Card) => c._id === cardId)[0];
+    const otherCards: Card[] = cards.filter((c: Card) => c._id !== cardId);
+
+    activeCard.squares[parseInt(square)] = {
+      ...activeCard.squares[parseInt(square)],
+      color: color,
+      book: book,
+    } 
+
     const response = await fetch(`/api/card/${cardId}/add-book`, {
       method: 'POST',
-      body: JSON.stringify(enteredBookData),
+      body: JSON.stringify({
+        ...activeCard.squares[parseInt(square)]
+      }),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -27,8 +41,7 @@ function AddBookLayout({ cardId, square }: AddBookLayoutProps) {
 
     if (response.ok) {
       router.back();
-      mutate('/api/cards');
-      mutate(`/api/cards/${session.user.username}`);
+      mutate(key, [...otherCards, activeCard]);
       return 'success';
     } else {
       return data.message;
@@ -41,9 +54,7 @@ function AddBookLayout({ cardId, square }: AddBookLayoutProps) {
         <title>Book Bingo | Add New Book</title>
       </Head>
       <AddBookForm
-        card={cardId}
-        square={square}
-        onAddBook={addBookHandler}
+        onAddBook={handleAddBook}
       />
     </>
   );
