@@ -1,11 +1,8 @@
-import { Box, Button, Text } from 'theme-ui';
-import {
-  ArchiveBoxIcon,
-  ArrowUturnLeftIcon,
-} from '@heroicons/react/24/outline';
+import { Box, Text } from 'theme-ui';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import Spacer from '../ui/Spacer';
+import CardButtons from './CardButtons';
 
 interface BingoCardTitleProps {
   username: string;
@@ -13,6 +10,7 @@ interface BingoCardTitleProps {
   usersCard: boolean;
   archived: boolean;
   onArchiveCard: Function;
+  onDeleteCard: Function;
 }
 
 function BingoCardTitle({
@@ -21,6 +19,7 @@ function BingoCardTitle({
   usersCard,
   archived,
   onArchiveCard,
+  onDeleteCard
 }: BingoCardTitleProps) {
   const { asPath } = useRouter();
 
@@ -28,7 +27,7 @@ function BingoCardTitle({
     () => asPath === '/' || asPath === '/friends',
     [asPath]
   );
-  const showArchiveButton = useMemo(
+  const showCardButtons = useMemo(
     () => (asPath === '/profile' || asPath === '/archived') && usersCard,
     [asPath, usersCard]
   );
@@ -47,18 +46,8 @@ function BingoCardTitle({
         <Spacer size="0.3rem" />
         <Text as="h2" variant={showUsername ? "subheading" : "heading2"}>{template}</Text>
       </Box>
-      {showArchiveButton && (
-        <Button
-          variant="primary"
-          onClick={() => onArchiveCard()}
-          aria-label={`${archived ? 'unarchive' : 'archive'} card`}
-        >
-          {archived ? (
-            <ArrowUturnLeftIcon style={{ blockSize: '22px' }} />
-          ) : (
-            <ArchiveBoxIcon style={{ blockSize: '22px' }} />
-          )}
-        </Button>
+      {showCardButtons && (
+        <CardButtons handleDelete={onDeleteCard} handleArchive={onArchiveCard} archived={archived} />
       )}
     </Box>
   );
