@@ -15,7 +15,7 @@ function EditBookLayout({ cardId, square, fromPage }: EditBookLayoutProps) {
   const { data: session } = useSession();
   const { mutate, cache } = useSWRConfig();
 
-  async function editBookHandler(book: Book, color: string) {
+  async function handleEditBook(book: Book, color: string) {
     const key = fromPage === 'profile' ? `/api/cards/${session.user.username}` : '/api/cards';
     const { data: cards } = cache.get(key);
     const activeCard: Card = cards.filter((c: Card) => c._id === cardId)[0];
@@ -55,7 +55,7 @@ function EditBookLayout({ cardId, square, fromPage }: EditBookLayoutProps) {
       </Head>
       <EditBookForm
         square={square}
-        onEditBook={editBookHandler}
+        onEditBook={handleEditBook}
       />
     </>
   );

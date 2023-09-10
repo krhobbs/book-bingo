@@ -9,8 +9,8 @@ interface BingoCardTitleProps {
   template: string;
   usersCard: boolean;
   archived: boolean;
-  onArchiveCard: Function;
-  onDeleteCard: Function;
+  handleArchiveCard: Function;
+  handleDeleteCard: Function;
 }
 
 function BingoCardTitle({
@@ -18,8 +18,8 @@ function BingoCardTitle({
   template,
   usersCard,
   archived,
-  onArchiveCard,
-  onDeleteCard
+  handleArchiveCard,
+  handleDeleteCard
 }: BingoCardTitleProps) {
   const { asPath } = useRouter();
 
@@ -47,7 +47,7 @@ function BingoCardTitle({
         <Text as="h2" variant={showUsername ? "subheading" : "heading2"}>{template}</Text>
       </Box>
       {showCardButtons && (
-        <CardButtons handleDelete={onDeleteCard} handleArchive={onArchiveCard} archived={archived} />
+        <CardButtons handleDeleteCard={handleDeleteCard} handleArchiveCard={handleArchiveCard} archived={archived} />
       )}
     </Box>
   );

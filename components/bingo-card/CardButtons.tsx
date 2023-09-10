@@ -8,15 +8,15 @@ import { Box, Button, ThemeUIStyleObject } from 'theme-ui';
 import useBreakpoint from '../../hooks/useBreakpoint';
 
 interface CardButtonsProps {
-  handleDelete: Function;
-  handleArchive: Function;
+  handleDeleteCard: Function;
+  handleArchiveCard: Function;
   archived: boolean;
   sx?: ThemeUIStyleObject;
 }
 
 function CardButtons({
-  handleDelete,
-  handleArchive,
+  handleDeleteCard,
+  handleArchiveCard,
   archived,
   sx,
 }: CardButtonsProps) {
@@ -43,7 +43,7 @@ function CardButtons({
           justifyContent: 'center',
           paddingBlock: '0.3rem',
         }}
-        onClick={() => handleDelete()}
+        onClick={() => handleDeleteCard()}
         aria-label="delete card"
       >
         <TrashIcon style={{ inlineSize: iconSize, blockSize: iconSize }} />
@@ -58,7 +58,7 @@ function CardButtons({
           justifyContent: 'center',
           paddingBlock: '0.3rem',
         }}
-        onClick={() => handleArchive()}
+        onClick={() => handleArchiveCard()}
         aria-label={`${archived ? 'unarchive' : 'archive'} card`}
       >
         {archived ? (

@@ -25,7 +25,7 @@ function AddBookLayout({ cardId, square, fromPage }: AddBookLayoutProps) {
       ...activeCard.squares[parseInt(square)],
       color: color,
       book: book,
-    } 
+    }
 
     const response = await fetch(`/api/card/${cardId}/add-book`, {
       method: 'POST',

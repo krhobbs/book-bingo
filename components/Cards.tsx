@@ -30,7 +30,7 @@ function Cards({ cards, mutate } : { cards: Card[], mutate: Function }) {
   return (
     <Flex sx={{flexDirection: 'column', gap: '2rem'}}>
       {cards.map((card: Card) => {
-        return <BingoCard key={card._id} card={card} archiveCardHandler={handleArchiveCard} deleteCardHandler={handleDeleteCard} />;
+        return <BingoCard key={card._id} card={card} handleArchiveCard={handleArchiveCard} handleDeleteCard={handleDeleteCard} />;
       })}
     </Flex>
   );

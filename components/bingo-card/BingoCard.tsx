@@ -6,20 +6,20 @@ import BingoCardSquares from './BingoCardSquares';
 
 interface BingoCardProps {
   card: Card;
-  archiveCardHandler: Function;
-  deleteCardHandler: Function;
+  handleArchiveCard: Function;
+  handleDeleteCard: Function;
 }
 
-function BingoCard({ card, archiveCardHandler, deleteCardHandler } : BingoCardProps) {
+function BingoCard({ card, handleArchiveCard, handleDeleteCard } : BingoCardProps) {
   const { data: session } = useSession();
   const usersCard = session ? card.user === session.user.username : false;
 
   function archiveCardMiddleware() {
-    archiveCardHandler(card);
+    handleArchiveCard(card);
   }
 
   function deleteCardMiddleware() {
-    deleteCardHandler(card);
+    handleDeleteCard(card);
   }
 
   return (
@@ -37,8 +37,8 @@ function BingoCard({ card, archiveCardHandler, deleteCardHandler } : BingoCardPr
         template={card.template}
         usersCard={usersCard}
         archived={card.archived}
-        onArchiveCard={archiveCardMiddleware}
-        onDeleteCard={deleteCardMiddleware}
+        handleArchiveCard={archiveCardMiddleware}
+        handleDeleteCard={deleteCardMiddleware}
       />
       <Spacer size={['1.25rem', '1.5rem']} />
       <BingoCardSquares
