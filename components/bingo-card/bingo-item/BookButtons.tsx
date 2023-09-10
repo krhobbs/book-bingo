@@ -5,6 +5,7 @@ import { Box, Button, ThemeUIStyleObject } from 'theme-ui';
 import useBreakpoint from '../../../hooks/useBreakpoint';
 import { useSWRConfig } from 'swr';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 interface BookButtonsProps {
   cardId: string;
@@ -14,13 +15,14 @@ interface BookButtonsProps {
 
 function BookButtons({ cardId, squareId, sx }: BookButtonsProps) {
   const breakpoint = useBreakpoint();
+  const { pathname } = useRouter();
   const iconSize = useMemo(
     () => (breakpoint === 'sm' ? '14px' : '18px'),
     [breakpoint]
   );
   const { data: session } = useSession();
   const { mutate } = useSWRConfig();
-
+ 
   async function removeBookHandler() {
     const response = await fetch(`/api/card/${cardId}/delete-book`, {
       method: 'POST',
@@ -69,6 +71,7 @@ function BookButtons({ cardId, squareId, sx }: BookButtonsProps) {
           query: {
             card: cardId,
             square: squareId,
+            fromPage: pathname.includes('profile') ? 'profile' : 'home'
           },
         }}
         style={{ display: 'contents' }}

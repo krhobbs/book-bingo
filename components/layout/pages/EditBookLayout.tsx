@@ -40,8 +40,8 @@ function EditBookLayout({ cardId, square, fromPage }: EditBookLayoutProps) {
     const data = await response.json();
 
     if (response.ok) {
-      router.back();
       mutate(key, [...otherCards, activeCard]);
+      router.back();
       return 'success';
     } else {
       return data.message;
