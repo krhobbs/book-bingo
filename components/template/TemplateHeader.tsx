@@ -41,7 +41,7 @@ function TemplateHeader({
         <TemplateButtons
           templateId={templateId}
           handleDelete={handleDelete}
-          sx={{ blockSize: ['1.5rem', '1.7rem'], inlineSize: ['6rem', '8rem'] }}
+          sx={{ blockSize: ['1.5rem', '1.7rem'], inlineSize: ['3rem', '4rem'] }} // Double Inline-Size for edit-template
         />
       </Box>
       <Spacer size="0.5rem" />

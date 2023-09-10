@@ -28,7 +28,7 @@ function TemplateButtons({ templateId, handleDelete, sx }: TemplateButtonsProps)
         sx={{
           alignItems: 'center',
           background: 'destructive',
-          borderRadius: '4px 0px 0px 4px',
+          //borderRadius: '4px 0px 0px 4px',
           display: 'flex',
           flex: '1 1 0px',
           justifyContent: 'center',
@@ -41,7 +41,7 @@ function TemplateButtons({ templateId, handleDelete, sx }: TemplateButtonsProps)
           style={{ inlineSize: iconSize, blockSize: iconSize }}
         />
       </Button>
-      <Link
+      {/* <Link
         href={{
           pathname: '/edit-template',
           query: {
@@ -68,7 +68,7 @@ function TemplateButtons({ templateId, handleDelete, sx }: TemplateButtonsProps)
             style={{ inlineSize: iconSize, blockSize: iconSize }}
           />
         </Box>
-      </Link>
+      </Link> */}
     </Box>
   );
 }
