@@ -3,7 +3,7 @@ import { Box, Label, Input, Button, Text } from 'theme-ui';
 import ErrorPopup from '../ui/ErrorPopup';
 import Spacer from '../ui/Spacer';
 
-function AddBookForm({ onAddBook } : { onAddBook: Function; }) {
+function AddBookForm({ handleAddBook } : { handleAddBook: Function; }) {
   const [errorMessage, setErrorMessage] = useState('');
   const titleInputRef = useRef<HTMLInputElement>();
   const authorInputRef = useRef<HTMLInputElement>();
@@ -28,7 +28,7 @@ function AddBookForm({ onAddBook } : { onAddBook: Function; }) {
       cover: enteredCover || null,
     };
 
-    const result = await onAddBook(book, enteredColor);
+    const result = await handleAddBook(book, enteredColor);
 
     if (result !== 'success') {
       setErrorMessage(result);

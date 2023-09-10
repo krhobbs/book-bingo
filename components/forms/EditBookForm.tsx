@@ -3,7 +3,7 @@ import { Box, Label, Input, Button, Text } from 'theme-ui';
 import ErrorPopup from '../ui/ErrorPopup';
 import Spacer from '../ui/Spacer';
 
-function EditBookForm({ square, onEditBook } : { square: Square, onEditBook: Function; }) {
+function EditBookForm({ square, handleEditBook } : { square: Square, handleEditBook: Function; }) {
   const [errorMessage, setErrorMessage] = useState('');
   const titleInputRef = useRef<HTMLInputElement>();
   const authorInputRef = useRef<HTMLInputElement>();
@@ -28,7 +28,7 @@ function EditBookForm({ square, onEditBook } : { square: Square, onEditBook: Fun
       cover: enteredCover || null,
     };
 
-    const result = await onEditBook(book, enteredColor);
+    const result = await handleEditBook(book, enteredColor);
 
     if (result !== 'success') {
       setErrorMessage(result);

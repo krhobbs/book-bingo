@@ -55,7 +55,7 @@ function EditBookLayout({ cardId, square, fromPage }: EditBookLayoutProps) {
       </Head>
       <EditBookForm
         square={square}
-        onEditBook={handleEditBook}
+        handleEditBook={handleEditBook}
       />
     </>
   );

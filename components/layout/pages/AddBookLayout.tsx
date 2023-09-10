@@ -54,7 +54,7 @@ function AddBookLayout({ cardId, square, fromPage }: AddBookLayoutProps) {
         <title>Book Bingo | Add New Book</title>
       </Head>
       <AddBookForm
-        onAddBook={handleAddBook}
+        handleAddBook={handleAddBook}
       />
     </>
   );
