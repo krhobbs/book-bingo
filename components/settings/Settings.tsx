@@ -13,11 +13,7 @@ function Settings() {
   const [showFriendsList, setShowFriendsList] = useState(false);
   const { data: session, status, update } = useSession();
 
-  const logoutHandler = () => {
-    signOut();
-  };
-
-  async function changePasswordHandler(passwordData) {
+  async function handleChangePassword(passwordData) {
     const response = await fetch('/api/user/change-password', {
       method: 'PATCH',
       body: JSON.stringify(passwordData),
@@ -36,7 +32,7 @@ function Settings() {
     }
   }
 
-  async function deleteFriendHandler(friendData) {
+  async function handleDeleteFriend(friendData) {
     const response = await fetch('/api/user/delete-friend', {
       method: 'PATCH',
       body: JSON.stringify(friendData),
@@ -54,7 +50,7 @@ function Settings() {
     return data;
   }
 
-  async function addFriendHandler(newFriendData) {
+  async function handleAddFriend(newFriendData) {
     const response = await fetch('/api/user/add-friend', {
       method: 'POST',
       body: JSON.stringify(newFriendData),
@@ -142,14 +138,14 @@ function Settings() {
           Change Password
         </Button>
         <Divider sx={{ py: '0.1rem', opacity: 0.3 }} />
-        <Button onClick={logoutHandler} variant="settings">
+        <Button onClick={() => signOut()} variant="settings">
           Logout
         </Button>
       </Box>
       {showChangePassword &&
         createPortal(
           <Modal closeModal={() => setShowChangePassword(!showChangePassword)}>
-            <ChangePasswordForm onChangePassword={changePasswordHandler} />
+            <ChangePasswordForm handleChangePassword={handleChangePassword} />
           </Modal>,
           document.body,
           'change-password'
@@ -159,8 +155,8 @@ function Settings() {
           <Modal closeModal={() => setShowFriendsList(!showFriendsList)}>
             <FriendsList
               friends={session.user.friends}
-              onDeleteFriend={deleteFriendHandler}
-              onAddFriend={addFriendHandler}
+              handleDeleteFriend={handleDeleteFriend}
+              handleAddFriend={handleAddFriend}
             />
           </Modal>,
           document.body,

@@ -23,7 +23,7 @@ function BookButtons({ cardId, squareId, sx }: BookButtonsProps) {
   const { data: session } = useSession();
   const { mutate } = useSWRConfig();
  
-  async function removeBookHandler() {
+  async function handleRemoveBook() {
     const response = await fetch(`/api/card/${cardId}/delete-book`, {
       method: 'POST',
       body: JSON.stringify({
@@ -58,7 +58,7 @@ function BookButtons({ cardId, squareId, sx }: BookButtonsProps) {
           justifyContent: 'center',
           padding: '0px',
         }}
-        onClick={removeBookHandler}
+        onClick={handleRemoveBook}
         aria-label="delete book from square"
       >
         <TrashIcon

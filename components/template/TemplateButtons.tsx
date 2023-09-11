@@ -6,11 +6,11 @@ import useBreakpoint from '../../hooks/useBreakpoint';
 
 interface TemplateButtonsProps {
   templateId: string;
-  handleDelete: () => void;
+  handleDeleteTemplate: () => void;
   sx?: ThemeUIStyleObject;
 }
 
-function TemplateButtons({ templateId, handleDelete, sx }: TemplateButtonsProps) {
+function TemplateButtons({ templateId, handleDeleteTemplate, sx }: TemplateButtonsProps) {
   const breakpoint = useBreakpoint();
   const iconSize = useMemo(
     () => (breakpoint === 'sm' ? '14px' : '18px'),
@@ -35,7 +35,7 @@ function TemplateButtons({ templateId, handleDelete, sx }: TemplateButtonsProps)
           padding: '0px',
         }}
         aria-label="delete book from square"
-        onClick={() => handleDelete()}
+        onClick={() => handleDeleteTemplate()}
       >
         <TrashIcon
           style={{ inlineSize: iconSize, blockSize: iconSize }}

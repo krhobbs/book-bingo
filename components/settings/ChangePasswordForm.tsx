@@ -3,18 +3,18 @@ import { Box, Label, Input, Button } from 'theme-ui';
 import ErrorPopup from '../ui/ErrorPopup';
 import Spacer from '../ui/Spacer';
 
-function ChangePasswordForm({ onChangePassword }) {
+function ChangePasswordForm({ handleChangePassword }) {
   const [errorMessage, setErrorMessage] = useState('');
   const oldPasswordRef = useRef<HTMLInputElement>();
   const newPasswordRef = useRef<HTMLInputElement>();
 
-  async function submitHandler(event) {
+  async function onChangePassword(event) {
     event.preventDefault();
 
     const enteredOldPassword = oldPasswordRef.current.value;
     const enteredNewPassword = newPasswordRef.current.value;
 
-    const result = await onChangePassword({oldPassword: enteredOldPassword, newPassword: enteredNewPassword})
+    const result = await handleChangePassword({oldPassword: enteredOldPassword, newPassword: enteredNewPassword})
 
     if (result !== 'success') {
       setErrorMessage(result);
@@ -33,7 +33,7 @@ function ChangePasswordForm({ onChangePassword }) {
     <Box
       as="form"
       sx={{ mx: 'auto', px: ['0.25rem', '0rem'], maxInlineSize: '512px' }}
-      onSubmit={submitHandler}
+      onSubmit={onChangePassword}
     >
       <Box>
         <Label htmlFor="old-password">Old Password</Label>

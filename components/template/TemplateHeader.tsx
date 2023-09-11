@@ -8,15 +8,15 @@ import { useMemo } from 'react';
 interface TemplateHeader {
   templateId: string;
   name: string;
-  handleDelete: () => void;
-  handleCreateFrom: () => void;
+  handleDeleteTemplate: () => void;
+  handleCreateFromTemplate: () => void;
 }
 
 function TemplateHeader({
   templateId,
   name,
-  handleDelete,
-  handleCreateFrom,
+  handleDeleteTemplate,
+  handleCreateFromTemplate,
 }: TemplateHeader) {
   const breakpoint = useBreakpoint();
   const iconSize = useMemo(
@@ -40,7 +40,7 @@ function TemplateHeader({
         </Text>
         <TemplateButtons
           templateId={templateId}
-          handleDelete={handleDelete}
+          handleDeleteTemplate={handleDeleteTemplate}
           sx={{ blockSize: ['1.5rem', '1.7rem'], inlineSize: ['3rem', '4rem'] }} // Double Inline-Size for edit-template
         />
       </Box>
@@ -50,7 +50,7 @@ function TemplateHeader({
         <Button
           variant="primary"
           sx={{ padding: '0.3rem 1rem' }}
-          onClick={() => handleCreateFrom()}
+          onClick={() => handleCreateFromTemplate()}
         >
           <DocumentPlusIcon
             style={{
