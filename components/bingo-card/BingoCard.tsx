@@ -8,9 +8,10 @@ interface BingoCardProps {
   card: Card;
   handleArchiveCard: Function;
   handleDeleteCard: Function;
+  handleUpdateCardSquare: Function;
 }
 
-function BingoCard({ card, handleArchiveCard, handleDeleteCard } : BingoCardProps) {
+function BingoCard({ card, handleArchiveCard, handleDeleteCard, handleUpdateCardSquare } : BingoCardProps) {
   const { data: session } = useSession();
   const usersCard = session ? card.user === session.user.username : false;
 
@@ -46,6 +47,7 @@ function BingoCard({ card, handleArchiveCard, handleDeleteCard } : BingoCardProp
         cardId={card._id}
         squares={card.squares}
         usersCard={usersCard}
+        handleUpdateCardSquare={handleUpdateCardSquare}
       />
     </Box>
   );

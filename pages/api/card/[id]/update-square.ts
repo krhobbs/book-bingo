@@ -22,9 +22,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         {
           $set: {
             'squares.$.color': color,
-            'squares.$.book': {
-              ...book
-            },
+            'squares.$.book': book,
           },
         }
       );

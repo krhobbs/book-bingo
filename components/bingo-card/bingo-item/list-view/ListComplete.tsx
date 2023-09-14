@@ -10,6 +10,7 @@ interface ListCompleteProps {
   req: string;
   squareId: string;
   usersCard: boolean;
+  handleUpdateCardSquare: Function;
 }
 
 function ListComplete({
@@ -19,6 +20,7 @@ function ListComplete({
   req,
   squareId,
   usersCard,
+  handleUpdateCardSquare
 }: ListCompleteProps) {
   return (
     <>
@@ -48,6 +50,7 @@ function ListComplete({
                 blockSize: ['18px', '26px'],
                 inlineSize: ['124px', '144px'],
               }}
+              handleUpdateCardSquare={handleUpdateCardSquare}
             />
           </>
         )}

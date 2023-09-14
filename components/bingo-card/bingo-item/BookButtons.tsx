@@ -11,9 +11,10 @@ interface BookButtonsProps {
   cardId: string;
   squareId: string;
   sx?: ThemeUIStyleObject;
+  handleUpdateCardSquare: Function
 }
 
-function BookButtons({ cardId, squareId, sx }: BookButtonsProps) {
+function BookButtons({ cardId, squareId, sx, handleUpdateCardSquare }: BookButtonsProps) {
   const breakpoint = useBreakpoint();
   const { pathname } = useRouter();
   const iconSize = useMemo(
@@ -22,24 +23,6 @@ function BookButtons({ cardId, squareId, sx }: BookButtonsProps) {
   );
   const { data: session } = useSession();
   const { mutate } = useSWRConfig();
- 
-  async function handleRemoveBook() {
-    const response = await fetch(`/api/card/${cardId}/delete-book`, {
-      method: 'POST',
-      body: JSON.stringify({
-        squareId: squareId,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (response.ok) {
-      mutate('/api/cards');
-      mutate(`/api/cards/${session.user.username}/friends`);
-      mutate(`/api/cards/${session.user.username}`);
-    }
-  }
 
   return (
     <Box
@@ -58,7 +41,7 @@ function BookButtons({ cardId, squareId, sx }: BookButtonsProps) {
           justifyContent: 'center',
           padding: '0px',
         }}
-        onClick={handleRemoveBook}
+        onClick={() => handleUpdateCardSquare(cardId, squareId)}
         aria-label="delete book from square"
       >
         <TrashIcon

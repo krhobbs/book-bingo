@@ -22,7 +22,7 @@ function AddBookLayout({ cardId, square, fromPage }: AddBookLayoutProps) {
 
     try {
       const [ activeCard, otherCards ] = await updateCardSquare(book, color, cards, square, cardId);
-      mutate(key, [...otherCards, activeCard]);
+      await mutate(key, [...otherCards, activeCard]);
       router.back();
     } catch (e) {
       console.log('Error Adding Book!')

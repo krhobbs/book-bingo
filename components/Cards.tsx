@@ -1,3 +1,4 @@
+import { updateCardSquare } from '../utils/api-utils';
 import BingoCard from './bingo-card/BingoCard';
 import { Flex } from 'theme-ui';
 
@@ -27,10 +28,19 @@ function Cards({ cards, mutate } : { cards: Card[], mutate: Function }) {
     mutate(cards.filter((c) => c._id !== card._id));
   }
 
+  const handleUpdateCardSquare = async (cardId: string, squareId: string) => {
+    try {
+      const [ activeCard, otherCards ] = await updateCardSquare(null, null, cards, squareId, cardId);
+      mutate([activeCard, ...otherCards]);
+    } catch (e) {
+      console.log('Error updating card.');
+    }
+  }
+
   return (
     <Flex sx={{flexDirection: 'column', gap: '2rem'}}>
       {cards.map((card: Card) => {
-        return <BingoCard key={card._id} card={card} handleArchiveCard={handleArchiveCard} handleDeleteCard={handleDeleteCard} />;
+        return <BingoCard key={card._id} card={card} handleArchiveCard={handleArchiveCard} handleDeleteCard={handleDeleteCard} handleUpdateCardSquare={handleUpdateCardSquare} />;
       })}
     </Flex>
   );

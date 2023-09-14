@@ -9,6 +9,7 @@ interface CompleteBackProps {
   cardId: string;
   squareId: string;
   usersCard: boolean;
+  handleUpdateCardSquare: Function;
 }
 
 function CompleteBack({
@@ -17,6 +18,7 @@ function CompleteBack({
   archived,
   squareId,
   book,
+  handleUpdateCardSquare
 }: CompleteBackProps) {
   return (
     <Box
@@ -36,6 +38,7 @@ function CompleteBack({
               bottom: ['8px', '12px'],
               zIndex: 1,
             }}
+            handleUpdateCardSquare={handleUpdateCardSquare}
           />
         </>
       )}

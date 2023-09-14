@@ -92,7 +92,7 @@ export async function updateCardSquare(
     book: book,
   };
 
-  const response = await fetch(`/api/card/${cardId}/add-book`, {
+  await fetch(`/api/card/${cardId}/update-square`, {
     method: 'POST',
     body: JSON.stringify({
       ...activeCard.squares[parseInt(squareId)],
@@ -101,8 +101,6 @@ export async function updateCardSquare(
       'Content-Type': 'application/json',
     },
   });
-
-  const data = await response.json();
 
   return [ activeCard, otherCards ];
 }

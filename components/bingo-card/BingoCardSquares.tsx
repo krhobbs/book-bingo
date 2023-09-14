@@ -8,6 +8,7 @@ export interface BingoCardSquaresProps {
   cardId: string;
   squares: Square[];
   usersCard: boolean;
+  handleUpdateCardSquare: Function;
 }
 
 function BingoCardSquares({
@@ -15,6 +16,7 @@ function BingoCardSquares({
   cardId,
   squares,
   usersCard,
+  handleUpdateCardSquare
 }: BingoCardSquaresProps) {
   const [listView] = useContext(ViewContext);
   return (
@@ -36,6 +38,7 @@ function BingoCardSquares({
                 archived={archived}
                 square={square}
                 usersCard={usersCard}
+                handleUpdateCardSquare={handleUpdateCardSquare}
               />
             );
           })}
@@ -58,6 +61,7 @@ function BingoCardSquares({
                 archived={archived}
                 square={square}
                 usersCard={usersCard}
+                handleUpdateCardSquare={handleUpdateCardSquare}
               />
             );
           })}

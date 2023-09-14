@@ -8,9 +8,16 @@ interface BingoItemProps {
   archived: boolean;
   usersCard: boolean;
   square: Square;
+  handleUpdateCardSquare: Function;
 }
 
-function BingoItem({ archived, cardId, square, usersCard }: BingoItemProps) {
+function BingoItem({
+  archived,
+  cardId,
+  square,
+  usersCard,
+  handleUpdateCardSquare,
+}: BingoItemProps) {
   const [cardFlipped, setCardFlipped] = useState(false);
 
   const handleFlip = () => {
@@ -28,17 +35,44 @@ function BingoItem({ archived, cardId, square, usersCard }: BingoItemProps) {
         position: 'relative',
         blockSize: ['100px', '138px'],
         inlineSize: ['auto', '112px'],
-        border: (theme) => `solid 1px ${square.book ? square.color ?? theme.colors.accent : theme.colors.secondary}`,
+        border: (theme) =>
+          `solid 1px ${
+            square.book
+              ? square.color ?? theme.colors.accent
+              : theme.colors.secondary
+          }`,
         borderRadius: '5px',
-        boxShadow: (theme) => `1px 1px 0px 1px ${ square.book ? square.color ?? theme.colors.accent : theme.colors.secondary}`,
+        boxShadow: (theme) =>
+          `1px 1px 0px 1px ${
+            square.book
+              ? square.color ?? theme.colors.accent
+              : theme.colors.secondary
+          }`,
         padding: ['0.05rem', '0.1rem'],
       }}
       onClick={handleFlip}
     >
       {square.book ? (
-        cardFlipped ? <CompleteBack archived={archived} cardId={cardId} usersCard={usersCard} squareId={square.id} book={square.book} /> : <CompleteFront bookReq={square.req} />
+        cardFlipped ? (
+          <CompleteBack
+            archived={archived}
+            cardId={cardId}
+            usersCard={usersCard}
+            squareId={square.id}
+            book={square.book}
+            handleUpdateCardSquare={handleUpdateCardSquare}
+          />
+        ) : (
+          <CompleteFront bookReq={square.req} />
+        )
       ) : (
-        <Incomplete archived={archived} cardId={cardId} bookReq={square.req} squareId={square.id} usersCard={usersCard} />
+        <Incomplete
+          archived={archived}
+          cardId={cardId}
+          bookReq={square.req}
+          squareId={square.id}
+          usersCard={usersCard}
+        />
       )}
     </Box>
   );

@@ -22,7 +22,7 @@ function EditBookLayout({ cardId, square, fromPage }: EditBookLayoutProps) {
 
     try {
       const [ activeCard, otherCards ] = await updateCardSquare(book, color, cards, square.id, cardId);
-      mutate(key, [...otherCards, activeCard]);
+      await mutate(key, [...otherCards, activeCard]);
       router.back();
     } catch (e) {
       console.log('Error Editing Book.');
