@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import AddBookForm from '../../forms/AddBookForm';
 import { useSWRConfig } from 'swr';
 import { useSession } from 'next-auth/react';
+import { updateCardSquare } from '../../../utils/api-utils';
 
 interface AddBookLayoutProps {
   cardId: string;
@@ -18,33 +19,13 @@ function AddBookLayout({ cardId, square, fromPage }: AddBookLayoutProps) {
   async function handleAddBook(book: Book, color: string) {
     const key = fromPage === 'profile' ? `/api/cards/${session.user.username}` : '/api/cards';
     const { data: cards } = cache.get(key);
-    const activeCard: Card = cards.filter((c: Card) => c._id === cardId)[0];
-    const otherCards: Card[] = cards.filter((c: Card) => c._id !== cardId);
 
-    activeCard.squares[parseInt(square)] = {
-      ...activeCard.squares[parseInt(square)],
-      color: color,
-      book: book,
-    }
-
-    const response = await fetch(`/api/card/${cardId}/add-book`, {
-      method: 'POST',
-      body: JSON.stringify({
-        ...activeCard.squares[parseInt(square)]
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    const data = await response.json();
-
-    if (response.ok) {
+    try {
+      const [ activeCard, otherCards ] = await updateCardSquare(book, color, cards, square, cardId);
       mutate(key, [...otherCards, activeCard]);
       router.back();
-      return 'success';
-    } else {
-      return data.message;
+    } catch (e) {
+      console.log('Error Adding Book!')
     }
   }
 

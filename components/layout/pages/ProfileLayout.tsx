@@ -18,23 +18,9 @@ function ProfileLayout({ cards, username }: ProfileLayoutProps) {
   // New Card Creation
   // Take in template data
   const handleNewCard = async (template: Template, closeModal: Function) => {
-    const card = {
-      user: username,
-      template: template.name,
-      archived: false,
-      squares: template.reqs.map((req, idx) => {
-        return {
-          id: `${idx}`,
-          req: req,
-          book: null,
-          color: null
-        } as Square;
-      })
-    }
-
     try {
-      const _id = await addCard(card);
-      mutate([ ...data, { _id: _id, ...card }]);
+      const card = await addCard(username, template);
+      mutate([ ...data, card]);
       closeModal();
     } catch (error) {
       console.log(error);
