@@ -7,6 +7,7 @@ interface BingoListItemProps {
   archived: boolean;
   usersCard: boolean;
   square: Square;
+  handleUpdateCardSquare: Function;
 }
 
 function BingoListItem({
@@ -14,6 +15,7 @@ function BingoListItem({
   cardId,
   square,
   usersCard,
+  handleUpdateCardSquare
 }: BingoListItemProps) {
   return (
     <Box
@@ -51,6 +53,7 @@ function BingoListItem({
           book={square.book}
           req={square.req}
           usersCard={usersCard}
+          handleUpdateCardSquare={handleUpdateCardSquare}
         />
       ) : (
         <ListIncomplete

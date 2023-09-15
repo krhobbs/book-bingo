@@ -2,6 +2,7 @@ import { PlusIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { Box, Text } from 'theme-ui';
 import Spacer from '../../ui/Spacer';
+import { useRouter } from 'next/router';
 
 interface IncompleteProps {
   archived: boolean;
@@ -18,6 +19,8 @@ function Incomplete({
   squareId,
   usersCard,
 }: IncompleteProps) {
+  const { pathname } = useRouter();
+  
   return (
     <Box
       sx={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}
@@ -32,6 +35,7 @@ function Incomplete({
               query: {
                 card: cardId,
                 square: squareId,
+                fromPage: pathname.includes('profile') ? 'profile' : 'home'
               },
             }}
             aria-label="add new book"

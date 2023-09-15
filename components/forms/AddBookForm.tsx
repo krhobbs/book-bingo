@@ -3,7 +3,7 @@ import { Box, Label, Input, Button, Text } from 'theme-ui';
 import ErrorPopup from '../ui/ErrorPopup';
 import Spacer from '../ui/Spacer';
 
-function AddBookForm(props) {
+function AddBookForm({ handleAddBook } : { handleAddBook: Function; }) {
   const [errorMessage, setErrorMessage] = useState('');
   const titleInputRef = useRef<HTMLInputElement>();
   const authorInputRef = useRef<HTMLInputElement>();
@@ -22,15 +22,13 @@ function AddBookForm(props) {
       enteredCover = null;
     }
 
-    const bookData = {
-      square: props.square,
+    const book: Book = {
       title: enteredTitle,
       author: enteredAuthor,
-      color: enteredColor,
       cover: enteredCover || null,
     };
 
-    const result = await props.onAddBook(bookData);
+    const result = await handleAddBook(book, enteredColor);
 
     if (result !== 'success') {
       setErrorMessage(result);
@@ -67,7 +65,9 @@ function AddBookForm(props) {
       <Box>
         <Label htmlFor="cover">Cover (optional)</Label>
         <Input type="url" id="cover" ref={coverInputRef} />
-        <Text as="p" variant="body2" sx={{mt: '0.1rem'}}>Only image urls from goodreads are compatible.</Text>
+        <Text as="p" variant="body2" sx={{ mt: '0.1rem' }}>
+          Only image urls from goodreads are compatible.
+        </Text>
       </Box>
       <Spacer size={['2rem']} />
       <Box>

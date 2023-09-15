@@ -4,22 +4,23 @@ import { useSession } from 'next-auth/react';
 import BingoCardTitle from './BingoCardTitle';
 import BingoCardSquares from './BingoCardSquares';
 
-function BingoCard({ card, mutate }: { card: Card, mutate: Function }) {
+interface BingoCardProps {
+  card: Card;
+  handleArchiveCard: Function;
+  handleDeleteCard: Function;
+  handleUpdateCardSquare: Function;
+}
+
+function BingoCard({ card, handleArchiveCard, handleDeleteCard, handleUpdateCardSquare } : BingoCardProps) {
   const { data: session } = useSession();
   const usersCard = session ? card.user === session.user.username : false;
 
-  async function archiveCardHandler() {
-    const response = await fetch(`/api/card/${card._id}/archive`, {
-      method: 'POST',
-      body: JSON.stringify({
-        archived: card.archived,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+  function archiveCardMiddleware() {
+    handleArchiveCard(card);
+  }
 
-    mutate();
+  function deleteCardMiddleware() {
+    handleDeleteCard(card);
   }
 
   return (
@@ -37,7 +38,8 @@ function BingoCard({ card, mutate }: { card: Card, mutate: Function }) {
         template={card.template}
         usersCard={usersCard}
         archived={card.archived}
-        onArchiveCard={archiveCardHandler}
+        handleArchiveCard={archiveCardMiddleware}
+        handleDeleteCard={deleteCardMiddleware}
       />
       <Spacer size={['1.25rem', '1.5rem']} />
       <BingoCardSquares
@@ -45,6 +47,7 @@ function BingoCard({ card, mutate }: { card: Card, mutate: Function }) {
         cardId={card._id}
         squares={card.squares}
         usersCard={usersCard}
+        handleUpdateCardSquare={handleUpdateCardSquare}
       />
     </Box>
   );

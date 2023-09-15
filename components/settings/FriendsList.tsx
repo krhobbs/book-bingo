@@ -4,16 +4,16 @@ import Spacer from '../ui/Spacer';
 import { TrashIcon } from '@heroicons/react/20/solid';
 import ErrorPopup from '../ui/ErrorPopup';
 
-function FriendsList({ friends, onDeleteFriend, onAddFriend }) {
+function FriendsList({ friends, handleDeleteFriend, handleAddFriend }) {
   const [errorMessage, setErrorMessage] = useState('');
   const newFriendRef = useRef<HTMLInputElement>();
 
-  async function addHandler(event) {
+  async function onAddFriend(event) {
     event.preventDefault();
 
     const enteredNewFriend = newFriendRef.current.value;
 
-    const result = await onAddFriend({ friendToAdd: enteredNewFriend })
+    const result = await handleAddFriend({ friendToAdd: enteredNewFriend })
 
     if (result !== 'success') {
       setErrorMessage(result);
@@ -58,7 +58,7 @@ function FriendsList({ friends, onDeleteFriend, onAddFriend }) {
                   width: ['16px', '22px'],
                   height: ['18px', '24px'],
                 }}
-                onClick={() => onDeleteFriend({friendToDelete: friend})}
+                onClick={() => handleDeleteFriend({friendToDelete: friend})}
               >
                 <TrashIcon style={{ inlineSize: '100%' }} />
               </IconButton>
@@ -67,7 +67,7 @@ function FriendsList({ friends, onDeleteFriend, onAddFriend }) {
         })}
       </Box>
       <Spacer size={['2rem']} />
-      <Box as="form" onSubmit={addHandler} sx={{ display: 'flex', gap: '1rem' }}>
+      <Box as="form" onSubmit={onAddFriend} sx={{ display: 'flex', gap: '1rem' }}>
         <Box sx={{ display: 'inline' }}>
           <Label htmlFor="add-friend">Add Friend</Label>
           <Input type="text" id="add-friend" ref={newFriendRef} />

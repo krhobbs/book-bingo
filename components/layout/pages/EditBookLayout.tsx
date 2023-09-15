@@ -1,31 +1,31 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import EditBookForm from '../../forms/EditBookForm';
+import { useSession } from 'next-auth/react';
+import { useSWRConfig } from 'swr';
+import { updateCardSquare } from '../../../utils/api-utils';
 
 interface EditBookLayoutProps {
   cardId: string;
   square: Square;
+  fromPage: string;
 }
 
-function EditBookLayout({ cardId, square }: EditBookLayoutProps) {
+function EditBookLayout({ cardId, square, fromPage }: EditBookLayoutProps) {
   const router = useRouter();
+  const { data: session } = useSession();
+  const { mutate, cache } = useSWRConfig();
 
-  async function editBookHandler(enteredBookData) {
-    const response = await fetch(`/api/card/${cardId}/add-book`, {
-      method: 'POST',
-      body: JSON.stringify(enteredBookData),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+  async function handleEditBook(book: Book, color: string) {
+    const key = fromPage === 'profile' ? `/api/cards/${session.user.username}` : '/api/cards';
+    const { data: cards } = cache.get(key);
 
-    const data = await response.json();
-
-    if (response.ok) {
+    try {
+      const [ activeCard, otherCards ] = await updateCardSquare(book, color, cards, square.id, cardId);
+      await mutate(key, [...otherCards, activeCard]);
       router.back();
-      return 'success';
-    } else {
-      return data.message;
+    } catch (e) {
+      console.log('Error Editing Book.');
     }
   }
 
@@ -35,9 +35,8 @@ function EditBookLayout({ cardId, square }: EditBookLayoutProps) {
         <title>Book Bingo | Edit Book</title>
       </Head>
       <EditBookForm
-        card={cardId}
         square={square}
-        onEditBook={editBookHandler}
+        handleEditBook={handleEditBook}
       />
     </>
   );

@@ -5,39 +5,24 @@ import { Box, Button, ThemeUIStyleObject } from 'theme-ui';
 import useBreakpoint from '../../../hooks/useBreakpoint';
 import { useSWRConfig } from 'swr';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 interface BookButtonsProps {
   cardId: string;
   squareId: string;
   sx?: ThemeUIStyleObject;
+  handleUpdateCardSquare: Function
 }
 
-function BookButtons({ cardId, squareId, sx }: BookButtonsProps) {
+function BookButtons({ cardId, squareId, sx, handleUpdateCardSquare }: BookButtonsProps) {
   const breakpoint = useBreakpoint();
+  const { pathname } = useRouter();
   const iconSize = useMemo(
     () => (breakpoint === 'sm' ? '14px' : '18px'),
     [breakpoint]
   );
   const { data: session } = useSession();
   const { mutate } = useSWRConfig();
-
-  async function removeBookHandler() {
-    const response = await fetch(`/api/card/${cardId}/delete-book`, {
-      method: 'POST',
-      body: JSON.stringify({
-        squareId: squareId,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (response.ok) {
-      mutate('/api/cards');
-      mutate(`/api/cards/${session.user.username}/friends`);
-      mutate(`/api/cards/${session.user.username}`);
-    }
-  }
 
   return (
     <Box
@@ -56,7 +41,7 @@ function BookButtons({ cardId, squareId, sx }: BookButtonsProps) {
           justifyContent: 'center',
           padding: '0px',
         }}
-        onClick={removeBookHandler}
+        onClick={() => handleUpdateCardSquare(cardId, squareId)}
         aria-label="delete book from square"
       >
         <TrashIcon
@@ -69,6 +54,7 @@ function BookButtons({ cardId, squareId, sx }: BookButtonsProps) {
           query: {
             card: cardId,
             square: squareId,
+            fromPage: pathname.includes('profile') ? 'profile' : 'home'
           },
         }}
         style={{ display: 'contents' }}
