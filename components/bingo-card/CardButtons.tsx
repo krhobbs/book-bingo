@@ -2,7 +2,7 @@ import {
   TrashIcon,
   ArchiveBoxIcon,
   ArrowUturnLeftIcon,
-  DocumentArrowDownIcon
+  DocumentArrowDownIcon,
 } from '@heroicons/react/24/outline';
 import { useMemo } from 'react';
 import { Box, Button, ThemeUIStyleObject } from 'theme-ui';
@@ -76,8 +76,28 @@ function CardButtons({
           />
         )}
       </Button>
-      <PDFDownloadLink document={<CardPdfDocument card={card} />} fileName='bingo-card.pdf'>
-        <DocumentArrowDownIcon style={{ inlineSize: iconSize, blockSize: iconSize }} />
+      <PDFDownloadLink
+        document={<CardPdfDocument card={card} />}
+        fileName="bingo-card.pdf"
+        style={{display: 'flex', flex: '1 1 0px'}}
+      >
+        <Box
+          sx={{
+            alignItems: 'center',
+            background: 'secondary',
+            borderRadius: '0px 4px 4px 0px',
+            display: 'flex',
+            justifyContent: 'center',
+            '&:hover': {
+              boxShadow: 'pushedIn',
+            },
+            padding: '0.3rem 1.5rem'
+          }}
+        >
+          <DocumentArrowDownIcon
+            style={{ inlineSize: iconSize, blockSize: iconSize }}
+          />
+        </Box>
       </PDFDownloadLink>
     </Box>
   );
