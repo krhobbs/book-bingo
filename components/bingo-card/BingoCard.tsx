@@ -34,6 +34,7 @@ function BingoCard({ card, handleArchiveCard, handleDeleteCard, handleUpdateCard
       }}
     >
       <BingoCardTitle
+        card={card}
         username={card.user}
         template={card.template}
         usersCard={usersCard}

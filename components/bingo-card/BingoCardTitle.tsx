@@ -5,6 +5,7 @@ import Spacer from '../ui/Spacer';
 import CardButtons from './CardButtons';
 
 interface BingoCardTitleProps {
+  card: Card;
   username: string;
   template: string;
   usersCard: boolean;
@@ -14,6 +15,7 @@ interface BingoCardTitleProps {
 }
 
 function BingoCardTitle({
+  card,
   username,
   template,
   usersCard,
@@ -35,7 +37,7 @@ function BingoCardTitle({
   return (
     <Box
       as="section"
-      sx={{ alignItems: 'center', display: 'flex', gap: '1.5rem', justifyContent: 'space-between', px: ['0rem', '0.2rem'] }}
+      sx={{ alignItems: 'center', display: 'flex', flexDirection: ['column', 'row'], gap: '1.5rem', justifyContent: 'space-between', px: ['0rem', '0.2rem'] }}
     >
       <Box>
         {showUsername && (
@@ -47,7 +49,7 @@ function BingoCardTitle({
         <Text as="h2" variant={showUsername ? "subheading" : "heading2"}>{template}</Text>
       </Box>
       {showCardButtons && (
-        <CardButtons handleDeleteCard={handleDeleteCard} handleArchiveCard={handleArchiveCard} archived={archived} />
+        <CardButtons card={card} handleDeleteCard={handleDeleteCard} handleArchiveCard={handleArchiveCard} archived={archived} />
       )}
     </Box>
   );
