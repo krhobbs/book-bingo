@@ -3,6 +3,7 @@ import CompleteFront from './CompleteFront';
 import CompleteBack from './CompleteBack';
 import Incomplete from './Incomplete';
 import { Box } from 'theme-ui';
+import Complete from './Complete';
 interface BingoItemProps {
   cardId: string;
   archived: boolean;
@@ -27,10 +28,7 @@ function BingoItem({
   return (
     <Box
       sx={{
-        backgroundColor: 'primary',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        backgroundColor: square.book ? square.color ?? 'accent' : 'secondary',
         textAlign: 'center',
         position: 'relative',
         blockSize: ['100px', '138px'],
@@ -48,23 +46,11 @@ function BingoItem({
               ? square.color ?? theme.colors.accent
               : theme.colors.secondary
           }`,
-        padding: ['0.05rem', '0.1rem'],
       }}
       onClick={handleFlip}
     >
       {square.book ? (
-        cardFlipped ? (
-          <CompleteBack
-            archived={archived}
-            cardId={cardId}
-            usersCard={usersCard}
-            squareId={square.id}
-            book={square.book}
-            handleUpdateCardSquare={handleUpdateCardSquare}
-          />
-        ) : (
-          <CompleteFront bookReq={square.req} />
-        )
+        <Complete archived={archived} cardId={cardId} usersCard={usersCard} square={square} handleUpdateCardSquare={handleUpdateCardSquare} flipped={cardFlipped} />
       ) : (
         <Incomplete
           archived={archived}

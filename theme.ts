@@ -96,8 +96,8 @@ export const theme: Theme = {
       bg: 'transparent',
       textAlign: 'left',
       '&:hover': {
-        bg: 'muted'
-      }
+        bg: 'muted',
+      },
     },
     closeModal: {
       bg: 'primary',
@@ -109,6 +109,25 @@ export const theme: Theme = {
       '&:hover': {
         boxShadow: 'pushedIn',
       },
+    },
+  },
+  layout: {
+    squareSide: {
+      alignItems: 'center',
+      backgroundColor: 'primary',
+      blockSize: '100%',
+      borderRadius: '5px',
+      display: 'flex',
+      flexDirection: 'column',
+      inlineSize: '100%',
+      justifyContent: 'center',
+      padding: ['0.05rem', '0.1rem'],
+    },
+    animatedSquareSide: {
+      variant: 'layout.squareSide',
+      backfaceVisibility: 'hidden',
+      position: 'absolute',
+      transition: 'all .5s ease',
     },
   },
   links: {
@@ -133,9 +152,9 @@ export const theme: Theme = {
       padding: '0.5rem 1rem',
       textAlign: 'left',
       '&:hover': {
-        bg: 'muted'
-      }
-    }
+        bg: 'muted',
+      },
+    },
   },
   forms: {
     label: {
