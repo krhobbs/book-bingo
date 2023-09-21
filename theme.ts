@@ -127,7 +127,7 @@ export const theme: Theme = {
       variant: 'layout.squareSide',
       backfaceVisibility: 'hidden',
       position: 'absolute',
-      transition: 'all .5s ease',
+      transition: 'all .6s ease',
     },
   },
   links: {
