@@ -37,7 +37,7 @@ function CardButtons({
         display: 'flex',
         flexDirection: 'column',
         background: 'primary',
-        padding: '1rem',
+        padding: ['0.6rem', '1rem'],
         borderRadius: '5px',
         border: (theme) => `1px solid ${theme.colors.accent}`,
         inlineSize: 'max-content',

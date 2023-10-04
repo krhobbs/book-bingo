@@ -54,8 +54,6 @@ function BingoCardTitle({
       sx={{
         alignItems: 'center',
         display: 'flex',
-        flexDirection: ['column', 'row'],
-        gap: '1.5rem',
         justifyContent: 'space-between',
         px: ['0rem', '0.2rem'],
       }}

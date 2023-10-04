@@ -12,10 +12,23 @@ export function usePopover(
     if (buttonRef.current && ref.current) {
       document.body.style.overflow = 'hidden';
       const buttonPos = buttonRef.current.getBoundingClientRect();
-      const { width } = ref.current.getBoundingClientRect();
+      const { width, height } = ref.current.getBoundingClientRect();
 
-      setTop(buttonPos.bottom + spaceBetween);
-      setLeft(buttonPos.left + buttonPos.width / 2 - width / 2);
+      let y = buttonPos.bottom + spaceBetween;
+      let x = buttonPos.left + buttonPos.width / 2 - width / 2;
+
+      if (y + height > window.innerHeight) {
+        y = buttonPos.top - height - spaceBetween;
+      }
+
+      if (x < 0) {
+        x = 0 + spaceBetween;
+      } else if (x + width > window.innerWidth) {
+        x = window.innerWidth - width - spaceBetween;
+      }
+
+      setTop(y);
+      setLeft(x);
 
       return () => {
         document.body.style.overflow = 'unset';
