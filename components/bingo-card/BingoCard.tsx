@@ -1,8 +1,11 @@
 import Spacer from '../ui/Spacer';
-import { Box } from 'theme-ui';
+import { Box, Flex, Text, Button } from 'theme-ui';
 import { useSession } from 'next-auth/react';
 import BingoCardTitle from './BingoCardTitle';
 import BingoCardSquares from './BingoCardSquares';
+import { createPortal } from 'react-dom';
+import { useState } from 'react';
+import Modal from '../ui/Modal';
 
 interface BingoCardProps {
   card: Card;
@@ -11,7 +14,13 @@ interface BingoCardProps {
   handleUpdateCardSquare: Function;
 }
 
-function BingoCard({ card, handleArchiveCard, handleDeleteCard, handleUpdateCardSquare } : BingoCardProps) {
+function BingoCard({
+  card,
+  handleArchiveCard,
+  handleDeleteCard,
+  handleUpdateCardSquare,
+}: BingoCardProps) {
+  const [showConfirmDeletePopup, setShowConfirmDeletePopup] = useState(false);
   const { data: session } = useSession();
   const usersCard = session ? card.user === session.user.username : false;
 
@@ -20,7 +29,7 @@ function BingoCard({ card, handleArchiveCard, handleDeleteCard, handleUpdateCard
   }
 
   function deleteCardMiddleware() {
-    handleDeleteCard(card);
+    setShowConfirmDeletePopup(true);
   }
 
   return (
@@ -50,6 +59,21 @@ function BingoCard({ card, handleArchiveCard, handleDeleteCard, handleUpdateCard
         usersCard={usersCard}
         handleUpdateCardSquare={handleUpdateCardSquare}
       />
+      {showConfirmDeletePopup &&
+        createPortal(
+          <Modal closeModal={() => setShowConfirmDeletePopup(false)}>
+            <Flex sx={{flexDirection: 'column'}}>
+              <Text variant='body1'>Are you sure you want to delete this card? This action cannot be undone!</Text>
+              <Spacer size="0.75rem" />
+              <Flex sx={{gap: '0.9rem'}}>
+                <Button onClick={() => {handleDeleteCard(card)}} sx={{flex: '1 1 0'}}><Text variant="body1">Delete Permanently</Text></Button>
+                <Button onClick={() => {setShowConfirmDeletePopup(false)}} sx={{flex: '1 1 0'}}><Text variant="body1">Cancel</Text></Button>
+              </Flex>
+            </Flex>
+          </Modal>,
+          document.body,
+          'confirmDeletePopup'
+        )}
     </Box>
   );
 }
