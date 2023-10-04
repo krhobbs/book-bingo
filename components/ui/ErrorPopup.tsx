@@ -9,14 +9,11 @@ interface ErrorPopupProps {
 }
 
 const baseStyles: ThemeUICSSObject = {
-    backgroundColor: 'error',
+    backgroundColor: 'destructive',
     borderRadius: '15px',
     boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
-    color: 'darker',
-    mx: 'auto',
-    padding: '1.5rem 2.5rem',
-    position: 'relative',
-    inlineSize: 'max-content'
+    padding: '1rem 2rem',
+    position: 'absolute',
 }
 
 function ErrorPopup(props: ErrorPopupProps): ReactElement {
@@ -24,11 +21,11 @@ function ErrorPopup(props: ErrorPopupProps): ReactElement {
 
     return (
         <Box sx={{...baseStyles, ...sx}} {...rest}>
-            <IconButton onClick={close} sx={{cursor: 'pointer', position: 'absolute', top: '0.5rem', right: '0.5rem', width: '24px', height: '24px', zIndex: 15}}>
+            <IconButton onClick={close} sx={{cursor: 'pointer', position: 'absolute', top: '0.5rem', right: '0.5rem', width: '16px', height: '16px', zIndex: 15}}>
                 <XMarkIcon />
             </IconButton>
             
-            <Text>{message}</Text> 
+            <Text variant="body2">{message}</Text> 
         </Box>
 
     );
