@@ -73,6 +73,7 @@ export const theme: Theme = {
   },
   shadows: {
     pushedIn: 'inset 0px 0px 15px -10px #000000',
+    popover: '2px 2px 5px 2px rgba(0,0,0,0.6)'
   },
   buttons: {
     primary: {
@@ -98,6 +99,15 @@ export const theme: Theme = {
       '&:hover': {
         bg: 'muted',
       },
+    },
+    cardOptions: {
+      variant: 'buttons.settings',
+      alignItems: 'center',
+      display: 'flex',
+      gap: '1rem',
+      justifyContent: 'flex-start',
+      padding: '0.5rem 1.5rem',
+      borderRadius: '5px',
     },
     closeModal: {
       bg: 'primary',
