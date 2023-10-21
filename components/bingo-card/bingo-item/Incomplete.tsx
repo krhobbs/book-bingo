@@ -20,11 +20,9 @@ function Incomplete({
   usersCard,
 }: IncompleteProps) {
   const { pathname } = useRouter();
-  
+
   return (
-    <Box
-      sx={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}
-    >
+    <Box variant="layout.squareSide">
       <Text variant="body1">{bookReq}</Text>
       {usersCard && !archived && (
         <>
@@ -35,7 +33,7 @@ function Incomplete({
               query: {
                 card: cardId,
                 square: squareId,
-                fromPage: pathname.includes('profile') ? 'profile' : 'home'
+                fromPage: pathname.includes('profile') ? 'profile' : 'home',
               },
             }}
             aria-label="add new book"

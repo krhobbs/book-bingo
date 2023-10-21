@@ -2,21 +2,31 @@ import {
   TrashIcon,
   ArchiveBoxIcon,
   ArrowUturnLeftIcon,
+  ArrowPathIcon,
+  DocumentArrowDownIcon,
 } from '@heroicons/react/24/outline';
 import { useMemo } from 'react';
-import { Box, Button, ThemeUIStyleObject } from 'theme-ui';
+import { Box, Button, Text, ThemeUIStyleObject } from 'theme-ui';
 import useBreakpoint from '../../hooks/useBreakpoint';
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import CardPdfDocument from './CardPdfDocument';
 
 interface CardButtonsProps {
+  card: Card;
   handleDeleteCard: Function;
   handleArchiveCard: Function;
+  handleFlipToBack: Function;
+  handleFlipToFront: Function;
   archived: boolean;
   sx?: ThemeUIStyleObject;
 }
 
 function CardButtons({
+  card,
   handleDeleteCard,
   handleArchiveCard,
+  handleFlipToBack,
+  handleFlipToFront,
   archived,
   sx,
 }: CardButtonsProps) {
@@ -30,34 +40,42 @@ function CardButtons({
     <Box
       sx={{
         display: 'flex',
+        flexDirection: 'column',
+        background: 'primary',
+        padding: ['0.6rem', '1rem'],
+        borderRadius: '5px',
+        border: (theme) => `1px solid ${theme.colors.accent}`,
+        inlineSize: 'max-content',
         ...sx,
       }}
     >
-      <Button
-        sx={{
-          alignItems: 'center',
-          background: 'destructive',
-          borderRadius: '4px 0px 0px 4px',
-          display: 'flex',
-          flex: '1 1 0px',
-          justifyContent: 'center',
-          paddingBlock: '0.3rem',
-        }}
-        onClick={() => handleDeleteCard()}
-        aria-label="delete card"
+      <PDFDownloadLink
+        document={<CardPdfDocument card={card} />}
+        fileName="bingo-card.pdf"
       >
-        <TrashIcon style={{ inlineSize: iconSize, blockSize: iconSize }} />
+        <Box variant="buttons.cardOptions">
+          <DocumentArrowDownIcon
+            style={{ inlineSize: iconSize, blockSize: iconSize }}
+          />
+          <Text>Download as PDF</Text>
+        </Box>
+      </PDFDownloadLink>
+      <Button variant="cardOptions" onClick={() => handleFlipToFront()} aria-label="flip all to front">
+        <ArrowPathIcon style={{ inlineSize: iconSize, blockSize: iconSize }} />
+        <Text>Flip All To Front</Text>
+      </Button>
+      <Button variant="cardOptions" onClick={() => handleFlipToBack()} aria-label="flip all to front">
+        <ArrowPathIcon
+          style={{
+            inlineSize: iconSize,
+            blockSize: iconSize,
+            transform: 'scaleX(-1)',
+          }}
+        />
+        <Text>Flip All To Back</Text>
       </Button>
       <Button
-        sx={{
-          alignItems: 'center',
-          background: 'muted',
-          borderRadius: '0px 4px 4px 0px',
-          display: 'flex',
-          flex: '1 1 0px',
-          justifyContent: 'center',
-          paddingBlock: '0.3rem',
-        }}
+        variant="cardOptions"
         onClick={() => handleArchiveCard()}
         aria-label={`${archived ? 'unarchive' : 'archive'} card`}
       >
@@ -70,6 +88,15 @@ function CardButtons({
             style={{ inlineSize: iconSize, blockSize: iconSize }}
           />
         )}
+        <Text>Archive Card</Text>
+      </Button>
+      <Button
+        variant="cardOptions"
+        onClick={() => handleDeleteCard()}
+        aria-label="delete card"
+      >
+        <TrashIcon style={{ inlineSize: iconSize, blockSize: iconSize }} />
+        <Text>Delete Card</Text>
       </Button>
     </Box>
   );

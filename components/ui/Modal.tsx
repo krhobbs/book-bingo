@@ -46,7 +46,7 @@ function Modal({ closeModal, children }) {
           sx={{
             position: 'relative',
             background: 'highlight',
-            borderRadius: '25px',
+            borderRadius: '10px',
             inlineSize: ['100%', 'max-content'],
             padding: '1.5rem',
             mx: 'auto',

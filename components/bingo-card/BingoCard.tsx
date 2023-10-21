@@ -1,8 +1,11 @@
 import Spacer from '../ui/Spacer';
-import { Box } from 'theme-ui';
+import { Box, Flex, Text, Button } from 'theme-ui';
 import { useSession } from 'next-auth/react';
 import BingoCardTitle from './BingoCardTitle';
 import BingoCardSquares from './BingoCardSquares';
+import { createPortal } from 'react-dom';
+import { useState } from 'react';
+import Modal from '../ui/Modal';
 
 interface BingoCardProps {
   card: Card;
@@ -11,7 +14,15 @@ interface BingoCardProps {
   handleUpdateCardSquare: Function;
 }
 
-function BingoCard({ card, handleArchiveCard, handleDeleteCard, handleUpdateCardSquare } : BingoCardProps) {
+function BingoCard({
+  card,
+  handleArchiveCard,
+  handleDeleteCard,
+  handleUpdateCardSquare,
+}: BingoCardProps) {
+  const [showConfirmDeletePopup, setShowConfirmDeletePopup] = useState(false);
+  const [flippedArray, setFlippedArray] = useState<boolean[]>(new Array(25).fill(false));
+
   const { data: session } = useSession();
   const usersCard = session ? card.user === session.user.username : false;
 
@@ -20,7 +31,25 @@ function BingoCard({ card, handleArchiveCard, handleDeleteCard, handleUpdateCard
   }
 
   function deleteCardMiddleware() {
-    handleDeleteCard(card);
+    setShowConfirmDeletePopup(true);
+  }
+
+  function flipAllToFront() {
+    console.log('Flip to front')
+    setFlippedArray(new Array(25).fill(false));
+  }
+
+  function flipAllToBack() {
+    console.log('Flip to back')
+    setFlippedArray(new Array(25).fill(true));
+  }
+
+  function flipSingleItem(id: number) {
+    console.log('Flipping Item Number: ', id)
+    const newFlippedArray = flippedArray.map((value, idx) => {
+      return id === idx ? !value : value;
+    })
+    setFlippedArray(newFlippedArray);
   }
 
   return (
@@ -34,12 +63,15 @@ function BingoCard({ card, handleArchiveCard, handleDeleteCard, handleUpdateCard
       }}
     >
       <BingoCardTitle
+        card={card}
         username={card.user}
         template={card.template}
         usersCard={usersCard}
         archived={card.archived}
         handleArchiveCard={archiveCardMiddleware}
         handleDeleteCard={deleteCardMiddleware}
+        handleFlipToBack={flipAllToBack}
+        handleFlipToFront={flipAllToFront}
       />
       <Spacer size={['1.25rem', '1.5rem']} />
       <BingoCardSquares
@@ -48,7 +80,24 @@ function BingoCard({ card, handleArchiveCard, handleDeleteCard, handleUpdateCard
         squares={card.squares}
         usersCard={usersCard}
         handleUpdateCardSquare={handleUpdateCardSquare}
+        handleFlipCardSquare={flipSingleItem}
+        flippedArray={flippedArray}
       />
+      {showConfirmDeletePopup &&
+        createPortal(
+          <Modal closeModal={() => setShowConfirmDeletePopup(false)}>
+            <Flex sx={{flexDirection: 'column'}}>
+              <Text variant='body1'>Are you sure you want to delete this card? This action cannot be undone!</Text>
+              <Spacer size="0.75rem" />
+              <Flex sx={{gap: '0.9rem'}}>
+                <Button onClick={() => {handleDeleteCard(card)}} sx={{flex: '1 1 0'}}><Text variant="body1">Delete Permanently</Text></Button>
+                <Button onClick={() => {setShowConfirmDeletePopup(false)}} sx={{flex: '1 1 0'}}><Text variant="body1">Cancel</Text></Button>
+              </Flex>
+            </Flex>
+          </Modal>,
+          document.body,
+          'confirmDeletePopup'
+        )}
     </Box>
   );
 }

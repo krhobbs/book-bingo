@@ -72,7 +72,7 @@ function LoginForm() {
           <ErrorPopup
             message={errorMessage}
             close={closeErrorPopup}
-            sx={{ margin: 'auto' }}
+            sx={{ margin: '1rem', left: '0px', right: '0px' }}
           ></ErrorPopup>
         </Box>
       )}

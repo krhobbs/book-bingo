@@ -73,6 +73,7 @@ export const theme: Theme = {
   },
   shadows: {
     pushedIn: 'inset 0px 0px 15px -10px #000000',
+    popover: '2px 2px 5px 2px rgba(0,0,0,0.6)'
   },
   buttons: {
     primary: {
@@ -96,8 +97,17 @@ export const theme: Theme = {
       bg: 'transparent',
       textAlign: 'left',
       '&:hover': {
-        bg: 'muted'
-      }
+        bg: 'muted',
+      },
+    },
+    cardOptions: {
+      variant: 'buttons.settings',
+      alignItems: 'center',
+      display: 'flex',
+      gap: '1rem',
+      justifyContent: 'flex-start',
+      padding: '0.5rem 1.5rem',
+      borderRadius: '5px',
     },
     closeModal: {
       bg: 'primary',
@@ -109,6 +119,25 @@ export const theme: Theme = {
       '&:hover': {
         boxShadow: 'pushedIn',
       },
+    },
+  },
+  layout: {
+    squareSide: {
+      alignItems: 'center',
+      backgroundColor: 'primary',
+      blockSize: '100%',
+      borderRadius: '5px',
+      display: 'flex',
+      flexDirection: 'column',
+      inlineSize: '100%',
+      justifyContent: 'center',
+      padding: ['0.05rem', '0.1rem'],
+    },
+    animatedSquareSide: {
+      variant: 'layout.squareSide',
+      backfaceVisibility: 'hidden',
+      position: 'absolute',
+      transition: 'all .6s ease',
     },
   },
   links: {
@@ -133,9 +162,9 @@ export const theme: Theme = {
       padding: '0.5rem 1rem',
       textAlign: 'left',
       '&:hover': {
-        bg: 'muted'
-      }
-    }
+        bg: 'muted',
+      },
+    },
   },
   forms: {
     label: {

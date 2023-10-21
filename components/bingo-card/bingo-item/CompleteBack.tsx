@@ -10,6 +10,7 @@ interface CompleteBackProps {
   squareId: string;
   usersCard: boolean;
   handleUpdateCardSquare: Function;
+  flipped: boolean;
 }
 
 function CompleteBack({
@@ -18,11 +19,15 @@ function CompleteBack({
   archived,
   squareId,
   book,
-  handleUpdateCardSquare
+  handleUpdateCardSquare,
+  flipped,
 }: CompleteBackProps) {
   return (
     <Box
-      sx={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}
+      variant="layout.animatedSquareSide"
+      sx={{
+        transform: flipped ? 'rotateY(0deg)' : 'rotateY(180deg)',
+      }}
     >
       <BookInfo book={book} />
       {usersCard && !archived && (
