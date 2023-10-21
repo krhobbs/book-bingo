@@ -16,6 +16,8 @@ interface BingoCardTitleProps {
   archived: boolean;
   handleArchiveCard: Function;
   handleDeleteCard: Function;
+  handleFlipToBack: Function;
+  handleFlipToFront: Function;
 }
 
 function BingoCardTitle({
@@ -26,6 +28,8 @@ function BingoCardTitle({
   archived,
   handleArchiveCard,
   handleDeleteCard,
+  handleFlipToBack,
+  handleFlipToFront
 }: BingoCardTitleProps) {
   const { asPath } = useRouter();
   const [showOptions, setShowOptions] = useState(false);
@@ -83,6 +87,8 @@ function BingoCardTitle({
                 card={card}
                 handleDeleteCard={handleDeleteCard}
                 handleArchiveCard={handleArchiveCard}
+                handleFlipToBack={handleFlipToBack}
+                handleFlipToFront={handleFlipToFront}
                 archived={archived}
               />
             </Popover>,

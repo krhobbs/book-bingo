@@ -2,6 +2,7 @@ import {
   TrashIcon,
   ArchiveBoxIcon,
   ArrowUturnLeftIcon,
+  ArrowPathIcon,
   DocumentArrowDownIcon,
 } from '@heroicons/react/24/outline';
 import { useMemo } from 'react';
@@ -14,6 +15,8 @@ interface CardButtonsProps {
   card: Card;
   handleDeleteCard: Function;
   handleArchiveCard: Function;
+  handleFlipToBack: Function;
+  handleFlipToFront: Function;
   archived: boolean;
   sx?: ThemeUIStyleObject;
 }
@@ -22,6 +25,8 @@ function CardButtons({
   card,
   handleDeleteCard,
   handleArchiveCard,
+  handleFlipToBack,
+  handleFlipToFront,
   archived,
   sx,
 }: CardButtonsProps) {
@@ -55,6 +60,20 @@ function CardButtons({
           <Text>Download as PDF</Text>
         </Box>
       </PDFDownloadLink>
+      <Button variant="cardOptions" onClick={() => handleFlipToFront()} aria-label="flip all to front">
+        <ArrowPathIcon style={{ inlineSize: iconSize, blockSize: iconSize }} />
+        <Text>Flip All To Front</Text>
+      </Button>
+      <Button variant="cardOptions" onClick={() => handleFlipToBack()} aria-label="flip all to front">
+        <ArrowPathIcon
+          style={{
+            inlineSize: iconSize,
+            blockSize: iconSize,
+            transform: 'scaleX(-1)',
+          }}
+        />
+        <Text>Flip All To Back</Text>
+      </Button>
       <Button
         variant="cardOptions"
         onClick={() => handleArchiveCard()}

@@ -9,6 +9,8 @@ export interface BingoCardSquaresProps {
   squares: Square[];
   usersCard: boolean;
   handleUpdateCardSquare: Function;
+  handleFlipCardSquare: Function;
+  flippedArray: boolean[];
 }
 
 function BingoCardSquares({
@@ -16,9 +18,12 @@ function BingoCardSquares({
   cardId,
   squares,
   usersCard,
-  handleUpdateCardSquare
+  handleUpdateCardSquare,
+  handleFlipCardSquare,
+  flippedArray
 }: BingoCardSquaresProps) {
   const [listView] = useContext(ViewContext);
+
   return (
     <>
       {listView ? (
@@ -53,7 +58,7 @@ function BingoCardSquares({
             gridTemplateRows: 'repeat(5, auto)',
           }}
         >
-          {squares.map((square: Square) => {
+          {squares.map((square: Square, idx: number) => {
             return (
               <BingoItem
                 key={square.id}
@@ -62,6 +67,8 @@ function BingoCardSquares({
                 square={square}
                 usersCard={usersCard}
                 handleUpdateCardSquare={handleUpdateCardSquare}
+                handleFlipCardSquare={handleFlipCardSquare}
+                flipped={flippedArray[idx]}
               />
             );
           })}

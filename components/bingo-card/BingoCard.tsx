@@ -21,6 +21,8 @@ function BingoCard({
   handleUpdateCardSquare,
 }: BingoCardProps) {
   const [showConfirmDeletePopup, setShowConfirmDeletePopup] = useState(false);
+  const [flippedArray, setFlippedArray] = useState<boolean[]>(new Array(25).fill(false));
+
   const { data: session } = useSession();
   const usersCard = session ? card.user === session.user.username : false;
 
@@ -30,6 +32,24 @@ function BingoCard({
 
   function deleteCardMiddleware() {
     setShowConfirmDeletePopup(true);
+  }
+
+  function flipAllToFront() {
+    console.log('Flip to front')
+    setFlippedArray(new Array(25).fill(false));
+  }
+
+  function flipAllToBack() {
+    console.log('Flip to back')
+    setFlippedArray(new Array(25).fill(true));
+  }
+
+  function flipSingleItem(id: number) {
+    console.log('Flipping Item Number: ', id)
+    const newFlippedArray = flippedArray.map((value, idx) => {
+      return id === idx ? !value : value;
+    })
+    setFlippedArray(newFlippedArray);
   }
 
   return (
@@ -50,6 +70,8 @@ function BingoCard({
         archived={card.archived}
         handleArchiveCard={archiveCardMiddleware}
         handleDeleteCard={deleteCardMiddleware}
+        handleFlipToBack={flipAllToBack}
+        handleFlipToFront={flipAllToFront}
       />
       <Spacer size={['1.25rem', '1.5rem']} />
       <BingoCardSquares
@@ -58,6 +80,8 @@ function BingoCard({
         squares={card.squares}
         usersCard={usersCard}
         handleUpdateCardSquare={handleUpdateCardSquare}
+        handleFlipCardSquare={flipSingleItem}
+        flippedArray={flippedArray}
       />
       {showConfirmDeletePopup &&
         createPortal(
