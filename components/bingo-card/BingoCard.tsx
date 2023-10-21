@@ -35,17 +35,14 @@ function BingoCard({
   }
 
   function flipAllToFront() {
-    console.log('Flip to front')
     setFlippedArray(new Array(25).fill(false));
   }
 
   function flipAllToBack() {
-    console.log('Flip to back')
     setFlippedArray(new Array(25).fill(true));
   }
 
   function flipSingleItem(id: number) {
-    console.log('Flipping Item Number: ', id)
     const newFlippedArray = flippedArray.map((value, idx) => {
       return id === idx ? !value : value;
     })
