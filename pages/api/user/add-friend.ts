@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getServerSession } from 'next-auth/next';
-import { connectDatabase } from '../../../utils/db-utils';
+import { isUsernameTaken, insertFriendOfUser } from '../../../utils/db-utils';
 import { authOptions } from '../auth/[...nextauth]';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -20,31 +20,17 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   const friendToAdd = req.body.friendToAdd;
 
   try {
-    const client = await connectDatabase();
-    const usersCollection = client.db().collection('users');
 
-    const user = await usersCollection.findOne({ username: username });
+    const friendExists = await isUsernameTaken(friendToAdd);
 
-    const newFriend = await usersCollection.findOne({ username: friendToAdd });
-
-    if (!newFriend) {
+    if (!friendExists) {
       res
         .status(404)
         .json({ message: 'Unable to add friend. User not found.' });
       return;
     }
 
-    if (!user) {
-      res.status(404).json({ message: 'User not found.' });
-      return;
-    }
-
-    await usersCollection.updateOne(
-      { username: username },
-      { $push: { friends: friendToAdd } }
-    );
-
-    client.close();
+    await insertFriendOfUser(username, friendToAdd);
   } catch (error) {
     res
       .status(422)

@@ -30,6 +30,7 @@ function Cards({ cards, mutate } : { cards: Card[], mutate: Function }) {
 
   const handleUpdateCardSquare = async (cardId: string, squareId: string) => {
     try {
+      // Setting the book and color params to null because this deals with deleting a book from a square
       const [ activeCard, otherCards ] = await updateCardSquare(null, null, cards, squareId, cardId);
       mutate([activeCard, ...otherCards]);
     } catch (e) {

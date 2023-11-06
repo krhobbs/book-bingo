@@ -63,7 +63,7 @@ export async function addCard(username: string, template: Template) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(card),
+      body: JSON.stringify({templateID: template._id}),
     });
     const data = await response.json();
 

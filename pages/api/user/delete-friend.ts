@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getServerSession } from 'next-auth/next';
-import { connectDatabase } from '../../../utils/db-utils';
+import { deleteFriendOfUser } from '../../../utils/db-utils';
 import { authOptions } from '../auth/[...nextauth]';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -16,26 +16,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     return;
   }
 
-  const username = session.user.username;
+  const userID = session.user.id;
   const friendToDelete = req.body.friendToDelete;
 
   try {
-    const client = await connectDatabase();
-    const usersCollection = client.db().collection('users');
-
-    const user = await usersCollection.findOne({ username: username });
-
-    if (!user) {
-      res.status(404).json({ message: 'User not found.' });
-      return;
-    }
-
-    await usersCollection.updateOne(
-      { username: username },
-      { $pull: { friends: friendToDelete } }
-    );
-
-    client.close();
+    await deleteFriendOfUser(userID, friendToDelete);
   } catch (error) {
     res
       .status(422)

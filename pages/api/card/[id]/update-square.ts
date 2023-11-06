@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { ObjectId } from 'mongodb';
-import { connectDatabase } from '../../../../utils/db-utils';
+import { connectDatabase, updateCardSquare } from '../../../../utils/db-utils';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
@@ -8,26 +8,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     const { id: square, book, color } = req.body;
 
     try {
-      const client = await connectDatabase();
-
-      const db = client.db();
-
-      const cardsCollection = db.collection('cards');
-
-      await cardsCollection.updateOne(
-        {
-          _id: new ObjectId(id),
-          'squares.id': square,
-        },
-        {
-          $set: {
-            'squares.$.color': color,
-            'squares.$.book': book,
-          },
-        }
-      );
-
-      client.close();
+      await updateCardSquare(id, {id: square, req: '', book: book, color: color})
     } catch (error) {
       res
         .status(422)

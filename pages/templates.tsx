@@ -1,5 +1,5 @@
 import TemplatesLayout from '../components/layout/pages/TemplatesLayout';
-import { connectDatabase, getDocuments } from '../utils/db-utils';
+import { getAllTemplates } from '../utils/db-utils';
 
 export default function Template({ templates }: { templates: Template[] }) {
   return <TemplatesLayout templates={templates} />;
@@ -7,9 +7,7 @@ export default function Template({ templates }: { templates: Template[] }) {
 
 export async function getStaticProps() {
   try {
-    const client = await connectDatabase();
-    const templates = await getDocuments(client, 'templates');
-    client.close();
+    const templates = await getAllTemplates();
 
     return {
       props: {

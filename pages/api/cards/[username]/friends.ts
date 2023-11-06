@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { connectDatabase, getDocumentsByUsername } from '../../../../utils/db-utils';
+import { getCardsOfUsers } from '../../../../utils/db-utils';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../../auth/[...nextauth]';
 
@@ -14,10 +14,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
   
   try {
-    const client = await connectDatabase();
-    const card = await getDocumentsByUsername(client, 'cards', session.user.friends, { archived: false });
+    const cards = await getCardsOfUsers(session.user.friends)
 
-    res.status(200).json(card);
+    res.status(200).json(cards);
   } catch (e) {
     res
       .status(422)

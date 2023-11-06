@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { ObjectId } from 'mongodb';
-import { connectDatabase } from '../../../../utils/db-utils';
+import { connectDatabase, toggleArchiveCard } from '../../../../utils/db-utils';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../../auth/[...nextauth]';
 
@@ -20,26 +20,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     return;
   }
 
-  const username = session.user.username;
-
   try {
-    const client = await connectDatabase();
-    const usersCollection = client.db().collection('users');
-    const cardsCollection = client.db().collection('cards');
 
-    const user = await usersCollection.findOne({ username: username });
+    await toggleArchiveCard(id, archived);
 
-    if (!user) {
-      res.status(404).json({ message: 'User not found.' });
-      return;
-    }
-
-    await cardsCollection.updateOne(
-      { _id: new ObjectId(id) },
-      { $set: { archived: !archived } }
-    );
-
-    client.close();
   } catch (error) {
     res
       .status(422)

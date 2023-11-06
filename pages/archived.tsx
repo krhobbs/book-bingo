@@ -1,4 +1,4 @@
-import { connectDatabase, getDocuments } from '../utils/db-utils';
+import { getCardsOfUser } from '../utils/db-utils';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from './api/auth/[...nextauth]';
 import ArchivedLayout from '../components/layout/pages/ArchivedLayout';
@@ -26,13 +26,7 @@ export async function getServerSideProps(context) {
   }
 
   try {
-    const client = await connectDatabase();
-    const cards = await getDocuments(client, 'cards', {
-      archived: true,
-      user: session.user.username,
-    });
-
-    client.close();
+    const cards = await getCardsOfUser(session.user.username, true);
 
     return {
       props: {

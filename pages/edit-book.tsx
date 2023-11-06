@@ -1,5 +1,5 @@
 import EditBookLayout from '../components/layout/pages/EditBookLayout';
-import { connectDatabase, getSquare } from '../utils/db-utils';
+import { getSquareOfCard } from '../utils/db-utils';
 
 function EditBook({ square, cardId, fromPage }: { square: Square; cardId: string; fromPage: string }) {
   return <EditBookLayout cardId={cardId} square={square} fromPage={fromPage}  />;
@@ -13,12 +13,7 @@ export async function getServerSideProps(context) {
   }
 
   try {
-    const client = await connectDatabase();
-    const square = await getSquare(
-      client,
-      context.query.card,
-      context.query.square
-    );
+    const square = await getSquareOfCard(context.query.card, parseInt(context.query.square))
     return {
       props: {
         square: square,

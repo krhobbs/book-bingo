@@ -1,12 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { connectDatabase, getDocumentById } from '../../../../utils/db-utils';
+import { getCardById } from '../../../../utils/db-utils';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
   if (Array.isArray(id)) return;
   try {
-    const client = await connectDatabase();
-    const card = await getDocumentById(client, 'cards', id);
+
+    const card = await getCardById(id);
 
     res.status(200).json(card);
   } catch (e) {
