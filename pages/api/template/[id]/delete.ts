@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { ObjectId } from 'mongodb';
-import { connectDatabase, getTemplateById, deleteTemplate } from '../../../../utils/db-utils';
+import { getTemplateById, deleteTemplate } from '../../../../utils/db-utils';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../../auth/[...nextauth]';
 

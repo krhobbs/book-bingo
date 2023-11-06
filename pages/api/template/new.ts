@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getServerSession } from 'next-auth/next';
-import { connectDatabase, insertTemplate } from '../../../utils/db-utils';
+import { insertTemplate } from '../../../utils/db-utils';
 import { authOptions } from '../auth/[...nextauth]';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {

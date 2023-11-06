@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { connectDatabase, getDocumentById, getTemplateById } from '../../../../utils/db-utils';
+import { getTemplateById } from '../../../../utils/db-utils';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;

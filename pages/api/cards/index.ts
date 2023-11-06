@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { connectDatabase, getAllCards } from '../../../utils/db-utils';
+import { getAllCards } from '../../../utils/db-utils';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../auth/[...nextauth]';
 

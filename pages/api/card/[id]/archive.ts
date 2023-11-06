@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { ObjectId } from 'mongodb';
-import { connectDatabase, toggleArchiveCard } from '../../../../utils/db-utils';
+import { toggleArchiveCard } from '../../../../utils/db-utils';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../../auth/[...nextauth]';
 
