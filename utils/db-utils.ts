@@ -102,7 +102,7 @@ export async function updateCardSquare(card_id: string, square: Square) {
 // used for the home page
 export async function getAllCards() {
   const cards = await sql<Card[]>`
-    SELECT cards.id as "_id", users.username as "user", bool_and(cards.archived) AS "archived", templates.name AS "template", jsonb_agg(json_build_object('id', card_squares.id, 'req', template_reqs.req, 'book', card_squares.book, 'color', card_squares.color) ORDER BY card_squares.id) AS squares
+    SELECT cards.id as "_id", users.username as "user", templates.name AS "template", bool_and(cards.archived) AS "archived", jsonb_agg(json_build_object('id', card_squares.id, 'req', template_reqs.req, 'book', card_squares.book, 'color', card_squares.color) ORDER BY card_squares.id) AS squares
     FROM ((((bingo.cards INNER JOIN bingo.users ON cards.user_id = users.id)
         INNER JOIN bingo.templates ON cards.template_id = templates.id) 
         INNER JOIN bingo.card_squares ON cards.id = card_squares.card_id)
