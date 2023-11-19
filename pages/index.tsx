@@ -7,7 +7,11 @@ export default function Home({ cards }: { cards: Card[] }) {
 
 export async function getStaticProps() {
   try {
+    console.log('Home Page! getStaticProps()');
     const cards = await getAllCards();
+
+    console.log('Cards: ');
+    console.log(cards);
 
     return {
       props: {
