@@ -34,7 +34,7 @@ function Cards({ cards, mutate } : { cards: Card[], mutate: Function }) {
       const [ activeCard, otherCards ] = await updateCardSquare(null, null, cards, squareId, cardId);
       mutate([activeCard, ...otherCards]);
     } catch (e) {
-      console.log('Error updating card.');
+      console.error('Error updating card.');
     }
   }
 

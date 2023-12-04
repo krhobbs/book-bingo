@@ -23,7 +23,7 @@ function ProfileLayout({ cards, username }: ProfileLayoutProps) {
       mutate([ ...data, card]);
       closeModal();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 

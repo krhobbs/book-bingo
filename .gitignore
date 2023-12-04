@@ -34,3 +34,4 @@ yarn-error.log*
 
 # local docs files files
 /docs
+docker-compose.yml

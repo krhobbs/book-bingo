@@ -16,12 +16,12 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     return;
   }
 
-  const username = session.user.username;
+  const user_id = session.user.id;
   const { name, reqs } = req.body;
 
   try {
 
-    await insertTemplate(name, username, reqs);
+    await insertTemplate(name, user_id, reqs);
 
   } catch (error) {
     res
