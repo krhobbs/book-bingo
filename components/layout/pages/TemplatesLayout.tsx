@@ -5,11 +5,11 @@ import GridListSwitch from '../../ui/GridListSwitch';
 import Templates from '../../Templates';
 import NewTemplate from '../../NewTemplate';
 
-interface TemplateLayoutProps {
+interface TemplatesLayoutProps {
   templates: Template[];
 }
 
-function TemplatesLayout({ templates }: TemplateLayoutProps) {
+function TemplatesLayout({ templates }: TemplatesLayoutProps) {
   return (
     <>
       <Head>
