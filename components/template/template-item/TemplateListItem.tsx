@@ -1,6 +1,6 @@
 import { Box, Text } from 'theme-ui';
 
-function BingoListItem({ req }: { req: string}) {
+function TemplateListItem({ req }: { req: string}) {
   return (
     <Box
       sx={{
@@ -26,4 +26,4 @@ function BingoListItem({ req }: { req: string}) {
   );
 }
 
-export default BingoListItem;
+export default TemplateListItem;

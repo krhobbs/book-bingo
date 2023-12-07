@@ -9,7 +9,7 @@ interface TemplateLayoutProps {
   templates: Template[];
 }
 
-function ArchivedLayout({ templates }: TemplateLayoutProps) {
+function TemplatesLayout({ templates }: TemplateLayoutProps) {
   return (
     <>
       <Head>
@@ -34,4 +34,4 @@ function ArchivedLayout({ templates }: TemplateLayoutProps) {
   );
 }
 
-export default ArchivedLayout;
+export default TemplatesLayout;
