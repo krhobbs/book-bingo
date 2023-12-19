@@ -1,7 +1,7 @@
 import TemplatesLayout from '../components/layout/pages/TemplatesLayout';
 import { getAllTemplates } from '../utils/db-utils';
 
-export default function Template({ templates }: { templates: Template[] }) {
+export default function TemplatesPage({ templates }: { templates: Template[] }) {
   return <TemplatesLayout templates={templates} />;
 }
 
