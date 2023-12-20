@@ -9,6 +9,17 @@ export async function fetchCards() {
   }
 }
 
+export async function fetchTemplates() {
+  try {
+    const response = await fetch('api/templates');
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+    return;
+  }
+}
+
 export async function fetchUsersCards(url: string) {
   try {
     const response = await fetch(url);
