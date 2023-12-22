@@ -8,8 +8,7 @@ import { fetchCards } from '../../../utils/api-utils';
 
 function HomeLayout({ cards } : { cards: Card[] }) {
   const { data, mutate } = useSWR(`/api/cards`, fetchCards, { fallbackData: cards });
-  console.log('Home Layout...');
-  console.dir(data);
+
   return (
     <>
       <Head>
