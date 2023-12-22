@@ -12,7 +12,8 @@ interface TemplatesLayoutProps {
 }
 
 function TemplatesLayout({ templates }: TemplatesLayoutProps) {
-  const { data, mutate } = useSWR(`/api/cards`, fetchTemplates, { fallbackData: templates }); 
+  const { data, mutate } = useSWR(`/api/templates`, fetchTemplates, { fallbackData: templates });
+
   return (
     <>
       <Head>
