@@ -21,6 +21,6 @@ interface Card {
 interface Template {
   _id: string;
   name: string;
-  createdBy: string;
+  user: string;
   reqs: string[];
 }

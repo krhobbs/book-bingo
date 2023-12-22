@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getServerSession } from 'next-auth/next';
-import { connectDatabase } from '../../../utils/db-utils';
+import { insertTemplate } from '../../../utils/db-utils';
 import { authOptions } from '../auth/[...nextauth]';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -16,20 +16,13 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     return;
   }
 
-  const username = session.user.username;
+  const user_id = session.user.id;
   const { name, reqs } = req.body;
 
   try {
-    const client = await connectDatabase();
-    const templatesCollection = client.db().collection('templates');
 
-    await templatesCollection.insertOne({
-      name: name,
-      createdBy: username,
-      reqs: reqs,
-    });
+    await insertTemplate(name, user_id, reqs);
 
-    client.close();
   } catch (error) {
     res
       .status(422)

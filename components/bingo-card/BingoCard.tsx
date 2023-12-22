@@ -51,6 +51,7 @@ function BingoCard({
 
   return (
     <Box
+      key={card._id}
       as="article"
       sx={{
         inlineSize: ['100%', 'min-content'],

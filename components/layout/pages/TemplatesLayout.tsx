@@ -4,12 +4,15 @@ import Spacer from '../../ui/Spacer';
 import GridListSwitch from '../../ui/GridListSwitch';
 import Templates from '../../Templates';
 import NewTemplate from '../../NewTemplate';
+import useSWR from 'swr';
+import { fetchTemplates } from '../../../utils/api-utils';
 
-interface TemplateLayoutProps {
+interface TemplatesLayoutProps {
   templates: Template[];
 }
 
-function ArchivedLayout({ templates }: TemplateLayoutProps) {
+function TemplatesLayout({ templates }: TemplatesLayoutProps) {
+  const { data, mutate } = useSWR(`/api/cards`, fetchTemplates, { fallbackData: templates }); 
   return (
     <>
       <Head>
@@ -25,7 +28,7 @@ function ArchivedLayout({ templates }: TemplateLayoutProps) {
         <NewTemplate />
       ) : (
         <>
-          <Templates templates={templates} />
+          <Templates templates={data} />
           <Spacer size="2rem" />
           <NewTemplate />
         </>
@@ -34,4 +37,4 @@ function ArchivedLayout({ templates }: TemplateLayoutProps) {
   );
 }
 
-export default ArchivedLayout;
+export default TemplatesLayout;

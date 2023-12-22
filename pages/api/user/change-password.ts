@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { connectDatabase } from '../../../utils/db-utils';
+import { updatePasswordOfUser, getUserByUsername } from '../../../utils/db-utils';
 import { verifyPassword, hashPassword } from '../../../utils/auth-utils';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../auth/[...nextauth]';
@@ -27,33 +27,19 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   try {
-    const client = await connectDatabase();
-    const usersCollection = client.db().collection('users');
-
-    const user = await usersCollection.findOne({ username: username });
-
-    if (!user) {
-      res.status(404).json({ message: 'User not found.' });
-      return;
-    }
+    const user = await getUserByUsername(username);
 
     const currentPassword = user.password;
     const verified = await verifyPassword(oldPassword, currentPassword);
 
     if (!verified) {
       res.status(403).json({ message: 'Incorrect old password!' });
-      client.close();
       return;
     }
 
     const hashedPassword = await hashPassword(newPassword);
 
-    await usersCollection.updateOne(
-      { username: username },
-      { $set: { password: hashedPassword } }
-    );
-
-    client.close();
+    await updatePasswordOfUser(user.id, hashedPassword);
   } catch (error) {
     res
       .status(422)

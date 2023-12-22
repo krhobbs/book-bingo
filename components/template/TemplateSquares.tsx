@@ -8,7 +8,7 @@ export interface TemplateSquaresProps {
   reqs: string[];
 }
 
-function BingoCardSquares({ reqs }: TemplateSquaresProps) {
+function TemplateSquares({ reqs }: TemplateSquaresProps) {
   const [listView] = useContext(ViewContext);
   return (
     <>
@@ -44,4 +44,4 @@ function BingoCardSquares({ reqs }: TemplateSquaresProps) {
   );
 }
 
-export default BingoCardSquares;
+export default TemplateSquares;

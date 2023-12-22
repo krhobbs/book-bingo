@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { connectDatabase } from '../../../utils/db-utils';
+import { getAllCards } from '../../../utils/db-utils';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../auth/[...nextauth]';
 
@@ -19,8 +19,7 @@ function putUsersCardFirst(cards: Card[], username: string) {
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const client = await connectDatabase();
-    const cards = await client.db().collection<Card>('cards').find({archived: false}).toArray();
+    const cards = await getAllCards();
 
     const session = await getServerSession(req, res, authOptions);
     let sortedCards: Card[];

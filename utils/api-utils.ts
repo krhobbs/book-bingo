@@ -9,6 +9,17 @@ export async function fetchCards() {
   }
 }
 
+export async function fetchTemplates() {
+  try {
+    const response = await fetch('api/templates');
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+    return;
+  }
+}
+
 export async function fetchUsersCards(url: string) {
   try {
     const response = await fetch(url);
@@ -63,7 +74,7 @@ export async function addCard(username: string, template: Template) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(card),
+      body: JSON.stringify({templateID: template._id}),
     });
     const data = await response.json();
 

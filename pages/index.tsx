@@ -1,5 +1,5 @@
 import HomeLayout from '../components/layout/pages/HomeLayout';
-import { connectDatabase, getDocuments } from '../utils/db-utils';
+import { getAllCards } from '../utils/db-utils';
 
 export default function Home({ cards }: { cards: Card[] }) {
   return <HomeLayout cards={cards} />;
@@ -7,9 +7,7 @@ export default function Home({ cards }: { cards: Card[] }) {
 
 export async function getStaticProps() {
   try {
-    const client = await connectDatabase();
-    const cards = await getDocuments(client, 'cards', { archived: false });
-    client.close();
+    const cards = await getAllCards();
 
     return {
       props: {
@@ -18,8 +16,12 @@ export async function getStaticProps() {
       revalidate: 800,
     };
   } catch (error) {
+    console.log(error);
     return {
-      notFound: true,
+      props: {
+        cards: [],
+      },
+      revalidate: 800
     };
   }
 }

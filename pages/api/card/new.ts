@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getServerSession } from 'next-auth/next';
-import { connectDatabase } from '../../../utils/db-utils';
+import { insertCard } from '../../../utils/db-utils';
 import { authOptions } from '../auth/[...nextauth]';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -9,7 +9,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   const session = await getServerSession(req, res, authOptions);
-  const card = req.body;
+  const { templateID } = req.body;
 
   // Make sure the user is authenticated
   if (!session) {
@@ -17,25 +17,12 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     return;
   }
 
-  const username = session.user.username;
+  const userID = session.user.id;
 
   try {
-    const client = await connectDatabase();
-    const usersCollection = client.db().collection('users');
-    const cardsCollection = client.db().collection('cards');
+    const cardResult = await insertCard(userID, templateID);
 
-    const user = await usersCollection.findOne({ username: username });
-
-    if (!user) {
-      res.status(404).json({ message: 'User not found.' });
-      return;
-    }
-
-    const cardResult = await cardsCollection.insertOne(card);
-
-    const newCardId = cardResult.insertedId.toString();
-    client.close();
-    res.status(200).json({ _id: newCardId });
+    res.status(200).json({ _id: cardResult });
 
   } catch (error) {
     res

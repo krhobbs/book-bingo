@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { hashPassword } from '../../../utils/auth-utils';
 import {
-  connectDatabase,
-  getDocumentByUsername,
+  isUsernameTaken,
+  insertUser
 } from '../../../utils/db-utils';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -22,32 +22,18 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     }
 
     try {
-      const client = await connectDatabase();
+      const usernameTaken = await isUsernameTaken(username);
 
-      const db = client.db();
-
-      const existingUser = await getDocumentByUsername(
-        client,
-        'users',
-        username
-      );
-
-      if (existingUser) {
+      if (usernameTaken) {
         res.status(422).json({ message: 'That username is taken.' });
-        client.close();
         return;
       }
 
       const hashedPassword = await hashPassword(password);
 
-      await db.collection('users').insertOne({
-        username: username,
-        password: hashedPassword,
-        friends: [],
-      });
+      await insertUser(username, hashedPassword);
 
       res.status(201).json({ message: 'Created user.' });
-      client.close();
     } catch (error) {
       res
         .status(422)

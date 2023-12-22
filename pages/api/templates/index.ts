@@ -1,12 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { connectDatabase } from '../../../utils/db-utils';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '../auth/[...nextauth]';
+import { getAllTemplates } from '../../../utils/db-utils';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const client = await connectDatabase();
-    const templates = await client.db().collection<Template>('templates').find().toArray();
+
+    const templates = await getAllTemplates();
     
     res.status(200).json(templates);
   } catch (e) {

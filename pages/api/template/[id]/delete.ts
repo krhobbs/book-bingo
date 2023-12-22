@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { ObjectId } from 'mongodb';
-import { connectDatabase } from '../../../../utils/db-utils';
+import { getTemplateById, deleteTemplate } from '../../../../utils/db-utils';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../../auth/[...nextauth]';
 
@@ -22,19 +21,16 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   const username = session.user.username;
 
   try {
-    const client = await connectDatabase();
-    const templatesCollection = client.db().collection('templates');
 
-    const template = await templatesCollection.findOne({ _id: new ObjectId(id)});
+    const template = await getTemplateById(id);
 
-    if (template.createdBy === username) {
-        await templatesCollection.deleteOne({ _id: new ObjectId(id) });
+    if (template.user === username) {
+        await deleteTemplate(id);
         res.status(200).json({ message: 'Deleted template!' });
     } else {
         res.status(401).json({ message: 'Unauthorized!' });
     }
 
-    client.close();
   } catch (error) {
     res
       .status(422)
