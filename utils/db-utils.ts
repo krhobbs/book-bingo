@@ -33,12 +33,27 @@ export async function isUsernameTaken(username: string) {
   return countResult[0].count !== "0";
 }
 
+// returns true if a card is owned by a user
+export async function isUsersCard(user_id: string, card_id: string) {
+  const usersCardsResult = await sql`
+    SELECT cards.id
+    FROM bingo.cards INNER JOIN bingo.users ON cards.user_id = users.id
+    WHERE users.id = ${user_id}
+    GROUP BY users.username, cards.id`.values();
+
+  const usersCards = usersCardsResult.flat();
+  
+  return usersCards.includes(card_id);
+}
+
 // adds a new card by insterting a record into the cards table and 25 records into the card_squares table
 export async function insertCard(user_id: string, template_id: string) : Promise<string> {
   const insertCard = await sql`
     INSERT INTO bingo.cards(id, user_id, template_id, archived, created_at) VALUES
     (gen_random_uuid(), ${user_id}, ${template_id}, false, NOW())
     returning id`
+
+  console.log('insert card')
 
   const { id: card_id } = insertCard[0];
   const values: {

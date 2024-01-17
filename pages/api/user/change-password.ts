@@ -13,7 +13,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   // Make sure the user is authenticated
   if (!session) {
-    res.status(401).json({ message: 'Not auth' });
+    res.status(401).json({ message: 'Not authenticated.' });
     return;
   }
 

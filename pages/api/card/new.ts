@@ -27,7 +27,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   } catch (error) {
     res
       .status(422)
-      .json({ message: 'Unable to connect to database. Try again later.' });
+      .json({ message: error });
     return;
   }
 
