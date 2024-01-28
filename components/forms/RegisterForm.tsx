@@ -23,20 +23,20 @@ async function registerUser(username: string, password: string) {
   return data;
 }
 
-function RegisterForm(props) {
+function RegisterForm() {
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState('');
   const usernameInputRef = useRef<HTMLInputElement>();
   const passwordInputRef = useRef<HTMLInputElement>();
 
-  async function submitHandler(event) {
+  async function submitHandler(event: React.FormEvent<HTMLDivElement>) {
     event.preventDefault();
 
     const enteredUsername = usernameInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
 
     try {
-      const result = await registerUser(enteredUsername, enteredPassword);
+      await registerUser(enteredUsername, enteredPassword);
       setErrorMessage('');
       router.push('/login');
     } catch (error) {

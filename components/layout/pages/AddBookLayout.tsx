@@ -25,7 +25,7 @@ function AddBookLayout({ cardId, square, fromPage }: AddBookLayoutProps) {
       await mutate(key, [...otherCards, activeCard]);
       router.back();
     } catch (e) {
-      console.log('Error Adding Book!')
+      console.error('Error Adding Book!')
     }
   }
 

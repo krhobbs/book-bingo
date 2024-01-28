@@ -31,3 +31,7 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# local docs files files
+/docs
+docker-compose.yml

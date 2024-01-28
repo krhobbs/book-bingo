@@ -1,12 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { connectDatabase, getDocumentById } from '../../../../utils/db-utils';
+import { getTemplateById } from '../../../../utils/db-utils';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
   if (Array.isArray(id)) return;
   try {
-    const client = await connectDatabase();
-    const template = await getDocumentById(client, 'templates', id);
+   const template = getTemplateById(id);
 
     res.status(200).json(template);
   } catch (e) {

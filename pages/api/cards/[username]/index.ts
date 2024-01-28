@@ -1,12 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { connectDatabase } from '../../../../utils/db-utils';
+import { getCardsOfUser } from '../../../../utils/db-utils';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { username } = req.query;
   if (Array.isArray(username)) return;
   try {
-    const client = await connectDatabase();
-    const cards = await client.db().collection('cards').find({ archived: false, user: username }).toArray();
+
+    const cards = await getCardsOfUser(username);
 
     res.status(200).json(cards);
   } catch (e) {
