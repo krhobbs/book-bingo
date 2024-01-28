@@ -4,23 +4,18 @@ import { Box, Label, Input, Button, Text } from 'theme-ui';
 import ErrorPopup from '../ui/ErrorPopup';
 import Spacer from '../ui/Spacer';
 import { useRouter } from 'next/router';
+import { createTemplate } from '../../utils/api-utils';
 
-function CreateTemplateForm(props) {
+function CreateTemplateForm() {
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const [errorMessage, setErrorMessage] = useState('');
   const router = useRouter();
 
-  async function onSubmit(data) {
+  async function onSubmit(data: string[]) {
     let reqs = Object.values(data);
     const name = reqs.shift();
 
-    const response = await fetch('api/template/new', {
-      method: 'POST',
-      body: JSON.stringify({ name: name, reqs: reqs }),
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    });
+    const response = await createTemplate(name, reqs);
 
     if (response.ok) {
       router.push('/templates');

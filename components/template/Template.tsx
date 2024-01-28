@@ -4,10 +4,10 @@ import TemplateHeader from './TemplateHeader';
 
 function Template({ template }: { template: Template }) {
   async function handleCreateFromTemplate() {
-    const response = await fetch(`/api/card/new`, {
+    await fetch(`/api/card/new`, {
       method: 'POST',
       body: JSON.stringify({
-        templateId: template._id,
+        templateID: template._id,
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -16,7 +16,7 @@ function Template({ template }: { template: Template }) {
   }
 
   async function handleDeleteTemplate() {
-    const response = await fetch(`/api/template/${template._id}/delete`, {
+    await fetch(`/api/template/${template._id}/delete`, {
       method: 'POST',
       body: JSON.stringify({
         id: template._id,

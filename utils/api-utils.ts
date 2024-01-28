@@ -1,17 +1,7 @@
+// Card Related API Utils
 export async function fetchCards() {
   try {
     const response = await fetch('/api/cards');
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.log(error);
-    return;
-  }
-}
-
-export async function fetchTemplates() {
-  try {
-    const response = await fetch('api/templates');
     const data = await response.json();
     return data;
   } catch (error) {
@@ -32,17 +22,6 @@ export async function fetchUsersCards(url: string) {
 }
 
 export async function fetchFriendsCards(url: string) {
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.log(error);
-    return;
-  }
-}
-
-export async function fetchTemplateNames(url: string) {
   try {
     const response = await fetch(url);
     const data = await response.json();
@@ -114,4 +93,37 @@ export async function updateCardSquare(
   });
 
   return [ activeCard, otherCards ];
+}
+
+// Template Related API Utils
+export async function createTemplate(name: string, reqs: string[]) {
+  return await fetch('api/template/new', {
+    method: 'POST',
+    body: JSON.stringify({ name: name, reqs: reqs }),
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  });  
+}
+
+export async function fetchTemplates() {
+  try {
+    const response = await fetch('api/templates');
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+    return;
+  }
+}
+
+export async function fetchTemplateNames(url: string) {
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+    return;
+  }
 }
