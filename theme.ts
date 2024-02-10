@@ -1,5 +1,4 @@
 import type { Theme } from 'theme-ui';
-import { Inter } from 'next/font/google';
 
 export const theme: Theme = {
   config: {
@@ -84,10 +83,6 @@ export const theme: Theme = {
       '&:hover': {
         boxShadow: 'pushedIn',
       },
-    },
-    icon: {
-      cursor: 'pointer',
-      padding: '0px',
     },
     settings: {
       fontWeight: 'heading',
