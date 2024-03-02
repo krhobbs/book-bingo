@@ -53,8 +53,6 @@ export async function insertCard(user_id: string, template_id: string) : Promise
     (gen_random_uuid(), ${user_id}, ${template_id}, false, NOW())
     returning id`
 
-  console.log('insert card')
-
   const { id: card_id } = insertCard[0];
   const values: {
     id: number,
@@ -115,7 +113,8 @@ export async function updateCardSquare(card_id: string, square: Square) {
 
 // gets all cards from the database that are not archived
 // used for the home page
-export async function getAllCards() {
+export async function getAllCards(pageNumber = 1): Promise<[Card[], number]> {
+  const offsetValue = (pageNumber - 1) * 10
   const cards = await sql<Card[]>`
     SELECT cards.id as "_id", users.username as "user", templates.name AS "template", bool_and(cards.archived) AS "archived", jsonb_agg(json_build_object('id', card_squares.id, 'req', template_reqs.req, 'book', card_squares.book, 'color', card_squares.color) ORDER BY card_squares.id) AS squares
     FROM ((((bingo.cards INNER JOIN bingo.users ON cards.user_id = users.id)
@@ -124,9 +123,16 @@ export async function getAllCards() {
         INNER JOIN bingo.template_reqs ON cards.template_id = template_reqs.template_id AND card_squares.id = template_reqs.id)
     WHERE NOT cards.archived
     GROUP BY cards.id, users.username, templates.name
-    ORDER BY users.username ASC`
+    ORDER BY cards.created_at ASC
+    LIMIT 10
+    OFFSET ${offsetValue}`
+
+  const cardCount = await sql`
+    SELECT count(*) FROM bingo.cards WHERE NOT archived`
+
+  const pageCount = Math.ceil(cardCount[0].count / 10);
   
-  return cards;
+  return [cards, pageCount];
 }
 
 // gets all the cards of a particular user, either archived or not archived (default)

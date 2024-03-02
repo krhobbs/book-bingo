@@ -19,7 +19,8 @@ function putUsersCardFirst(cards: Card[], username: string) {
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const cards = await getAllCards();
+    const page = parseInt(req.query.page as string) || 1;
+    const [cards] = await getAllCards(page);
 
     const session = await getServerSession(req, res, authOptions);
     let sortedCards: Card[];

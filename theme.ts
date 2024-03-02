@@ -160,6 +160,16 @@ export const theme: Theme = {
         bg: 'muted',
       },
     },
+    pagination: {
+      alignItems: 'center',
+      bg: 'primary',
+      blockSize: ['24px', '32px'],
+      display: 'flex',
+      justifyContent: 'center',
+      borderRadius: '5px',
+      textAlign: 'center',
+      px: '13px'
+    }
   },
   forms: {
     label: {

@@ -5,9 +5,13 @@ import Spacer from '../../ui/Spacer';
 import { Text } from 'theme-ui';
 import useSWR from 'swr';
 import { fetchCards } from '../../../utils/api-utils';
+import Pagination from '../../ui/Pagination';
+import { useRouter } from 'next/router';
 
-function HomeLayout({ cards } : { cards: Card[] }) {
-  const { data, mutate } = useSWR(`/api/cards`, fetchCards, { fallbackData: cards });
+function HomeLayout({ cards, pageCount } : { cards: Card[], pageCount: number }) {
+  const router = useRouter();
+  const page = parseInt(router.query.page as string) || 1;
+  const { data, mutate } = useSWR(`/api/cards?page=${page}`, fetchCards, { fallbackData: cards });
 
   return (
     <>
@@ -18,7 +22,13 @@ function HomeLayout({ cards } : { cards: Card[] }) {
       <Spacer size="2rem" />
       <GridListSwitch />
       <Spacer size="2rem" />
-      <Cards cards={data} mutate={mutate} />
+      {cards.length === 0 ? 
+        <Text as="p" variant="body1" sx={{textAlign: 'center'}}>No Cards to Display.</Text> 
+        : 
+        <Cards cards={data} mutate={mutate} />
+      }
+      <Spacer size="1rem" />
+      <Pagination pageCount={pageCount} currentPage={page} />
     </>
   );
 }

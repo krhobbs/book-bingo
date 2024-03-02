@@ -59,7 +59,8 @@ function PaginationLink({href, children} : {href: string | UrlObject, children: 
 }
 
 function Pagination({pageCount, currentPage} : {pageCount: number, currentPage: number}) {
-  const pageNumbers = Array.from({ length: pageCount }, (_, index) => index);
+  const pageNumbers = Array.from({ length: pageCount }, (_, index) => index + 1);
+  
   return (
     <Box sx={{display: 'flex', justifyContent: 'space-between', mx: 'auto', width: ['100%', '592px']}}>
       <Link href=''>
@@ -70,7 +71,7 @@ function Pagination({pageCount, currentPage} : {pageCount: number, currentPage: 
           pageCount <= 5 ? 
             <>
               {pageNumbers.map((pageNumber) => {
-                <PaginationLink key={pageNumber} href={{query: {page: pageNumber}}}>{pageNumber}</PaginationLink>
+                return <PaginationLink key={pageNumber} href={{query: {page: pageNumber}}}>{pageNumber}</PaginationLink>
               })}
             </> 
           : 
