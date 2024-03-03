@@ -6,14 +6,19 @@ import GridListSwitch from '../../ui/GridListSwitch';
 import Spacer from '../../ui/Spacer';
 import useSWR from 'swr';
 import { addCard, fetchUsersCards } from '../../../utils/api-utils';
+import { useRouter } from 'next/router';
+import Pagination from '../../ui/Pagination';
 
 interface ProfileLayoutProps {
   cards: Card[];
+  pageCount: number;
   username: string;
 }
 
-function ProfileLayout({ cards, username }: ProfileLayoutProps) {
-  const { data, mutate } = useSWR(`/api/cards/${username}`, fetchUsersCards, { fallbackData: cards });
+function ProfileLayout({ cards, pageCount, username }: ProfileLayoutProps) {
+  const router = useRouter();
+  const page = parseInt(router.query.page as string) || 1;
+  const { data, mutate } = useSWR(`/api/cards/${username}?page=${page}`, fetchUsersCards, { fallbackData: cards });
 
   // New Card Creation
   // Take in template data
@@ -43,6 +48,7 @@ function ProfileLayout({ cards, username }: ProfileLayoutProps) {
           <Cards cards={data} mutate={mutate} />
           <Spacer size="2rem" />
           <NewCard handleNewCard={handleNewCard} />
+          <Pagination pageCount={pageCount} currentPage={page} />
         </>
       ) : (
         <NewCard handleNewCard={handleNewCard} />

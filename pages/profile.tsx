@@ -5,12 +5,14 @@ import ProfileLayout from '../components/layout/pages/ProfileLayout';
 
 export default function Profile({
   cards,
+  pageCount,
   username,
 }: {
   cards: Card[];
+  pageCount: number;
   username: string;
 }) {
-  return <ProfileLayout cards={cards} username={username} />;
+  return <ProfileLayout cards={cards} pageCount={pageCount} username={username} />;
 }
 
 export async function getServerSideProps(context) {
@@ -26,11 +28,12 @@ export async function getServerSideProps(context) {
   }
 
   try {
-    const cards = await getCardsOfUser(session.user.username);
+    const [cards, pageCount] = await getCardsOfUser(session.user.username);
 
     return {
       props: {
-        cards: cards,
+        cards,
+        pageCount,
         username: session.user.username,
       },
     };
