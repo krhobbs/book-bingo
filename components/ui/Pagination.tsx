@@ -14,7 +14,9 @@ function renderPageNumbers(currentPage: number, pageCount: number) {
           {beginning.map((pageNum, idx) => {
             return (
               <Fragment key={pageNum}>
-                <PaginationLink href={{query: {page: pageNum}}}>{pageNum}</PaginationLink>
+                <PaginationLink active={currentPage === pageNum} href={{query: {page: pageNum}}}>
+                  {pageNum}
+                </PaginationLink>
                 {idx === 3 && <Text variant='body1'>...</Text>}
               </Fragment>
             )
@@ -27,7 +29,9 @@ function renderPageNumbers(currentPage: number, pageCount: number) {
           {end.map((pageNum, idx) => {
             return (
               <Fragment key={pageNum}>
-                <PaginationLink href={{query: {page: pageNum}}}>{pageNum}</PaginationLink>
+                <PaginationLink active={currentPage === pageNum} href={{query: {page: pageNum}}}>
+                  {pageNum}
+                </PaginationLink>
                 {idx === 1 && <Text variant='body1'>...</Text>}
               </Fragment>
             )
@@ -40,7 +44,9 @@ function renderPageNumbers(currentPage: number, pageCount: number) {
           {middle.map((pageNum, idx) => {
             return (
               <Fragment key={pageNum}>
-                <PaginationLink href={{query: {page: pageNum}}}>{pageNum}</PaginationLink>
+                <PaginationLink active={currentPage === pageNum} href={{query: {page: pageNum}}}>
+                  {pageNum}
+                </PaginationLink>
                 {(idx === 0 || idx === 3) && <Text variant="body1">...</Text>}
               </Fragment>
             );
@@ -50,28 +56,39 @@ function renderPageNumbers(currentPage: number, pageCount: number) {
   }
 }
 
-function PaginationLink({href, children} : {href: string | UrlObject, children: React.ReactNode}) {
+function PaginationLink({href, active, children} : {href: string | UrlObject, active: boolean, children: React.ReactNode}) {
   return (
     <Link href={href}>
-      <Box variant='links.pagination'>{children}</Box>
+      <Box variant={`links.pagination${active ? 'Active' : ''}`}>{children}</Box>
     </Link>
   )
 }
 
 function Pagination({pageCount, currentPage} : {pageCount: number, currentPage: number}) {
   const pageNumbers = Array.from({ length: pageCount }, (_, index) => index + 1);
+  const prevDisabled = currentPage === 1;
+  const nextDisabled = currentPage === pageCount;
   
   return (
     <Box sx={{display: 'flex', justifyContent: 'space-between', mx: 'auto', width: ['100%', '592px']}}>
-      <Link href=''>
-        <Box variant='links.pagination'>Prev</Box>
+      <Link 
+        href={prevDisabled ? {} : {query: {page: currentPage - 1}}}
+        style={{pointerEvents: prevDisabled ? 'none' : 'auto'}}
+        aria-disabled={prevDisabled} 
+        tabIndex={prevDisabled ? -1 : undefined}
+      >
+        <Box variant={`links.pagination${prevDisabled ? 'Disabled' : ''}`}>Prev</Box>
       </Link>
       <Box sx={{display: 'flex', gap: '0.5rem'}}>
         {
           pageCount <= 5 ? 
             <>
               {pageNumbers.map((pageNumber) => {
-                return <PaginationLink key={pageNumber} href={{query: {page: pageNumber}}}>{pageNumber}</PaginationLink>
+                return (
+                  <PaginationLink active={pageNumber === currentPage} key={pageNumber} href={{query: {page: pageNumber}}}>
+                    {pageNumber}
+                  </PaginationLink>
+                )
               })}
             </> 
           : 
@@ -80,8 +97,13 @@ function Pagination({pageCount, currentPage} : {pageCount: number, currentPage: 
           </>
         }
       </Box>
-      <Link href=''>
-        <Box variant='links.pagination'>Next</Box>
+      <Link 
+        href={nextDisabled ? {} : {query: {page: currentPage + 1}}} 
+        style={{pointerEvents: nextDisabled ? 'none' : 'auto'}}
+        aria-disabled={nextDisabled} 
+        tabIndex={nextDisabled ? -1 : undefined}
+      >
+        <Box variant={`links.pagination${nextDisabled ? 'Disabled' : ''}`}>Next</Box>
       </Link>
     </Box>
   )

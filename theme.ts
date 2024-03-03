@@ -163,12 +163,23 @@ export const theme: Theme = {
     pagination: {
       alignItems: 'center',
       bg: 'primary',
+      border: '2px solid #1A1A1A',
       blockSize: ['24px', '32px'],
       display: 'flex',
       justifyContent: 'center',
       borderRadius: '5px',
       textAlign: 'center',
-      px: '13px'
+      px: '13px',
+    },
+    paginationActive: {
+      variant: 'links.pagination',
+      border: '2px solid #FFCC33'
+    },
+    paginationDisabled: {
+      variant: 'links.pagination',
+      opacity: '50%',
+      cursor: 'default',
+      pointerEvents: 'none'
     }
   },
   forms: {
