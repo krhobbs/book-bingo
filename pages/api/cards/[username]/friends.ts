@@ -6,6 +6,7 @@ import { authOptions } from '../../auth/[...nextauth]';
 async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   const session = await getServerSession(req, res, authOptions);
+  const page = parseInt(req.query.page as string) || 1;
 
   // Make sure the user is authenticated
   if (!session) {
@@ -14,7 +15,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
   
   try {
-    const cards = await getCardsOfUsers(session.user.friends)
+    const [cards] = await getCardsOfUsers(session.user.friends, page)
 
     res.status(200).json(cards);
   } catch (e) {

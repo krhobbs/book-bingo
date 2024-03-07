@@ -46,9 +46,14 @@ function ProfileLayout({ cards, pageCount, username }: ProfileLayoutProps) {
       {data.length >= 1 ? (
         <>
           <Cards cards={data} mutate={mutate} />
+          {pageCount > 1 && (
+            <>
+              <Spacer size="1rem" />
+              <Pagination pageCount={pageCount} currentPage={page} />
+            </>
+          )}
           <Spacer size="2rem" />
           <NewCard handleNewCard={handleNewCard} />
-          <Pagination pageCount={pageCount} currentPage={page} />
         </>
       ) : (
         <NewCard handleNewCard={handleNewCard} />

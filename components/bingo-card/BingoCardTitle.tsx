@@ -31,7 +31,7 @@ function BingoCardTitle({
   handleFlipToBack,
   handleFlipToFront
 }: BingoCardTitleProps) {
-  const { asPath } = useRouter();
+  const { pathname } = useRouter();
   const [showOptions, setShowOptions] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const popoverRef = useRef<HTMLDivElement>(null);
@@ -39,12 +39,12 @@ function BingoCardTitle({
   useOnClickOutside(popoverRef, () => setShowOptions(prev => !prev))
 
   const showUsername = useMemo(
-    () => asPath === '/' || asPath === '/friends',
-    [asPath]
+    () => pathname === '/' || pathname === '/friends',
+    [pathname]
   );
   const showCardButtons = useMemo(
-    () => (asPath === '/profile' || asPath === '/archived') && usersCard,
-    [asPath, usersCard]
+    () => (pathname === '/profile' || pathname === '/archived') && usersCard,
+    [pathname, usersCard]
   );
 
   useEffect(() => {

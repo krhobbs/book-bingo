@@ -27,8 +27,12 @@ function HomeLayout({ cards, pageCount } : { cards: Card[], pageCount: number })
         : 
         <Cards cards={data} mutate={mutate} />
       }
-      <Spacer size="1rem" />
-      <Pagination pageCount={pageCount} currentPage={page} />
+      {pageCount > 1 && (
+        <>
+          <Spacer size="1rem" />
+          <Pagination pageCount={pageCount} currentPage={page} />
+        </>
+      )}
     </>
   );
 }

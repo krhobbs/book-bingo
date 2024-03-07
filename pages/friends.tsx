@@ -5,12 +5,14 @@ import FriendsLayout from '../components/layout/pages/FriendsLayout';
 
 export default function Friends({
   cards,
+  pageCount,
   username,
 }: {
   cards: Card[];
+  pageCount: number;
   username: string;
 }) {
-  return <FriendsLayout cards={cards} username={username} />;
+  return <FriendsLayout cards={cards} pageCount={pageCount} username={username} />;
 }
 
 export async function getServerSideProps(context) {
@@ -26,11 +28,12 @@ export async function getServerSideProps(context) {
   }
 
   try {
-    const cards = await getCardsOfUsers(session.user.friends);
+    const [cards, pageCount] = await getCardsOfUsers(session.user.friends);
 
     return {
       props: {
-        cards: cards,
+        cards,
+        pageCount,
         username: session.user.username,
       },
     };
