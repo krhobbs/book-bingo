@@ -5,14 +5,19 @@ import Spacer from '../../ui/Spacer';
 import GridListSwitch from '../../ui/GridListSwitch';
 import useSWR from 'swr';
 import { fetchUsersCards } from '../../../utils/api-utils';
+import { useRouter } from 'next/router';
+import Pagination from '../../ui/Pagination';
 
 interface ArchivedLayoutProps {
   cards: Card[];
+  pageCount: number;
   username: string;
 }
 
-function ArchivedLayout({ cards, username }: ArchivedLayoutProps) {
-  const { data, mutate } = useSWR(`/api/cards/${username}/archived`, fetchUsersCards, { fallbackData: cards });
+function ArchivedLayout({ cards, pageCount, username }: ArchivedLayoutProps) {
+  const router = useRouter();
+  const page = parseInt(router.query.page as string) || 1;
+  const { data, mutate } = useSWR(`/api/cards/${username}/archived?page=${page}`, fetchUsersCards, { fallbackData: cards });
   return (
     <>
       <Head>
@@ -27,7 +32,15 @@ function ArchivedLayout({ cards, username }: ArchivedLayoutProps) {
       {cards.length === 0 ? (
         <Text as="p" sx={{textAlign: 'center'}}>No Archived Cards.</Text>
       ) : (
-        <Cards cards={data} mutate={mutate} />
+        <>
+          <Cards cards={data} mutate={mutate} />
+          {pageCount > 1 && (
+            <>
+              <Spacer size="1rem" />
+              <Pagination pageCount={pageCount} currentPage={page} />
+            </>
+          )}
+        </>
       )}
     </>
   );

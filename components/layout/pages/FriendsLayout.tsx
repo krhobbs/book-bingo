@@ -5,9 +5,13 @@ import Cards from '../../Cards';
 import GridListSwitch from '../../ui/GridListSwitch';
 import { fetchFriendsCards } from '../../../utils/api-utils';
 import useSWR from 'swr';
+import { useRouter } from 'next/router';
+import Pagination from '../../ui/Pagination';
 
-function FriendsLayout({ cards, username }: { cards: Card[], username: string }) {
-  const { data, mutate } = useSWR(`/api/cards/${username}/friends`, fetchFriendsCards, { fallbackData: cards });
+function FriendsLayout({ cards, pageCount, username }: { cards: Card[], pageCount: number, username: string }) {
+  const router = useRouter();
+  const page = parseInt(router.query.page as string) || 1;
+  const { data, mutate } = useSWR(`/api/cards/${username}/friends?page=${page}`, fetchFriendsCards, { fallbackData: cards });
   return (
     <>
       <Head>
@@ -24,7 +28,15 @@ function FriendsLayout({ cards, username }: { cards: Card[], username: string })
           None of your friends have cards to display.
         </Text>
       ) : (
-        <Cards cards={data} mutate={mutate} />
+        <>
+          <Cards cards={data} mutate={mutate} />
+          {pageCount > 1 && (
+            <>
+              <Spacer size="1rem" />
+              <Pagination pageCount={pageCount} currentPage={page} />
+            </>
+          )}
+        </>
       )}
     </>
   );

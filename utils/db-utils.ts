@@ -53,8 +53,6 @@ export async function insertCard(user_id: string, template_id: string) : Promise
     (gen_random_uuid(), ${user_id}, ${template_id}, false, NOW())
     returning id`
 
-  console.log('insert card')
-
   const { id: card_id } = insertCard[0];
   const values: {
     id: number,
@@ -115,7 +113,8 @@ export async function updateCardSquare(card_id: string, square: Square) {
 
 // gets all cards from the database that are not archived
 // used for the home page
-export async function getAllCards() {
+export async function getAllCards(pageNumber = 1): Promise<[Card[], number]> {
+  const offsetValue = (pageNumber - 1) * 10;
   const cards = await sql<Card[]>`
     SELECT cards.id as "_id", users.username as "user", templates.name AS "template", bool_and(cards.archived) AS "archived", jsonb_agg(json_build_object('id', card_squares.id, 'req', template_reqs.req, 'book', card_squares.book, 'color', card_squares.color) ORDER BY card_squares.id) AS squares
     FROM ((((bingo.cards INNER JOIN bingo.users ON cards.user_id = users.id)
@@ -124,14 +123,22 @@ export async function getAllCards() {
         INNER JOIN bingo.template_reqs ON cards.template_id = template_reqs.template_id AND card_squares.id = template_reqs.id)
     WHERE NOT cards.archived
     GROUP BY cards.id, users.username, templates.name
-    ORDER BY users.username ASC`
+    ORDER BY cards.created_at ASC
+    LIMIT 10
+    OFFSET ${offsetValue}`
+
+  const cardCount = await sql`
+    SELECT count(*) FROM bingo.cards WHERE NOT archived`
+
+  const pageCount = Math.ceil(cardCount[0].count / 10);
   
-  return cards;
+  return [cards, pageCount];
 }
 
 // gets all the cards of a particular user, either archived or not archived (default)
 // used for the profile page and archived page
-export async function getCardsOfUser(user: string, archived = false) {
+export async function getCardsOfUser(user: string, archived = false, pageNumber = 1) : Promise<[Card[], number]> {
+  const offsetValue = (pageNumber - 1) * 10;
   const cards = await sql<Card[]>`
     SELECT cards.id AS "_id", users.username AS "user", bool_and(cards.archived) AS "archived", templates.name AS "template", jsonb_agg(json_build_object('id', card_squares.id, 'req', template_reqs.req, 'book', card_squares.book, 'color', card_squares.color) ORDER BY card_squares.id) AS squares
     FROM ((((bingo.cards INNER JOIN bingo.users ON cards.user_id = users.id)
@@ -140,14 +147,24 @@ export async function getCardsOfUser(user: string, archived = false) {
         INNER JOIN bingo.template_reqs ON cards.template_id = template_reqs.template_id AND card_squares.id = template_reqs.id)
     WHERE cards.archived = ${archived} AND users.username = ${user}
     GROUP BY users.username, templates.name, cards.created_at, cards.id
-    ORDER BY cards.created_at DESC`
+    ORDER BY cards.created_at DESC
+    LIMIT 10
+    OFFSET ${offsetValue}`
+
+  const cardCount = await sql`
+    SELECT count(*) 
+    FROM bingo.cards INNER JOIN bingo.users ON cards.user_id = users.id
+    WHERE users.username = ${user} AND cards.archived = ${archived}`
+
+  const pageCount = Math.ceil(cardCount[0].count / 10);
   
-  return cards;
+  return [cards, pageCount];
 }
 
 // gets all the cards of a set of users that are not archived
 // used for the friends page
-export async function getCardsOfUsers(users: string[]) {
+export async function getCardsOfUsers(users: string[], pageNumber = 1) {
+  const offsetValue = (pageNumber - 1) * 10;
   const cards = await sql<Card[]>`
     SELECT cards.id AS "_id", users.username AS "user", bool_and(cards.archived) AS "archived", templates.name AS "template", jsonb_agg(json_build_object('id', card_squares.id, 'req', template_reqs.req, 'book', card_squares.book, 'color', card_squares.color) ORDER BY card_squares.id) AS squares
     FROM ((((bingo.cards INNER JOIN bingo.users ON cards.user_id = users.id)
@@ -156,9 +173,18 @@ export async function getCardsOfUsers(users: string[]) {
         INNER JOIN bingo.template_reqs ON cards.template_id = template_reqs.template_id AND card_squares.id = template_reqs.id)
     WHERE NOT cards.archived AND users.username IN ${sql([...users])}
     GROUP BY users.username, templates.name, cards.created_at, cards.id
-    ORDER BY cards.created_at DESC`
+    ORDER BY cards.created_at DESC
+    LIMIT 10
+    OFFSET ${offsetValue}`
 
-  return cards;
+  const cardCount = await sql`
+    SELECT count(*) 
+    FROM bingo.cards INNER JOIN bingo.users ON cards.user_id = users.id
+    WHERE users.username IN ${sql([...users])} AND NOT cards.archived`
+
+  const pageCount = Math.ceil(cardCount[0].count / 10);
+
+  return [cards, pageCount];
 }
 
 // inserts a template record into the templates table and 25 req records into the template_reqs table

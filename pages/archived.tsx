@@ -5,12 +5,14 @@ import ArchivedLayout from '../components/layout/pages/ArchivedLayout';
 
 export default function Archived({
   cards,
+  pageCount,
   username,
 }: {
   cards: Card[];
+  pageCount: number;
   username: string;
 }) {
-  return <ArchivedLayout cards={cards} username={username} />;
+  return <ArchivedLayout cards={cards} pageCount={pageCount} username={username} />;
 }
 
 export async function getServerSideProps(context) {
@@ -26,11 +28,12 @@ export async function getServerSideProps(context) {
   }
 
   try {
-    const cards = await getCardsOfUser(session.user.username, true);
+    const [cards, pageCount] = await getCardsOfUser(session.user.username, true);
 
     return {
       props: {
-        cards: cards,
+        cards,
+        pageCount,
         username: session.user.username,
       },
     };

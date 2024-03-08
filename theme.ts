@@ -1,5 +1,4 @@
 import type { Theme } from 'theme-ui';
-import { Inter } from 'next/font/google';
 
 export const theme: Theme = {
   config: {
@@ -85,10 +84,6 @@ export const theme: Theme = {
         boxShadow: 'pushedIn',
       },
     },
-    icon: {
-      cursor: 'pointer',
-      padding: '0px',
-    },
     settings: {
       fontWeight: 'heading',
       fontSize: [2, 3],
@@ -165,6 +160,27 @@ export const theme: Theme = {
         bg: 'muted',
       },
     },
+    pagination: {
+      alignItems: 'center',
+      bg: 'primary',
+      border: '2px solid #1A1A1A',
+      blockSize: ['24px', '32px'],
+      display: 'flex',
+      justifyContent: 'center',
+      borderRadius: '5px',
+      textAlign: 'center',
+      px: '13px',
+    },
+    paginationActive: {
+      variant: 'links.pagination',
+      border: '2px solid #FFCC33'
+    },
+    paginationDisabled: {
+      variant: 'links.pagination',
+      opacity: '50%',
+      cursor: 'default',
+      pointerEvents: 'none'
+    }
   },
   forms: {
     label: {

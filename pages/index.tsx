@@ -1,17 +1,18 @@
 import HomeLayout from '../components/layout/pages/HomeLayout';
 import { getAllCards } from '../utils/db-utils';
 
-export default function Home({ cards }: { cards: Card[] }) {
-  return <HomeLayout cards={cards} />;
+export default function Home({ cards, pageCount }: { cards: Card[], pageCount: number }) {
+  return <HomeLayout cards={cards} pageCount={pageCount} />;
 }
 
 export async function getStaticProps() {
   try {
-    const cards = await getAllCards();
+    const [cards, pageCount] = await getAllCards();
 
     return {
       props: {
         cards: cards,
+        pageCount: pageCount
       },
       revalidate: 800,
     };
