@@ -16,13 +16,11 @@ interface BookButtonsProps {
 
 function BookButtons({ cardId, squareId, sx, handleUpdateCardSquare }: BookButtonsProps) {
   const breakpoint = useBreakpoint();
-  const { pathname } = useRouter();
+  const { pathname, query } = useRouter();
   const iconSize = useMemo(
     () => (breakpoint === 'sm' ? '14px' : '18px'),
     [breakpoint]
   );
-  const { data: session } = useSession();
-  const { mutate } = useSWRConfig();
 
   return (
     <Box
@@ -54,7 +52,8 @@ function BookButtons({ cardId, squareId, sx, handleUpdateCardSquare }: BookButto
           query: {
             card: cardId,
             square: squareId,
-            fromPage: pathname.includes('profile') ? 'profile' : 'home'
+            fromPage: pathname.includes('profile') ? 'profile' : 'home',
+            fromPageNum: query.page || '1'
           },
         }}
         style={{ display: 'contents' }}
