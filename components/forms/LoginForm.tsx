@@ -61,6 +61,14 @@ function LoginForm() {
             <Button>Login</Button>
           </Box>
         </Box>
+      </Box>
+      <Box
+        sx={{ mx: 'auto', maxInlineSize: '512px' }}
+      >
+        <Spacer size={['1.4rem']} />
+        <Text>OR</Text>
+        <Spacer size={['1.4rem']} />
+        <Button onClick={() => {signIn('google')}}>Sign in with Google</Button>
         <Spacer size={['2.4rem']} />
         <Link href="/register">
           <Text variant="link">Don&apos;t have an account? Register</Text>

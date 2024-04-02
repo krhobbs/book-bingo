@@ -36,7 +36,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       res.status(201).json({ message: 'Created user.' });
     } catch (error) {
       res
-        .status(422)
+        .status(503)
         .json({ message: 'Unable to connect to database. Try again later.' });
       return;
     }

@@ -1,5 +1,6 @@
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import GoogleProvider from 'next-auth/providers/google';
 import { verifyPassword } from '../../../utils/auth-utils';
 import { getUserByUsername } from '../../../utils/db-utils';
 
@@ -9,6 +10,11 @@ export const authOptions: NextAuthOptions = {
     //maxAge: 3000
   },
   providers: [
+    GoogleProvider({
+      name: 'google',
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET
+    }),
     CredentialsProvider({
       name: 'credentials',
       credentials: {},
@@ -37,9 +43,6 @@ export const authOptions: NextAuthOptions = {
           username: user.username,
           friends: user.friends,
         };
-
-        // console.log('AUTHORIZE');
-        // console.log(returnedUser);
 
         return Promise.resolve(returnedUser);
       },
@@ -70,6 +73,12 @@ export const authOptions: NextAuthOptions = {
       // Send properties to the client, like an access_token from a provider.
       return session;
     },
+    async signIn({account, profile}) {
+      if (account.provider === 'google') {
+        console.log(profile)
+      }
+      return true;
+    }
   },
 };
 
