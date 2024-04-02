@@ -9,15 +9,16 @@ interface AddBookLayoutProps {
   cardId: string;
   square: string;
   fromPage: string;
+  fromPageNum: string;
 }
 
-function AddBookLayout({ cardId, square, fromPage }: AddBookLayoutProps) {
+function AddBookLayout({ cardId, square, fromPage, fromPageNum }: AddBookLayoutProps) {
   const router = useRouter();
   const { data: session } = useSession();
   const { mutate, cache } = useSWRConfig();
 
   async function handleAddBook(book: Book, color: string) {
-    const key = fromPage === 'profile' ? `/api/cards/${session.user.username}` : '/api/cards';
+    const key = fromPage === 'profile' ? `/api/cards/${session.user.username}?page=${fromPageNum}` : `/api/cards?page=${fromPageNum}`;
     const { data: cards } = cache.get(key);
 
     try {

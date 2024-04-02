@@ -19,7 +19,7 @@ function Incomplete({
   squareId,
   usersCard,
 }: IncompleteProps) {
-  const { pathname } = useRouter();
+  const { pathname, query } = useRouter();
 
   return (
     <Box variant="layout.squareSide">
@@ -34,6 +34,7 @@ function Incomplete({
                 card: cardId,
                 square: squareId,
                 fromPage: pathname.includes('profile') ? 'profile' : 'home',
+                fromPageNum: query.page || '1'
               },
             }}
             aria-label="add new book"
