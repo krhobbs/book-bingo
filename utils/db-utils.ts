@@ -25,6 +25,13 @@ export async function insertUser(username: string, password: string) {
   `
 }
 
+export async function insertUserByEmail(email: string) {
+  await sql`
+    INSERT INTO bingo.users(id, email, created_at) VALUES
+    (gen_random_uuid(), ${email}, NOW())
+  `
+}
+
 // returns true if a user by that username exists in the database
 export async function isUsernameTaken(username: string) {
   const countResult = await sql`
@@ -32,6 +39,14 @@ export async function isUsernameTaken(username: string) {
 
   return countResult[0].count !== "0";
 }
+
+// returns true if email is already in the users table
+export async function doesEmailExists(email: string) {
+  const countResult = await sql`
+    SELECT COUNT(*) FROM bingo.users WHERE email = ${email}`;
+
+  return countResult[0].count !== "0";
+} 
 
 // returns true if a card is owned by a user
 export async function isUsersCard(user_id: string, card_id: string) {

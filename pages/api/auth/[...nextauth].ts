@@ -2,7 +2,7 @@ import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 import { verifyPassword } from '../../../utils/auth-utils';
-import { getUserByUsername } from '../../../utils/db-utils';
+import { getUserByUsername, doesEmailExists, insertUserByEmail } from '../../../utils/db-utils';
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -67,15 +67,26 @@ export const authOptions: NextAuthOptions = {
       if (token) {
         session.user.username = token.name;
         const userData = await getUserByUsername(token.name);
-        session.user.friends = userData.friends;
-        session.user.id = userData.id;
+        if (userData) {
+          session.user.friends = userData.friends;
+          session.user.id = userData.id;
+        }
       }
       // Send properties to the client, like an access_token from a provider.
       return session;
     },
     async signIn({account, profile}) {
+      // console.log('SIGN IN');
       if (account.provider === 'google') {
-        console.log(profile)
+        if (profile.email) {
+          const emailExists = await doesEmailExists(profile.email);
+          if (emailExists) {
+            return true;
+          } else {
+            await insertUserByEmail(profile.email);
+            return true;
+          }
+        }
       }
       return true;
     }

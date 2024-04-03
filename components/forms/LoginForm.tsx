@@ -68,7 +68,7 @@ function LoginForm() {
         <Spacer size={['1.4rem']} />
         <Text>OR</Text>
         <Spacer size={['1.4rem']} />
-        <Button onClick={() => {signIn('google')}}>Sign in with Google</Button>
+        <Button onClick={() => {signIn('google', { callbackUrl: '/profile' })}}>Sign in with Google</Button>
         <Spacer size={['2.4rem']} />
         <Link href="/register">
           <Text variant="link">Don&apos;t have an account? Register</Text>
