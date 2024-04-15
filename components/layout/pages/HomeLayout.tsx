@@ -1,38 +1,30 @@
 import Head from 'next/head';
-import Cards from '../../Cards';
-import GridListSwitch from '../../ui/GridListSwitch';
 import Spacer from '../../ui/Spacer';
 import { Text } from 'theme-ui';
-import useSWR from 'swr';
-import { fetchCards } from '../../../utils/api-utils';
-import Pagination from '../../ui/Pagination';
+import LoginButton from '../../ui/LoginButton';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 
-function HomeLayout({ cards, pageCount } : { cards: Card[], pageCount: number }) {
+function HomeLayout() {
+  const { status } = useSession();
   const router = useRouter();
-  const page = parseInt(router.query.page as string) || 1;
-  const { data, mutate } = useSWR(`/api/cards?page=${page}`, fetchCards, { fallbackData: cards });
+
+  if (status === 'authenticated') {
+    router.replace('/profile');
+  }
 
   return (
     <>
       <Head>
         <title>Book Bingo</title>
       </Head>
-      <Text as="h1" variant="heading1" sx={{textAlign: 'center'}}>All Cards</Text>
+      <Text as="h1" variant="heading1" sx={{textAlign: 'center'}}>Book Bingo</Text>
+      <Text as="p" variant="body1" sx={{textAlign: 'center', maxInlineSize: '800px', mx: 'auto', px: ['1rem', '3rem']}}>
+        A web app for playing Book Bingo. You must sign in with Reddit to save your cards. You can create new cards from the /templates page or the /profile page. You can archive and delete cards from the /settings page. You can also view archived cards or add and delete friends for the /settings page.
+      </Text>
       <Spacer size="2rem" />
-      <GridListSwitch />
-      <Spacer size="2rem" />
-      {cards.length === 0 ? 
-        <Text as="p" variant="body1" sx={{textAlign: 'center'}}>No Cards to Display.</Text> 
-        : 
-        <Cards cards={data} mutate={mutate} />
-      }
-      {pageCount > 1 && (
-        <>
-          <Spacer size="1rem" />
-          <Pagination pageCount={pageCount} currentPage={page} />
-        </>
-      )}
+      <LoginButton sx={{ display: 'block', mx: 'auto' }} />
+      
     </>
   );
 }
