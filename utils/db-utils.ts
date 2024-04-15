@@ -17,6 +17,21 @@ export async function getUserByUsername(username: string) {
   return user[0];
 }
 
+export async function getUserByEmail(email: string) {
+  const user = await sql<{id: string; email: string; password: string; friends: string[]}[]>`
+    SELECT user_.id AS "id", user_.username, user_.password, CASE 
+    WHEN count(friend_.username) = 0
+      THEN '[]'::jsonb
+      ELSE jsonb_agg(friend_.username)
+    END AS "friends"
+    FROM ((bingo.users user_ LEFT JOIN bingo.friends ON user_.id = friends.user_id)
+        LEFT JOIN bingo.users friend_ ON friend_.id = friends.friend_id)
+    WHERE user_.username = ${email}
+    GROUP BY user_.id, user_.username, user_.password;`
+
+  return user[0];
+}
+
 // inserts user record into the users table
 export async function insertUser(username: string, password: string) {
   await sql`
@@ -25,10 +40,10 @@ export async function insertUser(username: string, password: string) {
   `
 }
 
-export async function insertUserByEmail(email: string) {
+export async function insertUserByReddit(redditUsername: string) {
   await sql`
-    INSERT INTO bingo.users(id, email, created_at) VALUES
-    (gen_random_uuid(), ${email}, NOW())
+    INSERT INTO bingo.users(id, username, created_at) VALUES
+    (gen_random_uuid(), ${redditUsername}, NOW())
   `
 }
 
@@ -46,7 +61,15 @@ export async function doesEmailExists(email: string) {
     SELECT COUNT(*) FROM bingo.users WHERE email = ${email}`;
 
   return countResult[0].count !== "0";
-} 
+}
+
+// returns true if email is already in the users table
+export async function doesRedditUserExist(redditUsername: string) {
+  const countResult = await sql`
+    SELECT COUNT(*) FROM bingo.users WHERE reddit_username = ${redditUsername}`;
+
+  return countResult[0].count !== "0";
+}
 
 // returns true if a card is owned by a user
 export async function isUsersCard(user_id: string, card_id: string) {

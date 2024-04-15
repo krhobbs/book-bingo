@@ -1,22 +1,14 @@
 import { useSession } from 'next-auth/react';
 import Template from './template/Template';
-import { Flex, Spinner, Text } from 'theme-ui';
-import Link from 'next/link';
+import LoginButton from './ui/LoginButton';
+import { Flex, Spinner } from 'theme-ui';
 
 function Templates({ templates } : { templates: Template[] }) {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
 
   if (status === 'unauthenticated') {
     return (
-      <Link href="/login">
-        <Text
-          as="p"
-          variant="heading2"
-          sx={{ display: 'block', textAlign: 'center', mx: 'auto' }}
-        >
-          Login
-        </Text>
-      </Link>
+      <LoginButton />
     );
   }
 

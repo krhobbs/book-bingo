@@ -1,8 +1,9 @@
 import NextAuth, { NextAuthOptions } from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
-import GoogleProvider from 'next-auth/providers/google';
-import { verifyPassword } from '../../../utils/auth-utils';
-import { getUserByUsername, doesEmailExists, insertUserByEmail } from '../../../utils/db-utils';
+import RedditProvider from 'next-auth/providers/reddit';
+import { 
+  getUserByUsername, 
+  insertUserByReddit,
+  isUsernameTaken } from '../../../utils/db-utils';
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -10,42 +11,14 @@ export const authOptions: NextAuthOptions = {
     //maxAge: 3000
   },
   providers: [
-    GoogleProvider({
-      name: 'google',
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET
-    }),
-    CredentialsProvider({
-      name: 'credentials',
-      credentials: {},
-      authorize: async (credentials: {
-        username: string;
-        password: string;
-      }) => {
-        const user = await getUserByUsername(credentials.username);
-
-        if (!user) {
-          throw new Error('User not found.');
+    RedditProvider({
+      clientId: process.env.REDDIT_CLIENT_ID,
+      clientSecret: process.env.REDDIT_CLIENT_SECRET,
+      authorization: {
+        params: {
+          duration: 'permanent'
         }
-
-        const isValid = await verifyPassword(
-          credentials.password,
-          user.password
-        );
-
-        if (!isValid) {
-          throw new Error('Incorrect password.');
-        }
-
-        const returnedUser = {
-          id: user.id,
-          name: user.username, // hopefully can be removed in future? module augmentation not working with current next-auth version
-          username: user.username,
-          friends: user.friends,
-        };
-
-        return Promise.resolve(returnedUser);
-      },
+      }
     }),
   ],
   callbacks: {
@@ -77,13 +50,15 @@ export const authOptions: NextAuthOptions = {
     },
     async signIn({account, profile}) {
       // console.log('SIGN IN');
-      if (account.provider === 'google') {
-        if (profile.email) {
-          const emailExists = await doesEmailExists(profile.email);
-          if (emailExists) {
+      // console.log(account);
+      // console.log(profile);
+      if (account.provider === 'reddit') {
+        if (profile.name && profile.verified) {
+          const userExists = await isUsernameTaken(profile.name);
+          if (userExists) {
             return true;
           } else {
-            await insertUserByEmail(profile.email);
+            await insertUserByReddit(profile.name);
             return true;
           }
         }
