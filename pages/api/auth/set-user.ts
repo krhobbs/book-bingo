@@ -1,22 +1,20 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { hashPassword } from '../../../utils/auth-utils';
 import {
   isUsernameTaken,
-  insertUser
 } from '../../../utils/db-utils';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     const data = req.body;
 
-    const { username, password } = data;
+    const { username, email } = data;
 
-    if (!username || !password || password.trim().length < 7) {
+    if (!username || !email) {
       res
         .status(422)
         .json({
           message:
-            'Invalid input. Username must be at least one character and password must be at least 8.',
+            'Invalid input. Username must be at least one character and must have authenticated yourself with Google.',
         });
       return;
     }
@@ -28,10 +26,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         res.status(422).json({ message: 'That username is taken.' });
         return;
       }
-
-      const hashedPassword = await hashPassword(password);
-
-      await insertUser(username, hashedPassword);
 
       res.status(201).json({ message: 'Created user.' });
     } catch (error) {

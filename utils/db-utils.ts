@@ -25,10 +25,25 @@ export async function insertUser(username: string, password: string) {
   `
 }
 
+export async function insertUserByReddit(redditUsername: string) {
+  await sql`
+    INSERT INTO bingo.users(id, username, created_at) VALUES
+    (gen_random_uuid(), ${redditUsername}, NOW())
+  `
+}
+
 // returns true if a user by that username exists in the database
 export async function isUsernameTaken(username: string) {
   const countResult = await sql`
     SELECT COUNT(*) FROM bingo.users WHERE username = ${username}`;
+
+  return countResult[0].count !== "0";
+}
+
+// returns true if email is already in the users table
+export async function doesRedditUserExist(redditUsername: string) {
+  const countResult = await sql`
+    SELECT COUNT(*) FROM bingo.users WHERE reddit_username = ${redditUsername}`;
 
   return countResult[0].count !== "0";
 }

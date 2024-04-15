@@ -50,7 +50,7 @@ function TopNav() {
       <Box
         sx={{ display: 'flex', alignItems: 'center', gap: ['1rem', '2rem'] }}
       >
-        {status === 'authenticated' ? (
+        {status === 'authenticated' && (
           <>
             <Link href="/profile">Profile</Link>
             <Link href="/friends">Friends</Link>
@@ -68,11 +68,6 @@ function TopNav() {
                 <SunIcon style={{ blockSize: '24px', inlineSize: '24px' }} />
               )}
             </IconButton>
-          </>
-        ) : (
-          <>
-            <Link href="/login">Login</Link>
-            <Link href="/register">Register</Link>
           </>
         )}
       </Box>

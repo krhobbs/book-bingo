@@ -1,36 +1,16 @@
 import { useState } from 'react';
 import { Box, Button, Divider, Text, Spinner } from 'theme-ui';
-import ChangePasswordForm from './ChangePasswordForm';
 import FriendsList from './FriendsList';
 import Modal from '../ui/Modal';
 import { useSession, signOut } from 'next-auth/react';
 import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import Head from 'next/head';
+import LoginButton from '../ui/LoginButton';
 
 function Settings() {
-  const [showChangePassword, setShowChangePassword] = useState(false);
   const [showFriendsList, setShowFriendsList] = useState(false);
   const { data: session, status, update } = useSession();
-
-  async function handleChangePassword(passwordData) {
-    const response = await fetch('/api/user/change-password', {
-      method: 'PATCH',
-      body: JSON.stringify(passwordData),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    const data = await response.json();
-
-    if (response.ok) {
-      update();
-      return 'success';
-    } else {
-      return data.message;
-    }
-  }
 
   async function handleDeleteFriend(friendData) {
     const response = await fetch('/api/user/delete-friend', {
@@ -70,17 +50,7 @@ function Settings() {
   }
 
   if (status === 'unauthenticated') {
-    return (
-      <Link href="/login">
-        <Text
-          as="p"
-          variant="heading2"
-          sx={{ display: 'block', textAlign: 'center', mx: 'auto' }}
-        >
-          Login
-        </Text>
-      </Link>
-    );
+    return <LoginButton />;
   }
 
   if (status === 'loading') {
@@ -121,35 +91,16 @@ function Settings() {
         <Button
           onClick={() => {
             setShowFriendsList(!showFriendsList);
-            setShowChangePassword(false);
           }}
           variant="settings"
         >
           Add/Delete Friends
         </Button>
         <Divider sx={{ py: '0.1rem', opacity: 0.3 }} />
-        <Button
-          onClick={() => {
-            setShowChangePassword(!showChangePassword);
-            setShowFriendsList(false);
-          }}
-          variant="settings"
-        >
-          Change Password
-        </Button>
-        <Divider sx={{ py: '0.1rem', opacity: 0.3 }} />
         <Button onClick={() => signOut()} variant="settings">
           Logout
         </Button>
       </Box>
-      {showChangePassword &&
-        createPortal(
-          <Modal closeModal={() => setShowChangePassword(!showChangePassword)}>
-            <ChangePasswordForm handleChangePassword={handleChangePassword} />
-          </Modal>,
-          document.body,
-          'change-password'
-        )}
       {showFriendsList &&
         createPortal(
           <Modal closeModal={() => setShowFriendsList(!showFriendsList)}>
