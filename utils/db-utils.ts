@@ -17,21 +17,6 @@ export async function getUserByUsername(username: string) {
   return user[0];
 }
 
-export async function getUserByEmail(email: string) {
-  const user = await sql<{id: string; email: string; password: string; friends: string[]}[]>`
-    SELECT user_.id AS "id", user_.username, user_.password, CASE 
-    WHEN count(friend_.username) = 0
-      THEN '[]'::jsonb
-      ELSE jsonb_agg(friend_.username)
-    END AS "friends"
-    FROM ((bingo.users user_ LEFT JOIN bingo.friends ON user_.id = friends.user_id)
-        LEFT JOIN bingo.users friend_ ON friend_.id = friends.friend_id)
-    WHERE user_.username = ${email}
-    GROUP BY user_.id, user_.username, user_.password;`
-
-  return user[0];
-}
-
 // inserts user record into the users table
 export async function insertUser(username: string, password: string) {
   await sql`
@@ -51,14 +36,6 @@ export async function insertUserByReddit(redditUsername: string) {
 export async function isUsernameTaken(username: string) {
   const countResult = await sql`
     SELECT COUNT(*) FROM bingo.users WHERE username = ${username}`;
-
-  return countResult[0].count !== "0";
-}
-
-// returns true if email is already in the users table
-export async function doesEmailExists(email: string) {
-  const countResult = await sql`
-    SELECT COUNT(*) FROM bingo.users WHERE email = ${email}`;
 
   return countResult[0].count !== "0";
 }
