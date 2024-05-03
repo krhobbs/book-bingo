@@ -7,7 +7,7 @@ export default function TemplatesPage({ templates }: { templates: Template[] }) 
 
 export async function getStaticProps() {
   try {
-    const templates = await getAllTemplates();
+    const [templates] = await getAllTemplates();
 
     return {
       props: {

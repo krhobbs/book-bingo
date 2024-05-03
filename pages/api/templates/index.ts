@@ -4,7 +4,7 @@ import { getAllTemplates } from '../../../utils/db-utils';
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
 
-    const templates = await getAllTemplates();
+    const [templates] = await getAllTemplates();
     
     res.status(200).json(templates);
   } catch (e) {

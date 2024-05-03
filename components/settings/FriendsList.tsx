@@ -4,7 +4,13 @@ import Spacer from '../ui/Spacer';
 import { TrashIcon } from '@heroicons/react/20/solid';
 import ErrorPopup from '../ui/ErrorPopup';
 
-function FriendsList({ friends, handleDeleteFriend, handleAddFriend }) {
+interface FriendsListInterface {
+  friends: string[];
+  handleDeleteFriend: (friendData: any) => Promise<any>;
+  handleAddFriend: (newFriendData: any) => Promise<any>;
+}
+
+function FriendsList({ friends, handleDeleteFriend, handleAddFriend }: FriendsListInterface) {
   const [errorMessage, setErrorMessage] = useState('');
   const newFriendRef = useRef<HTMLInputElement>();
 
@@ -33,7 +39,7 @@ function FriendsList({ friends, handleDeleteFriend, handleAddFriend }) {
       <Text variant="heading2">Friends</Text>
       <Spacer size={['1rem']} />
       <Box sx={{ display: 'flex', flexDirection: 'column', maxBlockSize: ['70vh', '55vh'], overflowY: 'auto' }}>
-        {friends.map((friend, index) => {
+        {friends.map((friend: string, index: number) => {
           return (
             <Box
               key={friend}

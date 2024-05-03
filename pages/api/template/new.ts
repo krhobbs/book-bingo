@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getServerSession } from 'next-auth/next';
-import { insertTemplate } from '../../../utils/db-utils';
+import { insertTemplate, checkUserPermission } from '../../../utils/db-utils';
 import { authOptions } from '../auth/[...nextauth]';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -18,6 +18,14 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   const user_id = session.user.id;
   const { name, reqs } = req.body;
+
+  const allowed = await checkUserPermission(user_id, 'create_template');
+
+  // Confirm that the user is able to
+  if (!allowed) {
+    res.status(401).json({ message: 'Not authorized to create a template.' });
+    return;
+  } 
 
   try {
 
