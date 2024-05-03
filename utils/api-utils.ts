@@ -106,9 +106,9 @@ export async function createTemplate(name: string, reqs: string[]) {
   });  
 }
 
-export async function fetchTemplates() {
+export async function fetchTemplates(url: string) {
   try {
-    const response = await fetch('api/templates');
+    const response = await fetch(url);
     const data: Template[] = await response.json();
     return data;
   } catch (error) {
