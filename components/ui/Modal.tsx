@@ -15,7 +15,7 @@ function Modal({ closeModal, children }) {
     <FocusTrap>
       <Box
         sx={{
-          position: 'absolute',
+          position: 'fixed',
           top: 0,
           left: 0,
           blockSize: '100vh',

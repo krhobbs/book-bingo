@@ -25,6 +25,18 @@ export async function insertUser(username: string, password: string) {
   `
 }
 
+export async function checkUserPermission(user_id: string, permission: string) {
+  const permResult = await sql`
+    SELECT permission
+    FROM bingo.user_permissions
+    WHERE user_id = ${user_id}
+  `.values();
+
+  const perms = permResult.flat();
+
+  return perms.includes(permission);
+}
+
 export async function insertUserByReddit(redditUsername: string) {
   await sql`
     INSERT INTO bingo.users(id, username, created_at) VALUES
@@ -202,6 +214,15 @@ export async function getCardsOfUsers(users: string[], pageNumber = 1) {
   return [cards, pageCount];
 }
 
+export async function getUserCardCount(user_id: string) {
+  const cardCount = await sql`
+    SELECT count(*)
+    FROM bingo.cards
+    WHERE cards.user_id = ${user_id}`
+
+  return cardCount[0].count;
+}
+
 // inserts a template record into the templates table and 25 req records into the template_reqs table
 export async function insertTemplate(name: string, user_id: string, reqs: string[]) {
   const insertTemplate = await sql`
@@ -248,14 +269,23 @@ export async function getTemplateById(template_id: string) {
 }
 
 // gets all templates
-export async function getAllTemplates() {
+export async function getAllTemplates(pageNumber = 1) {
+  const offsetValue = (pageNumber - 1) * 10;
   const templates = await sql`
     SELECT templates.id AS "_id", users.username AS "user", templates.name, jsonb_agg(template_reqs.req) AS reqs
     FROM ((bingo.templates INNER JOIN bingo.users ON templates.user_id = users.id)
       INNER JOIN bingo.template_reqs ON templates.id = template_reqs.template_id)
-    GROUP BY users.username, templates.name, templates.id`
+    GROUP BY users.username, templates.name, templates.id
+    ORDER BY templates.created_at DESC
+    LIMIT 10
+    OFFSET ${offsetValue}`
 
-  return templates;
+  const templateCount = await sql`
+    SELECT count(*) FROM bingo.templates`
+
+  const pageCount = Math.ceil(templateCount[0].count / 10);
+  
+  return [templates, pageCount];
 }
 
 // inserts a new record into the friends table

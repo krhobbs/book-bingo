@@ -11,6 +11,7 @@ function MyApp({ Component, pageProps } : AppProps) {
       <Head>
         <meta name="apple-mobile-web-app-capable" content="yes" key="apple-webapp" />
         <meta name="mobile-web-app-capable" content="yes" key="android-webapp" />
+        <link rel="apple-touch-icon" sizes="any" href="/apple-touch-icon.svg" />
       </Head>
       <SessionProvider session={pageProps.session} refetchInterval={5 * 60} >
         <ThemeUIProvider theme={theme}>

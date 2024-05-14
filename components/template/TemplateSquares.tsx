@@ -35,8 +35,8 @@ function TemplateSquares({ reqs }: TemplateSquaresProps) {
             gridTemplateRows: 'repeat(5, auto)',
           }}
         >
-          {reqs.map((req: string) => {
-            return <TemplateItem key={req} req={req} />;
+          {reqs.map((req: string, index: number) => {
+            return <TemplateItem key={req + index} req={req} />;
           })}
         </Box>
       )}

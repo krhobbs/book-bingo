@@ -3,35 +3,44 @@ import { Text } from 'theme-ui';
 import Spacer from '../../ui/Spacer';
 import GridListSwitch from '../../ui/GridListSwitch';
 import Templates from '../../Templates';
-import NewTemplate from '../../NewTemplate';
 import useSWR from 'swr';
 import { fetchTemplates } from '../../../utils/api-utils';
+import { useRouter } from 'next/router';
+import Pagination from '../../ui/Pagination';
 
 interface TemplatesLayoutProps {
   templates: Template[];
+  pageCount: number;
 }
 
-function TemplatesLayout({ templates }: TemplatesLayoutProps) {
-  const { data, mutate } = useSWR(`/api/templates`, fetchTemplates, { fallbackData: templates });
-
+function TemplatesLayout({ templates, pageCount }: TemplatesLayoutProps) {
+  const router = useRouter();
+  const page = parseInt(router.query.page as string) || 1;
+  const { data, mutate } = useSWR(`/api/templates?page=${page}`, fetchTemplates, { fallbackData: templates });
+  
   return (
     <>
       <Head>
         <title>Book Bingo | Templates</title>
       </Head>
       <Text variant="heading1" as="h1" sx={{ textAlign: 'center' }}>
-        Your Templates
+        Templates
       </Text>
       <Spacer size="2rem" />
       <GridListSwitch />
       <Spacer size="2rem" />
-      {templates.length === 0 ? (
-        <NewTemplate />
+      {data.length === 0 ? (
+        <Text variant='body1'>No Templates.</Text>
       ) : (
         <>
           <Templates templates={data} />
+          {pageCount > 1 && (
+            <>
+              <Spacer size="1rem" />
+              <Pagination pageCount={pageCount} currentPage={page} />
+            </>
+          )}
           <Spacer size="2rem" />
-          <NewTemplate />
         </>
       )}
     </>
