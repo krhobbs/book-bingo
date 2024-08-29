@@ -1,18 +1,18 @@
 import { SWRConfig } from 'swr';
 import Spacer from '../ui/Spacer';
 import TopNav from '../ui/TopNav';
-import { createContext, useState } from 'react';
+import { createContext, type ReactNode, useState } from 'react';
 
 export const ViewContext = createContext(null);
 
-function Layout(props) {
+function Layout({ children }: { children: ReactNode}) {
   return (
     <>
       <TopNav />
       <Spacer size="2rem" />
       <SWRConfig>
         <ViewContext.Provider value={useState(false)}>
-          <main>{props.children}</main>
+          <main>{children}</main>
         </ViewContext.Provider>
       </SWRConfig>
       <Spacer size="2rem" />

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { FormEvent, useRef, useState } from 'react';
 import { Box, Button, Input, Label, Text, IconButton } from 'theme-ui';
 import Spacer from '../ui/Spacer';
 import { TrashIcon } from '@heroicons/react/20/solid';
@@ -6,15 +6,15 @@ import ErrorPopup from '../ui/ErrorPopup';
 
 interface FriendsListInterface {
   friends: string[];
-  handleDeleteFriend: (friendData: any) => Promise<any>;
-  handleAddFriend: (newFriendData: any) => Promise<any>;
+  handleDeleteFriend: (friendData: { friendToDelete: string }) => Promise<any>;
+  handleAddFriend: (newFriendData: { friendToAdd: string }) => Promise<any>;
 }
 
 function FriendsList({ friends, handleDeleteFriend, handleAddFriend }: FriendsListInterface) {
   const [errorMessage, setErrorMessage] = useState('');
   const newFriendRef = useRef<HTMLInputElement>();
 
-  async function onAddFriend(event) {
+  async function onAddFriend(event: FormEvent<HTMLDivElement>) {
     event.preventDefault();
 
     const enteredNewFriend = newFriendRef.current.value;
@@ -24,7 +24,7 @@ function FriendsList({ friends, handleDeleteFriend, handleAddFriend }: FriendsLi
     if (result !== 'success') {
       setErrorMessage(result);
     } else {
-      event.target.reset();
+      event.target instanceof HTMLFormElement && event.target.reset();
       setErrorMessage('');
     }
 

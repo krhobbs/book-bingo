@@ -14,10 +14,10 @@ interface BingoCardTitleProps {
   template: string;
   usersCard: boolean;
   archived: boolean;
-  handleArchiveCard: Function;
-  handleDeleteCard: Function;
-  handleFlipToBack: Function;
-  handleFlipToFront: Function;
+  handleArchiveCard: () => void;
+  handleDeleteCard: () => void;
+  handleFlipToBack: () => void;
+  handleFlipToFront: () => void;
 }
 
 function BingoCardTitle({

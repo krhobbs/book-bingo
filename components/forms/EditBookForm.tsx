@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 import { Box, Label, Input, Button, Text } from 'theme-ui';
 import ErrorPopup from '../ui/ErrorPopup';
 import Spacer from '../ui/Spacer';
@@ -10,7 +10,7 @@ function EditBookForm({ square, handleEditBook } : { square: Square, handleEditB
   const colorInputRef = useRef<HTMLInputElement>();
   const coverInputRef = useRef<HTMLInputElement>();
 
-  async function submitHandler(event) {
+  async function submitHandler(event: FormEvent) {
     event.preventDefault();
 
     const enteredTitle = titleInputRef.current.value;

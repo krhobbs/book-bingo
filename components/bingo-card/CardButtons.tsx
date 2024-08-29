@@ -13,10 +13,10 @@ import CardPdfDocument from './CardPdfDocument';
 
 interface CardButtonsProps {
   card: Card;
-  handleDeleteCard: Function;
-  handleArchiveCard: Function;
-  handleFlipToBack: Function;
-  handleFlipToFront: Function;
+  handleDeleteCard: () => void;
+  handleArchiveCard: () => void;
+  handleFlipToBack: () => void;
+  handleFlipToFront: () => void;
   archived: boolean;
   sx?: ThemeUIStyleObject;
 }

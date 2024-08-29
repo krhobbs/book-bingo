@@ -8,8 +8,8 @@ export interface BingoCardSquaresProps {
   cardId: string;
   squares: Square[];
   usersCard: boolean;
-  handleUpdateCardSquare: Function;
-  handleFlipCardSquare: Function;
+  handleUpdateCardSquare: (cardId: string, squareId: string) => Promise<void>;
+  handleFlipCardSquare: (id: number) => void;
   flippedArray: boolean[];
 }
 

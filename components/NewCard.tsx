@@ -17,7 +17,7 @@ const SelectTemplateForm = ({
   closeModal: Function;
 }) => {
   const { register, handleSubmit } = useForm();
-  const onSubmit = ({ template }) => {
+  const onSubmit = ({ template }: { template: number }) => {
     onNewCard(templates[template], closeModal);
   };
   return (
@@ -44,7 +44,7 @@ const SelectTemplateForm = ({
   );
 };
 
-function NewCard({ handleNewCard }) {
+function NewCard({ handleNewCard }: { handleNewCard: (template: Template, closeModal: () => void) => void }) {
   const [showSelectTemplate, setShowSelectTemplate] = useState(false);
   const { data } = useSWR('/api/templates', fetchTemplateNames);
 

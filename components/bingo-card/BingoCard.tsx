@@ -9,9 +9,9 @@ import Modal from '../ui/Modal';
 
 interface BingoCardProps {
   card: Card;
-  handleArchiveCard: Function;
-  handleDeleteCard: Function;
-  handleUpdateCardSquare: Function;
+  handleArchiveCard: (card: Card) => Promise<void>;
+  handleDeleteCard: (card: Card) => Promise<void>;
+  handleUpdateCardSquare: (cardId: string, squareId: string) => Promise<void>;
 }
 
 function BingoCard({

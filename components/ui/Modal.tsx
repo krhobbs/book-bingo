@@ -1,9 +1,14 @@
-import { useEffect } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { Box, Button } from 'theme-ui';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import FocusTrap from 'focus-trap-react';
 
-function Modal({ closeModal, children }) {
+interface ModalProps {
+  closeModal: () => void;
+  children: ReactNode;
+}
+
+function Modal({ closeModal, children }: ModalProps) {
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => {
