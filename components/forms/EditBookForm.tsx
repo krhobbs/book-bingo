@@ -1,4 +1,4 @@
-import { FormEvent, useRef, useState } from 'react';
+import { useState } from 'react';
 import { Box, Label, Input, Button, Text } from 'theme-ui';
 import ErrorPopup from '../ui/ErrorPopup';
 import Spacer from '../ui/Spacer';
