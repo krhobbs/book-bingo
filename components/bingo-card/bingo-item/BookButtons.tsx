@@ -11,15 +11,20 @@ interface BookButtonsProps {
   cardId: string;
   squareId: string;
   sx?: ThemeUIStyleObject;
-  handleUpdateCardSquare: Function
+  handleUpdateCardSquare: (cardId: string, squareId: string) => Promise<void>;
 }
 
-function BookButtons({ cardId, squareId, sx, handleUpdateCardSquare }: BookButtonsProps) {
+function BookButtons({
+  cardId,
+  squareId,
+  sx,
+  handleUpdateCardSquare,
+}: BookButtonsProps) {
   const breakpoint = useBreakpoint();
   const { pathname, query } = useRouter();
   const iconSize = useMemo(
     () => (breakpoint === 'sm' ? '14px' : '18px'),
-    [breakpoint]
+    [breakpoint],
   );
 
   return (
@@ -42,9 +47,7 @@ function BookButtons({ cardId, squareId, sx, handleUpdateCardSquare }: BookButto
         onClick={() => handleUpdateCardSquare(cardId, squareId)}
         aria-label="delete book from square"
       >
-        <TrashIcon
-          style={{ inlineSize: iconSize, blockSize: iconSize }}
-        />
+        <TrashIcon style={{ inlineSize: iconSize, blockSize: iconSize }} />
       </Button>
       <Link
         href={{
@@ -53,7 +56,7 @@ function BookButtons({ cardId, squareId, sx, handleUpdateCardSquare }: BookButto
             card: cardId,
             square: squareId,
             fromPage: pathname.includes('profile') ? 'profile' : 'home',
-            fromPageNum: query.page || '1'
+            fromPageNum: query.page || '1',
           },
         }}
         style={{ display: 'contents' }}
@@ -72,9 +75,7 @@ function BookButtons({ cardId, squareId, sx, handleUpdateCardSquare }: BookButto
             },
           }}
         >
-          <PencilIcon
-            style={{ inlineSize: iconSize, blockSize: iconSize }}
-          />
+          <PencilIcon style={{ inlineSize: iconSize, blockSize: iconSize }} />
         </Box>
       </Link>
     </Box>

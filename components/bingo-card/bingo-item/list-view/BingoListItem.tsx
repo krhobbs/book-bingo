@@ -7,7 +7,7 @@ interface BingoListItemProps {
   archived: boolean;
   usersCard: boolean;
   square: Square;
-  handleUpdateCardSquare: Function;
+  handleUpdateCardSquare: (cardId: string, squareId: string) => Promise<void>;
 }
 
 function BingoListItem({
@@ -15,7 +15,7 @@ function BingoListItem({
   cardId,
   square,
   usersCard,
-  handleUpdateCardSquare
+  handleUpdateCardSquare,
 }: BingoListItemProps) {
   return (
     <Box
@@ -24,25 +24,23 @@ function BingoListItem({
         display: 'flex',
         alignItems: 'center',
         gap: '2rem',
-        justifyContent: () => square?.book?.cover ? 'flex-start' : 'center',
+        justifyContent: () => (square?.book?.cover ? 'flex-start' : 'center'),
         overflow: 'hidden',
         position: 'relative',
         inlineSize: ['98%', '512px'],
         blockSize: '212px',
         border: (theme) =>
-          `solid 1px ${
-            square.book
-              ? square.color ?? theme.colors.accent
-              : theme.colors.secondary
+          `solid 1px ${square.book
+            ? (square.color ?? theme.colors.accent)
+            : theme.colors.secondary
           }`,
         borderRadius: '5px',
         boxShadow: (theme) =>
-          `1px 1px 0px 1px ${
-            square.book
-              ? square.color ?? theme.colors.accent
-              : theme.colors.secondary
+          `1px 1px 0px 1px ${square.book
+            ? (square.color ?? theme.colors.accent)
+            : theme.colors.secondary
           }`,
-          marginInline: 'auto'
+        marginInline: 'auto',
       }}
     >
       {square.book ? (

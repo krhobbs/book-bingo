@@ -22,7 +22,12 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       if (!usersCard) {
         throw Error('This is not your card.');
       }
-      await updateCardSquare(id, {id: square, req: '', book: book, color: color})
+      await updateCardSquare(id, {
+        id: square,
+        req: '',
+        book: book,
+        color: color,
+      });
     } catch (error) {
       res
         .status(422)

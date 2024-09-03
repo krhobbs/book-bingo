@@ -1,9 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { hashPassword } from '../../../utils/auth-utils';
-import {
-  isUsernameTaken,
-  insertUser
-} from '../../../utils/db-utils';
+import { isUsernameTaken, insertUser } from '../../../utils/db-utils';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
@@ -12,12 +9,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     const { username, password } = data;
 
     if (!username || !password || password.trim().length < 7) {
-      res
-        .status(422)
-        .json({
-          message:
-            'Invalid input. Username must be at least one character and password must be at least 8.',
-        });
+      res.status(422).json({
+        message:
+          'Invalid input. Username must be at least one character and password must be at least 8.',
+      });
       return;
     }
 

@@ -7,7 +7,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
     return;
   }
-  
+
   const id: string = req.query.id as string;
   const { archived } = req.body;
 
@@ -20,9 +20,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   try {
-
     await toggleArchiveCard(id, archived);
-
   } catch (error) {
     res
       .status(422)

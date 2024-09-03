@@ -1,7 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import {
-  isUsernameTaken,
-} from '../../../utils/db-utils';
+import { isUsernameTaken } from '../../../utils/db-utils';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
@@ -10,12 +8,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     const { username, email } = data;
 
     if (!username || !email) {
-      res
-        .status(422)
-        .json({
-          message:
-            'Invalid input. Username must be at least one character and must have authenticated yourself with Google.',
-        });
+      res.status(422).json({
+        message:
+          'Invalid input. Username must be at least one character and must have authenticated yourself with Google.',
+      });
       return;
     }
 

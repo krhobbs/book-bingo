@@ -10,11 +10,15 @@ interface TemplateButtonsProps {
   sx?: ThemeUIStyleObject;
 }
 
-function TemplateButtons({ templateId, handleDeleteTemplate, sx }: TemplateButtonsProps) {
+function TemplateButtons({
+  templateId,
+  handleDeleteTemplate,
+  sx,
+}: TemplateButtonsProps) {
   const breakpoint = useBreakpoint();
   const iconSize = useMemo(
     () => (breakpoint === 'sm' ? '14px' : '18px'),
-    [breakpoint]
+    [breakpoint],
   );
 
   return (
@@ -37,9 +41,7 @@ function TemplateButtons({ templateId, handleDeleteTemplate, sx }: TemplateButto
         aria-label="delete book from square"
         onClick={() => handleDeleteTemplate()}
       >
-        <TrashIcon
-          style={{ inlineSize: iconSize, blockSize: iconSize }}
-        />
+        <TrashIcon style={{ inlineSize: iconSize, blockSize: iconSize }} />
       </Button>
       {/* <Link
         href={{

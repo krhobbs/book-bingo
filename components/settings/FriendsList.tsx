@@ -10,7 +10,11 @@ interface FriendsListInterface {
   handleAddFriend: (newFriendData: { friendToAdd: string }) => Promise<any>;
 }
 
-function FriendsList({ friends, handleDeleteFriend, handleAddFriend }: FriendsListInterface) {
+function FriendsList({
+  friends,
+  handleDeleteFriend,
+  handleAddFriend,
+}: FriendsListInterface) {
   const [errorMessage, setErrorMessage] = useState('');
   const newFriendRef = useRef<HTMLInputElement>();
 
@@ -19,7 +23,7 @@ function FriendsList({ friends, handleDeleteFriend, handleAddFriend }: FriendsLi
 
     const enteredNewFriend = newFriendRef.current.value;
 
-    const result = await handleAddFriend({ friendToAdd: enteredNewFriend })
+    const result = await handleAddFriend({ friendToAdd: enteredNewFriend });
 
     if (result !== 'success') {
       setErrorMessage(result);
@@ -27,10 +31,9 @@ function FriendsList({ friends, handleDeleteFriend, handleAddFriend }: FriendsLi
       event.target instanceof HTMLFormElement && event.target.reset();
       setErrorMessage('');
     }
-
   }
 
-  function closeErrorPopup() : void {
+  function closeErrorPopup(): void {
     setErrorMessage('');
   }
 
@@ -38,7 +41,14 @@ function FriendsList({ friends, handleDeleteFriend, handleAddFriend }: FriendsLi
     <Box>
       <Text variant="heading2">Friends</Text>
       <Spacer size={['1rem']} />
-      <Box sx={{ display: 'flex', flexDirection: 'column', maxBlockSize: ['70vh', '55vh'], overflowY: 'auto' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          maxBlockSize: ['70vh', '55vh'],
+          overflowY: 'auto',
+        }}
+      >
         {friends.map((friend: string, index: number) => {
           return (
             <Box
@@ -55,7 +65,7 @@ function FriendsList({ friends, handleDeleteFriend, handleAddFriend }: FriendsLi
                 minInlineSize: '200px',
               }}
             >
-              <Text variant='body1'>{friend}</Text>
+              <Text variant="body1">{friend}</Text>
               <IconButton
                 sx={{
                   color: 'text',
@@ -64,7 +74,7 @@ function FriendsList({ friends, handleDeleteFriend, handleAddFriend }: FriendsLi
                   width: ['16px', '22px'],
                   height: ['18px', '24px'],
                 }}
-                onClick={() => handleDeleteFriend({friendToDelete: friend})}
+                onClick={() => handleDeleteFriend({ friendToDelete: friend })}
               >
                 <TrashIcon style={{ inlineSize: '100%' }} />
               </IconButton>
@@ -73,17 +83,27 @@ function FriendsList({ friends, handleDeleteFriend, handleAddFriend }: FriendsLi
         })}
       </Box>
       <Spacer size={['2rem']} />
-      <Box as="form" onSubmit={onAddFriend} sx={{ display: 'flex', gap: '1rem' }}>
+      <Box
+        as="form"
+        onSubmit={onAddFriend}
+        sx={{ display: 'flex', gap: '1rem' }}
+      >
         <Box sx={{ display: 'inline' }}>
           <Label htmlFor="add-friend">Add Friend</Label>
           <Input type="text" id="add-friend" ref={newFriendRef} />
         </Box>
         <Button sx={{ display: 'inline', marginTop: '1rem' }}>Add</Button>
       </Box>
-      {errorMessage && <Box>
-        <Spacer size={['2.4rem']} />
-        <ErrorPopup message={errorMessage} close={closeErrorPopup} sx={{margin: 'auto'}}></ErrorPopup>
-      </Box>}
+      {errorMessage && (
+        <Box>
+          <Spacer size={['2.4rem']} />
+          <ErrorPopup
+            message={errorMessage}
+            close={closeErrorPopup}
+            sx={{ margin: 'auto' }}
+          ></ErrorPopup>
+        </Box>
+      )}
     </Box>
   );
 }

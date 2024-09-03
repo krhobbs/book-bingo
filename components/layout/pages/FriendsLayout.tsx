@@ -8,10 +8,22 @@ import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import Pagination from '../../ui/Pagination';
 
-function FriendsLayout({ cards, pageCount, username }: { cards: Card[], pageCount: number, username: string }) {
+function FriendsLayout({
+  cards,
+  pageCount,
+  username,
+}: {
+  cards: Card[];
+  pageCount: number;
+  username: string;
+}) {
   const router = useRouter();
   const page = parseInt(router.query.page as string) || 1;
-  const { data, mutate } = useSWR(`/api/cards/${username}/friends?page=${page}`, fetchFriendsCards, { fallbackData: cards });
+  const { data, mutate } = useSWR(
+    `/api/cards/${username}/friends?page=${page}`,
+    fetchFriendsCards,
+    { fallbackData: cards },
+  );
   return (
     <>
       <Head>

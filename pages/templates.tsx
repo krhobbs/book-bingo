@@ -1,7 +1,13 @@
 import TemplatesLayout from '../components/layout/pages/TemplatesLayout';
 import { getAllTemplates } from '../utils/db-utils';
 
-export default function TemplatesPage({ templates, pageCount }: { templates: Template[], pageCount: number }) {
+export default function TemplatesPage({
+  templates,
+  pageCount,
+}: {
+  templates: Template[];
+  pageCount: number;
+}) {
   return <TemplatesLayout templates={templates} pageCount={pageCount} />;
 }
 
@@ -12,7 +18,7 @@ export async function getStaticProps() {
     return {
       props: {
         templates: templates,
-        templateCount: pageCount
+        templateCount: pageCount,
       },
       revalidate: 800,
     };
@@ -21,9 +27,9 @@ export async function getStaticProps() {
     return {
       props: {
         templates: [],
-        pageCount: 1
+        pageCount: 1,
       },
-      revalidate: 800
+      revalidate: 800,
     };
   }
 }

@@ -20,7 +20,7 @@ function BingoCardSquares({
   usersCard,
   handleUpdateCardSquare,
   handleFlipCardSquare,
-  flippedArray
+  flippedArray,
 }: BingoCardSquaresProps) {
   const [listView] = useContext(ViewContext);
 

@@ -12,7 +12,9 @@ export default function Profile({
   pageCount: number;
   username: string;
 }) {
-  return <ProfileLayout cards={cards} pageCount={pageCount} username={username} />;
+  return (
+    <ProfileLayout cards={cards} pageCount={pageCount} username={username} />
+  );
 }
 
 export async function getServerSideProps(context) {

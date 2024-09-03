@@ -29,27 +29,28 @@ function BingoCardTitle({
   handleArchiveCard,
   handleDeleteCard,
   handleFlipToBack,
-  handleFlipToFront
+  handleFlipToFront,
 }: BingoCardTitleProps) {
   const { pathname } = useRouter();
   const [showOptions, setShowOptions] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const popoverRef = useRef<HTMLDivElement>(null);
 
-  useOnClickOutside(popoverRef, () => setShowOptions(prev => !prev))
+  useOnClickOutside(popoverRef, () => setShowOptions((prev) => !prev));
 
   const showUsername = useMemo(
     () => pathname === '/' || pathname === '/friends',
-    [pathname]
+    [pathname],
   );
   const showCardButtons = useMemo(
     () => (pathname === '/profile' || pathname === '/archived') && usersCard,
-    [pathname, usersCard]
+    [pathname, usersCard],
   );
 
   useEffect(() => {
     window.addEventListener('resize', () => setShowOptions(false));
-    return () => window.removeEventListener('resize', () => setShowOptions(false));
+    return () =>
+      window.removeEventListener('resize', () => setShowOptions(false));
   }, []);
 
   return (
@@ -81,20 +82,21 @@ function BingoCardTitle({
           >
             <EllipsisHorizontalIcon style={{ height: '28px', width: '28px' }} />
           </IconButton>
-          {showOptions && createPortal(
-            <Popover ref={popoverRef} button={buttonRef}>
-              <CardButtons
-                card={card}
-                handleDeleteCard={handleDeleteCard}
-                handleArchiveCard={handleArchiveCard}
-                handleFlipToBack={handleFlipToBack}
-                handleFlipToFront={handleFlipToFront}
-                archived={archived}
-              />
-            </Popover>,
-            document.body,
-            'cardSettings'
-          )}
+          {showOptions &&
+            createPortal(
+              <Popover ref={popoverRef} button={buttonRef}>
+                <CardButtons
+                  card={card}
+                  handleDeleteCard={handleDeleteCard}
+                  handleArchiveCard={handleArchiveCard}
+                  handleFlipToBack={handleFlipToBack}
+                  handleFlipToFront={handleFlipToFront}
+                  archived={archived}
+                />
+              </Popover>,
+              document.body,
+              'cardSettings',
+            )}
         </Box>
       )}
     </Box>

@@ -111,7 +111,7 @@ function Settings() {
             />
           </Modal>,
           document.body,
-          'friends'
+          'friends',
         )}
     </>
   );

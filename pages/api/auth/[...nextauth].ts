@@ -1,9 +1,10 @@
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import RedditProvider from 'next-auth/providers/reddit';
-import { 
-  getUserByUsername, 
+import {
+  getUserByUsername,
   insertUserByReddit,
-  isUsernameTaken } from '../../../utils/db-utils';
+  isUsernameTaken,
+} from '../../../utils/db-utils';
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -16,9 +17,9 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.REDDIT_CLIENT_SECRET,
       authorization: {
         params: {
-          duration: 'permanent'
-        }
-      }
+          duration: 'permanent',
+        },
+      },
     }),
   ],
   callbacks: {
@@ -48,7 +49,7 @@ export const authOptions: NextAuthOptions = {
       // Send properties to the client, like an access_token from a provider.
       return session;
     },
-    async signIn({account, profile}) {
+    async signIn({ account, profile }) {
       // console.log('SIGN IN');
       // console.log(account);
       // console.log(profile);
@@ -64,7 +65,7 @@ export const authOptions: NextAuthOptions = {
         }
       }
       return true;
-    }
+    },
   },
 };
 

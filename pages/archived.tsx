@@ -12,7 +12,9 @@ export default function Archived({
   pageCount: number;
   username: string;
 }) {
-  return <ArchivedLayout cards={cards} pageCount={pageCount} username={username} />;
+  return (
+    <ArchivedLayout cards={cards} pageCount={pageCount} username={username} />
+  );
 }
 
 export async function getServerSideProps(context) {
@@ -28,7 +30,10 @@ export async function getServerSideProps(context) {
   }
 
   try {
-    const [cards, pageCount] = await getCardsOfUser(session.user.username, true);
+    const [cards, pageCount] = await getCardsOfUser(
+      session.user.username,
+      true,
+    );
 
     return {
       props: {

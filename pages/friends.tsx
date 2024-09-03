@@ -12,7 +12,9 @@ export default function Friends({
   pageCount: number;
   username: string;
 }) {
-  return <FriendsLayout cards={cards} pageCount={pageCount} username={username} />;
+  return (
+    <FriendsLayout cards={cards} pageCount={pageCount} username={username} />
+  );
 }
 
 export async function getServerSideProps(context) {

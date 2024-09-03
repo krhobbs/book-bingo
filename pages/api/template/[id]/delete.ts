@@ -21,16 +21,14 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   const username = session.user.username;
 
   try {
-
     const template = await getTemplateById(id);
 
     if (template.user === username) {
-        await deleteTemplate(id);
-        res.status(200).json({ message: 'Deleted template!' });
+      await deleteTemplate(id);
+      res.status(200).json({ message: 'Deleted template!' });
     } else {
-        res.status(401).json({ message: 'Unauthorized!' });
+      res.status(401).json({ message: 'Unauthorized!' });
     }
-
   } catch (error) {
     res
       .status(422)

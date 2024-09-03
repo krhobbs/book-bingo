@@ -12,21 +12,35 @@ interface AddBookLayoutProps {
   fromPageNum: string;
 }
 
-function AddBookLayout({ cardId, square, fromPage, fromPageNum }: AddBookLayoutProps) {
+function AddBookLayout({
+  cardId,
+  square,
+  fromPage,
+  fromPageNum,
+}: AddBookLayoutProps) {
   const router = useRouter();
   const { data: session } = useSession();
   const { mutate, cache } = useSWRConfig();
 
   async function handleAddBook(book: Book, color: string) {
-    const key = fromPage === 'profile' ? `/api/cards/${session.user.username}?page=${fromPageNum}` : `/api/cards?page=${fromPageNum}`;
+    const key =
+      fromPage === 'profile'
+        ? `/api/cards/${session.user.username}?page=${fromPageNum}`
+        : `/api/cards?page=${fromPageNum}`;
     const { data: cards } = cache.get(key);
 
     try {
-      const [ activeCard, otherCards ] = await updateCardSquare(book, color, cards, square, cardId);
+      const [activeCard, otherCards] = await updateCardSquare(
+        book,
+        color,
+        cards,
+        square,
+        cardId,
+      );
       await mutate(key, [...otherCards, activeCard]);
       router.back();
     } catch (e) {
-      console.error('Error Adding Book!')
+      console.error('Error Adding Book!');
     }
   }
 
@@ -35,9 +49,7 @@ function AddBookLayout({ cardId, square, fromPage, fromPageNum }: AddBookLayoutP
       <Head>
         <title>Book Bingo | Add New Book</title>
       </Head>
-      <AddBookForm
-        handleAddBook={handleAddBook}
-      />
+      <AddBookForm handleAddBook={handleAddBook} />
     </>
   );
 }

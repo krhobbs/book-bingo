@@ -1,7 +1,24 @@
 import AddBookLayout from '../components/layout/pages/AddBookLayout';
 
-function AddBook({ square, cardId, fromPage, fromPageNum }: { square: string; cardId: string, fromPage: string, fromPageNum: string }) {
-  return <AddBookLayout cardId={cardId} square={square} fromPage={fromPage} fromPageNum={fromPageNum} />;
+function AddBook({
+  square,
+  cardId,
+  fromPage,
+  fromPageNum,
+}: {
+  square: string;
+  cardId: string;
+  fromPage: string;
+  fromPageNum: string;
+}) {
+  return (
+    <AddBookLayout
+      cardId={cardId}
+      square={square}
+      fromPage={fromPage}
+      fromPageNum={fromPageNum}
+    />
+  );
 }
 
 export default AddBook;
@@ -16,7 +33,7 @@ export async function getServerSideProps(context) {
       square: context.query.square,
       cardId: context.query.card,
       fromPage: context.query.fromPage,
-      fromPageNum: context.query?.fromPageNum || '1'
+      fromPageNum: context.query?.fromPageNum || '1',
     },
   };
 }

@@ -7,8 +7,8 @@ interface CompleteProps {
   cardId: string;
   usersCard: boolean;
   square: Square;
-  handleUpdateCardSquare: Function;
-  handleFlipCardSquare: Function;
+  handleUpdateCardSquare: (cardId: string, squareId: string) => Promise<void>;
+  handleFlipCardSquare: (id: number) => void;
   flipped: boolean;
 }
 
@@ -31,8 +31,9 @@ function Complete({
         justifyContent: 'center',
         alignItems: 'center',
       }}
-      onClick={() => {handleFlipCardSquare(Number(square.id))}}
-
+      onClick={() => {
+        handleFlipCardSquare(Number(square.id));
+      }}
     >
       <CompleteBack
         archived={archived}

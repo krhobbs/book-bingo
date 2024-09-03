@@ -5,7 +5,7 @@ import { createContext, type ReactNode, useState } from 'react';
 
 export const ViewContext = createContext(null);
 
-function Layout({ children }: { children: ReactNode}) {
+function Layout({ children }: { children: ReactNode }) {
   return (
     <>
       <TopNav />

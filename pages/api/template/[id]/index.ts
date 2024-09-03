@@ -5,7 +5,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
   if (Array.isArray(id)) return;
   try {
-   const template = getTemplateById(id);
+    const template = getTemplateById(id);
 
     res.status(200).json(template);
   } catch (e) {

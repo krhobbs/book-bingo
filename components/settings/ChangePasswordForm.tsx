@@ -14,7 +14,10 @@ function ChangePasswordForm({ handleChangePassword }) {
     const enteredOldPassword = oldPasswordRef.current.value;
     const enteredNewPassword = newPasswordRef.current.value;
 
-    const result = await handleChangePassword({oldPassword: enteredOldPassword, newPassword: enteredNewPassword})
+    const result = await handleChangePassword({
+      oldPassword: enteredOldPassword,
+      newPassword: enteredNewPassword,
+    });
 
     if (result !== 'success') {
       setErrorMessage(result);
@@ -22,10 +25,9 @@ function ChangePasswordForm({ handleChangePassword }) {
       event.target.reset();
       setErrorMessage('');
     }
-
   }
 
-  function closeErrorPopup() : void {
+  function closeErrorPopup(): void {
     setErrorMessage('');
   }
 
@@ -45,10 +47,16 @@ function ChangePasswordForm({ handleChangePassword }) {
         <Input type="text" required id="new-password" ref={newPasswordRef} />
       </Box>
       <Spacer size={['2.4rem']} />
-      {errorMessage && <Box>
-        <ErrorPopup message={errorMessage} close={closeErrorPopup} sx={{margin: 'auto'}}></ErrorPopup>
-        <Spacer size={['2.4rem']} />
-      </Box>}
+      {errorMessage && (
+        <Box>
+          <ErrorPopup
+            message={errorMessage}
+            close={closeErrorPopup}
+            sx={{ margin: 'auto' }}
+          ></ErrorPopup>
+          <Spacer size={['2.4rem']} />
+        </Box>
+      )}
       <Box>
         <Button>Change Password</Button>
       </Box>

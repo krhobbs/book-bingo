@@ -4,7 +4,7 @@ import { Squares2X2Icon, ListBulletIcon } from '@heroicons/react/24/outline';
 import { ViewContext } from '../layout/Layout';
 
 function GridListSwitch() {
-  const [ listView, setListView ] = useContext(ViewContext);
+  const [listView, setListView] = useContext(ViewContext);
 
   return (
     <Box

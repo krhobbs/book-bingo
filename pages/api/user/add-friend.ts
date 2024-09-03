@@ -20,7 +20,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   const friendToAdd = req.body.friendToAdd;
 
   try {
-
     const friendExists = await isUsernameTaken(friendToAdd);
 
     if (!friendExists) {

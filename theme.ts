@@ -72,7 +72,7 @@ export const theme: Theme = {
   },
   shadows: {
     pushedIn: 'inset 0px 0px 15px -10px #000000',
-    popover: '2px 2px 5px 2px rgba(0,0,0,0.6)'
+    popover: '2px 2px 5px 2px rgba(0,0,0,0.6)',
   },
   buttons: {
     primary: {
@@ -173,14 +173,14 @@ export const theme: Theme = {
     },
     paginationActive: {
       variant: 'links.pagination',
-      border: '2px solid #FFCC33'
+      border: '2px solid #FFCC33',
     },
     paginationDisabled: {
       variant: 'links.pagination',
       opacity: '50%',
       cursor: 'default',
-      pointerEvents: 'none'
-    }
+      pointerEvents: 'none',
+    },
   },
   forms: {
     label: {

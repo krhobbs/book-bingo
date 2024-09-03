@@ -19,9 +19,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   try {
-
     await deleteCard(id);
-
   } catch (error) {
     res
       .status(422)

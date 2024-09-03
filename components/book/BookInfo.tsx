@@ -6,12 +6,16 @@ interface BookInfoProps {
   gap?: string | string[];
 }
 
-function BookInfo({ book, gap = "0px" }: BookInfoProps) {
+function BookInfo({ book, gap = '0px' }: BookInfoProps) {
   return (
     <>
-      <Text as="p" variant="body1">{book.title}</Text>
+      <Text as="p" variant="body1">
+        {book.title}
+      </Text>
       <Spacer size={gap} />
-      <Text as="p" variant="body2">By {book.author}</Text>
+      <Text as="p" variant="body2">
+        By {book.author}
+      </Text>
     </>
   );
 }

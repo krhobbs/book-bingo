@@ -25,12 +25,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (!allowed) {
     res.status(401).json({ message: 'Not authorized to create a template.' });
     return;
-  } 
+  }
 
   try {
-
     await insertTemplate(name, user_id, reqs);
-
   } catch (error) {
     res
       .status(422)

@@ -1,40 +1,32 @@
-import { FormEvent, useRef, useState } from 'react';
+import { useState } from 'react';
 import { Box, Label, Input, Button, Text } from 'theme-ui';
+import { useForm, type SubmitHandler } from 'react-hook-form';
 import ErrorPopup from '../ui/ErrorPopup';
 import Spacer from '../ui/Spacer';
 
-function AddBookForm({ handleAddBook } : { handleAddBook: Function; }) {
+interface AddBookFormValues {
+  title: string;
+  author: string;
+  color?: string;
+  cover?: string
+}
+
+function AddBookForm({ handleAddBook }: { handleAddBook: Function }) {
   const [errorMessage, setErrorMessage] = useState('');
-  const titleInputRef = useRef<HTMLInputElement>();
-  const authorInputRef = useRef<HTMLInputElement>();
-  const colorInputRef = useRef<HTMLInputElement>();
-  const coverInputRef = useRef<HTMLInputElement>();
+  const { register, handleSubmit } = useForm<AddBookFormValues>();
 
-  async function submitHandler(event: FormEvent) {
-    event.preventDefault();
-
-    const enteredTitle = titleInputRef.current.value;
-    const enteredAuthor = authorInputRef.current.value;
-    const enteredColor = colorInputRef.current.value;
-    let enteredCover = coverInputRef.current.value;
-
-    if (!enteredCover.includes('images-na.ssl-images-amazon.com')) {
-      enteredCover = null;
+  const onSubmit: SubmitHandler<AddBookFormValues> = async (data) => {
+    if (!data.cover.includes('images-na.ssl-images-amazon.com')) {
+      data.cover = null;
     }
 
     const book: Book = {
-      title: enteredTitle,
-      author: enteredAuthor,
-      cover: enteredCover || null,
-    };
-
-    const result = await handleAddBook(book, enteredColor);
-
-    if (result !== 'success') {
-      setErrorMessage(result);
-    } else {
-      setErrorMessage('');
+      title: data.title,
+      author: data.author,
+      cover: data.cover
     }
+
+    await handleAddBook(book, data.color);
   }
 
   function closeErrorPopup(): void {
@@ -50,21 +42,21 @@ function AddBookForm({ handleAddBook } : { handleAddBook: Function; }) {
         mx: 'auto',
         maxInlineSize: '512px',
       }}
-      onSubmit={submitHandler}
+      onSubmit={handleSubmit(onSubmit)}
     >
       <Box>
         <Label htmlFor="title">Book Title</Label>
-        <Input type="text" required id="title" ref={titleInputRef} />
+        <Input type="text" required id="title" {...register('title', { required: true })} />
       </Box>
       <Spacer size={['2rem']} />
       <Box>
         <Label htmlFor="author">Author</Label>
-        <Input type="text" required id="author" ref={authorInputRef} />
+        <Input type="text" required id="author" {...register('author', { required: true })} />
       </Box>
       <Spacer size={['2rem']} />
       <Box>
         <Label htmlFor="cover">Cover (optional)</Label>
-        <Input type="url" id="cover" ref={coverInputRef} />
+        <Input type="url" id="cover" {...register('cover')} />
         <Text as="p" variant="body2" sx={{ mt: '0.1rem' }}>
           Only image urls from goodreads are compatible.
         </Text>
@@ -75,7 +67,7 @@ function AddBookForm({ handleAddBook } : { handleAddBook: Function; }) {
         <Input
           type="color"
           id="color"
-          ref={colorInputRef}
+          {...register('color')}
           defaultValue="#FFFFFF"
           sx={{ padding: '0px', border: 'none' }}
         />

@@ -7,7 +7,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   if (Array.isArray(username)) return;
   try {
-
     const [cards] = await getCardsOfUser(username, false, page);
 
     res.status(200).json(cards);
