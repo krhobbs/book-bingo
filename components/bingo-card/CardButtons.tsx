@@ -13,10 +13,10 @@ import CardPdfDocument from './CardPdfDocument';
 
 interface CardButtonsProps {
   card: Card;
-  handleDeleteCard: Function;
-  handleArchiveCard: Function;
-  handleFlipToBack: Function;
-  handleFlipToFront: Function;
+  handleDeleteCard: () => void;
+  handleArchiveCard: () => void;
+  handleFlipToBack: () => void;
+  handleFlipToFront: () => void;
   archived: boolean;
   sx?: ThemeUIStyleObject;
 }
@@ -33,7 +33,7 @@ function CardButtons({
   const breakpoint = useBreakpoint();
   const iconSize = useMemo(
     () => (breakpoint === 'sm' ? '14px' : '18px'),
-    [breakpoint]
+    [breakpoint],
   );
 
   return (
@@ -60,11 +60,19 @@ function CardButtons({
           <Text>Download as PDF</Text>
         </Box>
       </PDFDownloadLink>
-      <Button variant="cardOptions" onClick={() => handleFlipToFront()} aria-label="flip all to front">
+      <Button
+        variant="cardOptions"
+        onClick={() => handleFlipToFront()}
+        aria-label="flip all to front"
+      >
         <ArrowPathIcon style={{ inlineSize: iconSize, blockSize: iconSize }} />
         <Text>Flip All To Front</Text>
       </Button>
-      <Button variant="cardOptions" onClick={() => handleFlipToBack()} aria-label="flip all to front">
+      <Button
+        variant="cardOptions"
+        onClick={() => handleFlipToBack()}
+        aria-label="flip all to front"
+      >
         <ArrowPathIcon
           style={{
             inlineSize: iconSize,

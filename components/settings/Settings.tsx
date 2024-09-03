@@ -12,7 +12,7 @@ function Settings() {
   const [showFriendsList, setShowFriendsList] = useState(false);
   const { data: session, status, update } = useSession();
 
-  async function handleDeleteFriend(friendData) {
+  async function handleDeleteFriend(friendData: { friendToDelete: string }) {
     const response = await fetch('/api/user/delete-friend', {
       method: 'PATCH',
       body: JSON.stringify(friendData),
@@ -21,7 +21,7 @@ function Settings() {
       },
     });
 
-    const data = await response.json();
+    const data: { message: string } = await response.json();
 
     if (response.ok) {
       update();
@@ -30,7 +30,7 @@ function Settings() {
     return data;
   }
 
-  async function handleAddFriend(newFriendData) {
+  async function handleAddFriend(newFriendData: { friendToAdd: string }) {
     const response = await fetch('/api/user/add-friend', {
       method: 'POST',
       body: JSON.stringify(newFriendData),
@@ -39,7 +39,7 @@ function Settings() {
       },
     });
 
-    const data = await response.json();
+    const data: { message: string } = await response.json();
 
     if (response.ok) {
       update();
@@ -111,7 +111,7 @@ function Settings() {
             />
           </Modal>,
           document.body,
-          'friends'
+          'friends',
         )}
     </>
   );

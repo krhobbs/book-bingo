@@ -18,13 +18,27 @@ function HomeLayout() {
       <Head>
         <title>Book Bingo</title>
       </Head>
-      <Text as="h1" variant="heading1" sx={{textAlign: 'center'}}>Book Bingo</Text>
-      <Text as="p" variant="body1" sx={{textAlign: 'center', maxInlineSize: '800px', mx: 'auto', px: ['1rem', '3rem']}}>
-        A web app for playing Book Bingo. You must sign in with Reddit to save your cards. You can create new cards from the /templates page or the /profile page. You can archive and delete cards from the /settings page. You can also view archived cards or add and delete friends for the /settings page.
+      <Text as="h1" variant="heading1" sx={{ textAlign: 'center' }}>
+        Book Bingo
+      </Text>
+      <Text
+        as="p"
+        variant="body1"
+        sx={{
+          textAlign: 'center',
+          maxInlineSize: '800px',
+          mx: 'auto',
+          px: ['1rem', '3rem'],
+        }}
+      >
+        A web app for playing Book Bingo. You must sign in with Reddit to save
+        your cards. You can create new cards from the /templates page or the
+        /profile page. You can archive and delete cards from the /settings page.
+        You can also view archived cards or add and delete friends for the
+        /settings page.
       </Text>
       <Spacer size="2rem" />
       <LoginButton sx={{ display: 'block', mx: 'auto' }} />
-      
     </>
   );
 }

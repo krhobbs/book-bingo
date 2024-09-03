@@ -5,10 +5,8 @@ import { authOptions } from '../auth/[...nextauth]';
 
 function putUsersCardFirst(cards: Card[], username: string) {
   const usersCards: number[] = cards.reduce(
-    (acc, card, idx) => (
-      card.user === username && acc.push(idx), acc
-    ),
-    []
+    (acc, card, idx) => (card.user === username && acc.push(idx), acc),
+    [],
   );
 
   usersCards.forEach((idx) => {
@@ -27,7 +25,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (session) {
       sortedCards = putUsersCardFirst(cards, session.user.username);
     }
-    
+
     res.status(200).json(cards);
   } catch (e) {
     res

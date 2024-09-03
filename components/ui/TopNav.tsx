@@ -55,7 +55,9 @@ function TopNav() {
             <Link href="/profile">Profile</Link>
             <Link href="/friends">Friends</Link>
             <Link href="/settings" style={{ display: 'contents' }}>
-              <Cog6ToothIcon style={{ blockSize: '24px', inlineSize: '24px' }} />
+              <Cog6ToothIcon
+                style={{ blockSize: '24px', inlineSize: '24px' }}
+              />
             </Link>
             <IconButton
               onClick={() =>

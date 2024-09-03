@@ -17,7 +17,11 @@ interface ArchivedLayoutProps {
 function ArchivedLayout({ cards, pageCount, username }: ArchivedLayoutProps) {
   const router = useRouter();
   const page = parseInt(router.query.page as string) || 1;
-  const { data, mutate } = useSWR(`/api/cards/${username}/archived?page=${page}`, fetchUsersCards, { fallbackData: cards });
+  const { data, mutate } = useSWR(
+    `/api/cards/${username}/archived?page=${page}`,
+    fetchUsersCards,
+    { fallbackData: cards },
+  );
   return (
     <>
       <Head>
@@ -30,7 +34,9 @@ function ArchivedLayout({ cards, pageCount, username }: ArchivedLayoutProps) {
       <GridListSwitch />
       <Spacer size="2rem" />
       {cards.length === 0 ? (
-        <Text as="p" sx={{textAlign: 'center'}}>No Archived Cards.</Text>
+        <Text as="p" sx={{ textAlign: 'center' }}>
+          No Archived Cards.
+        </Text>
       ) : (
         <>
           <Cards cards={data} mutate={mutate} />

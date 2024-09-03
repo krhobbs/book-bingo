@@ -1,5 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { updatePasswordOfUser, getUserByUsername } from '../../../utils/db-utils';
+import {
+  updatePasswordOfUser,
+  getUserByUsername,
+} from '../../../utils/db-utils';
 import { verifyPassword, hashPassword } from '../../../utils/auth-utils';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../auth/[...nextauth]';

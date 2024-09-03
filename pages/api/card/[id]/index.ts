@@ -5,7 +5,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
   if (Array.isArray(id)) return;
   try {
-
     const card = await getCardById(id);
 
     res.status(200).json(card);

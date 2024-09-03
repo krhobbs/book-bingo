@@ -53,7 +53,7 @@ export async function addCard(username: string, template: Template) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({templateID: template._id}),
+      body: JSON.stringify({ templateID: template._id }),
     });
     const data = await response.json();
 
@@ -71,8 +71,8 @@ export async function updateCardSquare(
   color: string,
   cards: Card[],
   squareId: string,
-  cardId: string
-) : Promise<[ Card, Card[]]> {
+  cardId: string,
+): Promise<[Card, Card[]]> {
   const activeCard: Card = cards.filter((c: Card) => c._id === cardId)[0];
   const otherCards: Card[] = cards.filter((c: Card) => c._id !== cardId);
 
@@ -92,7 +92,7 @@ export async function updateCardSquare(
     },
   });
 
-  return [ activeCard, otherCards ];
+  return [activeCard, otherCards];
 }
 
 // Template Related API Utils
@@ -102,8 +102,8 @@ export async function createTemplate(name: string, reqs: string[]) {
     body: JSON.stringify({ name: name, reqs: reqs }),
     headers: {
       'Content-Type': 'application/json',
-    }
-  });  
+    },
+  });
 }
 
 export async function fetchTemplates(url: string) {

@@ -6,7 +6,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     const page = parseInt(req.query.page as string) || 1;
 
     const [templates] = await getAllTemplates(page);
-    
+
     res.status(200).json(templates);
   } catch (e) {
     res

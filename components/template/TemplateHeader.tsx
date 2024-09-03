@@ -21,7 +21,7 @@ function TemplateHeader({
   const breakpoint = useBreakpoint();
   const iconSize = useMemo(
     () => (breakpoint === 'sm' ? '14px' : '18px'),
-    [breakpoint]
+    [breakpoint],
   );
 
   return (

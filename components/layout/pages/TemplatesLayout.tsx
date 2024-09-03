@@ -16,8 +16,12 @@ interface TemplatesLayoutProps {
 function TemplatesLayout({ templates, pageCount }: TemplatesLayoutProps) {
   const router = useRouter();
   const page = parseInt(router.query.page as string) || 1;
-  const { data, mutate } = useSWR(`/api/templates?page=${page}`, fetchTemplates, { fallbackData: templates });
-  
+  const { data, mutate } = useSWR(
+    `/api/templates?page=${page}`,
+    fetchTemplates,
+    { fallbackData: templates },
+  );
+
   return (
     <>
       <Head>
@@ -30,7 +34,7 @@ function TemplatesLayout({ templates, pageCount }: TemplatesLayoutProps) {
       <GridListSwitch />
       <Spacer size="2rem" />
       {data.length === 0 ? (
-        <Text variant='body1'>No Templates.</Text>
+        <Text variant="body1">No Templates.</Text>
       ) : (
         <>
           <Templates templates={data} />

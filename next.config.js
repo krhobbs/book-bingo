@@ -7,11 +7,11 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'images-na.ssl-images-amazon.com',
         port: '',
-        pathname: '/images/S/compressed.photo.goodreads.com/**'
-      }
-    ]
+        pathname: '/images/S/compressed.photo.goodreads.com/**',
+      },
+    ],
   },
-  output: "standalone"
-}
+  output: 'standalone',
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

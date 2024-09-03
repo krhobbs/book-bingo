@@ -9,7 +9,7 @@ interface CompleteBackProps {
   cardId: string;
   squareId: string;
   usersCard: boolean;
-  handleUpdateCardSquare: Function;
+  handleUpdateCardSquare: (cardId: string, squareId: string) => Promise<void>;
   flipped: boolean;
 }
 

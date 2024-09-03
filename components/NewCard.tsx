@@ -10,14 +10,14 @@ import { useForm } from 'react-hook-form';
 const SelectTemplateForm = ({
   templates,
   onNewCard,
-  closeModal
+  closeModal,
 }: {
   templates: Template[];
   onNewCard: Function;
   closeModal: Function;
 }) => {
   const { register, handleSubmit } = useForm();
-  const onSubmit = ({ template }) => {
+  const onSubmit = ({ template }: { template: number }) => {
     onNewCard(templates[template], closeModal);
   };
   return (
@@ -44,7 +44,11 @@ const SelectTemplateForm = ({
   );
 };
 
-function NewCard({ handleNewCard }) {
+function NewCard({
+  handleNewCard,
+}: {
+  handleNewCard: (template: Template, closeModal: () => void) => void;
+}) {
   const [showSelectTemplate, setShowSelectTemplate] = useState(false);
   const { data } = useSWR('/api/templates', fetchTemplateNames);
 
@@ -84,7 +88,7 @@ function NewCard({ handleNewCard }) {
             />
           </Modal>,
           document.body,
-          'select-template'
+          'select-template',
         )}
     </>
   );

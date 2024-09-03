@@ -34,7 +34,7 @@ function Incomplete({
                 card: cardId,
                 square: squareId,
                 fromPage: pathname.includes('profile') ? 'profile' : 'home',
-                fromPageNum: query.page || '1'
+                fromPageNum: query.page || '1',
               },
             }}
             aria-label="add new book"

@@ -20,7 +20,7 @@ function ListIncomplete({
   usersCard,
 }: ListIncompleteProps) {
   const { pathname } = useRouter();
-  
+
   return (
     <Box
       sx={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}
@@ -37,7 +37,7 @@ function ListIncomplete({
               query: {
                 card: cardId,
                 square: squareId,
-                fromPage: pathname.includes('profile') ? 'profile' : 'home'
+                fromPage: pathname.includes('profile') ? 'profile' : 'home',
               },
             }}
             aria-label="add new book"

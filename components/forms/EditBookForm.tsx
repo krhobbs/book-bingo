@@ -1,39 +1,41 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { Box, Label, Input, Button, Text } from 'theme-ui';
 import ErrorPopup from '../ui/ErrorPopup';
 import Spacer from '../ui/Spacer';
+import { useForm, type SubmitHandler } from 'react-hook-form';
 
-function EditBookForm({ square, handleEditBook } : { square: Square, handleEditBook: Function; }) {
+interface EditBookFormValues {
+  title: string;
+  author: string;
+  color?: string;
+  cover?: string
+}
+
+function EditBookForm({
+  square,
+  handleEditBook,
+}: {
+  square: Square;
+  handleEditBook: (book: Book, color: string) => Promise<void>;
+}) {
   const [errorMessage, setErrorMessage] = useState('');
-  const titleInputRef = useRef<HTMLInputElement>();
-  const authorInputRef = useRef<HTMLInputElement>();
-  const colorInputRef = useRef<HTMLInputElement>();
-  const coverInputRef = useRef<HTMLInputElement>();
+  const { register, handleSubmit } = useForm<EditBookFormValues>();
 
-  async function submitHandler(event) {
-    event.preventDefault();
-
-    const enteredTitle = titleInputRef.current.value;
-    const enteredAuthor = authorInputRef.current.value;
-    const enteredColor = colorInputRef.current.value;
-    let enteredCover = coverInputRef.current.value;
-
-    if (!enteredCover.includes('images-na.ssl-images-amazon.com')) {
-      enteredCover = null;
+  const onSubmit: SubmitHandler<EditBookFormValues> = async (data) => {
+    if (!data.cover.includes('images-na.ssl-images-amazon.com')) {
+      data.cover = null;
     }
 
     const book: Book = {
-      title: enteredTitle,
-      author: enteredAuthor,
-      cover: enteredCover || null,
+      title: data.title,
+      author: data.author,
+      cover: data.cover || null,
     };
 
-    const result = await handleEditBook(book, enteredColor);
-
-    if (result !== 'success') {
-      setErrorMessage(result);
-    } else {
-      setErrorMessage('');
+    try {
+      await handleEditBook(book, data.color);
+    } catch (error) {
+      setErrorMessage(error.message || 'Error editing book.')
     }
   }
 
@@ -50,7 +52,7 @@ function EditBookForm({ square, handleEditBook } : { square: Square, handleEditB
         mx: 'auto',
         maxInlineSize: '512px',
       }}
-      onSubmit={submitHandler}
+      onSubmit={handleSubmit(onSubmit)}
     >
       <Box>
         <Label htmlFor="title">Book Title</Label>
@@ -58,7 +60,7 @@ function EditBookForm({ square, handleEditBook } : { square: Square, handleEditB
           type="text"
           required
           id="title"
-          ref={titleInputRef}
+          {...register('title')}
           defaultValue={square.book.title}
         />
       </Box>
@@ -69,7 +71,7 @@ function EditBookForm({ square, handleEditBook } : { square: Square, handleEditB
           type="text"
           required
           id="author"
-          ref={authorInputRef}
+          {...register('author')}
           defaultValue={square.book.author}
         />
       </Box>
@@ -79,10 +81,12 @@ function EditBookForm({ square, handleEditBook } : { square: Square, handleEditB
         <Input
           type="url"
           id="cover"
-          ref={coverInputRef}
+          {...register('cover')}
           defaultValue={square.book.cover ?? ''}
         />
-        <Text as="p" variant="body2" sx={{mt: '0.1rem'}}>Only image urls from goodreads are compatible.</Text>
+        <Text as="p" variant="body2" sx={{ mt: '0.1rem' }}>
+          Only image urls from goodreads are compatible.
+        </Text>
       </Box>
       <Spacer size={['2rem']} />
       <Box>
@@ -90,7 +94,7 @@ function EditBookForm({ square, handleEditBook } : { square: Square, handleEditB
         <Input
           type="color"
           id="color"
-          ref={colorInputRef}
+          {...register('color')}
           defaultValue={square.color}
           sx={{ padding: '0px', border: 'none' }}
         />

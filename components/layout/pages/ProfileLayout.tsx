@@ -18,19 +18,23 @@ interface ProfileLayoutProps {
 function ProfileLayout({ cards, pageCount, username }: ProfileLayoutProps) {
   const router = useRouter();
   const page = parseInt(router.query.page as string) || 1;
-  const { data, mutate } = useSWR(`/api/cards/${username}?page=${page}`, fetchUsersCards, { fallbackData: cards });
+  const { data, mutate } = useSWR(
+    `/api/cards/${username}?page=${page}`,
+    fetchUsersCards,
+    { fallbackData: cards },
+  );
 
   // New Card Creation
   // Take in template data
   const handleNewCard = async (template: Template, closeModal: Function) => {
     try {
       const card = await addCard(username, template);
-      mutate([ ...data, card]);
+      mutate([...data, card]);
       closeModal();
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   return (
     <>
