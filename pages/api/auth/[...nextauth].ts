@@ -6,6 +6,10 @@ import {
   isUsernameTaken,
 } from '../../../utils/db-utils';
 
+export const config = {
+  maxDuration: 15,
+};
+
 export const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt',
