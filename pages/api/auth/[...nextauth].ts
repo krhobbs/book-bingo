@@ -7,7 +7,7 @@ import {
 } from '../../../utils/db-utils';
 
 export const config = {
-  maxDuration: 15,
+  maxDuration: 25,
 };
 
 export const authOptions: NextAuthOptions = {
