@@ -11,7 +11,7 @@ interface BingoCardProps {
   card: Card;
   handleArchiveCard: (card: Card) => Promise<void>;
   handleDeleteCard: (card: Card) => Promise<void>;
-  handleUpdateCardSquare: (cardId: string, squareId: string) => Promise<void>;
+  handleUpdateCardSquare: UpdateSingleSquareFunction;
 }
 
 function BingoCard({

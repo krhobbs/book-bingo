@@ -1,7 +1,7 @@
 import { ReactNode, useEffect } from 'react';
 import { Box, Button } from 'theme-ui';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import FocusTrap from 'focus-trap-react';
+import { FocusTrap } from 'focus-trap-react';
 
 interface ModalProps {
   closeModal: () => void;

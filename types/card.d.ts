@@ -24,3 +24,8 @@ interface Template {
   user: string;
   reqs: string[];
 }
+
+type UpdateSingleSquareFunction = (
+  cardId: string,
+  squareId: string,
+) => Promise<void>;

@@ -7,7 +7,7 @@ interface BingoListItemProps {
   archived: boolean;
   usersCard: boolean;
   square: Square;
-  handleUpdateCardSquare: (cardId: string, squareId: string) => Promise<void>;
+  handleUpdateCardSquare: UpdateSingleSquareFunction;
 }
 
 function BingoListItem({

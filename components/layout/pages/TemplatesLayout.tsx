@@ -16,7 +16,7 @@ interface TemplatesLayoutProps {
 function TemplatesLayout({ templates, pageCount }: TemplatesLayoutProps) {
   const router = useRouter();
   const page = parseInt(router.query.page as string) || 1;
-  const { data, mutate } = useSWR(
+  const { data } = useSWR(
     `/api/templates?page=${page}`,
     fetchTemplates,
     { fallbackData: templates },

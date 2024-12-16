@@ -6,7 +6,7 @@ interface BingoItemProps {
   archived: boolean;
   usersCard: boolean;
   square: Square;
-  handleUpdateCardSquare: (cardId: string, squareId: string) => Promise<void>;
+  handleUpdateCardSquare: UpdateSingleSquareFunction;
   handleFlipCardSquare: (id: number) => void;
   flipped: boolean;
 }
