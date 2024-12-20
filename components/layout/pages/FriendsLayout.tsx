@@ -1,12 +1,10 @@
 import Head from 'next/head';
-import { Box, Text } from 'theme-ui';
-import Spacer from '../../ui/Spacer';
+import { Text } from 'theme-ui';
+import { GridListSwitch, Pagination, Spacer } from '../../ui';
 import Cards from '../../Cards';
-import GridListSwitch from '../../ui/GridListSwitch';
 import { fetchFriendsCards } from '../../../utils/api-utils';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
-import Pagination from '../../ui/Pagination';
 
 function FriendsLayout({
   cards,

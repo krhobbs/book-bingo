@@ -3,7 +3,7 @@ import { Box } from 'theme-ui';
 import { Squares2X2Icon, ListBulletIcon } from '@heroicons/react/24/outline';
 import { ViewContext } from '../layout/Layout';
 
-function GridListSwitch() {
+export function GridListSwitch() {
   const [listView, setListView] = useContext(ViewContext);
 
   return (
@@ -64,4 +64,3 @@ function GridListSwitch() {
   );
 }
 
-export default GridListSwitch;

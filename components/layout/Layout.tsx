@@ -1,6 +1,5 @@
 import { SWRConfig } from 'swr';
-import Spacer from '../ui/Spacer';
-import TopNav from '../ui/TopNav';
+import { TopNav, Spacer } from '../ui';
 import { createContext, type ReactNode, useState } from 'react';
 
 export const ViewContext = createContext(null);

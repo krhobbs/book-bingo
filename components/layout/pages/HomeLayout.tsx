@@ -1,7 +1,6 @@
 import Head from 'next/head';
-import Spacer from '../../ui/Spacer';
+import { LoginButton, Spacer } from '../../ui';
 import { Text } from 'theme-ui';
-import LoginButton from '../../ui/LoginButton';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 

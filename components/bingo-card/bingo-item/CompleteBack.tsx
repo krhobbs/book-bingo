@@ -1,6 +1,6 @@
 import BookInfo from '../../book/BookInfo';
 import { Box } from 'theme-ui';
-import Spacer from '../../ui/Spacer';
+import { Spacer } from '../../ui';
 import BookButtons from './BookButtons';
 
 interface CompleteBackProps {

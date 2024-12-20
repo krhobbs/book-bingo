@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { Box, Button, Divider, Text, Spinner } from 'theme-ui';
 import FriendsList from './FriendsList';
-import Modal from '../ui/Modal';
+import { LoginButton, Modal } from '../ui';
 import { useSession, signOut } from 'next-auth/react';
 import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import Head from 'next/head';
-import LoginButton from '../ui/LoginButton';
 
 function Settings() {
   const [showFriendsList, setShowFriendsList] = useState(false);

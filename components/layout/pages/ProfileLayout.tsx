@@ -2,12 +2,10 @@ import Head from 'next/head';
 import { Text } from 'theme-ui';
 import Cards from '../../Cards';
 import NewCard from '../../NewCard';
-import GridListSwitch from '../../ui/GridListSwitch';
-import Spacer from '../../ui/Spacer';
+import { GridListSwitch, Pagination, Spacer } from '../../ui';
 import useSWR from 'swr';
 import { addCard, fetchUsersCards } from '../../../utils/api-utils';
 import { useRouter } from 'next/router';
-import Pagination from '../../ui/Pagination';
 
 interface ProfileLayoutProps {
   cards: Card[];

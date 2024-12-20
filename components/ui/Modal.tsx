@@ -8,7 +8,7 @@ interface ModalProps {
   children: ReactNode;
 }
 
-function Modal({ closeModal, children }: ModalProps) {
+export function Modal({ closeModal, children }: ModalProps) {
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => {
@@ -65,5 +65,3 @@ function Modal({ closeModal, children }: ModalProps) {
     </FocusTrap>
   );
 }
-
-export default Modal;

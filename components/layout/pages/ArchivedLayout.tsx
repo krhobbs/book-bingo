@@ -1,12 +1,10 @@
 import Head from 'next/head';
 import Cards from '../../Cards';
 import { Text } from 'theme-ui';
-import Spacer from '../../ui/Spacer';
-import GridListSwitch from '../../ui/GridListSwitch';
 import useSWR from 'swr';
 import { fetchUsersCards } from '../../../utils/api-utils';
 import { useRouter } from 'next/router';
-import Pagination from '../../ui/Pagination';
+import { GridListSwitch, Pagination, Spacer } from '../../ui';
 
 interface ArchivedLayoutProps {
   cards: Card[];

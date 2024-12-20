@@ -8,7 +8,7 @@ interface PopoverProps {
   sx?: ThemeUIStyleObject;
 }
 
-const Popover = forwardRef<HTMLDivElement, PopoverProps>(
+export const Popover = forwardRef<HTMLDivElement, PopoverProps>(
   function Popover(props, ref) {
     const [top, left] = usePopover(
       ref as RefObject<HTMLDivElement>,
@@ -48,5 +48,3 @@ const Popover = forwardRef<HTMLDivElement, PopoverProps>(
     );
   },
 );
-
-export default Popover;

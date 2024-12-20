@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { Box, Label, Input, Button, Text } from 'theme-ui';
 import { useForm, type SubmitHandler } from 'react-hook-form';
-import ErrorPopup from '../ui/ErrorPopup';
-import Spacer from '../ui/Spacer';
+import { ErrorPopup, Spacer } from '../ui';
 
 interface AddBookFormValues {
   title: string;

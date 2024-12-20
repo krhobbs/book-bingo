@@ -1,10 +1,9 @@
 import { Box, Text, IconButton } from 'theme-ui';
 import { useRouter } from 'next/router';
 import { useMemo, useState, useRef, useEffect } from 'react';
-import Spacer from '../ui/Spacer';
+import { Popover, Spacer } from '../ui';
 import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
 import CardButtons from './CardButtons';
-import Popover from '../ui/Popover';
 import { useOnClickOutside } from '../../hooks/useOnClickOutside';
 import { createPortal } from 'react-dom';
 

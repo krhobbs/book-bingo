@@ -1,5 +1,5 @@
 import { Box, Text } from 'theme-ui';
-import Spacer from '../../../ui/Spacer';
+import { Spacer } from '../../../ui';
 import BookButtons from '../BookButtons';
 import BookInfo from '../../../book/BookInfo';
 import Image from 'next/image';

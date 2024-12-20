@@ -1,6 +1,6 @@
 import { useSession } from 'next-auth/react';
 import Template from './template/Template';
-import LoginButton from './ui/LoginButton';
+import { LoginButton } from './ui';
 import { Flex, Spinner } from 'theme-ui';
 
 function Templates({ templates }: { templates: Template[] }) {

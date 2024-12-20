@@ -83,7 +83,7 @@ function PaginationLink({
   );
 }
 
-function Pagination({
+export function Pagination({
   pageCount,
   currentPage,
 }: {
@@ -148,5 +148,3 @@ function Pagination({
     </Box>
   );
 }
-
-export default Pagination;

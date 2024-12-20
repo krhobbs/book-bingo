@@ -1,7 +1,7 @@
 import { Button, ThemeUICSSObject } from 'theme-ui';
 import { signIn } from 'next-auth/react';
 
-function LoginButton({ sx }: { sx?: ThemeUICSSObject }) {
+export function LoginButton({ sx }: { sx?: ThemeUICSSObject }) {
   return (
     <Button
       sx={{ ...sx }}
@@ -14,4 +14,3 @@ function LoginButton({ sx }: { sx?: ThemeUICSSObject }) {
   );
 }
 
-export default LoginButton;

@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Box, Label, Input, Button, Text } from 'theme-ui';
-import ErrorPopup from '../ui/ErrorPopup';
-import Spacer from '../ui/Spacer';
+import { ErrorPopup, Spacer } from '../ui';
 import { useRouter } from 'next/router';
 import { createTemplate } from '../../utils/api-utils';
 

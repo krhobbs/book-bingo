@@ -2,7 +2,7 @@ import { Box, Text } from 'theme-ui';
 import { PlusIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
-import Modal from './ui/Modal';
+import { Modal } from './ui';
 import useSWR from 'swr';
 import { fetchTemplateNames } from '../utils/api-utils';
 import SelectTemplateForm from './forms/SelectTemplateForm';
