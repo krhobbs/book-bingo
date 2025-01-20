@@ -35,7 +35,7 @@
     "babel-plugin-styled-components": "^2.1.4",
     "eslint": "^9.14.0",
     "eslint-config-next": "^15.0.2",
-    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-prettier": "^10.0.1",
     "prettier": "^3.4.2",
     "typescript": "^5.4.2"
   }
