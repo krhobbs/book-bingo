@@ -1,6 +1,6 @@
-import Incomplete from './Incomplete';
+import Incomplete from './GridIncomplete';
 import { Box } from 'theme-ui';
-import Complete from './Complete';
+import Complete from './GridComplete';
 interface BingoItemProps {
   cardId: string;
   archived: boolean;

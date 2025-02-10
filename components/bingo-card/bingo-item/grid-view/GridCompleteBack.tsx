@@ -1,7 +1,7 @@
-import BookInfo from '../../book/BookInfo';
+import BookInfo from '../../../book/BookInfo';
 import { Box } from 'theme-ui';
-import { Spacer } from '../../ui';
-import BookButtons from './BookButtons';
+import { Spacer } from '../../../ui';
+import BookButtons from '../BookButtons';
 
 interface CompleteBackProps {
   archived: boolean;
