@@ -35,12 +35,7 @@ function AddBookForm({ handleAddBook }: { handleAddBook: Function }) {
   return (
     <Box
       as="form"
-      sx={{
-        marginBlockStart: '7rem',
-        px: ['0.25rem', '0rem'],
-        mx: 'auto',
-        maxInlineSize: '512px',
-      }}
+      variant='layout.form'
       onSubmit={handleSubmit(onSubmit)}
     >
       <Box>
