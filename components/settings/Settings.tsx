@@ -1,15 +1,15 @@
 import { useState } from 'react';
-import { Box, Button, Divider, Text, Spinner } from 'theme-ui';
+import { Box, Button, Divider, Text } from 'theme-ui';
 import FriendsList from './FriendsList';
-import { LoginButton, Modal } from '../ui';
+import { Modal } from '../ui';
 import { useSession, signOut } from 'next-auth/react';
 import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import Head from 'next/head';
 
-function Settings() {
+function Settings({ username, friends }: { username: string, friends: string[] }) {
   const [showFriendsList, setShowFriendsList] = useState(false);
-  const { data: session, status, update } = useSession();
+  const { update } = useSession();
 
   async function handleDeleteFriend(friendData: { friendToDelete: string }) {
     const response = await fetch('/api/user/delete-friend', {
@@ -48,14 +48,6 @@ function Settings() {
     }
   }
 
-  if (status === 'unauthenticated') {
-    return <LoginButton />;
-  }
-
-  if (status === 'loading') {
-    return <Spinner sx={{ display: 'block', marginInline: 'auto' }} />;
-  }
-
   return (
     <>
       <Head>
@@ -76,7 +68,7 @@ function Settings() {
           color="muted"
           sx={{ padding: '0.5rem 1rem', textAlign: 'left' }}
         >
-          Username: {session.user.username}
+          Username: {username}
         </Text>
         <Divider sx={{ py: '0.1rem', opacity: 0.3 }} />
         <Link href="/archived">
@@ -96,7 +88,7 @@ function Settings() {
           Add/Delete Friends
         </Button>
         <Divider sx={{ py: '0.1rem', opacity: 0.3 }} />
-        <Button onClick={() => signOut()} variant="settings">
+        <Button onClick={() => signOut({ callbackUrl: '/' })} variant="settings">
           Logout
         </Button>
       </Box>
@@ -104,7 +96,7 @@ function Settings() {
         createPortal(
           <Modal closeModal={() => setShowFriendsList(!showFriendsList)}>
             <FriendsList
-              friends={session.user.friends}
+              friends={friends}
               handleDeleteFriend={handleDeleteFriend}
               handleAddFriend={handleAddFriend}
             />

@@ -6,14 +6,14 @@ import ArchivedLayout from '../components/layout/pages/ArchivedLayout';
 export default function Archived({
   cards,
   pageCount,
-  username,
+  user_id
 }: {
   cards: Card[];
   pageCount: number;
-  username: string;
+  user_id: string
 }) {
   return (
-    <ArchivedLayout cards={cards} pageCount={pageCount} username={username} />
+    <ArchivedLayout cards={cards} pageCount={pageCount} userId={user_id} />
   );
 }
 
@@ -31,7 +31,7 @@ export async function getServerSideProps(context) {
 
   try {
     const [cards, pageCount] = await getCardsOfUser(
-      session.user.username,
+      session.user.id,
       true,
     );
 
@@ -39,7 +39,7 @@ export async function getServerSideProps(context) {
       props: {
         cards,
         pageCount,
-        username: session.user.username,
+        user_id: session.user.id,
       },
     };
   } catch (error) {

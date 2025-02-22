@@ -1,18 +1,7 @@
-import { useSession } from 'next-auth/react';
 import Template from './template/Template';
-import { LoginButton } from './ui';
-import { Flex, Spinner } from 'theme-ui';
+import { Flex } from 'theme-ui';
 
 function Templates({ templates }: { templates: Template[] }) {
-  const { status } = useSession();
-
-  if (status === 'unauthenticated') {
-    return <LoginButton />;
-  }
-
-  if (status === 'loading') {
-    return <Spinner sx={{ display: 'block', marginInline: 'auto' }} />;
-  }
   return (
     <Flex sx={{ flexDirection: 'column', gap: '3rem' }}>
       {templates.map((template: Template) => {

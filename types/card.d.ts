@@ -13,6 +13,7 @@ interface Square {
 interface Card {
   _id: string;
   user: string;
+  user_id: string;
   template: string;
   archived: boolean;
   squares: Square[];

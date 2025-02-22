@@ -25,7 +25,7 @@ function AddBookLayout({
   async function handleAddBook(book: Book, color: string) {
     const key =
       fromPage === 'profile'
-        ? `/api/cards/${session.user.username}?page=${fromPageNum}`
+        ? `/api/cards/${session.user.id}?page=${fromPageNum}`
         : `/api/cards?page=${fromPageNum}`;
     const { data: cards } = cache.get(key);
 

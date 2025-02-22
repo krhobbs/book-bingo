@@ -1,0 +1,1 @@
+type ValidProviders = 'google' | 'reddit';

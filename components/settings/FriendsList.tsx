@@ -15,7 +15,7 @@ function FriendsList({
   handleAddFriend,
 }: FriendsListInterface) {
   const [errorMessage, setErrorMessage] = useState('');
-  const newFriendRef = useRef<HTMLInputElement>();
+  const newFriendRef = useRef<HTMLInputElement>(null);
 
   async function onAddFriend(event: FormEvent<HTMLDivElement>) {
     event.preventDefault();

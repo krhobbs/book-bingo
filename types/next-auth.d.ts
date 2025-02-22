@@ -6,8 +6,10 @@ declare module 'next-auth' {
    * or the second parameter of the `session` callback, when using a database.
    */
   interface User {
-    username: string;
+    username?: string;
     friends: string[];
+    provider: 'google' | 'reddit';
+    identifier: string;
   }
 
   /**
@@ -20,5 +22,10 @@ declare module 'next-auth' {
   interface Profile {
     email_verified?: boolean;
     verified?: boolean;
+    id?: string;
+  }
+
+  interface JWT {
+    provider: 'google' | 'reddit';
   }
 }

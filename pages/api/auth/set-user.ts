@@ -1,28 +1,23 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { isUsernameTaken } from '../../../utils/db-utils';
+import { setUsername } from '../../../utils/db-utils';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     const data = req.body;
 
-    const { username, email } = data;
+    const { username, identifier, provider } = data;
 
-    if (!username || !email) {
-      res.status(422).json({
-        message:
-          'Invalid input. Username must be at least one character and must have authenticated yourself with Google.',
-      });
+    if (!username || !identifier || !provider) {
+      res
+        .status(422)
+        .json({
+          message: 'Invalid input. Username must be at least one character.',
+        });
       return;
     }
 
     try {
-      const usernameTaken = await isUsernameTaken(username);
-
-      if (usernameTaken) {
-        res.status(422).json({ message: 'That username is taken.' });
-        return;
-      }
-
+      await setUsername(username, identifier, provider);
       res.status(201).json({ message: 'Created user.' });
     } catch (error) {
       res

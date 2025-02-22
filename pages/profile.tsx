@@ -7,13 +7,15 @@ export default function Profile({
   cards,
   pageCount,
   username,
+  user_id
 }: {
   cards: Card[];
   pageCount: number;
   username: string;
+  user_id: string;
 }) {
   return (
-    <ProfileLayout cards={cards} pageCount={pageCount} username={username} />
+    <ProfileLayout cards={cards} pageCount={pageCount} username={username} userId={user_id} />
   );
 }
 
@@ -30,13 +32,14 @@ export async function getServerSideProps(context) {
   }
 
   try {
-    const [cards, pageCount] = await getCardsOfUser(session.user.username);
+    const [cards, pageCount] = await getCardsOfUser(session.user.id);
 
     return {
       props: {
         cards,
         pageCount,
         username: session.user.username,
+        user_id: session.user.id
       },
     };
   } catch (error) {

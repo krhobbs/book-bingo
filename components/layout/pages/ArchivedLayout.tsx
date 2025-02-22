@@ -9,14 +9,14 @@ import { GridListSwitch, Pagination, Spacer } from '../../ui';
 interface ArchivedLayoutProps {
   cards: Card[];
   pageCount: number;
-  username: string;
+  userId: string;
 }
 
-function ArchivedLayout({ cards, pageCount, username }: ArchivedLayoutProps) {
+function ArchivedLayout({ cards, pageCount, userId }: ArchivedLayoutProps) {
   const router = useRouter();
   const page = parseInt(router.query.page as string) || 1;
   const { data, mutate } = useSWR(
-    `/api/cards/${username}/archived?page=${page}`,
+    `/api/cards/${userId}/archived?page=${page}`,
     fetchUsersCards,
     { fallbackData: cards },
   );

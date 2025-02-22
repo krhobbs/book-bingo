@@ -1,15 +1,15 @@
 import { Button, ThemeUICSSObject } from 'theme-ui';
 import { signIn } from 'next-auth/react';
 
-export function LoginButton({ sx }: { sx?: ThemeUICSSObject }) {
+export function LoginButton({ provider, sx }: { provider: ValidProviders, sx?: ThemeUICSSObject }) {
   return (
     <Button
       sx={{ ...sx }}
       onClick={() => {
-        signIn('reddit', { callbackUrl: '/profile' });
+        signIn(provider, { callbackUrl: '/profile' });
       }}
     >
-      Sign in with Reddit
+      Sign in with {provider.charAt(0).toUpperCase() + provider.slice(1)}
     </Button>
   );
 }
