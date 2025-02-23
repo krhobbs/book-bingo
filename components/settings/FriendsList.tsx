@@ -1,8 +1,7 @@
 import React, { FormEvent, useRef, useState } from 'react';
 import { Box, Button, Input, Label, Text, IconButton } from 'theme-ui';
-import Spacer from '../ui/Spacer';
 import { TrashIcon } from '@heroicons/react/20/solid';
-import ErrorPopup from '../ui/ErrorPopup';
+import { ErrorPopup, Spacer } from '../ui';
 
 interface FriendsListInterface {
   friends: string[];
@@ -16,7 +15,7 @@ function FriendsList({
   handleAddFriend,
 }: FriendsListInterface) {
   const [errorMessage, setErrorMessage] = useState('');
-  const newFriendRef = useRef<HTMLInputElement>();
+  const newFriendRef = useRef<HTMLInputElement>(null);
 
   async function onAddFriend(event: FormEvent<HTMLDivElement>) {
     event.preventDefault();
@@ -58,9 +57,8 @@ function FriendsList({
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 borderTop: '1px solid white',
-                borderBottom: `${
-                  index === friends.length - 1 ? '1px solid white' : 'none'
-                }`,
+                borderBottom: `${index === friends.length - 1 ? '1px solid white' : 'none'
+                  }`,
                 py: '.8rem',
                 minInlineSize: '200px',
               }}

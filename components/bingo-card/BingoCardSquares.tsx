@@ -1,14 +1,14 @@
-import BingoItem from './bingo-item/BingoItem';
+import BingoItem from './bingo-item/grid-view/GridItem';
 import { Box } from 'theme-ui';
 import { useContext } from 'react';
 import { ViewContext } from '../layout/Layout';
-import BingoListItem from './bingo-item/list-view/BingoListItem';
+import BingoListItem from './bingo-item/list-view/ListItem';
 export interface BingoCardSquaresProps {
   archived: boolean;
   cardId: string;
   squares: Square[];
   usersCard: boolean;
-  handleUpdateCardSquare: (cardId: string, squareId: string) => Promise<void>;
+  handleUpdateCardSquare: UpdateSingleSquareFunction;
   handleFlipCardSquare: (id: number) => void;
   flippedArray: boolean[];
 }

@@ -1,17 +1,11 @@
 import Head from 'next/head';
-import Spacer from '../../ui/Spacer';
+import { LoginButton, Spacer } from '../../ui';
 import { Text } from 'theme-ui';
-import LoginButton from '../../ui/LoginButton';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 
 function HomeLayout() {
   const { status } = useSession();
-  const router = useRouter();
-
-  if (status === 'authenticated') {
-    router.replace('/profile');
-  }
 
   return (
     <>
@@ -37,8 +31,14 @@ function HomeLayout() {
         You can also view archived cards or add and delete friends for the
         /settings page.
       </Text>
-      <Spacer size="2rem" />
-      <LoginButton sx={{ display: 'block', mx: 'auto' }} />
+      {status === 'unauthenticated' &&
+        <>
+          <Spacer size="2rem" />
+          <LoginButton provider="google" sx={{ display: 'block', mx: 'auto' }} />
+          <Spacer size="2rem" />
+          <LoginButton provider="reddit" sx={{ display: 'block', mx: 'auto' }} />
+        </>
+      }
     </>
   );
 }

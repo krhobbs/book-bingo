@@ -16,7 +16,7 @@ const baseStyles: ThemeUICSSObject = {
   position: 'absolute',
 };
 
-function ErrorPopup(props: ErrorPopupProps): ReactElement {
+export function ErrorPopup(props: ErrorPopupProps): ReactElement {
   const { message, close, sx = {}, ...rest } = props;
 
   return (
@@ -40,5 +40,3 @@ function ErrorPopup(props: ErrorPopupProps): ReactElement {
     </Box>
   );
 }
-
-export default ErrorPopup;

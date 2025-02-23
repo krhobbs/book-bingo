@@ -1,17 +1,15 @@
-import Spacer from '../ui/Spacer';
+import { Modal, Spacer } from '../ui';
 import { Box, Flex, Text, Button } from 'theme-ui';
 import { useSession } from 'next-auth/react';
 import BingoCardTitle from './BingoCardTitle';
 import BingoCardSquares from './BingoCardSquares';
 import { createPortal } from 'react-dom';
 import { useState } from 'react';
-import Modal from '../ui/Modal';
-
 interface BingoCardProps {
   card: Card;
   handleArchiveCard: (card: Card) => Promise<void>;
   handleDeleteCard: (card: Card) => Promise<void>;
-  handleUpdateCardSquare: (cardId: string, squareId: string) => Promise<void>;
+  handleUpdateCardSquare: UpdateSingleSquareFunction;
 }
 
 function BingoCard({

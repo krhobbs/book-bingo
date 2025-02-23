@@ -10,7 +10,7 @@ function getUnit(size: string | number): string {
   return typeof size === 'string' ? size : `${size}px`;
 }
 
-function Spacer(props: SpacerProps): ReactElement {
+export function Spacer(props: SpacerProps): ReactElement {
   const { sx = {}, size = '1px', ...rest } = props;
   const blockSize = Array.isArray(size)
     ? size.map((bp: number | string) => getUnit(bp))
@@ -18,5 +18,3 @@ function Spacer(props: SpacerProps): ReactElement {
 
   return <Box sx={{ blockSize, minInlineSize: '1px', ...sx }} {...rest} />;
 }
-
-export default Spacer;

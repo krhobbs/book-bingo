@@ -26,7 +26,7 @@ const containerStyles: ThemeUICSSObject = {
   zIndex: '100',
 };
 
-function TopNav() {
+export function TopNav() {
   const { status } = useSession();
   const [colorMode, setColorMode] = useColorMode();
 
@@ -76,5 +76,3 @@ function TopNav() {
     </Box>
   );
 }
-
-export default TopNav;

@@ -1,12 +1,10 @@
 import Head from 'next/head';
 import { Text } from 'theme-ui';
-import Spacer from '../../ui/Spacer';
-import GridListSwitch from '../../ui/GridListSwitch';
+import { GridListSwitch, Pagination, Spacer } from '../../ui';
 import Templates from '../../Templates';
 import useSWR from 'swr';
 import { fetchTemplates } from '../../../utils/api-utils';
 import { useRouter } from 'next/router';
-import Pagination from '../../ui/Pagination';
 
 interface TemplatesLayoutProps {
   templates: Template[];
@@ -16,7 +14,7 @@ interface TemplatesLayoutProps {
 function TemplatesLayout({ templates, pageCount }: TemplatesLayoutProps) {
   const router = useRouter();
   const page = parseInt(router.query.page as string) || 1;
-  const { data, mutate } = useSWR(
+  const { data } = useSWR(
     `/api/templates?page=${page}`,
     fetchTemplates,
     { fallbackData: templates },

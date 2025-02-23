@@ -3,8 +3,6 @@ import Link from 'next/link';
 import { useMemo } from 'react';
 import { Box, Button, ThemeUIStyleObject } from 'theme-ui';
 import useBreakpoint from '../../../hooks/useBreakpoint';
-import { useSWRConfig } from 'swr';
-import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 
 interface BookButtonsProps {

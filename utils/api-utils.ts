@@ -38,21 +38,14 @@ export async function addCard(username: string, template: Template) {
     template: template.name,
     archived: false,
     squares: template.reqs.map((req, idx) => {
-      return {
-        id: `${idx}`,
-        req: req,
-        book: null,
-        color: null,
-      } as Square;
+      return { id: `${idx}`, req: req, book: null, color: null } as Square;
     }),
   };
 
   try {
     const response = await fetch('/api/card/new', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ templateID: template._id }),
     });
     const data = await response.json();
@@ -84,12 +77,8 @@ export async function updateCardSquare(
 
   await fetch(`/api/card/${cardId}/update-square`, {
     method: 'POST',
-    body: JSON.stringify({
-      ...activeCard.squares[parseInt(squareId)],
-    }),
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    body: JSON.stringify({ ...activeCard.squares[parseInt(squareId)] }),
+    headers: { 'Content-Type': 'application/json' },
   });
 
   return [activeCard, otherCards];
@@ -100,9 +89,7 @@ export async function createTemplate(name: string, reqs: string[]) {
   return await fetch('api/template/new', {
     method: 'POST',
     body: JSON.stringify({ name: name, reqs: reqs }),
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: { 'Content-Type': 'application/json' },
   });
 }
 
@@ -124,6 +111,23 @@ export async function fetchTemplateNames(url: string) {
     return data;
   } catch (error) {
     console.log(error);
+    return;
+  }
+}
+
+export async function setUsername(
+  username: string,
+  identifier: string,
+  provider: 'reddit' | 'google',
+) {
+  try {
+    await fetch('/api/auth/set-user', {
+      method: 'POST',
+      body: JSON.stringify({ username, identifier, provider }),
+      headers: { 'Content-Type': 'application/json' },
+    });
+  } catch (error) {
+    console.error(error);
     return;
   }
 }

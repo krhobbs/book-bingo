@@ -1,12 +1,12 @@
-import Incomplete from './Incomplete';
+import Incomplete from './GridIncomplete';
 import { Box } from 'theme-ui';
-import Complete from './Complete';
+import Complete from './GridComplete';
 interface BingoItemProps {
   cardId: string;
   archived: boolean;
   usersCard: boolean;
   square: Square;
-  handleUpdateCardSquare: (cardId: string, squareId: string) => Promise<void>;
+  handleUpdateCardSquare: UpdateSingleSquareFunction;
   handleFlipCardSquare: (id: number) => void;
   flipped: boolean;
 }

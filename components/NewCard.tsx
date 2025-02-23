@@ -1,48 +1,11 @@
-import { Box, Text, Select, Button } from 'theme-ui';
+import { Box, Text } from 'theme-ui';
 import { PlusIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
-import Modal from './ui/Modal';
+import { Modal } from './ui';
 import useSWR from 'swr';
 import { fetchTemplateNames } from '../utils/api-utils';
-import { useForm } from 'react-hook-form';
-
-const SelectTemplateForm = ({
-  templates,
-  onNewCard,
-  closeModal,
-}: {
-  templates: Template[];
-  onNewCard: Function;
-  closeModal: Function;
-}) => {
-  const { register, handleSubmit } = useForm();
-  const onSubmit = ({ template }: { template: number }) => {
-    onNewCard(templates[template], closeModal);
-  };
-  return (
-    <Box
-      as="form"
-      onSubmit={handleSubmit(onSubmit)}
-      sx={{
-        display: 'flex',
-        flexDirection: ['column', 'row'],
-        gap: ['1rem', '1rem'],
-      }}
-    >
-      <Select sx={{ minWidth: '15rem' }} {...register('template')}>
-        {templates.map((template, idx) => {
-          return (
-            <option key={template.name} value={idx}>
-              {template.name}
-            </option>
-          );
-        })}
-      </Select>
-      <Button>Create</Button>
-    </Box>
-  );
-};
+import SelectTemplateForm from './forms/SelectTemplateForm';
 
 function NewCard({
   handleNewCard,

@@ -1,18 +1,18 @@
 import { Box } from 'theme-ui';
-import CompleteBack from './CompleteBack';
-import CompleteFront from './CompleteFront';
+import GridCompleteBack from './GridCompleteBack';
+import GridCompleteFront from './GridCompleteFront';
 
 interface CompleteProps {
   archived: boolean;
   cardId: string;
   usersCard: boolean;
   square: Square;
-  handleUpdateCardSquare: (cardId: string, squareId: string) => Promise<void>;
+  handleUpdateCardSquare: UpdateSingleSquareFunction;
   handleFlipCardSquare: (id: number) => void;
   flipped: boolean;
 }
 
-function Complete({
+function GridComplete({
   archived,
   cardId,
   usersCard,
@@ -35,7 +35,7 @@ function Complete({
         handleFlipCardSquare(Number(square.id));
       }}
     >
-      <CompleteBack
+      <GridCompleteBack
         archived={archived}
         cardId={cardId}
         usersCard={usersCard}
@@ -44,9 +44,9 @@ function Complete({
         handleUpdateCardSquare={handleUpdateCardSquare}
         flipped={flipped}
       />
-      <CompleteFront bookReq={square.req} flipped={flipped} />
+      <GridCompleteFront bookReq={square.req} flipped={flipped} />
     </Box>
   );
 }
 
-export default Complete;
+export default GridComplete;

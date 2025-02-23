@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Box, Label, Input, Button, Text } from 'theme-ui';
-import ErrorPopup from '../ui/ErrorPopup';
-import Spacer from '../ui/Spacer';
+import { ErrorPopup, Spacer } from '../ui';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 
 interface EditBookFormValues {
@@ -46,12 +45,7 @@ function EditBookForm({
   return (
     <Box
       as="form"
-      sx={{
-        marginBlockStart: '7rem',
-        px: ['0.25rem', '0rem'],
-        mx: 'auto',
-        maxInlineSize: '512px',
-      }}
+      variant='layout.form'
       onSubmit={handleSubmit(onSubmit)}
     >
       <Box>

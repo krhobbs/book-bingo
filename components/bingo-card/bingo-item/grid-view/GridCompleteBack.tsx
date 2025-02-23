@@ -1,7 +1,7 @@
-import BookInfo from '../../book/BookInfo';
+import BookInfo from '../../../book/BookInfo';
 import { Box } from 'theme-ui';
-import Spacer from '../../ui/Spacer';
-import BookButtons from './BookButtons';
+import { Spacer } from '../../../ui';
+import BookButtons from '../BookButtons';
 
 interface CompleteBackProps {
   archived: boolean;
@@ -9,7 +9,7 @@ interface CompleteBackProps {
   cardId: string;
   squareId: string;
   usersCard: boolean;
-  handleUpdateCardSquare: (cardId: string, squareId: string) => Promise<void>;
+  handleUpdateCardSquare: UpdateSingleSquareFunction;
   flipped: boolean;
 }
 

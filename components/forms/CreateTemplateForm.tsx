@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Box, Label, Input, Button, Text } from 'theme-ui';
-import ErrorPopup from '../ui/ErrorPopup';
-import Spacer from '../ui/Spacer';
+import { ErrorPopup, Spacer } from '../ui';
 import { useRouter } from 'next/router';
 import { createTemplate } from '../../utils/api-utils';
 
@@ -31,12 +30,7 @@ function CreateTemplateForm() {
   return (
     <Box
       as="form"
-      sx={{
-        marginBlockStart: '7rem',
-        px: ['0.25rem', '0rem'],
-        mx: 'auto',
-        maxInlineSize: '512px',
-      }}
+      variant='layout.form'
       onSubmit={handleSubmit(onSubmit)}
     >
       <Label htmlFor="name" variant="text.heading2">Name</Label>

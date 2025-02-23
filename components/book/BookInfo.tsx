@@ -1,5 +1,5 @@
 import { Text } from 'theme-ui';
-import Spacer from '../ui/Spacer';
+import { Spacer } from '../ui';
 
 interface BookInfoProps {
   book: Book;

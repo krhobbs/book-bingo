@@ -1,5 +1,5 @@
 import { Box, Button, Text } from 'theme-ui';
-import Spacer from '../ui/Spacer';
+import { Spacer } from '../ui';
 import { DocumentPlusIcon } from '@heroicons/react/24/outline';
 import TemplateButtons from './TemplateButtons';
 import useBreakpoint from '../../hooks/useBreakpoint';

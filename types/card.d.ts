@@ -13,6 +13,7 @@ interface Square {
 interface Card {
   _id: string;
   user: string;
+  user_id: string;
   template: string;
   archived: boolean;
   squares: Square[];
@@ -24,3 +25,8 @@ interface Template {
   user: string;
   reqs: string[];
 }
+
+type UpdateSingleSquareFunction = (
+  cardId: string,
+  squareId: string,
+) => Promise<void>;

@@ -1,9 +1,7 @@
 import type { Theme } from 'theme-ui';
 
 export const theme: Theme = {
-  config: {
-    initialColorModeName: 'light',
-  },
+  config: { initialColorModeName: 'light' },
   colors: {
     text: '#000000',
     background: '#FFFFFF',
@@ -80,9 +78,7 @@ export const theme: Theme = {
       cursor: 'pointer',
       bg: 'primary',
       padding: '0.5rem 1.5rem',
-      '&:hover': {
-        boxShadow: 'pushedIn',
-      },
+      '&:hover': { boxShadow: 'pushedIn' },
     },
     settings: {
       fontWeight: 'heading',
@@ -91,9 +87,7 @@ export const theme: Theme = {
       cursor: 'pointer',
       bg: 'transparent',
       textAlign: 'left',
-      '&:hover': {
-        bg: 'muted',
-      },
+      '&:hover': { bg: 'muted' },
     },
     cardOptions: {
       variant: 'buttons.settings',
@@ -111,9 +105,7 @@ export const theme: Theme = {
       blockSize: ['1.5rem', '2.25rem'],
       inlineSize: ['1.5rem', '2.25rem'],
       padding: '0px',
-      '&:hover': {
-        boxShadow: 'pushedIn',
-      },
+      '&:hover': { boxShadow: 'pushedIn' },
     },
   },
   layout: {
@@ -134,6 +126,12 @@ export const theme: Theme = {
       position: 'absolute',
       transition: 'all .6s ease',
     },
+    form: {
+      marginBlockStart: '7rem',
+      px: ['0.25rem', '0rem'],
+      mx: 'auto',
+      maxInlineSize: '512px',
+    },
   },
   links: {
     item: {
@@ -143,9 +141,7 @@ export const theme: Theme = {
       color: 'text',
       inlineSize: ['38px', '60px'],
       textAlign: 'center',
-      '&:hover': {
-        boxShadow: 'pushedIn',
-      },
+      '&:hover': { boxShadow: 'pushedIn' },
     },
     settings: {
       fontWeight: 'heading',
@@ -156,9 +152,7 @@ export const theme: Theme = {
       borderRadius: '4px',
       padding: '0.5rem 1rem',
       textAlign: 'left',
-      '&:hover': {
-        bg: 'muted',
-      },
+      '&:hover': { bg: 'muted' },
     },
     pagination: {
       alignItems: 'center',
@@ -183,31 +177,15 @@ export const theme: Theme = {
     },
   },
   forms: {
-    label: {
-      fontFamily: 'body',
-      fontWeight: 'body',
-      fontSize: [2, 3],
-    },
+    label: { fontFamily: 'body', fontWeight: 'body', fontSize: [2, 3] },
   },
   styles: {
     root: {
       fontFamily: 'body',
-      a: {
-        textDecoration: 'none',
-        color: 'inherit',
-        fontSize: 4,
-      },
-      body: {
-        minHeight: '100vh',
-      },
-      button: {
-        fontFamily: 'body',
-      },
-      input: {
-        '&:focus': {
-          outline: 'none',
-        },
-      },
+      a: { textDecoration: 'none', color: 'inherit', fontSize: 4 },
+      body: { minHeight: '100vh' },
+      button: { fontFamily: 'body' },
+      input: { '&:focus': { outline: 'none' } },
     },
   },
 };

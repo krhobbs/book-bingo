@@ -2,27 +2,28 @@ import Head from 'next/head';
 import { Text } from 'theme-ui';
 import Cards from '../../Cards';
 import NewCard from '../../NewCard';
-import GridListSwitch from '../../ui/GridListSwitch';
-import Spacer from '../../ui/Spacer';
+import { GridListSwitch, Pagination, Spacer } from '../../ui';
 import useSWR from 'swr';
 import { addCard, fetchUsersCards } from '../../../utils/api-utils';
 import { useRouter } from 'next/router';
-import Pagination from '../../ui/Pagination';
+import { useSession } from 'next-auth/react';
 
 interface ProfileLayoutProps {
   cards: Card[];
   pageCount: number;
   username: string;
+  userId: string;
 }
 
-function ProfileLayout({ cards, pageCount, username }: ProfileLayoutProps) {
+function ProfileLayout({ cards, pageCount, username, userId }: ProfileLayoutProps) {
   const router = useRouter();
   const page = parseInt(router.query.page as string) || 1;
   const { data, mutate } = useSWR(
-    `/api/cards/${username}?page=${page}`,
+    `/api/cards/${userId}?page=${page}`,
     fetchUsersCards,
     { fallbackData: cards },
   );
+  const { data: session } = useSession();
 
   // New Card Creation
   // Take in template data
@@ -41,6 +42,7 @@ function ProfileLayout({ cards, pageCount, username }: ProfileLayoutProps) {
       <Head>
         <title>Book Bingo | Profile</title>
       </Head>
+      {!(session?.user?.username) && <Text>Set your username:</Text>}
       <Text variant="heading1" as="h1" sx={{ textAlign: 'center' }}>
         Your Profile
       </Text>
