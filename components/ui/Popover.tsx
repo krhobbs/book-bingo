@@ -4,7 +4,7 @@ import { usePopover } from '../../hooks/usePopover';
 
 interface PopoverProps {
   children: ReactNode;
-  button: RefObject<HTMLButtonElement>;
+  button: RefObject<HTMLButtonElement | null>;
   sx?: ThemeUIStyleObject;
 }
 

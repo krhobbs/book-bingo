@@ -23,19 +23,20 @@ function AddBookLayout({
   const { mutate, cache } = useSWRConfig();
 
   async function handleAddBook(book: Book, color: string) {
+    if (!session) { return; }
     const key =
       fromPage === 'profile'
         ? `/api/cards/${session.user.id}?page=${fromPageNum}`
         : `/api/cards?page=${fromPageNum}`;
-    const { data: cards } = cache.get(key);
+    const { data: cards } = cache.get(key) as { data: Card[] };
 
     try {
       const [activeCard, otherCards] = await updateCardSquare(
-        book,
-        color,
         cards,
         square,
         cardId,
+        book,
+        color,
       );
       await mutate(key, [...otherCards, activeCard]);
       router.back();

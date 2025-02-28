@@ -2,7 +2,7 @@ import { RefObject, useEffect, useState } from 'react';
 
 export function usePopover(
   ref: RefObject<HTMLElement>,
-  buttonRef: RefObject<HTMLElement>,
+  buttonRef: RefObject<HTMLElement | null>,
   spaceBetween: number,
 ) {
   const [top, setTop] = useState<number>();

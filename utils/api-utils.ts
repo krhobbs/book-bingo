@@ -38,7 +38,12 @@ export async function addCard(username: string, template: Template) {
     template: template.name,
     archived: false,
     squares: template.reqs.map((req, idx) => {
-      return { id: `${idx}`, req: req, book: null, color: null } as Square;
+      return {
+        id: `${idx}`,
+        req: req,
+        book: undefined,
+        color: undefined,
+      } as Square;
     }),
   };
 
@@ -60,11 +65,11 @@ export async function addCard(username: string, template: Template) {
 export async function deleteCard() {}
 
 export async function updateCardSquare(
-  book: Book,
-  color: string,
   cards: Card[],
   squareId: string,
   cardId: string,
+  book?: Book,
+  color?: string,
 ): Promise<[Card, Card[]]> {
   const activeCard: Card = cards.filter((c: Card) => c._id === cardId)[0];
   const otherCards: Card[] = cards.filter((c: Card) => c._id !== cardId);

@@ -1,14 +1,7 @@
 import { Box } from 'theme-ui';
 import ListComplete from './ListComplete';
 import ListIncomplete from './ListIncomplete';
-
-interface BingoListItemProps {
-  cardId: string;
-  archived: boolean;
-  usersCard: boolean;
-  square: Square;
-  handleUpdateCardSquare: UpdateSingleSquareFunction;
-}
+import type { ItemProps } from '../BingoItemProps';
 
 function BingoListItem({
   archived,
@@ -16,7 +9,7 @@ function BingoListItem({
   square,
   usersCard,
   handleUpdateCardSquare,
-}: BingoListItemProps) {
+}: ItemProps) {
   return (
     <Box
       sx={{
@@ -31,14 +24,14 @@ function BingoListItem({
         blockSize: '212px',
         border: (theme) =>
           `solid 1px ${square.book
-            ? (square.color ?? theme.colors.accent)
-            : theme.colors.secondary
+            ? (square.color ?? theme.colors?.accent)
+            : theme.colors?.secondary
           }`,
         borderRadius: '5px',
         boxShadow: (theme) =>
           `1px 1px 0px 1px ${square.book
-            ? (square.color ?? theme.colors.accent)
-            : theme.colors.secondary
+            ? (square.color ?? theme.colors?.accent)
+            : theme.colors?.secondary
           }`,
         marginInline: 'auto',
       }}

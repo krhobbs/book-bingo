@@ -15,8 +15,8 @@ function AddBookForm({ handleAddBook }: { handleAddBook: Function }) {
   const { register, handleSubmit } = useForm<AddBookFormValues>();
 
   const onSubmit: SubmitHandler<AddBookFormValues> = async (data) => {
-    if (!data.cover.includes('images-na.ssl-images-amazon.com')) {
-      data.cover = null;
+    if (!data?.cover?.includes('images-na.ssl-images-amazon.com')) {
+      data.cover = undefined;
     }
 
     const book: Book = {

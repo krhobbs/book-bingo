@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { Box, Text } from 'theme-ui';
 import { Spacer } from '../../../ui';
 import { useRouter } from 'next/router';
+import AddBookLink from '../AddBookLink';
+import { paramToNumber } from '../../../../utils/param-utils';
 
 interface IncompleteProps {
   archived: boolean;
@@ -20,6 +22,7 @@ function Incomplete({
   usersCard,
 }: IncompleteProps) {
   const { pathname, query } = useRouter();
+  const page = paramToNumber(query.page) ?? 1;
 
   return (
     <Box variant="layout.squareSide">
@@ -27,31 +30,7 @@ function Incomplete({
       {usersCard && !archived && (
         <>
           <Spacer size={['1rem']} />
-          <Link
-            href={{
-              pathname: '/add-book',
-              query: {
-                card: cardId,
-                square: squareId,
-                fromPage: pathname.includes('profile') ? 'profile' : 'home',
-                fromPageNum: query.page || '1',
-              },
-            }}
-            aria-label="add new book"
-          >
-            <Box
-              variant="links.item"
-              sx={{
-                bottom: ['8px', '12px'],
-                left: '0px',
-                marginInline: 'auto',
-                position: 'absolute',
-                right: '0px',
-              }}
-            >
-              <PlusIcon style={{ blockSize: '100%' }} />
-            </Box>
-          </Link>
+          <AddBookLink cardId={cardId} squareId={squareId} pathname={pathname} page={page} />
         </>
       )}
     </Box>

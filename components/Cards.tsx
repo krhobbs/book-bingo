@@ -32,8 +32,6 @@ function Cards({ cards, mutate }: { cards: Card[]; mutate: Function }) {
     try {
       // Setting the book and color params to null because this deals with deleting a book from a square
       const [activeCard, otherCards] = await updateCardSquare(
-        null,
-        null,
         cards,
         squareId,
         cardId,
