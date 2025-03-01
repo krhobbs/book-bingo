@@ -1,5 +1,7 @@
+import { GetServerSidePropsContext } from 'next';
 import EditBookLayout from '../components/layout/pages/EditBookLayout';
 import { getSquareOfCard } from '../utils/db-utils';
+import { paramToNumber, paramToString } from '../utils/param-utils';
 
 function EditBook({
   square,
@@ -24,15 +26,17 @@ function EditBook({
 
 export default EditBook;
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   if (!context.query.square || !context.query.card || !context.query.fromPage) {
     return { notFound: true };
   }
 
   try {
+    const card = paramToString(context.query.card) || '';
+    const squareId = paramToNumber(context.query.square) || 1;
     const square = await getSquareOfCard(
-      context.query.card,
-      parseInt(context.query.square),
+      card,
+      squareId,
     );
     return {
       props: {

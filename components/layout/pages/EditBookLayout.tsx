@@ -19,22 +19,22 @@ function EditBookLayout({
   fromPageNum,
 }: EditBookLayoutProps) {
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session } = useSession({ required: true });
   const { mutate, cache } = useSWRConfig();
 
   async function handleEditBook(book: Book, color: string) {
     const key =
       fromPage === 'profile'
-        ? `/api/cards/${session.user.username}?page=${fromPageNum}`
+        ? `/api/cards/${session?.user.id}?page=${fromPageNum}`
         : `/api/cards?page=${fromPageNum}`;
-    const { data: cards } = cache.get(key);
+    const { data: cards } = cache.get(key) as { data: Card[] };;
 
     const [activeCard, otherCards] = await updateCardSquare(
-      book,
-      color,
       cards,
       square.id,
       cardId,
+      book,
+      color,
     );
     await mutate(key, [...otherCards, activeCard]);
     router.back();

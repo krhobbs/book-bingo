@@ -1,10 +1,9 @@
-import { useContext } from 'react';
 import { Box } from 'theme-ui';
 import { Squares2X2Icon, ListBulletIcon } from '@heroicons/react/24/outline';
-import { ViewContext } from '../layout/Layout';
+import { useViewContext } from '../../hooks/useViewContext';
 
 export function GridListSwitch() {
-  const [listView, setListView] = useContext(ViewContext);
+  const { view, setView } = useViewContext();
 
   return (
     <Box
@@ -22,7 +21,7 @@ export function GridListSwitch() {
         padding: '0rem',
         position: 'relative',
       }}
-      onClick={() => setListView(!listView)}
+      onClick={() => setView((prev) => prev === 'list' ? 'list' : 'grid')}
       aria-label="toggle grid/list view"
     >
       <Box
@@ -31,7 +30,7 @@ export function GridListSwitch() {
           blockSize: ['1.4rem', '1.8rem'],
           borderRadius: '5px',
           inlineSize: '49%',
-          left: `${listView ? '49.9%' : '0.8%'}`,
+          left: `${view ? '49.9%' : '0.8%'}`,
           position: 'absolute',
           top: '1.5px',
           transition: 'left .25s',

@@ -1,5 +1,3 @@
-import { PlusIcon } from '@heroicons/react/24/outline';
-import Link from 'next/link';
 import { Box, Text } from 'theme-ui';
 import { Spacer } from '../../../ui';
 import { useRouter } from 'next/router';

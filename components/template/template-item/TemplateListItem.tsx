@@ -13,9 +13,9 @@ function TemplateListItem({ req }: { req: string }) {
         position: 'relative',
         inlineSize: ['98%', '512px'],
         blockSize: '212px',
-        border: (theme) => `solid 1px ${theme.colors.accent}`,
+        border: (theme) => `solid 1px ${theme.colors?.accent}`,
         borderRadius: '5px',
-        boxShadow: (theme) => `1px 1px 0px 1px ${theme.colors.accent}`,
+        boxShadow: (theme) => `1px 1px 0px 1px ${theme.colors?.accent}`,
         marginInline: 'auto',
       }}
     >

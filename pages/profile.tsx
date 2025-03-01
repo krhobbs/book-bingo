@@ -2,6 +2,7 @@ import { getCardsOfUser } from '../utils/db-utils';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from './api/auth/[...nextauth]';
 import ProfileLayout from '../components/layout/pages/ProfileLayout';
+import { GetServerSidePropsContext } from 'next';
 
 export default function Profile({
   cards,
@@ -19,7 +20,7 @@ export default function Profile({
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getServerSession(context.req, context.res, authOptions);
 
   if (!session) {

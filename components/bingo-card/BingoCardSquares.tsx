@@ -1,8 +1,7 @@
 import BingoItem from './bingo-item/grid-view/GridItem';
 import { Box } from 'theme-ui';
-import { useContext } from 'react';
-import { ViewContext } from '../layout/Layout';
 import BingoListItem from './bingo-item/list-view/ListItem';
+import { useViewContext } from '../../hooks/useViewContext';
 export interface BingoCardSquaresProps {
   archived: boolean;
   cardId: string;
@@ -22,11 +21,11 @@ function BingoCardSquares({
   handleFlipCardSquare,
   flippedArray,
 }: BingoCardSquaresProps) {
-  const [listView] = useContext(ViewContext);
+  const { view, setView } = useViewContext();
 
   return (
     <>
-      {listView ? (
+      {view === 'list' ? (
         <Box
           as="section"
           sx={{

@@ -23,7 +23,7 @@ function NewCard({
           alignItems: 'center',
           blockSize: ['520px', '682px'],
           background: 'transparent',
-          border: (theme) => `2px solid ${theme.colors.muted}`,
+          border: (theme) => `2px solid ${theme.colors?.muted}`,
           borderRadius: '1rem',
           color: 'muted',
           cursor: 'pointer',

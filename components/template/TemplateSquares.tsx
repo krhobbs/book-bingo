@@ -1,18 +1,17 @@
 import { Box } from 'theme-ui';
-import { useContext } from 'react';
-import { ViewContext } from '../layout/Layout';
 import TemplateListItem from './template-item/TemplateListItem';
 import TemplateItem from './template-item/TemplateItem';
+import { useViewContext } from '../../hooks/useViewContext';
 
 export interface TemplateSquaresProps {
   reqs: string[];
 }
 
 function TemplateSquares({ reqs }: TemplateSquaresProps) {
-  const [listView] = useContext(ViewContext);
+  const { view } = useViewContext();
   return (
     <>
-      {listView ? (
+      {view === 'list' ? (
         <Box
           as="section"
           sx={{

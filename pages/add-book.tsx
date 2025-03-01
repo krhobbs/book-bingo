@@ -1,3 +1,4 @@
+import { GetServerSidePropsContext } from 'next';
 import AddBookLayout from '../components/layout/pages/AddBookLayout';
 
 function AddBook({
@@ -23,7 +24,7 @@ function AddBook({
 
 export default AddBook;
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   if (!context.query.square || !context.query.card || !context.query.fromPage) {
     return { notFound: true };
   }

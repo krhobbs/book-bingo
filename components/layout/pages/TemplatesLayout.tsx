@@ -31,7 +31,7 @@ function TemplatesLayout({ templates, pageCount }: TemplatesLayoutProps) {
       <Spacer size="2rem" />
       <GridListSwitch />
       <Spacer size="2rem" />
-      {data.length === 0 ? (
+      {data?.length === 0 || !data ? (
         <Text variant="body1">No Templates.</Text>
       ) : (
         <>

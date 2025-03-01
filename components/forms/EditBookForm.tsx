@@ -21,20 +21,20 @@ function EditBookForm({
   const { register, handleSubmit } = useForm<EditBookFormValues>();
 
   const onSubmit: SubmitHandler<EditBookFormValues> = async (data) => {
-    if (!data.cover.includes('images-na.ssl-images-amazon.com')) {
-      data.cover = null;
+    if (data?.cover?.includes('images-na.ssl-images-amazon.com')) {
+      data.cover = undefined;
     }
 
     const book: Book = {
       title: data.title,
       author: data.author,
-      cover: data.cover || null,
+      cover: data?.cover,
     };
 
     try {
-      await handleEditBook(book, data.color);
+      await handleEditBook(book, data?.color || '#FFFFFF');
     } catch (error) {
-      setErrorMessage(error.message || 'Error editing book.')
+      setErrorMessage('Error editing book.')
     }
   }
 
@@ -55,7 +55,7 @@ function EditBookForm({
           required
           id="title"
           {...register('title')}
-          defaultValue={square.book.title}
+          defaultValue={square?.book?.title || ''}
         />
       </Box>
       <Spacer size={['2rem']} />
@@ -66,7 +66,7 @@ function EditBookForm({
           required
           id="author"
           {...register('author')}
-          defaultValue={square.book.author}
+          defaultValue={square?.book?.author || ''}
         />
       </Box>
       <Spacer size={['2rem']} />
@@ -76,7 +76,7 @@ function EditBookForm({
           type="url"
           id="cover"
           {...register('cover')}
-          defaultValue={square.book.cover ?? ''}
+          defaultValue={square?.book?.cover ?? ''}
         />
         <Text as="p" variant="body2" sx={{ mt: '0.1rem' }}>
           Only image urls from goodreads are compatible.
