@@ -1,4 +1,4 @@
-import { getCardsOfUsers } from '../utils/db-utils';
+import { getCards, getCardsOfUsers } from '../utils/db-utils';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from './api/auth/[...nextauth]';
 import FriendsLayout from '../components/layout/pages/FriendsLayout';
@@ -31,7 +31,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   }
 
   try {
-    const [cards, pageCount] = await getCardsOfUsers(session.user.friends);
+    const { cards, pageCount } = await getCards({ userIds: session.user.friends });
 
     return {
       props: {
