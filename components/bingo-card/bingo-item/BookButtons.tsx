@@ -19,7 +19,7 @@ function BookButtons({
   handleUpdateCardSquare,
 }: BookButtonsProps) {
   const breakpoint = useBreakpoint();
-  const { pathname, query } = useRouter();
+  const { query } = useRouter();
   const iconSize = useMemo(
     () => (breakpoint === 'sm' ? '14px' : '18px'),
     [breakpoint],
@@ -53,7 +53,6 @@ function BookButtons({
           query: {
             card: cardId,
             square: squareId,
-            fromPage: pathname.includes('profile') ? 'profile' : 'home',
             fromPageNum: query.page || '1',
           },
         }}

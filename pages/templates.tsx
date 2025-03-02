@@ -23,7 +23,7 @@ export async function getStaticProps() {
       revalidate: 800,
     };
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return {
       props: {
         templates: [],

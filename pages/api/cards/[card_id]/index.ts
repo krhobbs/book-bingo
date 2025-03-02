@@ -4,6 +4,7 @@ import {
   deleteCard,
   toggleArchiveCard,
   updateCardSquare,
+  isUsersCard,
 } from '../../../../utils/db-utils';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../auth/[...nextauth]';
@@ -11,11 +12,10 @@ import { paramToString } from '../../../../utils/param-utils';
 
 function validateSquare(square: any): square is Square {
   return (
-    typeof square.id === 'string' &&
+    typeof square.id === 'number' &&
     typeof square.color === 'string' &&
     typeof square.book.title === 'string' &&
-    typeof square.book.author === 'string' &&
-    square.book.cover
+    typeof square.book.author === 'string'
   );
 }
 
@@ -33,19 +33,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     }
   }
 
-  if (req.method === 'PUT') {
-    const { archived, square } = req.body;
-
-    if (typeof archived === 'boolean') {
-      await toggleArchiveCard(cardId, archived);
-    }
-
-    if (validateSquare(square)) {
-      await updateCardSquare(cardId, square);
-    }
-  }
-
-  if (req.method === 'DELETE') {
+  if (req.method === 'PUT' || req.method === 'DELETE') {
     const session = await getServerSession(req, res, authOptions);
 
     // Make sure the user is authenticated
@@ -53,16 +41,38 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       return res.status(401).json({ message: 'Not authenticated.' });
     }
 
-    try {
-      if (!cardId) {
-        return res.status(400).json({ message: 'Invalid request.' });
-      }
-      await deleteCard(cardId);
-      res.status(200).json({ message: `Deleted card ${cardId}.` });
-    } catch (error) {
+    const usersCard = isUsersCard(session.user.id, cardId);
+    if (!usersCard) {
       return res
-        .status(422)
-        .json({ message: 'Unable to connect to database. Try again later.' });
+        .status(403)
+        .json({ message: 'Can only modify your own card.' });
+    }
+
+    if (req.method === 'PUT') {
+      const { archived, square } = req.body;
+
+      if (typeof archived === 'boolean') {
+        await toggleArchiveCard(cardId, archived);
+        return res
+          .status(200)
+          .json({ message: 'Toggled archive status of card.' });
+      }
+
+      if (validateSquare(square)) {
+        await updateCardSquare(cardId, square);
+        return res.status(200).json({ message: 'Added book.' });
+      }
+    }
+
+    if (req.method === 'DELETE') {
+      try {
+        await deleteCard(cardId);
+        res.status(200).json({ message: `Deleted card ${cardId}.` });
+      } catch (error) {
+        return res
+          .status(422)
+          .json({ message: 'Unable to connect to database. Try again later.' });
+      }
     }
   }
 }

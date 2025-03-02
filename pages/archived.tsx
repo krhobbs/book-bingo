@@ -31,7 +31,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   }
 
   try {
-    const { cards, pageCount } = await getCards({ userIds: [session.user.id] });
+    const { cards, pageCount } = await getCards({ userIds: [session.user.id], page: 1, archived: true });
 
     return {
       props: {

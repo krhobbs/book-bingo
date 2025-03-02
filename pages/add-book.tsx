@@ -4,7 +4,6 @@ import AddBookLayout from '../components/layout/pages/AddBookLayout';
 function AddBook({
   square,
   cardId,
-  fromPage,
   fromPageNum,
 }: {
   square: string;
@@ -16,7 +15,6 @@ function AddBook({
     <AddBookLayout
       cardId={cardId}
       square={square}
-      fromPage={fromPage}
       fromPageNum={fromPageNum}
     />
   );
@@ -25,7 +23,7 @@ function AddBook({
 export default AddBook;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  if (!context.query.square || !context.query.card || !context.query.fromPage) {
+  if (!context.query.square || !context.query.card) {
     return { notFound: true };
   }
 
@@ -33,7 +31,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     props: {
       square: context.query.square,
       cardId: context.query.card,
-      fromPage: context.query.fromPage,
       fromPageNum: context.query?.fromPageNum || '1',
     },
   };

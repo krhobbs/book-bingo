@@ -67,7 +67,7 @@ export async function updateCardSquare(
 
   await fetch(`/api/cards/${cardId}`, {
     method: 'PUT',
-    body: JSON.stringify({ ...activeCard.squares[parseInt(squareId)] }),
+    body: JSON.stringify({ square: activeCard.squares[parseInt(squareId)] }),
     headers: { 'Content-Type': 'application/json' },
   });
 

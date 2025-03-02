@@ -8,14 +8,12 @@ import { updateCardSquare } from '../../../utils/api-utils';
 interface AddBookLayoutProps {
   cardId: string;
   square: string;
-  fromPage: string;
   fromPageNum: string;
 }
 
 function AddBookLayout({
   cardId,
   square,
-  fromPage,
   fromPageNum,
 }: AddBookLayoutProps) {
   const router = useRouter();
@@ -24,11 +22,8 @@ function AddBookLayout({
 
   async function handleAddBook(book: Book, color: string) {
     if (!session) { return; }
-    const key =
-      fromPage === 'profile'
-        ? `/api/cards/${session.user.id}?page=${fromPageNum}`
-        : `/api/cards?page=${fromPageNum}`;
-    const { data: cards } = cache.get(key) as { data: Card[] };
+    const key = `/api/cards?archived=false&user_id=${session.user.id}&page=${fromPageNum}`;
+    const { cards } = cache.get(key)?.data;
 
     try {
       const [activeCard, otherCards] = await updateCardSquare(

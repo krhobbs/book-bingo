@@ -4,8 +4,8 @@ import { Flex } from 'theme-ui';
 
 function Cards({ cards, mutate }: { cards: Card[]; mutate: Function }) {
   const handleArchiveCard = async (card: Card) => {
-    await fetch(`/api/card/${card._id}/archive`, {
-      method: 'POST',
+    await fetch(`/api/cards/${card._id}`, {
+      method: 'PUT',
       body: JSON.stringify({
         archived: card.archived,
       }),
@@ -18,8 +18,8 @@ function Cards({ cards, mutate }: { cards: Card[]; mutate: Function }) {
   };
 
   const handleDeleteCard = async (card: Card) => {
-    await fetch(`/api/card/${card._id}/delete`, {
-      method: 'POST',
+    await fetch(`/api/card/${card._id}`, {
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -30,7 +30,6 @@ function Cards({ cards, mutate }: { cards: Card[]; mutate: Function }) {
 
   const handleUpdateCardSquare = async (cardId: string, squareId: string) => {
     try {
-      // Setting the book and color params to null because this deals with deleting a book from a square
       const [activeCard, otherCards] = await updateCardSquare(
         cards,
         squareId,

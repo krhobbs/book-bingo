@@ -19,7 +19,7 @@ function Incomplete({
   squareId,
   usersCard,
 }: IncompleteProps) {
-  const { pathname, query } = useRouter();
+  const { query } = useRouter();
   const page = paramToNumber(query.page) ?? 1;
 
   return (
@@ -28,7 +28,7 @@ function Incomplete({
       {usersCard && !archived && (
         <>
           <Spacer size={['1rem']} />
-          <AddBookLink cardId={cardId} squareId={squareId} pathname={pathname} page={page} />
+          <AddBookLink cardId={cardId} squareId={squareId} page={page} />
         </>
       )}
     </Box>

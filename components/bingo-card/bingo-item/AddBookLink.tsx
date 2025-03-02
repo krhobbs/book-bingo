@@ -5,18 +5,16 @@ import { PlusIcon } from '@heroicons/react/24/outline';
 interface AddBookLinkProps {
   cardId: string;
   squareId: string;
-  pathname: string;
   page: number;
 }
 
-export default function AddBookLink({ cardId, squareId, pathname, page = 1 }: AddBookLinkProps) {
+export default function AddBookLink({ cardId, squareId, page }: AddBookLinkProps) {
   return <Link
     href={{
       pathname: '/add-book',
       query: {
         card: cardId,
         square: squareId,
-        fromPage: pathname.includes('profile') ? 'profile' : 'home',
         fromPageNum: page.toString() || '1',
       },
     }}
