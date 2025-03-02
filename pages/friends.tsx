@@ -1,4 +1,4 @@
-import { getCards, getCardsOfUsers } from '../utils/db-utils';
+import { getCards } from '../utils/db-utils';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from './api/auth/[...nextauth]';
 import FriendsLayout from '../components/layout/pages/FriendsLayout';

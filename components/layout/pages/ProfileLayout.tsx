@@ -3,10 +3,10 @@ import { Text } from 'theme-ui';
 import Cards from '../../Cards';
 import NewCard from '../../NewCard';
 import { GridListSwitch, Pagination, Spacer } from '../../ui';
-import useSWR from 'swr';
-import { addCard, fetchUsersCards } from '../../../utils/api-utils';
+import { addCard } from '../../../utils/api-utils';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
+import useCards from '../../../hooks/useCards';
 
 interface ProfileLayoutProps {
   cards: Card[];
@@ -15,22 +15,24 @@ interface ProfileLayoutProps {
   userId: string;
 }
 
-function ProfileLayout({ cards, pageCount, username, userId }: ProfileLayoutProps) {
+function ProfileLayout({ cards: fallbackCards, pageCount, username, userId }: ProfileLayoutProps) {
   const router = useRouter();
   const page = parseInt(router.query.page as string) || 1;
-  const { data, mutate } = useSWR(
-    `/api/cards/${userId}?page=${page}`,
-    fetchUsersCards,
-    { fallbackData: cards },
-  );
+  const { cards, mutate } = useCards({
+    filters: {
+      page,
+      archived: false,
+      userIds: [userId]
+    }, fallback: { cards: fallbackCards, pageCount: pageCount }
+  })
   const { data: session } = useSession();
 
   // New Card Creation
   // Take in template data
   const handleNewCard = async (template: Template, closeModal: Function) => {
     try {
-      const card = await addCard(username, template);
-      mutate([...data, card]);
+      const card = await addCard(username, userId, template);
+      mutate({ cards: [...cards, card], pageCount: pageCount });
       closeModal();
     } catch (error) {
       console.error(error);
@@ -49,9 +51,9 @@ function ProfileLayout({ cards, pageCount, username, userId }: ProfileLayoutProp
       <Spacer size="2rem" />
       <GridListSwitch />
       <Spacer size="2rem" />
-      {data.length >= 1 ? (
+      {cards.length >= 1 ? (
         <>
-          <Cards cards={data} mutate={mutate} />
+          <Cards cards={cards} mutate={mutate} />
           {pageCount > 1 && (
             <>
               <Spacer size="1rem" />

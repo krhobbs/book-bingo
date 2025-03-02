@@ -33,12 +33,12 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       archived: archivedParam,
     } = req.query;
 
-    const pageNumber = paramToNumber(pageParam) ?? 1;
+    const page = paramToNumber(pageParam) ?? 1;
     const userIds = paramToArray(userParam) ?? [];
     const archived = paramToBoolean(archivedParam) ?? false;
     try {
       const { cards, pageCount } = await getCards({
-        pageNumber,
+        page,
         userIds,
         archived,
       });

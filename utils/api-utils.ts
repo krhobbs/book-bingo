@@ -2,37 +2,22 @@
 export async function fetchCards(url: string) {
   try {
     const response = await fetch(url);
-    const data = await response.json();
-    return data;
+    const { cards, pageCount } = (await response.json()) as {
+      cards: Card[];
+      pageCount: number;
+    };
+    return { cards, pageCount };
   } catch (error) {
     console.log(error);
     return;
   }
 }
 
-export async function fetchUsersCards(url: string) {
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.log(error);
-    return;
-  }
-}
-
-export async function fetchFriendsCards(url: string) {
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.log(error);
-    return;
-  }
-}
-
-export async function addCard(username: string, template: Template) {
+export async function addCard(
+  username: string,
+  userId: string,
+  template: Template,
+): Promise<Card> {
   const card = {
     user: username,
     template: template.name,
@@ -48,17 +33,17 @@ export async function addCard(username: string, template: Template) {
   };
 
   try {
-    const response = await fetch('/api/card/new', {
+    const response = await fetch('/api/cards', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ templateID: template._id }),
     });
     const data = await response.json();
 
-    return { _id: data._id, ...card };
+    return { _id: data._id, user_id: userId, ...card };
   } catch (error) {
     console.log(error);
-    return;
+    throw new Error('Unable to create new card.');
   }
 }
 
@@ -80,8 +65,8 @@ export async function updateCardSquare(
     book: book,
   };
 
-  await fetch(`/api/card/${cardId}/update-square`, {
-    method: 'POST',
+  await fetch(`/api/cards/${cardId}`, {
+    method: 'PUT',
     body: JSON.stringify({ ...activeCard.squares[parseInt(squareId)] }),
     headers: { 'Content-Type': 'application/json' },
   });

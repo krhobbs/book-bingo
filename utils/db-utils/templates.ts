@@ -46,8 +46,8 @@ export async function getTemplateById(template_id: string) {
 }
 
 // gets all templates
-export async function getAllTemplates(pageNumber = 1) {
-  const offsetValue = (pageNumber - 1) * 10;
+export async function getAllTemplates(page = 1) {
+  const offsetValue = (page - 1) * 10;
   const templates = await sql`
     SELECT templates.id AS "_id", users.username AS "user", templates.name, jsonb_agg(template_reqs.req) AS reqs
     FROM ((bingo.templates INNER JOIN bingo.users ON templates.user_id = users.id)
