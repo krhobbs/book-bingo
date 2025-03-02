@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import {
   getCardById,
   deleteCard,
-  toggleArchiveCard,
+  setCardArchived,
   updateCardSquare,
   isUsersCard,
 } from '../../../../utils/db-utils';
@@ -52,7 +52,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       const { archived, square } = req.body;
 
       if (typeof archived === 'boolean') {
-        await toggleArchiveCard(cardId, archived);
+        await setCardArchived(cardId, archived);
         return res
           .status(200)
           .json({ message: 'Toggled archive status of card.' });

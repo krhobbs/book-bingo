@@ -7,7 +7,7 @@ function Cards({ cards, mutate }: { cards: Card[]; mutate: Function }) {
     await fetch(`/api/cards/${card._id}`, {
       method: 'PUT',
       body: JSON.stringify({
-        archived: card.archived,
+        archived: !card.archived,
       }),
       headers: {
         'Content-Type': 'application/json',

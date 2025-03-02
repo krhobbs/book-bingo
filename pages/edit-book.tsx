@@ -6,19 +6,16 @@ import { paramToNumber, paramToString } from '../utils/param-utils';
 function EditBook({
   square,
   cardId,
-  fromPage,
   fromPageNum,
 }: {
   square: Square;
   cardId: string;
-  fromPage: string;
   fromPageNum: string;
 }) {
   return (
     <EditBookLayout
       cardId={cardId}
       square={square}
-      fromPage={fromPage}
       fromPageNum={fromPageNum}
     />
   );
@@ -27,7 +24,7 @@ function EditBook({
 export default EditBook;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  if (!context.query.square || !context.query.card || !context.query.fromPage) {
+  if (!context.query.square || !context.query.card) {
     return { notFound: true };
   }
 
@@ -42,7 +39,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       props: {
         square: square,
         cardId: context.query.card,
-        fromPage: context.query.fromPage,
         fromPageNum: context.query?.fromPageNum || '1',
       },
     };

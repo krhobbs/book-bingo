@@ -1,0 +1,87 @@
+import sql from '../db';
+
+/**
+ * Get a list of up to 10 cards and number of pages of cards
+ */
+export async function getCards({
+  page = 1,
+  userIds = [],
+  archived = false,
+}: CardsFilters): Promise<{ cards: Card[]; pageCount: number }> {
+  const offsetValue = (page - 1) * 10;
+  const filterUser = userIds && userIds.length > 0;
+  const userFilter = sql`AND cards.user_id IN ${sql(userIds)}`;
+  const cards = await sql<Card[]>`
+    SELECT cards.id as "_id", cards.user_id, users.username as "user", templates.name AS "template", bool_and(cards.archived) AS "archived", jsonb_agg(json_build_object('id', card_squares.id, 'req', template_reqs.req, 'book', card_squares.book, 'color', card_squares.color) ORDER BY card_squares.id) AS squares
+    FROM ((((bingo.cards INNER JOIN bingo.users ON cards.user_id = users.id)
+        INNER JOIN bingo.templates ON cards.template_id = templates.id) 
+        INNER JOIN bingo.card_squares ON cards.id = card_squares.card_id)
+        INNER JOIN bingo.template_reqs ON cards.template_id = template_reqs.template_id AND card_squares.id = template_reqs.id)
+    WHERE cards.archived = ${archived} ${filterUser ? userFilter : sql``}
+    GROUP BY cards.id, users.username, templates.name
+    ORDER BY cards.created_at ASC
+    LIMIT 10
+    OFFSET ${offsetValue}`;
+
+  const pageCount = Math.ceil(cards.count / 10);
+
+  return { cards, pageCount };
+}
+
+/**
+ * Gets a single card by ID
+ */
+export async function getCardById(card_id: string): Promise<Card> {
+  const cardResult = await sql<Card[]>`
+    SELECT users.username AS "user", cards.user_id, bool_and(cards.archived) AS "archived", templates.name AS "template", jsonb_agg(json_build_object('id', card_squares.id, 'req', template_reqs.req, 'book', card_squares.book, 'color', card_squares.color)) AS squares
+    FROM ((((bingo.cards INNER JOIN bingo.users ON cards.user_id = users.id)
+        INNER JOIN bingo.templates ON cards.template_id = templates.id) 
+        INNER JOIN bingo.card_squares ON cards.id = card_squares.card_id)
+        INNER JOIN bingo.template_reqs ON cards.template_id = template_reqs.template_id AND card_squares.id = template_reqs.id)
+    WHERE cards.id = ${card_id}
+    GROUP BY users.username, templates.name, cards.created_at
+    ORDER BY cards.created_at DESC`;
+
+  return cardResult[0];
+}
+
+/**
+ * Gets the number of cards that a user has
+ * @param user_id
+ */
+export async function getUserCardCount(user_id: string): Promise<number> {
+  const cardCount = await sql`
+    SELECT count(*)
+    FROM bingo.cards
+    WHERE cards.user_id = ${user_id}`;
+
+  return cardCount[0].count;
+}
+
+/**
+ * Insert a card into the database
+ * @param user_id ID of the user creating the new card
+ * @param template_id ID of template to base the card on
+ * @returns the new cards ID
+ */
+export async function insertCard(
+  user_id: string,
+  template_id: string,
+): Promise<string> {
+  const insertCard = await sql`
+    INSERT INTO bingo.cards(id, user_id, template_id, archived, created_at) VALUES
+    (gen_random_uuid(), ${user_id}, ${template_id}, false, NOW())
+    returning id`;
+
+  const { id: card_id } = insertCard[0];
+  const values: { id: number; card_id: string }[] = [];
+  for (let i = 0; i < 25; i++) {
+    values.push({ id: i, card_id: card_id });
+  }
+
+  await sql`
+    INSERT INTO bingo.card_squares ${sql(values)}
+  `;
+
+  return card_id;
+}
