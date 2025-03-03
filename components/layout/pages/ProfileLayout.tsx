@@ -45,7 +45,6 @@ function ProfileLayout({ cards: fallbackCards, pageCount, username, userId }: Pr
       <Head>
         <title>Book Bingo | Profile</title>
       </Head>
-      {!(session?.user?.username) && <Text>Set your username:</Text>}
       <Text variant="heading1" as="h1" sx={{ textAlign: 'center' }}>
         Your Profile
       </Text>
