@@ -23,9 +23,27 @@ export async function getCards({
     LIMIT 10
     OFFSET ${offsetValue}`;
 
-  const pageCount = Math.ceil(cards.count / 10);
+  const totalCardCount = await getCardCount({ page, userIds, archived });
+
+  const pageCount = Math.ceil(totalCardCount / 10);
 
   return { cards, pageCount };
+}
+
+/**
+ * Returns the total count of cards that satisfy the given filters
+ */
+export async function getCardCount({
+  userIds = [],
+  archived = false,
+}: CardsFilters): Promise<number> {
+  const filterUser = userIds && userIds.length > 0;
+  const userFilter = sql`AND cards.user_id IN ${sql(userIds)}`;
+  const cardCount = await sql`
+    SELECT count(*)
+    FROM bingo.cards
+    WHERE cards.archived = ${archived} ${filterUser ? userFilter : sql``}`;
+  return cardCount[0].count;
 }
 
 /**

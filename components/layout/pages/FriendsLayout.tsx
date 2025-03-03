@@ -2,26 +2,27 @@ import Head from 'next/head';
 import { Text } from 'theme-ui';
 import { GridListSwitch, Pagination, Spacer } from '../../ui';
 import Cards from '../../Cards';
-import { fetchFriendsCards } from '../../../utils/api-utils';
-import useSWR from 'swr';
 import { useRouter } from 'next/router';
+import useCards from '../../../hooks/useCards';
 
 function FriendsLayout({
-  cards,
+  cards: fallbackCards,
   pageCount,
-  username,
+  userIds,
 }: {
   cards: Card[];
   pageCount: number;
-  username: string;
+  userIds: string[];
 }) {
   const router = useRouter();
   const page = parseInt(router.query.page as string) || 1;
-  const { data, mutate } = useSWR(
-    `/api/cards/${username}/friends?page=${page}`,
-    fetchFriendsCards,
-    { fallbackData: cards },
-  );
+  const { cards, mutate } = useCards({
+    filters: {
+      page,
+      archived: false,
+      userIds
+    }, fallback: { cards: fallbackCards, pageCount: pageCount }
+  })
   return (
     <>
       <Head>
@@ -39,7 +40,7 @@ function FriendsLayout({
         </Text>
       ) : (
         <>
-          <Cards cards={data} mutate={mutate} />
+          <Cards cards={cards} mutate={mutate} />
           {pageCount > 1 && (
             <>
               <Spacer size="1rem" />

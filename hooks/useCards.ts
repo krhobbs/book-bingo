@@ -1,5 +1,5 @@
 import useSWR from 'swr';
-import { fetchCards } from '../utils/api-utils';
+import { fetchCards } from '../utils/fetchers';
 
 interface UseCardsProps {
   filters: CardsFilters;

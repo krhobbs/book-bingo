@@ -32,7 +32,8 @@ function ProfileLayout({ cards: fallbackCards, pageCount, username, userId }: Pr
   const handleNewCard = async (template: Template, closeModal: Function) => {
     try {
       const card = await addCard(username, userId, template);
-      mutate({ cards: [...cards, card], pageCount: pageCount });
+      const newPageCount = Math.ceil((cards.length + 1) / 10);
+      mutate({ cards: [...cards, card], pageCount: newPageCount });
       closeModal();
     } catch (error) {
       console.error(error);

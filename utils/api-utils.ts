@@ -1,18 +1,3 @@
-// Card Related API Utils
-export async function fetchCards(url: string) {
-  try {
-    const response = await fetch(url);
-    const { cards, pageCount } = (await response.json()) as {
-      cards: Card[];
-      pageCount: number;
-    };
-    return { cards, pageCount };
-  } catch (error) {
-    console.log(error);
-    return;
-  }
-}
-
 export async function addCard(
   username: string,
   userId: string,

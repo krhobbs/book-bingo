@@ -7,14 +7,14 @@ import { GetServerSidePropsContext } from 'next';
 export default function Friends({
   cards,
   pageCount,
-  username,
+  userIds,
 }: {
   cards: Card[];
   pageCount: number;
-  username: string;
+  userIds: string[];
 }) {
   return (
-    <FriendsLayout cards={cards} pageCount={pageCount} username={username} />
+    <FriendsLayout cards={cards} pageCount={pageCount} userIds={userIds} />
   );
 }
 
@@ -31,13 +31,13 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   }
 
   try {
-    const { cards, pageCount } = await getCards({ userIds: session.user.friends });
+    const { cards, pageCount } = await getCards({ userIds: session.user.friends, archived: false, page: 1 });
 
     return {
       props: {
         cards,
         pageCount,
-        username: session.user.username,
+        userIds: session.user.friends,
       },
     };
   } catch (error) {
