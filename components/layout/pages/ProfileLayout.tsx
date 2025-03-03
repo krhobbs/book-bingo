@@ -5,7 +5,6 @@ import NewCard from '../../NewCard';
 import { GridListSwitch, Pagination, Spacer } from '../../ui';
 import { addCard } from '../../../utils/api-utils';
 import { useRouter } from 'next/router';
-import { useSession } from 'next-auth/react';
 import useCards from '../../../hooks/useCards';
 
 interface ProfileLayoutProps {
@@ -25,7 +24,6 @@ function ProfileLayout({ cards: fallbackCards, pageCount, username, userId }: Pr
       userIds: [userId]
     }, fallback: { cards: fallbackCards, pageCount: pageCount }
   })
-  const { data: session } = useSession();
 
   // New Card Creation
   // Take in template data
