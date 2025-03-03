@@ -58,8 +58,6 @@ function ProfileLayout({ cards: fallbackCards, pageCount, username, userId }: Pr
               <Pagination pageCount={pageCount} currentPage={page} />
             </>
           )}
-          <Spacer size="2rem" />
-          <NewCard handleNewCard={handleNewCard} />
         </>
       ) : (
         <NewCard handleNewCard={handleNewCard} />
