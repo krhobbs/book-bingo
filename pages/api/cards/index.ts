@@ -62,11 +62,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       const cardCount = await getUserCardCount(userID);
 
       if (cardCount >= 3) {
-        const allowedMore = await checkUserPermission(
-          userID,
-          'unlimited_cards',
-        );
-        if (!allowedMore) {
+        const allowed = await checkUserPermission(userID, 'unlimited_cards');
+        if (!allowed) {
           return res
             .status(401)
             .json({ message: 'Not allowed to make more than 3 cards.' });

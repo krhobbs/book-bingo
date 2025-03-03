@@ -1,5 +1,5 @@
 import TemplatesLayout from '../components/layout/pages/TemplatesLayout';
-import { getAllTemplates } from '../utils/db-utils';
+import { getTemplates } from '../utils/db-utils';
 
 export default function TemplatesPage({
   templates,
@@ -13,7 +13,7 @@ export default function TemplatesPage({
 
 export async function getStaticProps() {
   try {
-    const [templates, pageCount] = await getAllTemplates();
+    const { templates, pageCount } = await getTemplates();
 
     return {
       props: {

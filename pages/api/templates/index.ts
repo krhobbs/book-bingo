@@ -1,18 +1,57 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { getAllTemplates } from '../../../utils/db-utils';
+import {
+  checkUserPermission,
+  getTemplates,
+  insertTemplate,
+} from '../../../utils/db-utils';
+import { paramToNumber } from '../../../utils/param-utils';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../auth/[...nextauth]';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-  try {
-    const page = parseInt(req.query.page as string) || 1;
+  if (req.method === 'GET') {
+    try {
+      const page = paramToNumber(req.query.page) ?? 1;
 
-    const [templates] = await getAllTemplates(page);
+      const { templates, pageCount } = await getTemplates(page);
 
-    res.status(200).json(templates);
-  } catch (e) {
-    res
-      .status(422)
-      .json({ message: 'Unable to connect to database. Try again later.' });
-    return;
+      return res.status(200).json({ templates, pageCount });
+    } catch (e) {
+      return res
+        .status(422)
+        .json({ message: 'Unable to connect to database. Try again later.' });
+    }
+  }
+
+  if (req.method === 'POST') {
+    const session = await getServerSession(req, res, authOptions);
+
+    // Make sure the user is authenticated
+    if (!session) {
+      return res.status(401).json({ message: 'Not authenticated.' });
+    }
+
+    const userId = session.user.id;
+    const allowed = await checkUserPermission(userId, 'create_template');
+
+    if (!allowed) {
+      return res.status(403).json({ message: 'Insufficient permissions.' });
+    }
+
+    const { name, reqs } = req.body;
+
+    if (typeof name !== 'string' || !Array.isArray(reqs)) {
+      return res.status(422).json({ message: 'Invalid arguments.' });
+    }
+
+    try {
+      const newTemplateId = await insertTemplate(name, userId, reqs);
+      return res
+        .status(200)
+        .json({ message: `Created new template with ID: ${newTemplateId}` });
+    } catch {
+      return res.status(500).json({ message: 'Error.' });
+    }
   }
 }
 

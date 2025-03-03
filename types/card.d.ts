@@ -23,6 +23,7 @@ interface Template {
   _id: string;
   name: string;
   user: string;
+  user_id: string;
   reqs: string[];
 }
 

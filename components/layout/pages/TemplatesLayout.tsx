@@ -5,20 +5,17 @@ import Templates from '../../Templates';
 import useSWR from 'swr';
 import { fetchTemplates } from '../../../utils/api-utils';
 import { useRouter } from 'next/router';
+import useTemplates from '../../../hooks/useTemplates';
 
 interface TemplatesLayoutProps {
   templates: Template[];
   pageCount: number;
 }
 
-function TemplatesLayout({ templates, pageCount }: TemplatesLayoutProps) {
+function TemplatesLayout({ templates: fallbackTemplates, pageCount }: TemplatesLayoutProps) {
   const router = useRouter();
   const page = parseInt(router.query.page as string) || 1;
-  const { data } = useSWR(
-    `/api/templates?page=${page}`,
-    fetchTemplates,
-    { fallbackData: templates },
-  );
+  const { templates } = useTemplates({ filters: { page }, fallback: { templates: fallbackTemplates, pageCount } })
 
   return (
     <>
@@ -31,11 +28,11 @@ function TemplatesLayout({ templates, pageCount }: TemplatesLayoutProps) {
       <Spacer size="2rem" />
       <GridListSwitch />
       <Spacer size="2rem" />
-      {data?.length === 0 || !data ? (
+      {templates.length === 0 ? (
         <Text variant="body1">No Templates.</Text>
       ) : (
         <>
-          <Templates templates={data} />
+          <Templates templates={templates} />
           {pageCount > 1 && (
             <>
               <Spacer size="1rem" />
