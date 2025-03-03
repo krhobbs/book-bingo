@@ -24,7 +24,7 @@ function BingoCard({
   );
 
   const { data: session } = useSession();
-  const usersCard = session ? card.user === session.user.username : false;
+  const usersCard = session ? card.user.id === session.user.id : false;
 
   function archiveCardMiddleware() {
     handleArchiveCard(card);
@@ -62,8 +62,8 @@ function BingoCard({
     >
       <BingoCardTitle
         card={card}
-        username={card.user}
-        template={card.template}
+        username={card.user.name}
+        template={card.template.name}
         usersCard={usersCard}
         archived={card.archived}
         handleArchiveCard={archiveCardMiddleware}

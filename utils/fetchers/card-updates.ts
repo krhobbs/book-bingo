@@ -1,11 +1,20 @@
+/**
+ * Calls the API endpoint to add a new card into the database
+ * @param username
+ * @param userId
+ * @param template
+ * @returns
+ */
 export async function addCard(
   username: string,
   userId: string,
   template: Template,
 ): Promise<Card> {
   const card = {
-    user: username,
-    template: template.name,
+    template: {
+      id: template._id,
+      name: template.name,
+    },
     archived: false,
     squares: template.reqs.map((req, idx) => {
       return {
@@ -25,7 +34,7 @@ export async function addCard(
     });
     const data = await response.json();
 
-    return { _id: data._id, user_id: userId, ...card };
+    return { _id: data._id, user: { id: userId, name: username }, ...card };
   } catch (error) {
     console.log(error);
     throw new Error('Unable to create new card.');

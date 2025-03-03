@@ -12,19 +12,26 @@ interface Square {
 
 interface Card {
   _id: string;
-  user: string;
-  user_id: string;
-  template: string;
   archived: boolean;
   squares: Square[];
+  user: {
+    id: string;
+    name: string;
+  };
+  template: {
+    id: string;
+    name: string;
+  };
 }
 
 interface Template {
   _id: string;
   name: string;
-  user: string;
-  user_id: string;
   reqs: string[];
+  user: {
+    id: string;
+    name: string;
+  };
 }
 
 type UpdateSingleSquareFunction = (
