@@ -21,8 +21,9 @@ function EditBookLayout({
   const { mutate, cache } = useSWRConfig();
 
   async function handleEditBook(book: Book, color: string) {
-    const key = `/api/cards/${session?.user.id}?page=${fromPageNum}`;
-    const { data: cards } = cache.get(key) as { data: Card[] };;
+    if (!session) { return; }
+    const key = `/api/cards?archived=false&user_id=${session.user.id}&page=${fromPageNum}`;
+    const { cards } = cache.get(key)?.data;
 
     const [activeCard, otherCards] = await updateCardSquare(
       cards,
