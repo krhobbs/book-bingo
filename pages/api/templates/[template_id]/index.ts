@@ -26,8 +26,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       return res.status(401).json({ message: 'Not authenticated.' });
     }
 
-    const { user_id } = await getTemplateById(templateId);
-    if (user_id !== session.user.id) {
+    const { user } = await getTemplateById(templateId);
+    if (user.id !== session.user.id) {
       return res
         .status(403)
         .json({ message: 'Can only delete your own template.' });

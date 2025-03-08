@@ -4,7 +4,7 @@ import { Flex } from 'theme-ui';
 
 function Cards({ cards, mutate }: { cards: Card[]; mutate: Function }) {
   const handleArchiveCard = async (card: Card) => {
-    await fetch(`/api/cards/${card._id}`, {
+    await fetch(`/api/cards/${card.id}`, {
       method: 'PUT',
       body: JSON.stringify({
         archived: !card.archived,
@@ -14,18 +14,18 @@ function Cards({ cards, mutate }: { cards: Card[]; mutate: Function }) {
       },
     });
 
-    mutate(cards.filter((c) => c._id !== card._id));
+    mutate(cards.filter((c) => c.id !== card.id));
   };
 
   const handleDeleteCard = async (card: Card) => {
-    await fetch(`/api/card/${card._id}`, {
+    await fetch(`/api/card/${card.id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
       },
     });
 
-    mutate(cards.filter((c) => c._id !== card._id));
+    mutate(cards.filter((c) => c.id !== card.id));
   };
 
   const handleUpdateCardSquare = async (cardId: string, squareId: string) => {
@@ -46,7 +46,7 @@ function Cards({ cards, mutate }: { cards: Card[]; mutate: Function }) {
       {cards.map((card: Card) => {
         return (
           <BingoCard
-            key={card._id}
+            key={card.id}
             card={card}
             handleArchiveCard={handleArchiveCard}
             handleDeleteCard={handleDeleteCard}

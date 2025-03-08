@@ -7,7 +7,7 @@ function Template({ template }: { template: Template }) {
     await fetch(`/api/card/new`, {
       method: 'POST',
       body: JSON.stringify({
-        templateID: template._id,
+        templateID: template.id,
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -16,10 +16,10 @@ function Template({ template }: { template: Template }) {
   }
 
   async function handleDeleteTemplate() {
-    await fetch(`/api/template/${template._id}/delete`, {
+    await fetch(`/api/template/${template.id}/delete`, {
       method: 'POST',
       body: JSON.stringify({
-        id: template._id,
+        id: template.id,
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ function Template({ template }: { template: Template }) {
   return (
     <Box
       as="article"
-      key={template._id}
+      key={template.id}
       sx={{
         inlineSize: ['100%', 'min-content'],
         minInlineSize: '320px',
@@ -39,7 +39,7 @@ function Template({ template }: { template: Template }) {
       }}
     >
       <TemplateHeader
-        templateId={template._id}
+        templateId={template.id}
         name={template.name}
         handleDeleteTemplate={handleDeleteTemplate}
         handleCreateFromTemplate={handleCreateFromTemplate}

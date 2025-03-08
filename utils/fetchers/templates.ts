@@ -6,3 +6,11 @@ export async function fetchTemplates(url: string) {
   };
   return { templates, pageCount };
 }
+
+export async function createTemplate(name: string, reqs: string[]) {
+  return await fetch('api/templates', {
+    method: 'POST',
+    body: JSON.stringify({ name: name, reqs: reqs }),
+    headers: { 'Content-Type': 'application/json' },
+  });
+}

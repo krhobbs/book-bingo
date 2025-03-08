@@ -20,8 +20,8 @@ function TemplateSquares({ reqs }: TemplateSquaresProps) {
             gap: '1rem',
           }}
         >
-          {reqs.map((req: string) => {
-            return <TemplateListItem key={req} req={req} />;
+          {reqs.map((req: string, index: number) => {
+            return <TemplateListItem key={req + index} req={req} />;
           })}
         </Box>
       ) : (

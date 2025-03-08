@@ -1,39 +1,3 @@
-/**
- * Adds a card, mutating the
- * @param username
- * @param userId
- * @param template
- * @returns
- */
-export async function addCard(
-  username: string,
-  userId: string,
-  template: Template,
-): Promise<Card> {
-  const cardData = {
-    user: username,
-    template: template.name,
-    archived: false,
-    squares: template.reqs.map((req, idx) => {
-      return {
-        id: `${idx}`,
-        req: req,
-        book: undefined,
-        color: undefined,
-      } as Square;
-    }),
-  };
-
-  const response = await fetch('/api/cards', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ templateID: template._id }),
-  });
-  const data = await response.json();
-
-  return { _id: data._id, user_id: userId, ...cardData };
-}
-
 export async function deleteCard() {}
 
 export async function updateCardSquare(
@@ -43,8 +7,8 @@ export async function updateCardSquare(
   book?: Book,
   color?: string,
 ): Promise<[Card, Card[]]> {
-  const activeCard: Card = cards.filter((c: Card) => c._id === cardId)[0];
-  const otherCards: Card[] = cards.filter((c: Card) => c._id !== cardId);
+  const activeCard: Card = cards.filter((c: Card) => c.id === cardId)[0];
+  const otherCards: Card[] = cards.filter((c: Card) => c.id !== cardId);
 
   activeCard.squares[parseInt(squareId)] = {
     ...activeCard.squares[parseInt(squareId)],

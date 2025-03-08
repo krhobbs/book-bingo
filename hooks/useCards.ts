@@ -20,6 +20,54 @@ export default function useCards({ filters, fallback }: UseCardsProps) {
     { fallbackData: fallback },
   );
 
+  const createCard = async ({
+    templateID,
+    templateName,
+    templateReqs,
+    userID,
+    username,
+  }: {
+    templateID: string;
+    templateName: string;
+    templateReqs: string[];
+    userID: string;
+    username: string;
+  }) => {
+    const response = await fetch('/api/cards', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ templateID }),
+    });
+    const { cardId } = await response.json();
+
+    const newCard: Card = {
+      _id: cardId,
+      user: {
+        id: userID,
+        name: username,
+      },
+      template: {
+        id: templateID,
+        name: templateName,
+      },
+      archived: false,
+      squares: templateReqs.map((req, idx) => {
+        return {
+          id: `${idx}`,
+          req: req,
+          book: undefined,
+          color: undefined,
+        } as Square;
+      }),
+    };
+
+    const newCards = [newCard, ...data.cards];
+    const newPageCount = Math.ceil((newCards.length + 1) / 10);
+    mutate({ cards: newCards, pageCount: newPageCount });
+  };
+
   return {
     cards: data?.cards ?? [],
     isLoading,

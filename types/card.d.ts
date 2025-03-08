@@ -11,7 +11,7 @@ interface Square {
 }
 
 interface Card {
-  _id: string;
+  id: string;
   archived: boolean;
   squares: Square[];
   user: {
@@ -25,7 +25,7 @@ interface Card {
 }
 
 interface Template {
-  _id: string;
+  id: string;
   name: string;
   reqs: string[];
   user: {

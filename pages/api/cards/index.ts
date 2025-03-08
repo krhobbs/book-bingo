@@ -72,7 +72,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
       const cardResult = await insertCard(userID, templateID);
 
-      return res.status(200).json({ message: `Inserted card ${cardResult}` });
+      return res
+        .status(200)
+        .json({ cardId: cardResult, message: `Inserted card ${cardResult}` });
     } catch (error) {
       return res.status(500).json({ message: 'Unable to create card.' });
     }

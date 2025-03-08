@@ -3,7 +3,7 @@ import { FieldValues, useForm } from 'react-hook-form';
 import { Box, Label, Input, Button, Text } from 'theme-ui';
 import { ErrorPopup, Spacer } from '../ui';
 import { useRouter } from 'next/router';
-import { createTemplate } from '../../utils/api-utils';
+import { createTemplate } from '../../utils/fetchers';
 
 function CreateTemplateForm() {
   const { register, handleSubmit } = useForm();

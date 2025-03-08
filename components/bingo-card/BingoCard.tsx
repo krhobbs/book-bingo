@@ -51,7 +51,7 @@ function BingoCard({
 
   return (
     <Box
-      key={card._id}
+      key={card.id}
       as="article"
       sx={{
         inlineSize: ['100%', 'min-content'],
@@ -74,7 +74,7 @@ function BingoCard({
       <Spacer size={['1.25rem', '1.5rem']} />
       <BingoCardSquares
         archived={card.archived}
-        cardId={card._id}
+        cardId={card.id}
         squares={card.squares}
         usersCard={usersCard}
         handleUpdateCardSquare={handleUpdateCardSquare}
