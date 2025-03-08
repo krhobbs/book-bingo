@@ -6,7 +6,11 @@ import sql from '../db';
 export async function getTemplates(page = 1) {
   const offsetValue = (page - 1) * 10;
   const templates = await sql<Template[]>`
-    SELECT templates.id AS "_id", users.username AS "user", users.id AS "user_id", templates.name, jsonb_agg(template_reqs.req) AS reqs
+    SELECT
+      templates.id,
+      json_build_object('id', templates.user_id, 'name', users.username),
+      templates.name,
+      jsonb_agg(template_reqs.req) AS reqs
     FROM ((bingo.templates INNER JOIN bingo.users ON templates.user_id = users.id)
       INNER JOIN bingo.template_reqs ON templates.id = template_reqs.template_id)
     GROUP BY users.username, users.id, templates.name, templates.id
@@ -67,7 +71,7 @@ export async function deleteTemplate(templateId: string) {
 export async function getTemplateById(templateId: string) {
   const templateResult = await sql<Template[]>`
     SELECT 
-      templates.id AS "id",
+      templates.id,
       json_build_object('id', user.id, 'name', users.username),
       templates.name,
       jsonb_agg(template_reqs.req) AS reqs

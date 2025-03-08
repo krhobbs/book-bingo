@@ -13,7 +13,7 @@ export async function getCards({
   const userFilter = sql`AND cards.user_id IN ${sql(userIds)}`;
   const cards = await sql<Card[]>`
     SELECT
-      cards.id as "_id",
+      cards.id,
       json_build_object('id', cards.user_id, 'name', users.username) as "user", 
       json_build_object('id', templates.id, 'name', templates.name) as "template",
       bool_and(cards.archived) AS "archived", 
@@ -63,7 +63,19 @@ export async function getCardCount({
  */
 export async function getCardById(card_id: string): Promise<Card> {
   const cardResult = await sql<Card[]>`
-    SELECT users.username AS "user", cards.user_id, bool_and(cards.archived) AS "archived", templates.name AS "template", jsonb_agg(json_build_object('id', card_squares.id, 'req', template_reqs.req, 'book', card_squares.book, 'color', card_squares.color)) AS squares
+    SELECT
+      cards.id,
+      json_build_object('id', cards.user_id, 'name', users.username) as "user", 
+      json_build_object('id', templates.id, 'name', templates.name) as "template",
+      bool_and(cards.archived) AS "archived", 
+      jsonb_agg(
+        json_build_object(
+          'id', card_squares.id, 
+          'req', template_reqs.req, 
+          'book', card_squares.book, 
+          'color', card_squares.color
+        ) ORDER BY card_squares.id
+      ) AS squares
     FROM ((((bingo.cards INNER JOIN bingo.users ON cards.user_id = users.id)
         INNER JOIN bingo.templates ON cards.template_id = templates.id) 
         INNER JOIN bingo.card_squares ON cards.id = card_squares.card_id)

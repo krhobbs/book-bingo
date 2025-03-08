@@ -43,7 +43,7 @@ export default function useCards({ filters, fallback }: UseCardsProps) {
     const { cardId } = await response.json();
 
     const newCard: Card = {
-      _id: cardId,
+      id: cardId,
       user: {
         id: userID,
         name: username,
