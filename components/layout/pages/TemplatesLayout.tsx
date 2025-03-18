@@ -2,8 +2,6 @@ import Head from 'next/head';
 import { Text } from 'theme-ui';
 import { GridListSwitch, Pagination, Spacer } from '../../ui';
 import Templates from '../../Templates';
-import useSWR from 'swr';
-import { fetchTemplates } from '../../../utils/api-utils';
 import { useRouter } from 'next/router';
 import useTemplates from '../../../hooks/useTemplates';
 

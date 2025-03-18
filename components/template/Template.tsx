@@ -1,30 +1,15 @@
 import { Box } from 'theme-ui';
 import TemplateSquares from './TemplateSquares';
 import TemplateHeader from './TemplateHeader';
+import { createCard, deleteTemplate } from '../../utils/fetchers';
 
 function Template({ template }: { template: Template }) {
   async function handleCreateFromTemplate() {
-    await fetch(`/api/card/new`, {
-      method: 'POST',
-      body: JSON.stringify({
-        templateID: template.id,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    await createCard(template.id);
   }
 
   async function handleDeleteTemplate() {
-    await fetch(`/api/template/${template.id}/delete`, {
-      method: 'POST',
-      body: JSON.stringify({
-        id: template.id,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    await deleteTemplate(template.id);
   }
 
   return (

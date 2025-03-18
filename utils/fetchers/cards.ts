@@ -2,11 +2,24 @@ import { KeyedMutator } from 'swr';
 
 export async function fetchCards(url: string) {
   const response = await fetch(url);
+
   const { cards, pageCount } = (await response.json()) as {
     cards: Card[];
     pageCount: number;
   };
   return { cards, pageCount };
+}
+
+export async function createCard(templateID: string) {
+  const response = await fetch('/api/cards', {
+    method: 'POST',
+    body: JSON.stringify({ templateID }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  return await response.json();
 }
 
 /**
@@ -39,7 +52,7 @@ export async function addCard({
   const { cardId } = await response.json();
 
   const newCard: Card = {
-    _id: cardId,
+    id: cardId,
     user: {
       id: userID,
       name: username,
