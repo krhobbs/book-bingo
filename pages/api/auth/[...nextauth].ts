@@ -12,8 +12,8 @@ export const authOptions: NextAuthOptions = {
       authorization: { params: { duration: 'permanent' } },
     }),
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientId: process.env.GOOGLE_CLIENT_ID || '',
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
     }),
   ],
   callbacks: {
@@ -21,8 +21,8 @@ export const authOptions: NextAuthOptions = {
       // console.log('\nSIGN IN\n');
       // console.log(account);
       // console.log(profile);
-      if (account.provider === 'reddit') {
-        if (profile.id && profile.verified) {
+      if (account?.provider === 'reddit') {
+        if (profile?.id && profile.verified) {
           const userExists = await doesUserExist(profile.id, account.provider);
           if (userExists) {
             return true;
@@ -32,8 +32,8 @@ export const authOptions: NextAuthOptions = {
           }
         }
       }
-      if (account.provider === 'google') {
-        if (profile.sub && profile.email_verified) {
+      if (account?.provider === 'google') {
+        if (profile?.sub && profile.email_verified) {
           const userExists = await doesUserExist(profile.sub, account.provider);
           if (userExists) {
             return true;
@@ -61,7 +61,8 @@ export const authOptions: NextAuthOptions = {
       // console.log(token);
       if (
         token &&
-        (token.provider === 'reddit' || token.provider === 'google')
+        (token.provider === 'reddit' || token.provider === 'google') &&
+        token.sub
       ) {
         // Add provider, identifier, username to the session
         const userData = await getUser(token.sub, token.provider);
