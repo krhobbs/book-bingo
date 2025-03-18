@@ -22,7 +22,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     const friendExists = await isUsernameTaken(friendToAdd);
 
-    if (!friendExists) {
+    if (!friendExists || !username) {
       res
         .status(404)
         .json({ message: 'Unable to add friend. User not found.' });
