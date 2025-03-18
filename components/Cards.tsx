@@ -1,30 +1,16 @@
 import { updateCardSquare } from '../utils/api-utils';
+import { deleteCard, updateCard } from '../utils/fetchers';
 import BingoCard from './bingo-card/BingoCard';
 import { Flex } from 'theme-ui';
 
 function Cards({ cards, mutate }: { cards: Card[]; mutate: Function }) {
   const handleArchiveCard = async (card: Card) => {
-    await fetch(`/api/cards/${card.id}`, {
-      method: 'PUT',
-      body: JSON.stringify({
-        archived: !card.archived,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
+    await updateCard(card.id, !card.archived);
     mutate(cards.filter((c) => c.id !== card.id));
   };
 
   const handleDeleteCard = async (card: Card) => {
-    await fetch(`/api/card/${card.id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
+    await deleteCard(card.id);
     mutate(cards.filter((c) => c.id !== card.id));
   };
 

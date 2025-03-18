@@ -22,6 +22,26 @@ export async function createCard(templateID: string) {
   return await response.json();
 }
 
+export async function deleteCard(cardID: string) {
+  await fetch(`/api/cards/${cardID}`, {
+    method: 'DELETE',
+  });
+}
+
+export async function updateCard(
+  cardID: string,
+  archived?: boolean,
+  square?: Square,
+) {
+  await fetch(`/api/cards/${cardID}`, {
+    method: 'PUT',
+    body: JSON.stringify({ archived, square }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+}
+
 /**
  * This function calls the API for creating a new card, mutates local data
  */

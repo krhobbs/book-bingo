@@ -1,4 +1,4 @@
-export async function deleteCard() {}
+import { updateCard } from './fetchers';
 
 export async function updateCardSquare(
   cards: Card[],
@@ -16,44 +16,9 @@ export async function updateCardSquare(
     book: book,
   };
 
-  await fetch(`/api/cards/${cardId}`, {
-    method: 'PUT',
-    body: JSON.stringify({ square: activeCard.squares[parseInt(squareId)] }),
-    headers: { 'Content-Type': 'application/json' },
-  });
+  await updateCard(cardId, undefined, activeCard.squares[parseInt(squareId)]);
 
   return [activeCard, otherCards];
-}
-
-// Template Related API Utils
-export async function createTemplate(name: string, reqs: string[]) {
-  return await fetch('api/template/new', {
-    method: 'POST',
-    body: JSON.stringify({ name: name, reqs: reqs }),
-    headers: { 'Content-Type': 'application/json' },
-  });
-}
-
-export async function fetchTemplates(url: string) {
-  try {
-    const response = await fetch(url);
-    const data: Template[] = await response.json();
-    return data;
-  } catch (error) {
-    console.log(error);
-    return;
-  }
-}
-
-export async function fetchTemplateNames(url: string) {
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.log(error);
-    return;
-  }
 }
 
 export async function setUsername(
