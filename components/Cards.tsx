@@ -1,39 +1,22 @@
 import { updateCardSquare } from '../utils/api-utils';
+import { deleteCard, updateCard } from '../utils/fetchers';
 import BingoCard from './bingo-card/BingoCard';
 import { Flex } from 'theme-ui';
 
 function Cards({ cards, mutate }: { cards: Card[]; mutate: Function }) {
   const handleArchiveCard = async (card: Card) => {
-    await fetch(`/api/card/${card._id}/archive`, {
-      method: 'POST',
-      body: JSON.stringify({
-        archived: card.archived,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    mutate(cards.filter((c) => c._id !== card._id));
+    await updateCard(card.id, !card.archived);
+    mutate(cards.filter((c) => c.id !== card.id));
   };
 
   const handleDeleteCard = async (card: Card) => {
-    await fetch(`/api/card/${card._id}/delete`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    mutate(cards.filter((c) => c._id !== card._id));
+    await deleteCard(card.id);
+    mutate(cards.filter((c) => c.id !== card.id));
   };
 
   const handleUpdateCardSquare = async (cardId: string, squareId: string) => {
     try {
-      // Setting the book and color params to null because this deals with deleting a book from a square
       const [activeCard, otherCards] = await updateCardSquare(
-        null,
-        null,
         cards,
         squareId,
         cardId,
@@ -49,7 +32,7 @@ function Cards({ cards, mutate }: { cards: Card[]; mutate: Function }) {
       {cards.map((card: Card) => {
         return (
           <BingoCard
-            key={card._id}
+            key={card.id}
             card={card}
             handleArchiveCard={handleArchiveCard}
             handleDeleteCard={handleDeleteCard}

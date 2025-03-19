@@ -1,23 +1,24 @@
-import { getCardsOfUsers } from '../utils/db-utils';
+import { getCards } from '../utils/db-utils';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from './api/auth/[...nextauth]';
 import FriendsLayout from '../components/layout/pages/FriendsLayout';
+import { GetServerSidePropsContext } from 'next';
 
 export default function Friends({
   cards,
   pageCount,
-  username,
+  userIds,
 }: {
   cards: Card[];
   pageCount: number;
-  username: string;
+  userIds: string[];
 }) {
   return (
-    <FriendsLayout cards={cards} pageCount={pageCount} username={username} />
+    <FriendsLayout cards={cards} pageCount={pageCount} userIds={userIds} />
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getServerSession(context.req, context.res, authOptions);
 
   if (!session) {
@@ -30,13 +31,13 @@ export async function getServerSideProps(context) {
   }
 
   try {
-    const [cards, pageCount] = await getCardsOfUsers(session.user.friends);
+    const { cards, pageCount } = await getCards({ userIds: session.user.friends, archived: false, page: 1 });
 
     return {
       props: {
         cards,
         pageCount,
-        username: session.user.username,
+        userIds: session.user.friends,
       },
     };
   } catch (error) {

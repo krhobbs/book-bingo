@@ -69,8 +69,6 @@ export async function doesUserExist(
   SELECT COUNT(*) FROM bingo.users WHERE account_identifier = ${identifier} AND account_provider = ${provider}
   `;
 
-  console.log(countResult);
-
   return countResult[0].count !== '0';
 }
 

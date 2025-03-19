@@ -1,7 +1,8 @@
-import { getCardsOfUser } from '../utils/db-utils';
+import { getCards } from '../utils/db-utils';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from './api/auth/[...nextauth]';
 import ArchivedLayout from '../components/layout/pages/ArchivedLayout';
+import { GetServerSidePropsContext } from 'next';
 
 export default function Archived({
   cards,
@@ -17,7 +18,7 @@ export default function Archived({
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getServerSession(context.req, context.res, authOptions);
 
   if (!session) {
@@ -30,10 +31,7 @@ export async function getServerSideProps(context) {
   }
 
   try {
-    const [cards, pageCount] = await getCardsOfUser(
-      session.user.id,
-      true,
-    );
+    const { cards, pageCount } = await getCards({ userIds: [session.user.id], page: 1, archived: true });
 
     return {
       props: {

@@ -8,33 +8,29 @@ import { updateCardSquare } from '../../../utils/api-utils';
 interface EditBookLayoutProps {
   cardId: string;
   square: Square;
-  fromPage: string;
   fromPageNum: string;
 }
 
 function EditBookLayout({
   cardId,
   square,
-  fromPage,
   fromPageNum,
 }: EditBookLayoutProps) {
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session } = useSession({ required: true });
   const { mutate, cache } = useSWRConfig();
 
   async function handleEditBook(book: Book, color: string) {
-    const key =
-      fromPage === 'profile'
-        ? `/api/cards/${session.user.username}?page=${fromPageNum}`
-        : `/api/cards?page=${fromPageNum}`;
-    const { data: cards } = cache.get(key);
+    if (!session) { return; }
+    const key = `/api/cards?archived=false&user_id=${session.user.id}&page=${fromPageNum}`;
+    const { cards } = cache.get(key)?.data;
 
     const [activeCard, otherCards] = await updateCardSquare(
-      book,
-      color,
       cards,
       square.id,
       cardId,
+      book,
+      color,
     );
     await mutate(key, [...otherCards, activeCard]);
     router.back();

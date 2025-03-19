@@ -1,8 +1,8 @@
-import PlusIcon from '@heroicons/react/24/outline/PlusIcon';
-import Link from 'next/link';
 import { Box, Text } from 'theme-ui';
 import { Spacer } from '../../../ui';
 import { useRouter } from 'next/router';
+import { paramToNumber } from '../../../../utils/param-utils';
+import AddBookLink from '../AddBookLink';
 
 interface ListIncompleteProps {
   archived: boolean;
@@ -19,7 +19,8 @@ function ListIncomplete({
   squareId,
   usersCard,
 }: ListIncompleteProps) {
-  const { pathname } = useRouter();
+  const { query } = useRouter();
+  const page = paramToNumber(query.page) ?? 1;
 
   return (
     <Box
@@ -31,21 +32,7 @@ function ListIncomplete({
       {!archived && usersCard && (
         <>
           <Spacer size="1rem" />
-          <Link
-            href={{
-              pathname: '/add-book',
-              query: {
-                card: cardId,
-                square: squareId,
-                fromPage: pathname.includes('profile') ? 'profile' : 'home',
-              },
-            }}
-            aria-label="add new book"
-          >
-            <Box variant="links.item">
-              <PlusIcon style={{ blockSize: '100%' }} />
-            </Box>
-          </Link>
+          <AddBookLink cardId={cardId} squareId={squareId} page={page} />
         </>
       )}
     </Box>

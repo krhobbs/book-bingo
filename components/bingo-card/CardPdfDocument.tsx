@@ -38,7 +38,7 @@ const CardPdfDocument = ({ card }: { card: Card }) => (
         style={{ height: '4%', alignItems: 'center', justifyContent: 'center' }}
       >
         <Text style={{ textAlign: 'center', fontSize: '16px' }}>
-          {card.template}
+          {card.template.name}
         </Text>
       </View>
 

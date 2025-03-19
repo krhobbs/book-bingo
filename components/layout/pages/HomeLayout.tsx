@@ -2,7 +2,6 @@ import Head from 'next/head';
 import { LoginButton, Spacer } from '../../ui';
 import { Text } from 'theme-ui';
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/router';
 
 function HomeLayout() {
   const { status } = useSession();

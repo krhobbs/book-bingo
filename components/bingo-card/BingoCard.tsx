@@ -24,7 +24,7 @@ function BingoCard({
   );
 
   const { data: session } = useSession();
-  const usersCard = session ? card.user === session.user.username : false;
+  const usersCard = session ? card.user.id === session.user.id : false;
 
   function archiveCardMiddleware() {
     handleArchiveCard(card);
@@ -51,7 +51,7 @@ function BingoCard({
 
   return (
     <Box
-      key={card._id}
+      key={card.id}
       as="article"
       sx={{
         inlineSize: ['100%', 'min-content'],
@@ -62,8 +62,8 @@ function BingoCard({
     >
       <BingoCardTitle
         card={card}
-        username={card.user}
-        template={card.template}
+        username={card.user.name}
+        template={card.template.name}
         usersCard={usersCard}
         archived={card.archived}
         handleArchiveCard={archiveCardMiddleware}
@@ -74,7 +74,7 @@ function BingoCard({
       <Spacer size={['1.25rem', '1.5rem']} />
       <BingoCardSquares
         archived={card.archived}
-        cardId={card._id}
+        cardId={card.id}
         squares={card.squares}
         usersCard={usersCard}
         handleUpdateCardSquare={handleUpdateCardSquare}

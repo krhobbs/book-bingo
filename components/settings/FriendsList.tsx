@@ -20,7 +20,11 @@ function FriendsList({
   async function onAddFriend(event: FormEvent<HTMLDivElement>) {
     event.preventDefault();
 
-    const enteredNewFriend = newFriendRef.current.value;
+    const enteredNewFriend = newFriendRef?.current?.value;
+
+    if (!enteredNewFriend) {
+      throw new Error('Unable to add friend.');
+    }
 
     const result = await handleAddFriend({ friendToAdd: enteredNewFriend });
 

@@ -1,16 +1,7 @@
 import { Box } from 'theme-ui';
 import GridCompleteBack from './GridCompleteBack';
 import GridCompleteFront from './GridCompleteFront';
-
-interface CompleteProps {
-  archived: boolean;
-  cardId: string;
-  usersCard: boolean;
-  square: Square;
-  handleUpdateCardSquare: UpdateSingleSquareFunction;
-  handleFlipCardSquare: (id: number) => void;
-  flipped: boolean;
-}
+import type { GridItemProps } from '../BingoItemProps';
 
 function GridComplete({
   archived,
@@ -20,7 +11,7 @@ function GridComplete({
   handleUpdateCardSquare,
   handleFlipCardSquare,
   flipped,
-}: CompleteProps) {
+}: GridItemProps) {
   return (
     <Box
       sx={{
@@ -40,7 +31,7 @@ function GridComplete({
         cardId={cardId}
         usersCard={usersCard}
         squareId={square.id}
-        book={square.book}
+        book={square.book!}
         handleUpdateCardSquare={handleUpdateCardSquare}
         flipped={flipped}
       />

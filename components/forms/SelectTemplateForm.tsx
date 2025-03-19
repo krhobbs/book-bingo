@@ -10,7 +10,7 @@ const SelectTemplateForm = ({
   onNewCard: Function;
   closeModal: Function;
 }) => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm<{ template: number }>();
   const onSubmit = ({ template }: { template: number }) => {
     onNewCard(templates[template], closeModal);
   };

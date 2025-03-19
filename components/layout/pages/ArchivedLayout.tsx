@@ -1,10 +1,9 @@
 import Head from 'next/head';
 import Cards from '../../Cards';
 import { Text } from 'theme-ui';
-import useSWR from 'swr';
-import { fetchUsersCards } from '../../../utils/api-utils';
 import { useRouter } from 'next/router';
 import { GridListSwitch, Pagination, Spacer } from '../../ui';
+import useCards from '../../../hooks/useCards';
 
 interface ArchivedLayoutProps {
   cards: Card[];
@@ -12,14 +11,20 @@ interface ArchivedLayoutProps {
   userId: string;
 }
 
-function ArchivedLayout({ cards, pageCount, userId }: ArchivedLayoutProps) {
+function ArchivedLayout({ cards: fallbackCards, pageCount, userId }: ArchivedLayoutProps) {
   const router = useRouter();
   const page = parseInt(router.query.page as string) || 1;
-  const { data, mutate } = useSWR(
-    `/api/cards/${userId}/archived?page=${page}`,
-    fetchUsersCards,
-    { fallbackData: cards },
-  );
+  const { cards, mutate } = useCards({
+    filters: {
+      userIds: [userId],
+      archived: true,
+      page
+    },
+    fallback: {
+      cards: fallbackCards,
+      pageCount
+    }
+  });
   return (
     <>
       <Head>
@@ -37,7 +42,7 @@ function ArchivedLayout({ cards, pageCount, userId }: ArchivedLayoutProps) {
         </Text>
       ) : (
         <>
-          <Cards cards={data} mutate={mutate} />
+          <Cards cards={cards} mutate={mutate} />
           {pageCount > 1 && (
             <>
               <Spacer size="1rem" />

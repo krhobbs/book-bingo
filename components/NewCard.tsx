@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Modal } from './ui';
 import useSWR from 'swr';
-import { fetchTemplateNames } from '../utils/api-utils';
 import SelectTemplateForm from './forms/SelectTemplateForm';
+import { fetchTemplates } from '../utils/fetchers';
 
 function NewCard({
   handleNewCard,
@@ -13,7 +13,7 @@ function NewCard({
   handleNewCard: (template: Template, closeModal: () => void) => void;
 }) {
   const [showSelectTemplate, setShowSelectTemplate] = useState(false);
-  const { data } = useSWR('/api/templates', fetchTemplateNames);
+  const { data } = useSWR('/api/templates', fetchTemplates);
 
   return (
     <>
@@ -23,7 +23,7 @@ function NewCard({
           alignItems: 'center',
           blockSize: ['520px', '682px'],
           background: 'transparent',
-          border: (theme) => `2px solid ${theme.colors.muted}`,
+          border: (theme) => `2px solid ${theme.colors?.muted}`,
           borderRadius: '1rem',
           color: 'muted',
           cursor: 'pointer',
@@ -45,7 +45,7 @@ function NewCard({
         createPortal(
           <Modal closeModal={() => setShowSelectTemplate(!showSelectTemplate)}>
             <SelectTemplateForm
-              templates={data}
+              templates={data?.templates ?? []}
               onNewCard={handleNewCard}
               closeModal={() => setShowSelectTemplate(!showSelectTemplate)}
             />

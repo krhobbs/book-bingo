@@ -12,23 +12,23 @@ import { PDFDownloadLink } from '@react-pdf/renderer';
 import CardPdfDocument from './CardPdfDocument';
 
 interface CardButtonsProps {
+  archived: boolean;
   card: Card;
-  handleDeleteCard: () => void;
+  sx?: ThemeUIStyleObject;
   handleArchiveCard: () => void;
+  handleDeleteCard: () => void;
   handleFlipToBack: () => void;
   handleFlipToFront: () => void;
-  archived: boolean;
-  sx?: ThemeUIStyleObject;
 }
 
 function CardButtons({
+  archived,
   card,
-  handleDeleteCard,
+  sx,
   handleArchiveCard,
+  handleDeleteCard,
   handleFlipToBack,
   handleFlipToFront,
-  archived,
-  sx,
 }: CardButtonsProps) {
   const breakpoint = useBreakpoint();
   const iconSize = useMemo(
@@ -44,7 +44,7 @@ function CardButtons({
         background: 'primary',
         padding: ['0.6rem', '1rem'],
         borderRadius: '5px',
-        border: (theme) => `1px solid ${theme.colors.accent}`,
+        border: (theme) => `1px solid ${theme.colors?.accent}`,
         inlineSize: 'max-content',
         ...sx,
       }}

@@ -8,11 +8,11 @@ import { useOnClickOutside } from '../../hooks/useOnClickOutside';
 import { createPortal } from 'react-dom';
 
 interface BingoCardTitleProps {
-  card: Card;
-  username: string;
-  template: string;
-  usersCard: boolean;
   archived: boolean;
+  card: Card;
+  template: string;
+  username: string;
+  usersCard: boolean;
   handleArchiveCard: () => void;
   handleDeleteCard: () => void;
   handleFlipToBack: () => void;
@@ -20,11 +20,11 @@ interface BingoCardTitleProps {
 }
 
 function BingoCardTitle({
-  card,
-  username,
-  template,
-  usersCard,
   archived,
+  card,
+  template,
+  username,
+  usersCard,
   handleArchiveCard,
   handleDeleteCard,
   handleFlipToBack,

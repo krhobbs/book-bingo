@@ -1,15 +1,7 @@
 import Incomplete from './GridIncomplete';
 import { Box } from 'theme-ui';
 import Complete from './GridComplete';
-interface BingoItemProps {
-  cardId: string;
-  archived: boolean;
-  usersCard: boolean;
-  square: Square;
-  handleUpdateCardSquare: UpdateSingleSquareFunction;
-  handleFlipCardSquare: (id: number) => void;
-  flipped: boolean;
-}
+import type { GridItemProps } from '../BingoItemProps';
 
 function BingoItem({
   archived,
@@ -19,7 +11,7 @@ function BingoItem({
   handleUpdateCardSquare,
   handleFlipCardSquare,
   flipped,
-}: BingoItemProps) {
+}: GridItemProps) {
   return (
     <Box
       sx={{
@@ -30,14 +22,14 @@ function BingoItem({
         inlineSize: ['auto', '112px'],
         border: (theme) =>
           `solid 1px ${square.book
-            ? (square.color ?? theme.colors.accent)
-            : theme.colors.secondary
+            ? (square.color ?? theme.colors?.accent)
+            : theme.colors?.secondary
           }`,
         borderRadius: '5px',
         boxShadow: (theme) =>
           `1px 1px 0px 1px ${square.book
-            ? (square.color ?? theme.colors.accent)
-            : theme.colors.secondary
+            ? (square.color ?? theme.colors?.accent)
+            : theme.colors?.secondary
           }`,
       }}
     >

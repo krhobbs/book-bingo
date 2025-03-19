@@ -1,18 +1,22 @@
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 import { Box, Label, Input, Button, Text } from 'theme-ui';
 import { ErrorPopup, Spacer } from '../ui';
 import { useRouter } from 'next/router';
-import { createTemplate } from '../../utils/api-utils';
+import { createTemplate } from '../../utils/fetchers';
 
 function CreateTemplateForm() {
   const { register, handleSubmit } = useForm();
   const [errorMessage, setErrorMessage] = useState('');
   const router = useRouter();
 
-  async function onSubmit(data: string[]) {
+  async function onSubmit(data: FieldValues) {
     let reqs = Object.values(data);
     const name = reqs.shift();
+
+    if (!name || reqs.length !== 25) {
+      throw Error('Invalid template.');
+    }
 
     const response = await createTemplate(name, reqs);
 

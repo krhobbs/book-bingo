@@ -1,36 +1,21 @@
 import { Box } from 'theme-ui';
 import TemplateSquares from './TemplateSquares';
 import TemplateHeader from './TemplateHeader';
+import { createCard, deleteTemplate } from '../../utils/fetchers';
 
 function Template({ template }: { template: Template }) {
   async function handleCreateFromTemplate() {
-    await fetch(`/api/card/new`, {
-      method: 'POST',
-      body: JSON.stringify({
-        templateID: template._id,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    await createCard(template.id);
   }
 
   async function handleDeleteTemplate() {
-    await fetch(`/api/template/${template._id}/delete`, {
-      method: 'POST',
-      body: JSON.stringify({
-        id: template._id,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    await deleteTemplate(template.id);
   }
 
   return (
     <Box
       as="article"
-      key={template._id}
+      key={template.id}
       sx={{
         inlineSize: ['100%', 'min-content'],
         minInlineSize: '320px',
@@ -39,7 +24,7 @@ function Template({ template }: { template: Template }) {
       }}
     >
       <TemplateHeader
-        templateId={template._id}
+        templateId={template.id}
         name={template.name}
         handleDeleteTemplate={handleDeleteTemplate}
         handleCreateFromTemplate={handleCreateFromTemplate}
