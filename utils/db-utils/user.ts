@@ -95,14 +95,6 @@ export async function setUsername(
   WHERE account_identifier = ${identifier} AND account_provider = ${provider}`;
 }
 
-// returns true if a user by that username exists in the database
-export async function isUsernameTaken(username: string) {
-  const countResult = await sql`
-    SELECT COUNT(*) FROM bingo.users WHERE username = ${username}`;
-
-  return countResult[0].count !== '0';
-}
-
 // returns true if a card is owned by a user
 export async function isUsersCard(user_id: string, card_id: string) {
   const usersCardsResult = await sql`
