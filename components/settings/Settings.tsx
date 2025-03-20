@@ -6,18 +6,20 @@ import { useSession, signOut } from 'next-auth/react';
 import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import Head from 'next/head';
-import { addFriend } from '../../utils/fetchers/users';
+import { addFriend, deleteFriend } from '../../utils/fetchers';
 
 function Settings({ username, friends }: { username: string, userID: string, friends: string[] }) {
   const [showFriendsList, setShowFriendsList] = useState(false);
   const { update } = useSession();
 
   async function handleDeleteFriend(friendID: string) {
-    await addFriend(username, friendID);
+    await deleteFriend(username, friendID);
+    update();
   }
 
   async function handleAddFriend(friendID: string) {
     await addFriend(username, friendID)
+    update();
   }
 
   return (

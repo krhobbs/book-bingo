@@ -84,15 +84,16 @@ export async function doesUserExistByID(id: string) {
   return countResult[0].count !== '0';
 }
 
-export async function setUsername(
-  username: string,
-  identifier: string,
-  provider: 'google' | 'reddit',
-) {
+/**
+ * Sets the username field of the user record with the given user ID
+ * @param username new username
+ * @param userID user ID
+ */
+export async function setUsername(username: string, userID: string) {
   await sql`
   UPDATE bingo.users 
   SET username = ${username}
-  WHERE account_identifier = ${identifier} AND account_provider = ${provider}`;
+  WHERE id = ${userID}`;
 }
 
 // returns true if a card is owned by a user

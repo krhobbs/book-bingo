@@ -1,7 +1,7 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { Box, Button, Input, Label } from "theme-ui";
 import { Spacer } from "../ui";
-import { setUsername } from "../../utils/api-utils";
+import { setUsername } from "../../utils/fetchers";
 import { useSession } from "next-auth/react";
 
 export default function CreateUsername() {
@@ -9,10 +9,8 @@ export default function CreateUsername() {
   const { data, status } = useSession();
 
   const onSubmit: SubmitHandler<{ username: string }> = async ({ username }) => {
-    if (data?.user?.identifier && data?.user?.provider) {
-      await setUsername(username, data.user.identifier, data.user.provider);
-    } else {
-      console.error('USER DATA NOT AVAILABLE TO SET USERNAME...');
+    if (data?.user) {
+      await setUsername(data?.user.id, username);
     }
   }
 

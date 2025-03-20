@@ -20,20 +20,3 @@ export async function updateCardSquare(
 
   return [activeCard, otherCards];
 }
-
-export async function setUsername(
-  username: string,
-  identifier: string,
-  provider: 'reddit' | 'google',
-) {
-  try {
-    await fetch('/api/auth/set-user', {
-      method: 'POST',
-      body: JSON.stringify({ username, identifier, provider }),
-      headers: { 'Content-Type': 'application/json' },
-    });
-  } catch (error) {
-    console.error(error);
-    return;
-  }
-}
