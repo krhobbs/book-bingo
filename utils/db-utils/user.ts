@@ -72,6 +72,18 @@ export async function doesUserExist(
   return countResult[0].count !== '0';
 }
 
+/**
+ * Checks if a given user ID corresponds to an existing users record
+ * @param id user ID
+ * @returns true if user exists
+ */
+export async function doesUserExistByID(id: string) {
+  const countResult = await sql`
+  SELECT COUNT(*) FROM bingo.users WHERE id = ${id}`;
+
+  return countResult[0].count !== '0';
+}
+
 export async function setUsername(
   username: string,
   identifier: string,

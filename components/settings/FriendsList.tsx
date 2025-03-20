@@ -5,8 +5,8 @@ import { ErrorPopup, Spacer } from '../ui';
 
 interface FriendsListInterface {
   friends: string[];
-  handleDeleteFriend: (friendData: { friendToDelete: string }) => Promise<any>;
-  handleAddFriend: (newFriendData: { friendToAdd: string }) => Promise<any>;
+  handleDeleteFriend: (friendID: string) => Promise<any>;
+  handleAddFriend: (friendID: string) => Promise<any>;
 }
 
 function FriendsList({
@@ -26,7 +26,7 @@ function FriendsList({
       throw new Error('Unable to add friend.');
     }
 
-    const result = await handleAddFriend({ friendToAdd: enteredNewFriend });
+    const result = await handleAddFriend(enteredNewFriend);
 
     if (result !== 'success') {
       setErrorMessage(result);
@@ -76,7 +76,7 @@ function FriendsList({
                   width: ['16px', '22px'],
                   height: ['18px', '24px'],
                 }}
-                onClick={() => handleDeleteFriend({ friendToDelete: friend })}
+                onClick={() => handleDeleteFriend(friend)}
               >
                 <TrashIcon style={{ inlineSize: '100%' }} />
               </IconButton>
