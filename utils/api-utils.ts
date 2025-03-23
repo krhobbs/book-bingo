@@ -20,3 +20,11 @@ export async function updateCardSquare(
 
   return [activeCard, otherCards];
 }
+
+export function getErrorMessage(error: unknown) {
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  return 'An unknown error occurred.';
+}

@@ -1,5 +1,8 @@
 import { KeyedMutator } from 'swr';
 
+/**
+ * Fetches a page worth of cards and total pages of cards
+ */
 export async function fetchCards(url: string) {
   const response = await fetch(url);
 
@@ -10,7 +13,12 @@ export async function fetchCards(url: string) {
   return { cards, pageCount };
 }
 
-export async function createCard(templateID: string) {
+/**
+ * Creates a card based on a template for the logged in user
+ * @param templateID
+ * @returns the new card's ID
+ */
+export async function createCard(templateID: string): Promise<string> {
   const response = await fetch('/api/cards', {
     method: 'POST',
     body: JSON.stringify({ templateID }),
@@ -19,15 +27,27 @@ export async function createCard(templateID: string) {
     },
   });
 
-  return await response.json();
+  const { cardID } = await response.json();
+
+  return cardID;
 }
 
+/**
+ * Deletes a card for the logged in user
+ * @param cardID
+ */
 export async function deleteCard(cardID: string) {
   await fetch(`/api/cards/${cardID}`, {
     method: 'DELETE',
   });
 }
 
+/**
+ * Updates a card for the logged in user
+ * @param cardID
+ * @param archived
+ * @param square
+ */
 export async function updateCard(
   cardID: string,
   archived?: boolean,
@@ -62,14 +82,7 @@ export async function addCard({
   cards: Card[];
   mutate: KeyedMutator<{ cards: Card[]; pageCount: number }>;
 }): Promise<void> {
-  const response = await fetch('/api/cards', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ templateID }),
-  });
-  const { cardId } = await response.json();
+  const cardId = await createCard(templateID);
 
   const newCard: Card = {
     id: cardId,
