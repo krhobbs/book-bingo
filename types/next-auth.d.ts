@@ -7,7 +7,7 @@ declare module 'next-auth' {
    */
   interface User {
     username?: string;
-    friends: string[];
+    friends: { id: string; username: string }[];
     provider: 'google' | 'reddit';
     identifier: string;
   }

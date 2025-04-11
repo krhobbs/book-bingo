@@ -1,4 +1,7 @@
 import sql from '../db';
+import type { User } from 'next-auth';
+
+type UserData = Pick<User, 'id' | 'username' | 'friends'>;
 
 /**
  * @param identifier id from account provider
@@ -9,11 +12,11 @@ export async function getUser(
   identifier: string,
   provider: 'google' | 'reddit',
 ) {
-  const user = await sql<{ id: string; username: string; friends: string[] }[]>`
+  const user = await sql<UserData[]>`
     SELECT user_.id AS "id", user_.username, CASE 
     WHEN count(friend_.username) = 0
       THEN '[]'::jsonb
-      ELSE jsonb_agg(friend_.id)
+      ELSE jsonb_agg(json_build_object('id', friend_.id, 'username', friend_.username))
     END AS "friends"
     FROM ((bingo.users user_ LEFT JOIN bingo.friends ON user_.id = friends.user_id)
         LEFT JOIN bingo.users friend_ ON friend_.id = friends.friend_id)

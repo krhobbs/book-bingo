@@ -18,7 +18,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     return res.status(401).json({ message: 'Not authenticated.' });
   }
 
-  const friendID = req.body.friendToAdd;
+  const friendID = req.body.friendID;
 
   if (req.method === 'POST') {
     try {

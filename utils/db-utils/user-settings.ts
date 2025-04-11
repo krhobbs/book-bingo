@@ -1,3 +1,4 @@
+import { Friend } from '../../pages/settings';
 import sql from '../db';
 
 /**
@@ -21,17 +22,15 @@ export async function insertFriendOfUser(user_id: string, friend_id: string) {
 export async function deleteFriendOfUser(user_id: string, friend_id: string) {
   await sql`
     DELETE FROM bingo.friends 
-    WHERE user_id = ${user_id} AND friend_id = (SELECT users.id FROM bingo.users WHERE username = ${friend_id})`;
+    WHERE user_id = ${user_id} AND friend_id = ${friend_id}`;
 }
 
-// NOT USED; WAIT TO DELETE
-// returns list of the users friends
-export async function getFriendsOfUser(user_id: string) {
-  const friends = await sql`
-    SELECT friend_.username AS "friends"
+export async function getFriendsOfUser(user_id: string): Promise<Friend[]> {
+  const friends = await sql<Friend[]>`
+    SELECT friend_.username, friend_.id
     FROM ((bingo.users user_ INNER JOIN bingo.friends ON user_.id = friends.user_id)
       INNER JOIN bingo.users friend_ ON friend_.id = friends.friend_id)
-    WHERE user_.id = ${user_id}`.values();
+    WHERE user_.id = ${user_id}`;
 
-  return friends.flat();
+  return friends;
 }

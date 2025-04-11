@@ -7,18 +7,19 @@ import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import Head from 'next/head';
 import { addFriend, deleteFriend } from '../../utils/fetchers';
+import { Friend } from '../../pages/settings';
 
-function Settings({ username, friends }: { username: string, userID: string, friends: string[] }) {
+function Settings({ username, userID, friends }: { username: string, userID: string, friends: Friend[] }) {
   const [showFriendsList, setShowFriendsList] = useState(false);
   const { update } = useSession();
 
   async function handleDeleteFriend(friendID: string) {
-    await deleteFriend(username, friendID);
+    await deleteFriend(userID, friendID);
     update();
   }
 
   async function handleAddFriend(friendID: string) {
-    await addFriend(username, friendID)
+    await addFriend(userID, friendID)
     update();
   }
 

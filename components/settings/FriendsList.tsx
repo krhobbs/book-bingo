@@ -2,9 +2,10 @@ import React, { FormEvent, useRef, useState } from 'react';
 import { Box, Button, Input, Label, Text, IconButton } from 'theme-ui';
 import { TrashIcon } from '@heroicons/react/20/solid';
 import { ErrorPopup, Spacer } from '../ui';
+import { Friend } from '../../pages/settings';
 
 interface FriendsListInterface {
-  friends: string[];
+  friends: Friend[];
   handleDeleteFriend: (friendID: string) => Promise<any>;
   handleAddFriend: (friendID: string) => Promise<any>;
 }
@@ -52,10 +53,10 @@ function FriendsList({
           overflowY: 'auto',
         }}
       >
-        {friends.map((friend: string, index: number) => {
+        {friends.map((friend: Friend, index: number) => {
           return (
             <Box
-              key={friend}
+              key={friend.id}
               sx={{
                 display: 'flex',
                 justifyContent: 'space-between',
@@ -67,7 +68,7 @@ function FriendsList({
                 minInlineSize: '200px',
               }}
             >
-              <Text variant="body1">{friend}</Text>
+              <Text variant="body1">{friend.username}</Text>
               <IconButton
                 sx={{
                   color: 'text',
@@ -76,7 +77,7 @@ function FriendsList({
                   width: ['16px', '22px'],
                   height: ['18px', '24px'],
                 }}
-                onClick={() => handleDeleteFriend(friend)}
+                onClick={() => handleDeleteFriend(friend.id)}
               >
                 <TrashIcon style={{ inlineSize: '100%' }} />
               </IconButton>
