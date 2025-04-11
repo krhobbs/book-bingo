@@ -46,9 +46,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     try {
       const newTemplateId = await insertTemplate(name, userId, reqs);
-      return res
-        .status(200)
-        .json({ message: `Created new template with ID: ${newTemplateId}` });
+      return res.status(200).json({ templateID: newTemplateId });
     } catch {
       return res.status(500).json({ message: 'Error.' });
     }

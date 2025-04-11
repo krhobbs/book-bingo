@@ -4,8 +4,13 @@ import { authOptions } from './api/auth/[...nextauth]';
 import { getFriendsOfUser } from '../utils/db-utils';
 import { GetServerSidePropsContext } from 'next';
 
-export default function SettingsPage({ username, friends }: { username: string, friends: string[] }) {
-  return <Settings username={username} friends={friends} />;
+export interface Friend {
+  username: string;
+  id: string;
+}
+
+export default function SettingsPage({ username, userID, friends }: { username: string, userID: string, friends: Friend[] }) {
+  return <Settings username={username} userID={userID} friends={friends} />;
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
@@ -25,6 +30,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     return {
       props: {
         username: session.user.username,
+        userID: session.user.id,
         friends: friends
       },
     };

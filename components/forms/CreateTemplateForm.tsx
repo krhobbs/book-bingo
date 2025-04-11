@@ -4,6 +4,7 @@ import { Box, Label, Input, Button, Text } from 'theme-ui';
 import { ErrorPopup, Spacer } from '../ui';
 import { useRouter } from 'next/router';
 import { createTemplate } from '../../utils/fetchers';
+import { getErrorMessage } from '../../utils/api-utils';
 
 function CreateTemplateForm() {
   const { register, handleSubmit } = useForm();
@@ -18,12 +19,11 @@ function CreateTemplateForm() {
       throw Error('Invalid template.');
     }
 
-    const response = await createTemplate(name, reqs);
-
-    if (response.ok) {
+    try {
+      await createTemplate(name, reqs);
       router.push('/templates');
-    } else {
-      setErrorMessage('Failed to create new template.');
+    } catch (error) {
+      setErrorMessage(getErrorMessage(error));
     }
   }
 

@@ -1,4 +1,7 @@
 import sql from '../db';
+import type { User } from 'next-auth';
+
+type UserData = Pick<User, 'id' | 'username' | 'friends'>;
 
 /**
  * @param identifier id from account provider
@@ -9,11 +12,11 @@ export async function getUser(
   identifier: string,
   provider: 'google' | 'reddit',
 ) {
-  const user = await sql<{ id: string; username: string; friends: string[] }[]>`
+  const user = await sql<UserData[]>`
     SELECT user_.id AS "id", user_.username, CASE 
     WHEN count(friend_.username) = 0
       THEN '[]'::jsonb
-      ELSE jsonb_agg(friend_.id)
+      ELSE jsonb_agg(json_build_object('id', friend_.id, 'username', friend_.username))
     END AS "friends"
     FROM ((bingo.users user_ LEFT JOIN bingo.friends ON user_.id = friends.user_id)
         LEFT JOIN bingo.users friend_ ON friend_.id = friends.friend_id)
@@ -72,23 +75,28 @@ export async function doesUserExist(
   return countResult[0].count !== '0';
 }
 
-export async function setUsername(
-  username: string,
-  identifier: string,
-  provider: 'google' | 'reddit',
-) {
+/**
+ * Checks if a given user ID corresponds to an existing users record
+ * @param id user ID
+ * @returns true if user exists
+ */
+export async function doesUserExistByID(id: string) {
+  const countResult = await sql`
+  SELECT COUNT(*) FROM bingo.users WHERE id = ${id}`;
+
+  return countResult[0].count !== '0';
+}
+
+/**
+ * Sets the username field of the user record with the given user ID
+ * @param username new username
+ * @param userID user ID
+ */
+export async function setUsername(username: string, userID: string) {
   await sql`
   UPDATE bingo.users 
   SET username = ${username}
-  WHERE account_identifier = ${identifier} AND account_provider = ${provider}`;
-}
-
-// returns true if a user by that username exists in the database
-export async function isUsernameTaken(username: string) {
-  const countResult = await sql`
-    SELECT COUNT(*) FROM bingo.users WHERE username = ${username}`;
-
-  return countResult[0].count !== '0';
+  WHERE id = ${userID}`;
 }
 
 // returns true if a card is owned by a user

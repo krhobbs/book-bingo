@@ -6,46 +6,21 @@ import { useSession, signOut } from 'next-auth/react';
 import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import Head from 'next/head';
+import { addFriend, deleteFriend } from '../../utils/fetchers';
+import { Friend } from '../../pages/settings';
 
-function Settings({ username, friends }: { username: string, friends: string[] }) {
+function Settings({ username, userID, friends }: { username: string, userID: string, friends: Friend[] }) {
   const [showFriendsList, setShowFriendsList] = useState(false);
   const { update } = useSession();
 
-  async function handleDeleteFriend(friendData: { friendToDelete: string }) {
-    const response = await fetch('/api/user/delete-friend', {
-      method: 'PATCH',
-      body: JSON.stringify(friendData),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    const data: { message: string } = await response.json();
-
-    if (response.ok) {
-      update();
-    }
-
-    return data;
+  async function handleDeleteFriend(friendID: string) {
+    await deleteFriend(userID, friendID);
+    update();
   }
 
-  async function handleAddFriend(newFriendData: { friendToAdd: string }) {
-    const response = await fetch('/api/user/add-friend', {
-      method: 'POST',
-      body: JSON.stringify(newFriendData),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    const data: { message: string } = await response.json();
-
-    if (response.ok) {
-      update();
-      return 'success';
-    } else {
-      return data.message;
-    }
+  async function handleAddFriend(friendID: string) {
+    await addFriend(userID, friendID)
+    update();
   }
 
   return (

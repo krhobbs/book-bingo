@@ -31,13 +31,14 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   }
 
   try {
-    const { cards, pageCount } = await getCards({ userIds: session.user.friends, archived: false, page: 1 });
+    const friendIds = session.user.friends.map(friend => friend.id);
+    const { cards, pageCount } = await getCards({ userIds: friendIds, archived: false, page: 1 });
 
     return {
       props: {
         cards,
         pageCount,
-        userIds: session.user.friends,
+        userIds: friendIds,
       },
     };
   } catch (error) {

@@ -13,18 +13,6 @@ import {
   paramToArray,
 } from '../../../utils/param-utils';
 
-// function putUsersCardFirst(cards: Card[], userId: string) {
-//   const usersCards: number[] = cards.reduce(
-//     (acc, card, idx) => (card.user_id === userId && acc.push(idx), acc),
-//     [],
-//   );
-
-//   usersCards.forEach((idx) => {
-//     cards.unshift(cards.splice(idx, 1)[0]);
-//   });
-//   return cards;
-// }
-
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {
     const {
@@ -74,7 +62,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
       return res
         .status(200)
-        .json({ cardId: cardResult, message: `Inserted card ${cardResult}` });
+        .json({ cardID: cardResult, message: `Inserted card ${cardResult}` });
     } catch (error) {
       return res.status(500).json({ message: 'Unable to create card.' });
     }
