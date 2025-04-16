@@ -1,18 +1,23 @@
 import sql from '../db';
 
+const templateSelect = sql`
+  templates.id,
+  json_build_object('id', templates.user_id, 'name', users.username) AS "user",
+  templates.name,
+  jsonb_agg(template_reqs.req) AS reqs`;
+
+const templateFrom = sql`
+  ((bingo.templates INNER JOIN bingo.users ON templates.user_id = users.id)
+  INNER JOIN bingo.template_reqs ON templates.id = template_reqs.template_id)`;
+
 /**
  * Gets a page (10) of templates plus the total number of pages
  */
 export async function getTemplates(page = 1) {
   const offsetValue = (page - 1) * 10;
   const templates = await sql<Template[]>`
-    SELECT
-      templates.id,
-      json_build_object('id', templates.user_id, 'name', users.username),
-      templates.name,
-      jsonb_agg(template_reqs.req) AS reqs
-    FROM ((bingo.templates INNER JOIN bingo.users ON templates.user_id = users.id)
-      INNER JOIN bingo.template_reqs ON templates.id = template_reqs.template_id)
+    SELECT ${templateSelect}
+    FROM ${templateFrom}
     GROUP BY users.username, users.id, templates.name, templates.id
     ORDER BY templates.created_at DESC
     LIMIT 10
@@ -70,13 +75,8 @@ export async function deleteTemplate(templateId: string) {
  */
 export async function getTemplateById(templateId: string) {
   const templateResult = await sql<Template[]>`
-    SELECT 
-      templates.id,
-      json_build_object('id', user.id, 'name', users.username),
-      templates.name,
-      jsonb_agg(template_reqs.req) AS reqs
-    FROM ((bingo.templates INNER JOIN bingo.users ON templates.user_id = users.id)
-      INNER JOIN bingo.template_reqs ON templates.id = template_reqs.template_id)
+    SELECT ${templateSelect}
+    FROM ${templateFrom}
     WHERE templates.id = ${templateId}
     GROUP BY users.username, templates.name, templates.id`;
 
