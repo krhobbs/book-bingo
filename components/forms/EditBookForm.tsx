@@ -21,7 +21,7 @@ function EditBookForm({
   const { register, handleSubmit } = useForm<EditBookFormValues>();
 
   const onSubmit: SubmitHandler<EditBookFormValues> = async (data) => {
-    if (data?.cover?.includes('images-na.ssl-images-amazon.com')) {
+    if (!data?.cover?.includes('images-na.ssl-images-amazon.com')) {
       data.cover = undefined;
     }
 
