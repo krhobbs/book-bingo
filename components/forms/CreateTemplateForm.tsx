@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { Box, Label, Input, Button, Text } from 'theme-ui';
-import { ErrorPopup, Spacer } from '../ui';
+import { Alert, Spacer } from '../ui';
 import { useRouter } from 'next/router';
 import { createTemplate } from '../../utils/fetchers';
 import { getErrorMessage } from '../../utils/api-utils';
@@ -273,11 +273,10 @@ function CreateTemplateForm() {
       {errorMessage && (
         <Box>
           <Spacer size={['2.4rem']} />
-          <ErrorPopup
+          <Alert
             message={errorMessage}
             close={closeErrorPopup}
-            sx={{ margin: 'auto' }}
-          ></ErrorPopup>
+          ></Alert>
         </Box>
       )}
     </Box>

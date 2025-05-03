@@ -1,7 +1,7 @@
 import React, { FormEvent, useRef, useState } from 'react';
 import { Box, Button, Input, Label, Text, IconButton } from 'theme-ui';
 import { TrashIcon } from '@heroicons/react/20/solid';
-import { ErrorPopup, Spacer } from '../ui';
+import { Alert, Spacer } from '../ui';
 import type { UserResponse } from '../../utils/fetchers';
 
 export interface Friend {
@@ -115,15 +115,16 @@ function FriendsList({
         <Button sx={{ display: 'inline', marginTop: '1rem' }}>Add</Button>
       </Box>
       {errorMessage && (
-        <ErrorPopup
+        <Alert
           message={errorMessage}
           close={closeErrorPopup}
         />
       )}
       {successMessage && (
-        <ErrorPopup
+        <Alert
           message={successMessage}
           close={() => { setSuccessMessage('') }}
+          variant="success"
         />
       )}
     </Box>

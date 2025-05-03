@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Box, Label, Input, Button, Text } from 'theme-ui';
-import { ErrorPopup, Spacer } from '../ui';
+import { Alert, Spacer } from '../ui';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 
 interface EditBookFormValues {
@@ -98,11 +98,10 @@ function EditBookForm({
       <Spacer size={['2.4rem']} />
       <Button>Save</Button>
       {errorMessage && (
-        <ErrorPopup
+        <Alert
           message={errorMessage}
           close={closeErrorPopup}
-          sx={{ margin: 'auto' }}
-        ></ErrorPopup>
+        ></Alert>
       )}
     </Box>
   );

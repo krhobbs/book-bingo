@@ -112,14 +112,21 @@ export const theme: Theme = {
     },
   },
   alerts: {
-    error: {
+    base: {
       position: 'absolute',
-      backgroundColor: 'destructive',
       color: 'background',
       top: '1rem',
       left: '1rem',
       right: '1rem',
       justifyContent: 'space-between',
+    },
+    error: {
+      variant: 'alerts.base',
+      backgroundColor: 'destructive',
+    },
+    success: {
+      variant: 'alerts.base',
+      backgroundColor: '#4fa945',
     },
   },
   layout: {
