@@ -20,6 +20,7 @@ export default function CreateUsername() {
 
   return (
     <Box as="form" variant="layout.form" onSubmit={handleSubmit(onSubmit)}>
+      <Spacer size={['6rem']} />
       <Label htmlFor="username">Username</Label>
       <Input type="text" required id="username" {...register('username', { required: true })} />
       <Spacer size="1rem" />

@@ -37,6 +37,7 @@ function CreateTemplateForm() {
       variant='layout.form'
       onSubmit={handleSubmit(onSubmit)}
     >
+      <Spacer size={['6rem']} />
       <Label htmlFor="name" variant="text.heading2">Name</Label>
       <Input
         type="text"

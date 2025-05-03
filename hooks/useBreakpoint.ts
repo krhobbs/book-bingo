@@ -5,11 +5,15 @@ type WindowSize = {
   height: number | undefined;
 };
 
-const useBreakpoint = () => {
-  const [breakpoint, setBreakPoint] = useState('');
+type Breakpoint = 'sm' | 'md' | 'lg';
+
+const useBreakpoint: () => Breakpoint | undefined = () => {
+  const [breakpoint, setBreakPoint] = useState<Breakpoint | undefined>(
+    undefined,
+  );
   const [windowSize, setWindowSize] = useState<WindowSize>({
-    width: undefined,
-    height: undefined,
+    width: window.innerWidth,
+    height: window.innerHeight,
   });
 
   const handleResize = () => {

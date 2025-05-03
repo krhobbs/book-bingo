@@ -8,6 +8,7 @@ import {
 } from '../../../../utils/db-utils';
 import { authOptions } from '../../auth/[...nextauth]';
 import { paramToString } from '../../../../utils/param-utils';
+import { isValidUUID } from '../../../../utils/api-utils';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const session = await getServerSession(req, res, authOptions);

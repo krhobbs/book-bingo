@@ -1,7 +1,7 @@
 import { RefObject, useEffect, useState } from 'react';
 
 export function usePopover(
-  ref: RefObject<HTMLElement>,
+  ref: RefObject<HTMLElement | null>,
   buttonRef: RefObject<HTMLElement | null>,
   spaceBetween: number,
 ) {
@@ -10,29 +10,27 @@ export function usePopover(
 
   useEffect(() => {
     if (buttonRef.current && ref.current) {
-      document.body.style.overflow = 'hidden';
       const buttonPos = buttonRef.current.getBoundingClientRect();
       const { width, height } = ref.current.getBoundingClientRect();
 
-      let y = buttonPos.bottom + spaceBetween;
-      let x = buttonPos.left + buttonPos.width / 2 - width / 2;
+      const scrollY = window.scrollY;
+      const scrollX = window.scrollX;
 
-      if (y + height > window.innerHeight) {
-        y = buttonPos.top - height - spaceBetween;
+      let y = buttonPos.bottom + scrollY + spaceBetween;
+      let x = buttonPos.left + scrollX + buttonPos.width / 2 - width / 2;
+
+      if (buttonPos.bottom + height + spaceBetween > window.innerHeight) {
+        y = buttonPos.top + scrollY - height - spaceBetween;
       }
 
-      if (x < 0) {
-        x = 0 + spaceBetween;
+      if (x < scrollX) {
+        x = scrollX + spaceBetween;
       } else if (x + width > window.innerWidth) {
-        x = window.innerWidth - width - spaceBetween;
+        x = window.innerWidth + scrollX - width - spaceBetween;
       }
 
       setTop(y);
       setLeft(x);
-
-      return () => {
-        document.body.style.overflow = 'unset';
-      };
     }
   }, []);
 

@@ -2,20 +2,26 @@ import React, { FormEvent, useRef, useState } from 'react';
 import { Box, Button, Input, Label, Text, IconButton } from 'theme-ui';
 import { TrashIcon } from '@heroicons/react/20/solid';
 import { ErrorPopup, Spacer } from '../ui';
-import { Friend } from '../../pages/settings';
+import type { UserResponse } from '../../utils/fetchers';
 
-interface FriendsListInterface {
+export interface Friend {
+  username: string;
+  id: string;
+}
+
+interface FriendsListProps {
   friends: Friend[];
-  handleDeleteFriend: (friendID: string) => Promise<any>;
-  handleAddFriend: (friendID: string) => Promise<any>;
+  handleDeleteFriend: (friendID: string) => Promise<UserResponse>;
+  handleAddFriend: (friendID: string) => Promise<UserResponse>;
 }
 
 function FriendsList({
   friends,
   handleDeleteFriend,
   handleAddFriend,
-}: FriendsListInterface) {
+}: FriendsListProps) {
   const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const newFriendRef = useRef<HTMLInputElement>(null);
 
   async function onAddFriend(event: FormEvent<HTMLDivElement>) {
@@ -29,11 +35,22 @@ function FriendsList({
 
     const result = await handleAddFriend(enteredNewFriend);
 
-    if (result !== 'success') {
-      setErrorMessage(result);
+    if (!result.ok) {
+      setErrorMessage(result.message);
     } else {
       event.target instanceof HTMLFormElement && event.target.reset();
       setErrorMessage('');
+      setSuccessMessage('Added friend successfully.');
+    }
+  }
+
+  async function onDeleteFriend(friendId: string) {
+    const result = await handleDeleteFriend(friendId);
+    if (!result.ok) {
+      setErrorMessage(result.message);
+    } else {
+      setErrorMessage('');
+      setSuccessMessage('Deleted friend successfully.');
     }
   }
 
@@ -77,7 +94,7 @@ function FriendsList({
                   width: ['16px', '22px'],
                   height: ['18px', '24px'],
                 }}
-                onClick={() => handleDeleteFriend(friend.id)}
+                onClick={() => onDeleteFriend(friend.id)}
               >
                 <TrashIcon style={{ inlineSize: '100%' }} />
               </IconButton>
@@ -91,21 +108,23 @@ function FriendsList({
         onSubmit={onAddFriend}
         sx={{ display: 'flex', gap: '1rem' }}
       >
-        <Box sx={{ display: 'inline' }}>
+        <Box sx={{ display: 'inline', flex: 1 }}>
           <Label htmlFor="add-friend">Add Friend</Label>
           <Input type="text" id="add-friend" ref={newFriendRef} />
         </Box>
         <Button sx={{ display: 'inline', marginTop: '1rem' }}>Add</Button>
       </Box>
       {errorMessage && (
-        <Box>
-          <Spacer size={['2.4rem']} />
-          <ErrorPopup
-            message={errorMessage}
-            close={closeErrorPopup}
-            sx={{ margin: 'auto' }}
-          ></ErrorPopup>
-        </Box>
+        <ErrorPopup
+          message={errorMessage}
+          close={closeErrorPopup}
+        />
+      )}
+      {successMessage && (
+        <ErrorPopup
+          message={successMessage}
+          close={() => { setSuccessMessage('') }}
+        />
       )}
     </Box>
   );

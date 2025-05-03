@@ -11,7 +11,7 @@ interface AddBookLinkProps {
 export default function AddBookLink({ cardId, squareId, page }: AddBookLinkProps) {
   return <Link
     href={{
-      pathname: '/add-book',
+      pathname: '/edit-book',
       query: {
         card: cardId,
         square: squareId,

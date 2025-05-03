@@ -48,6 +48,7 @@ function EditBookForm({
       variant='layout.form'
       onSubmit={handleSubmit(onSubmit)}
     >
+      <Spacer size={['6rem']} />
       <Box>
         <Label htmlFor="title">Book Title</Label>
         <Input
@@ -89,21 +90,19 @@ function EditBookForm({
           type="color"
           id="color"
           {...register('color')}
-          defaultValue={square.color}
+          defaultValue={square.color ?? '#FFFFFF'
+          }
           sx={{ padding: '0px', border: 'none' }}
         />
       </Box>
       <Spacer size={['2.4rem']} />
       <Button>Save</Button>
       {errorMessage && (
-        <Box>
-          <Spacer size={['2.4rem']} />
-          <ErrorPopup
-            message={errorMessage}
-            close={closeErrorPopup}
-            sx={{ margin: 'auto' }}
-          ></ErrorPopup>
-        </Box>
+        <ErrorPopup
+          message={errorMessage}
+          close={closeErrorPopup}
+          sx={{ margin: 'auto' }}
+        ></ErrorPopup>
       )}
     </Box>
   );
