@@ -36,7 +36,7 @@ function BookButtons({
         sx={{
           alignItems: 'center',
           background: 'destructive',
-          borderRadius: '4px 0px 0px 4px',
+          borderRadius: '2px 0px 0px 2px',
           display: 'flex',
           flex: '1 1 0px',
           justifyContent: 'center',
@@ -63,7 +63,7 @@ function BookButtons({
           sx={{
             alignItems: 'center',
             background: 'muted',
-            borderRadius: '0px 4px 4px 0px',
+            borderRadius: '0px 2px 2px 0px',
             display: 'flex',
             flex: '1 1 0px',
             justifyContent: 'center',

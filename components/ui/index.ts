@@ -1,4 +1,4 @@
-export { ErrorPopup } from './ErrorPopup';
+export { Alert } from './Alert';
 export { GridListSwitch } from './GridListSwitch';
 export { LoginButton } from './LoginButton';
 export { Modal } from './Modal';

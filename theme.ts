@@ -20,7 +20,7 @@ export const theme: Theme = {
         accent: '#FFCC33',
         highlight: '#1F1F1F',
         muted: '#4D4D4D',
-        destructive: '#B23D3D',
+        destructive: '#c55951 ',
       },
     },
   },
@@ -96,7 +96,7 @@ export const theme: Theme = {
       gap: '1rem',
       justifyContent: 'flex-start',
       padding: '0.5rem 1.5rem',
-      borderRadius: '5px',
+      borderRadius: '3px',
     },
     closeModal: {
       bg: 'primary',
@@ -106,6 +106,27 @@ export const theme: Theme = {
       inlineSize: ['1.5rem', '2.25rem'],
       padding: '0px',
       '&:hover': { boxShadow: 'pushedIn' },
+    },
+    close: {
+      cursor: 'pointer',
+    },
+  },
+  alerts: {
+    base: {
+      position: 'absolute',
+      color: 'background',
+      top: '1rem',
+      left: '1rem',
+      right: '1rem',
+      justifyContent: 'space-between',
+    },
+    error: {
+      variant: 'alerts.base',
+      backgroundColor: 'destructive',
+    },
+    success: {
+      variant: 'alerts.base',
+      backgroundColor: '#4fa945',
     },
   },
   layout: {
@@ -127,10 +148,10 @@ export const theme: Theme = {
       transition: 'all .6s ease',
     },
     form: {
-      marginBlockStart: '7rem',
       px: ['0.25rem', '0rem'],
       mx: 'auto',
       maxInlineSize: '512px',
+      position: 'relative',
     },
   },
   links: {

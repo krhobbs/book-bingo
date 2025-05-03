@@ -26,16 +26,17 @@ const cardFrom = sql`
  */
 export async function getCards({
   page = 1,
-  userIds = [],
+  userIds = undefined,
   archived = false,
 }: CardsFilters): Promise<{ cards: Card[]; pageCount: number }> {
   const offsetValue = (page - 1) * 10;
-  const filterUser = userIds && userIds.length > 0;
-  const userFilter = sql`AND cards.user_id IN ${sql(userIds)}`;
+  const userFilter = userIds
+    ? sql`AND cards.user_id IN ${sql(userIds)}`
+    : sql``;
   const cards = await sql<Card[]>`
     SELECT ${cardSelect}
     FROM ${cardFrom}
-    WHERE cards.archived = ${archived} ${filterUser ? userFilter : sql``}
+    WHERE cards.archived = ${archived} ${userFilter}
     GROUP BY cards.id, users.username, templates.name, templates.id
     ORDER BY cards.created_at ASC
     LIMIT 10
@@ -52,15 +53,16 @@ export async function getCards({
  * Returns the total count of cards that satisfy the given filters
  */
 export async function getCardCount({
-  userIds = [],
+  userIds = undefined,
   archived = false,
 }: CardsFilters): Promise<number> {
-  const filterUser = userIds && userIds.length > 0;
-  const userFilter = sql`AND cards.user_id IN ${sql(userIds)}`;
+  const userFilter = userIds
+    ? sql`AND cards.user_id IN ${sql(userIds)}`
+    : sql``;
   const cardCount = await sql`
     SELECT count(*)
     FROM bingo.cards
-    WHERE cards.archived = ${archived} ${filterUser ? userFilter : sql``}`;
+    WHERE cards.archived = ${archived} ${userFilter}`;
   return cardCount[0].count;
 }
 

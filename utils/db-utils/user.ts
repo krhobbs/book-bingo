@@ -1,3 +1,4 @@
+import { isValidUUID } from '../api-utils';
 import sql from '../db';
 import type { User } from 'next-auth';
 
@@ -81,6 +82,9 @@ export async function doesUserExist(
  * @returns true if user exists
  */
 export async function doesUserExistByID(id: string) {
+  if (!isValidUUID(id)) {
+    return false;
+  }
   const countResult = await sql`
   SELECT COUNT(*) FROM bingo.users WHERE id = ${id}`;
 

@@ -9,6 +9,12 @@ export function getErrorMessage(error: unknown) {
   return 'An unknown error occurred.';
 }
 
+export function isValidUUID(uuid: string) {
+  const uuidRegex =
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+  return uuidRegex.test(uuid);
+}
+
 export async function updateCardSquare(
   cards: Card[],
   squareId: string,

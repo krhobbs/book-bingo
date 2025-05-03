@@ -5,11 +5,15 @@ type WindowSize = {
   height: number | undefined;
 };
 
-const useBreakpoint = () => {
-  const [breakpoint, setBreakPoint] = useState('');
+type Breakpoint = 'sm' | 'md' | 'lg';
+
+const useBreakpoint: () => Breakpoint | undefined = () => {
+  const [breakpoint, setBreakpoint] = useState<Breakpoint | undefined>(
+    undefined,
+  );
   const [windowSize, setWindowSize] = useState<WindowSize>({
-    width: undefined,
     height: undefined,
+    width: undefined,
   });
 
   const handleResize = () => {
@@ -20,23 +24,25 @@ const useBreakpoint = () => {
   };
 
   useEffect(() => {
-    if (windowSize.width && windowSize.height) {
-      window.addEventListener('resize', handleResize);
-      handleResize();
+    window.addEventListener('resize', handleResize);
 
-      if (0 < windowSize.width && windowSize.width < 600) {
-        setBreakPoint('sm');
-      }
-      if (600 < windowSize.width && windowSize.width < 1024) {
-        setBreakPoint('md');
-      }
-      if (windowSize.width >= 1024) {
-        setBreakPoint('lg');
-      }
+    handleResize();
 
-      return () => window.removeEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (windowSize.width !== undefined) {
+      if (windowSize.width < 600) {
+        setBreakpoint('sm');
+      } else if (windowSize.width < 1024) {
+        setBreakpoint('md');
+      } else {
+        setBreakpoint('lg');
+      }
     }
   }, [windowSize.width]);
+
   return breakpoint;
 };
 

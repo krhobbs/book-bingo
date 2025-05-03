@@ -7,20 +7,21 @@ import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import Head from 'next/head';
 import { addFriend, deleteFriend } from '../../utils/fetchers';
-import { Friend } from '../../pages/settings';
 
-function Settings({ username, userID, friends }: { username: string, userID: string, friends: Friend[] }) {
+function Settings({ username, userID }: { username: string, userID: string }) {
   const [showFriendsList, setShowFriendsList] = useState(false);
-  const { update } = useSession();
+  const { update, data: session } = useSession({ required: true });
 
   async function handleDeleteFriend(friendID: string) {
-    await deleteFriend(userID, friendID);
+    const result = await deleteFriend(userID, friendID);
     update();
+    return result
   }
 
   async function handleAddFriend(friendID: string) {
-    await addFriend(userID, friendID)
+    const result = await addFriend(userID, friendID)
     update();
+    return result;
   }
 
   return (
@@ -71,7 +72,7 @@ function Settings({ username, userID, friends }: { username: string, userID: str
         createPortal(
           <Modal closeModal={() => setShowFriendsList(!showFriendsList)}>
             <FriendsList
-              friends={friends}
+              friends={session?.user.friends || []}
               handleDeleteFriend={handleDeleteFriend}
               handleAddFriend={handleAddFriend}
             />

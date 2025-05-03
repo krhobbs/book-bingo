@@ -1,5 +1,5 @@
 interface CardsFilters {
   page: number;
-  userIds: string[];
+  userIds?: string[];
   archived: boolean;
 }

@@ -1,4 +1,4 @@
-import { Friend } from '../../pages/settings';
+import { Friend } from '../../components/settings/FriendsList';
 import sql from '../db';
 
 /**
