@@ -29,8 +29,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   }
 
   try {
-    const card = paramToString(context.query.card) || '';
-    const squareId = paramToNumber(context.query.square) || 1;
+    const card = paramToString(context.query.card) ?? '';
+    const squareId = paramToNumber(context.query.square) ?? 1;
     const square = await getSquareOfCard(
       card,
       squareId,
@@ -39,7 +39,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       props: {
         square: square,
         cardId: context.query.card,
-        fromPageNum: context.query?.fromPageNum || '1',
+        fromPageNum: context.query?.fromPageNum ?? '1',
       },
     };
   } catch (error) {
