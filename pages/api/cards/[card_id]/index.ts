@@ -11,7 +11,7 @@ import { authOptions } from '../../auth/[...nextauth]';
 import { paramToString } from '../../../../utils/param-utils';
 
 function validateSquare(square: any): square is Square {
-  return typeof square.id === 'number' && typeof square.req === 'string';
+  return typeof square.id === 'string' && typeof square.req === 'string';
 }
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {

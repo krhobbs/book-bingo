@@ -14,7 +14,7 @@ interface ArchivedLayoutProps {
 function ArchivedLayout({ cards: fallbackCards, pageCount, userId }: ArchivedLayoutProps) {
   const router = useRouter();
   const page = parseInt(router.query.page as string) || 1;
-  const { cards, mutate } = useCards({
+  const { cards, updateCardOpt, deleteCardOpt, archiveCardOpt } = useCards({
     filters: {
       userIds: [userId],
       archived: true,
@@ -42,7 +42,7 @@ function ArchivedLayout({ cards: fallbackCards, pageCount, userId }: ArchivedLay
         </Text>
       ) : (
         <>
-          <Cards cards={cards} mutate={mutate} />
+          <Cards cards={cards} updateCardOpt={updateCardOpt} deleteCardOpt={deleteCardOpt} archiveCardOpt={archiveCardOpt} />
           {pageCount > 1 && (
             <>
               <Spacer size="1rem" />

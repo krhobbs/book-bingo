@@ -1,5 +1,17 @@
-import { KeyedMutator } from 'swr';
-import { createCard, updateCard } from './fetchers';
+export interface CreateCardProps {
+  cardID: string;
+  templateID: string;
+  templateName: string;
+  templateReqs: string[];
+  userID: string;
+  username: string;
+}
+
+export interface UpdateSquareProps {
+  cards: Card[];
+  cardID: string;
+  square: Square;
+}
 
 export function getErrorMessage(error: unknown) {
   if (error instanceof Error) {
@@ -15,55 +27,19 @@ export function isValidUUID(uuid: string) {
   return uuidRegex.test(uuid);
 }
 
-export async function updateCardSquare(
-  cards: Card[],
-  squareId: string,
-  cardId: string,
-  book?: Book,
-  color?: string,
-): Promise<[Card, Card[]]> {
-  const activeCard: Card = cards.filter((c: Card) => c.id === cardId)[0];
-  const otherCards: Card[] = cards.filter((c: Card) => c.id !== cardId);
-
-  activeCard.squares[parseInt(squareId)] = {
-    ...activeCard.squares[parseInt(squareId)],
-    color: color,
-    book: book,
-  };
-
-  try {
-    await updateCard(cardId, undefined, activeCard.squares[parseInt(squareId)]);
-  } catch (error) {
-    throw error as Error;
-  }
-
-  return [activeCard, otherCards];
-}
-
 /**
- * This function calls the API for creating a new card, mutates local data
+ * Builds a new, empty Card object
  */
-export async function addCard({
+export function buildEmptyCard({
+  cardID,
   templateID,
   templateName,
   templateReqs,
   userID,
   username,
-  cards,
-  mutate,
-}: {
-  templateID: string;
-  templateName: string;
-  templateReqs: string[];
-  userID: string;
-  username: string;
-  cards: Card[];
-  mutate: KeyedMutator<{ cards: Card[]; pageCount: number }>;
-}): Promise<void> {
-  const cardId = await createCard(templateID);
-
-  const newCard: Card = {
-    id: cardId,
+}: CreateCardProps): Card {
+  return {
+    id: cardID,
     user: {
       id: userID,
       name: username,
@@ -82,8 +58,26 @@ export async function addCard({
       } as Square;
     }),
   };
+}
 
-  const newCards = [newCard, ...cards];
-  const newPageCount = Math.ceil((newCards.length + 1) / 10);
-  mutate({ cards: newCards, pageCount: newPageCount });
+/**
+ * Updates a single square in single card from a list of cards
+ */
+export function updateSquare({ cards, cardID, square }: UpdateSquareProps) {
+  const newCards = cards.map((c: Card) => {
+    if (c.id === cardID) {
+      const newSquares = c.squares.map((s: Square) => {
+        if (s.id === square.id) {
+          return { ...s, book: square.book, color: square.color };
+        } else {
+          return s;
+        }
+      });
+      return { ...c, squares: newSquares };
+    } else {
+      return c;
+    }
+  });
+
+  return newCards;
 }

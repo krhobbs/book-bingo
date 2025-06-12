@@ -36,5 +36,5 @@ interface Template {
 
 type UpdateSingleSquareFunction = (
   cardId: string,
-  squareId: string,
+  square: Square,
 ) => Promise<void>;

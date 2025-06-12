@@ -5,9 +5,8 @@ import BookButtons from '../BookButtons';
 
 interface CompleteBackProps {
   archived: boolean;
-  book: Book;
   cardId: string;
-  squareId: string;
+  square: Square;
   usersCard: boolean;
   handleUpdateCardSquare: UpdateSingleSquareFunction;
   flipped: boolean;
@@ -17,8 +16,7 @@ function CompleteBack({
   cardId,
   usersCard,
   archived,
-  squareId,
-  book,
+  square,
   handleUpdateCardSquare,
   flipped,
 }: CompleteBackProps) {
@@ -29,13 +27,13 @@ function CompleteBack({
         transform: flipped ? 'rotateY(0deg)' : 'rotateY(180deg)',
       }}
     >
-      <BookInfo book={book} />
+      <BookInfo book={square.book!} />
       {usersCard && !archived && (
         <>
           <Spacer size={['1.1rem']} />
           <BookButtons
             cardId={cardId}
-            squareId={squareId}
+            square={square}
             sx={{
               blockSize: ['16px', '26px'],
               inlineSize: ['95%', '95%', '90%'],

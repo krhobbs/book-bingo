@@ -7,14 +7,14 @@ import { useRouter } from 'next/router';
 
 interface BookButtonsProps {
   cardId: string;
-  squareId: string;
+  square: Square;
   sx?: ThemeUIStyleObject;
-  handleUpdateCardSquare: (cardId: string, squareId: string) => Promise<void>;
+  handleUpdateCardSquare: UpdateSingleSquareFunction;
 }
 
 function BookButtons({
   cardId,
-  squareId,
+  square,
   sx,
   handleUpdateCardSquare,
 }: BookButtonsProps) {
@@ -42,7 +42,7 @@ function BookButtons({
           justifyContent: 'center',
           padding: '0px',
         }}
-        onClick={() => handleUpdateCardSquare(cardId, squareId)}
+        onClick={() => handleUpdateCardSquare(cardId, { ...square, book: undefined, color: undefined })}
         aria-label="delete book from square"
       >
         <TrashIcon style={{ inlineSize: iconSize, blockSize: iconSize }} />
@@ -52,7 +52,7 @@ function BookButtons({
           pathname: '/edit-book',
           query: {
             card: cardId,
-            square: squareId,
+            square: square.id,
             fromPageNum: query.page || '1',
           },
         }}
