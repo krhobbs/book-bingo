@@ -22,7 +22,7 @@ function EditBookLayout({
   async function handleEditBook(book: Book, color: string) {
     if (!session) { return; }
 
-    const newSquare = {
+    const newSquare: Square = {
       ...square,
       book: book,
       color: color
