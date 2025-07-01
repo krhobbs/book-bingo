@@ -1,27 +1,34 @@
-import { updateCardSquare } from '../utils/api-utils';
-import { deleteCard, updateCard } from '../utils/fetchers';
+import { UpdateSquareProps } from '../utils/api-utils';
 import BingoCard from './bingo-card/BingoCard';
 import { Flex } from 'theme-ui';
 
-function Cards({ cards, mutate }: { cards: Card[]; mutate: Function }) {
+interface CardsProps {
+  cards: Card[];
+  updateCardOpt: (props: Omit<UpdateSquareProps, "cards">) => Promise<void>;
+  deleteCardOpt: (cardID: string) => Promise<void>;
+  archiveCardOpt: (cardID: string, archived: boolean) => Promise<void>;
+}
+
+function Cards({ cards, updateCardOpt, deleteCardOpt, archiveCardOpt }: CardsProps) {
   const handleArchiveCard = async (card: Card) => {
-    await updateCard(card.id, !card.archived);
-    mutate(cards.filter((c) => c.id !== card.id));
+    try {
+      await archiveCardOpt(card.id, !card.archived);
+    } catch (e) {
+      console.error('Error archiving card.');
+    }
   };
 
   const handleDeleteCard = async (card: Card) => {
-    await deleteCard(card.id);
-    mutate(cards.filter((c) => c.id !== card.id));
+    try {
+      await deleteCardOpt(card.id);
+    } catch (e) {
+      console.error('Error deleting card.');
+    }
   };
 
-  const handleUpdateCardSquare = async (cardId: string, squareId: string) => {
+  const handleUpdateCardSquare = async (cardID: string, square: Square) => {
     try {
-      const [activeCard, otherCards] = await updateCardSquare(
-        cards,
-        squareId,
-        cardId,
-      );
-      mutate([activeCard, ...otherCards]);
+      await updateCardOpt({ cardID, square });
     } catch (e) {
       console.error('Error updating card.');
     }

@@ -40,7 +40,7 @@ function BingoListItem({
         <ListComplete
           archived={archived}
           cardId={cardId}
-          squareId={square.id}
+          square={square}
           book={square.book}
           req={square.req}
           usersCard={usersCard}

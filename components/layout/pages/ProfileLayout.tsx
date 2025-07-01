@@ -3,7 +3,6 @@ import { Text } from 'theme-ui';
 import Cards from '../../Cards';
 import NewCard from '../../NewCard';
 import { GridListSwitch, Pagination, Spacer } from '../../ui';
-import { addCard } from '../../../utils/api-utils';
 import { useRouter } from 'next/router';
 import useCards from '../../../hooks/useCards';
 
@@ -17,7 +16,7 @@ interface ProfileLayoutProps {
 function ProfileLayout({ cards: fallbackCards, pageCount, username, userId }: ProfileLayoutProps) {
   const router = useRouter();
   const page = parseInt(router.query.page as string) || 1;
-  const { cards, mutate } = useCards({
+  const { cards, createCardOpt, updateCardOpt, deleteCardOpt, archiveCardOpt } = useCards({
     filters: {
       page,
       archived: false,
@@ -27,15 +26,13 @@ function ProfileLayout({ cards: fallbackCards, pageCount, username, userId }: Pr
 
   const handleNewCard = async (template: Template, closeModal: Function) => {
     try {
-      await addCard({
+      await createCardOpt({
         templateID: template.id,
         templateName: template.name,
         templateReqs: template.reqs,
         userID: userId,
-        username,
-        cards,
-        mutate
-      });
+        username
+      })
       closeModal();
     } catch (error) {
       console.error(error);
@@ -55,7 +52,7 @@ function ProfileLayout({ cards: fallbackCards, pageCount, username, userId }: Pr
       <Spacer size="2rem" />
       {cards.length >= 1 && (
         <>
-          <Cards cards={cards} mutate={mutate} />
+          <Cards cards={cards} updateCardOpt={updateCardOpt} deleteCardOpt={deleteCardOpt} archiveCardOpt={archiveCardOpt} />
           {pageCount > 1 && (
             <>
               <Spacer size="1rem" />

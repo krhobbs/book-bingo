@@ -30,8 +30,7 @@ function GridComplete({
         archived={archived}
         cardId={cardId}
         usersCard={usersCard}
-        squareId={square.id}
-        book={square.book!}
+        square={square}
         handleUpdateCardSquare={handleUpdateCardSquare}
         flipped={flipped}
       />

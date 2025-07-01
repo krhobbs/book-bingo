@@ -8,7 +8,7 @@ interface ListCompleteProps {
   book: Book;
   cardId: string;
   req: string;
-  squareId: string;
+  square: Square;
   usersCard: boolean;
   handleUpdateCardSquare: UpdateSingleSquareFunction;
 }
@@ -18,7 +18,7 @@ function ListComplete({
   book,
   cardId,
   req,
-  squareId,
+  square,
   usersCard,
   handleUpdateCardSquare,
 }: ListCompleteProps) {
@@ -45,7 +45,7 @@ function ListComplete({
             <Spacer size="1rem" />
             <BookButtons
               cardId={cardId}
-              squareId={squareId}
+              square={square}
               sx={{
                 blockSize: ['18px', '26px'],
                 inlineSize: ['124px', '144px'],

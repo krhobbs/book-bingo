@@ -16,7 +16,7 @@ function FriendsLayout({
 }) {
   const router = useRouter();
   const page = parseInt(router.query.page as string) || 1;
-  const { cards, mutate } = useCards({
+  const { cards, updateCardOpt, deleteCardOpt, archiveCardOpt } = useCards({
     filters: {
       page,
       archived: false,
@@ -40,7 +40,7 @@ function FriendsLayout({
         </Text>
       ) : (
         <>
-          <Cards cards={cards} mutate={mutate} />
+          <Cards cards={cards} archiveCardOpt={archiveCardOpt} updateCardOpt={updateCardOpt} deleteCardOpt={deleteCardOpt} />
           {pageCount > 1 && (
             <>
               <Spacer size="1rem" />
