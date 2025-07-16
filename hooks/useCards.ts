@@ -86,7 +86,7 @@ export default function useCards({ filters, fallback }: UseCardsProps) {
       },
       {
         optimisticData: updatedData,
-        revalidate: false,
+        revalidate: true,
         rollbackOnError: true,
       },
     );
