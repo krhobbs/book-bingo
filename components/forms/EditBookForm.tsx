@@ -21,7 +21,10 @@ function EditBookForm({
   const { register, handleSubmit } = useForm<EditBookFormValues>();
 
   const onSubmit: SubmitHandler<EditBookFormValues> = async (data) => {
-    if (!data?.cover?.includes('images-na.ssl-images-amazon.com')) {
+    // If it doesn't include images-na or media-amazon
+    if (!data?.cover?.includes('images-na.ssl-images-amazon.com') && !data?.cover?.includes('m.media-amazon.com')) {
+      console.log(data.cover);
+      console.log('Invalid cover URL.');
       data.cover = undefined;
     }
 
