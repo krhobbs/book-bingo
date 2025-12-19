@@ -9,6 +9,12 @@ const nextConfig = {
         port: '',
         pathname: '/images/S/compressed.photo.goodreads.com/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'm.media-amazon.com',
+        port: '',
+        pathname: '/images/S/compressed.photo.goodreads.com/**',
+      },
     ],
   },
   output: 'standalone',
