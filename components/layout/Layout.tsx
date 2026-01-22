@@ -16,10 +16,10 @@ function Layout({ children }: { children: ReactNode }) {
     <>
       <TopNav />
       <Spacer size="2rem" />
-      <SWRConfig value={{ provider: () => new Map() }}>
-        <ViewContext.Provider value={{ view, setView }}>
+      <SWRConfig>
+        <ViewContext value={{ view, setView }}>
           <main>{children}</main>
-        </ViewContext.Provider>
+        </ViewContext>
       </SWRConfig>
       <Spacer size="2rem" />
     </>

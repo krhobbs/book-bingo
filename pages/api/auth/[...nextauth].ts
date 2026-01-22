@@ -34,12 +34,20 @@ export const authOptions: NextAuthOptions = {
       }
       if (account?.provider === 'google') {
         if (profile?.sub && profile.email_verified) {
-          const userExists = await doesUserExist(profile.sub, account.provider);
-          if (userExists) {
-            return true;
-          } else {
-            await insertUser(profile.sub, account.provider);
-            return true;
+          try {
+            const userExists = await doesUserExist(
+              profile.sub,
+              account.provider,
+            );
+            if (userExists) {
+              return true;
+            } else {
+              await insertUser(profile.sub, account.provider);
+              return true;
+            }
+          } catch (error) {
+            console.log('Error checking database...');
+            console.log(error);
           }
         }
       }
