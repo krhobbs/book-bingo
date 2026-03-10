@@ -41,10 +41,10 @@ function CardButtons({
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        background: 'primary',
+        background: 'muted',
         padding: ['0.6rem', '1rem'],
         borderRadius: '5px',
-        border: (theme) => `1px solid ${theme.colors?.accent}`,
+        border: (theme) => `1px solid ${theme.colors?.primary}`,
         inlineSize: 'max-content',
         ...sx,
       }}
@@ -102,6 +102,7 @@ function CardButtons({
         variant="cardOptions"
         onClick={() => handleDeleteCard()}
         aria-label="delete card"
+        color="destructive"
       >
         <TrashIcon style={{ inlineSize: iconSize, blockSize: iconSize }} />
         <Text>Delete Card</Text>

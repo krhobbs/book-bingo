@@ -8,11 +8,11 @@ import {
   useColorMode,
 } from 'theme-ui';
 import {
-  BookOpenIcon,
   Cog6ToothIcon,
   SunIcon,
   MoonIcon,
 } from '@heroicons/react/24/outline';
+import Image from 'next/image';
 
 const containerStyles: ThemeUICSSObject = {
   alignItems: 'center',
@@ -32,21 +32,18 @@ export function TopNav() {
 
   return (
     <Box as="nav" sx={containerStyles}>
-      <Link href="/" aria-label="home page (see all cards)">
-        <Box
-          sx={{
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.75rem',
-          }}
-        >
-          <BookOpenIcon style={{ blockSize: '32px', inlineSize: '32px' }} />
-          <Text as="h1" variant="heading1" sx={{ display: ['none', 'inline'] }}>
-            BookBingo
-          </Text>
-        </Box>
-      </Link>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.75rem',
+        }}
+      >
+        <Image src="apple-touch-icon.svg" alt="book bingo logo" width={48} height={48} />
+        <Text as="h1" variant="heading1" sx={{ display: ['none', 'inline'] }}>
+          BookBingo
+        </Text>
+      </Box>
       <Box
         sx={{ display: 'flex', alignItems: 'center', gap: ['1rem', '2rem'] }}
       >

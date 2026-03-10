@@ -23,7 +23,7 @@ function Incomplete({
   const page = paramToNumber(query.page) ?? 1;
 
   return (
-    <Box variant="layout.squareSide">
+    <>
       <Text variant="body1">{bookReq}</Text>
       {usersCard && !archived && (
         <>
@@ -31,7 +31,7 @@ function Incomplete({
           <AddBookLink cardId={cardId} squareId={squareId} page={page} />
         </>
       )}
-    </Box>
+    </>
   );
 }
 

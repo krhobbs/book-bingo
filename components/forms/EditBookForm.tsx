@@ -93,7 +93,7 @@ function EditBookForm({
           type="color"
           id="color"
           {...register('color')}
-          defaultValue={square.color ?? '#FFFFFF'
+          defaultValue={square.color ?? '#D6AF38'
           }
           sx={{ padding: '0px', border: 'none' }}
         />

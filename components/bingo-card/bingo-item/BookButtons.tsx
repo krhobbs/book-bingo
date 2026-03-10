@@ -62,7 +62,7 @@ function BookButtons({
         <Box
           sx={{
             alignItems: 'center',
-            background: 'muted',
+            background: 'secondary',
             borderRadius: '0px 2px 2px 0px',
             display: 'flex',
             flex: '1 1 0px',

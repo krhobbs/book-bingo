@@ -61,7 +61,8 @@ export function buildEmptyCard({
 }
 
 /**
- * Updates a single square in single card from a list of cards
+ * Updates a single square in single card from a list of cards, returns the list of cards
+ * with the update
  */
 export function updateSquare({ cards, cardID, square }: UpdateSquareProps) {
   const newCards = cards.map((c: Card) => {

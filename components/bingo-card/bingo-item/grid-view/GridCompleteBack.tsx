@@ -22,7 +22,7 @@ function CompleteBack({
 }: CompleteBackProps) {
   return (
     <Box
-      variant="layout.animatedSquareSide"
+      variant="layout.gridItemSide"
       sx={{
         transform: flipped ? 'rotateY(0deg)' : 'rotateY(180deg)',
       }}

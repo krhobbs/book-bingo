@@ -10,23 +10,25 @@ export function GridListSwitch() {
       as="button"
       sx={{
         alignItems: 'center',
-        background: 'secondary',
+        background: 'muted',
         blockSize: ['1.6rem', '2rem'],
         border: 'none',
         borderRadius: '5px',
+        cursor: 'pointer',
         display: 'flex',
         inlineSize: ['6rem', '10rem'],
         justifyContent: 'space-around',
         marginInline: 'auto',
         padding: '0rem',
         position: 'relative',
+        boxShadow: 'pushedIn'
       }}
       onClick={() => setView((prev) => prev === 'list' ? 'grid' : 'list')}
       aria-label="toggle grid/list view"
     >
       <Box
         sx={{
-          background: 'highlight',
+          background: 'secondary',
           blockSize: ['1.4rem', '1.8rem'],
           borderRadius: '5px',
           inlineSize: '49%',

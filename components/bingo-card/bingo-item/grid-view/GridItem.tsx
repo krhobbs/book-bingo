@@ -14,18 +14,14 @@ function BingoItem({
 }: GridItemProps) {
   return (
     <Box
+      variant='layout.gridItem'
       sx={{
-        backgroundColor: square.book ? (square.color ?? 'accent') : 'secondary',
-        textAlign: 'center',
-        position: 'relative',
-        blockSize: ['100px', '138px'],
-        inlineSize: ['auto', '112px'],
+        backgroundColor: square.book ? (square.color ?? 'primary') : 'muted',
         border: (theme) =>
           `solid 1px ${square.book
             ? (square.color ?? theme.colors?.accent)
             : theme.colors?.secondary
           }`,
-        borderRadius: '5px',
         boxShadow: (theme) =>
           `1px 1px 0px 1px ${square.book
             ? (square.color ?? theme.colors?.accent)

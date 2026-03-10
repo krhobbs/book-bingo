@@ -1,26 +1,39 @@
 import type { Theme } from 'theme-ui';
 
+/**
+ * Color Guide
+ *
+ * Muted: Item background, popover and modal backgrounds, grid/list toggle track
+ * Primary: Brand color, default complete border, curent page pagination button border, one-off prominent buttons
+ * Secondary: Standard item buttons, pagination buttons, grid/list toggle
+ * Accent: Pagination button border hover, popover and modal border, general hover color for Primary
+ * Highlight: Hover background for text-only links and buttons
+ * Destructive: Delete book button
+ */
+
 export const theme: Theme = {
   config: { initialColorModeName: 'light' },
   colors: {
-    text: '#000000',
-    background: '#FFFFFF',
-    primary: '#DADADA',
-    secondary: '#999999',
-    accent: '#D6AF38',
-    highlight: '#E2EBE0',
-    muted: '#B3B3B3',
-    destructive: '#E08585',
+    text: '#110E03',
+    mutedText: '#7A7160',
+    background: '#FCF8EE',
+    muted: '#F2E8CC',
+    primary: '#D6AF38',
+    secondary: '#B8AA90',
+    accent: '#B08F2C',
+    highlight: '#EAD9A8',
+    destructive: '#C96A4F',
     modes: {
       dark: {
-        text: '#FFFFFF',
-        background: '#030303',
-        primary: '#1A1A1A',
-        secondary: '#353635',
-        accent: '#FFCC33',
-        highlight: '#1F1F1F',
-        muted: '#4D4D4D',
-        destructive: '#c55951 ',
+        text: '#F0EBE0',
+        mutedText: '#8A8070',
+        background: '#111009',
+        muted: '#1E1C14',
+        primary: '#D6AF38',
+        secondary: '#4A4535',
+        accent: '#B08F2C',
+        highlight: '#2A2515',
+        destructive: '#C25E56 ',
       },
     },
   },
@@ -34,7 +47,7 @@ export const theme: Theme = {
     body: 400, // regular
     heading: 600, // semi-bold
   },
-  breakpoints: ['600px', '1024px'],
+  breakpoints: ['630px', '1024px'],
   text: {
     heading1: {
       fontFamily: 'heading',
@@ -87,7 +100,7 @@ export const theme: Theme = {
       cursor: 'pointer',
       bg: 'transparent',
       textAlign: 'left',
-      '&:hover': { bg: 'muted' },
+      '&:hover': { bg: 'highlight' },
     },
     cardOptions: {
       variant: 'buttons.settings',
@@ -110,6 +123,9 @@ export const theme: Theme = {
     close: {
       cursor: 'pointer',
     },
+    icon: {
+      cursor: 'pointer',
+    },
   },
   alerts: {
     base: {
@@ -130,9 +146,34 @@ export const theme: Theme = {
     },
   },
   layout: {
-    squareSide: {
+    bingoItem: {
       alignItems: 'center',
-      backgroundColor: 'primary',
+      bg: 'muted',
+      borderRadius: '5px',
+      border: (theme) => `solid 1px ${theme.colors?.secondary}`,
+      boxShadow: (theme) => `1px 1px 0px 1px ${theme.colors?.secondary}`,
+      display: 'flex',
+      justifyContent: 'center',
+      overflow: 'hidden',
+      position: 'relative',
+    },
+    gridItem: {
+      variant: 'layout.bingoItem',
+      blockSize: ['100px', '138px'],
+      inlineSize: ['auto', '112px'],
+      flexDirection: 'column',
+    },
+    listItem: {
+      variant: 'layout.bingoItem',
+      blockSize: '212px',
+      gap: '2rem',
+      inlineSize: ['98%', '512px'],
+      marginInline: 'auto',
+    },
+    gridItemSide: {
+      alignItems: 'center',
+      backfaceVisibility: 'hidden',
+      bg: 'muted',
       blockSize: '100%',
       borderRadius: '5px',
       display: 'flex',
@@ -140,10 +181,6 @@ export const theme: Theme = {
       inlineSize: '100%',
       justifyContent: 'center',
       padding: ['0.05rem', '0.1rem'],
-    },
-    animatedSquareSide: {
-      variant: 'layout.squareSide',
-      backfaceVisibility: 'hidden',
       position: 'absolute',
       transition: 'all .6s ease',
     },
@@ -173,22 +210,27 @@ export const theme: Theme = {
       borderRadius: '4px',
       padding: '0.5rem 1rem',
       textAlign: 'left',
-      '&:hover': { bg: 'muted' },
+      '&:hover': { bg: 'highlight' },
     },
     pagination: {
       alignItems: 'center',
-      bg: 'primary',
-      border: '2px solid #1A1A1A',
+      bg: 'secondary',
+      boxSizing: 'border-box',
       blockSize: ['24px', '32px'],
       display: 'flex',
       justifyContent: 'center',
       borderRadius: '5px',
       textAlign: 'center',
-      px: '13px',
+      px: '15px',
+      '&:hover': {
+        border: (theme) => `2px solid ${theme.colors?.accent}`,
+        px: '13px',
+      },
     },
     paginationActive: {
       variant: 'links.pagination',
-      border: '2px solid #FFCC33',
+      border: () => `2px solid ${theme.colors?.primary}`,
+      px: '13px',
     },
     paginationDisabled: {
       variant: 'links.pagination',
