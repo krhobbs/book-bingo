@@ -19,7 +19,7 @@ interface BingoCardTitleProps {
   handleFlipToFront: () => void;
 }
 
-function BingoCardTitle({
+function BingoCardHeader({
   archived,
   card,
   template,
@@ -102,4 +102,4 @@ function BingoCardTitle({
   );
 }
 
-export default BingoCardTitle;
+export default BingoCardHeader;

@@ -33,14 +33,11 @@ function BookButtons({
       }}
     >
       <Button
+        variant="bingoItem"
         sx={{
-          alignItems: 'center',
           background: 'destructive',
           borderRadius: '2px 0px 0px 2px',
-          display: 'flex',
-          flex: '1 1 0px',
-          justifyContent: 'center',
-          padding: '0px',
+          flex: '0 0 50%',
         }}
         onClick={() => handleUpdateCardSquare(cardId, { ...square, book: undefined, color: undefined })}
         aria-label="delete book from square"
@@ -60,16 +57,10 @@ function BookButtons({
         aria-label="edit square"
       >
         <Box
+          variant="links.bingoItem"
           sx={{
-            alignItems: 'center',
-            background: 'muted',
             borderRadius: '0px 2px 2px 0px',
-            display: 'flex',
-            flex: '1 1 0px',
-            justifyContent: 'center',
-            '&:hover': {
-              boxShadow: 'pushedIn',
-            },
+            flex: '0 0 50%',
           }}
         >
           <PencilIcon style={{ inlineSize: iconSize, blockSize: iconSize }} />

@@ -41,8 +41,8 @@ function Settings({ username, userID }: { username: string, userID: string }) {
         <Text
           as="p"
           variant="body1"
-          color="muted"
-          sx={{ padding: '0.5rem 1rem', textAlign: 'left' }}
+          color="mutedText"
+          sx={{ padding: '0.5rem 1rem', textAlign: 'left', opacity: 0.5 }}
         >
           Username: {username}
         </Text>

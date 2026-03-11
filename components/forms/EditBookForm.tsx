@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Label, Input, Button, Text } from 'theme-ui';
+import { Box, Label, Input, Button, Text, Container } from 'theme-ui';
 import { Alert, Spacer } from '../ui';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 
@@ -46,9 +46,9 @@ function EditBookForm({
   }
 
   return (
-    <Box
+    <Container
       as="form"
-      variant='layout.form'
+      variant='form'
       onSubmit={handleSubmit(onSubmit)}
     >
       <Spacer size={['6rem']} />
@@ -93,7 +93,7 @@ function EditBookForm({
           type="color"
           id="color"
           {...register('color')}
-          defaultValue={square.color ?? '#FFFFFF'
+          defaultValue={square.color ?? '#D6AF38'
           }
           sx={{ padding: '0px', border: 'none' }}
         />
@@ -106,7 +106,7 @@ function EditBookForm({
           close={closeErrorPopup}
         ></Alert>
       )}
-    </Box>
+    </Container>
   );
 }
 

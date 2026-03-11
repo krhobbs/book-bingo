@@ -1,29 +1,43 @@
 import type { Theme } from 'theme-ui';
 
+/**
+ * Color Guide
+ *
+ * Muted: Item background, popover and modal backgrounds, grid/list toggle track
+ * Primary: Brand color, default complete border, curent page pagination button border, one-off prominent buttons
+ * Secondary: Standard item buttons, pagination buttons, grid/list toggle
+ * Accent: Pagination button border hover, popover and modal border, general hover color for Primary
+ * Highlight: Hover background for text-only links and buttons
+ * Destructive: Delete book button
+ */
+
 export const theme: Theme = {
   config: { initialColorModeName: 'light' },
   colors: {
-    text: '#000000',
-    background: '#FFFFFF',
-    primary: '#DADADA',
-    secondary: '#999999',
-    accent: '#D6AF38',
-    highlight: '#E2EBE0',
-    muted: '#B3B3B3',
-    destructive: '#E08585',
+    text: '#110E03',
+    mutedText: '#7A7160',
+    background: '#FCF8EE',
+    muted: '#F2E8CC',
+    primary: '#D6AF38',
+    secondary: '#B8AA90',
+    accent: '#B08F2C',
+    highlight: '#EAD9A8',
+    destructive: '#C96A4F',
     modes: {
       dark: {
-        text: '#FFFFFF',
-        background: '#030303',
-        primary: '#1A1A1A',
-        secondary: '#353635',
-        accent: '#FFCC33',
-        highlight: '#1F1F1F',
-        muted: '#4D4D4D',
-        destructive: '#c55951 ',
+        text: '#F0EBE0',
+        mutedText: '#8A8070',
+        background: '#111009',
+        muted: '#1E1C14',
+        primary: '#D6AF38',
+        secondary: '#4A4535',
+        accent: '#B08F2C',
+        highlight: '#2A2515',
+        destructive: '#C25E56 ',
       },
     },
   },
+  // Value Scales
   fonts: {
     body: '-apple-system, BlinkMacSystemFont, sans-serif',
     heading: '-apple-system, BlinkMacSystemFont, sans-serif',
@@ -34,7 +48,7 @@ export const theme: Theme = {
     body: 400, // regular
     heading: 600, // semi-bold
   },
-  breakpoints: ['600px', '1024px'],
+  breakpoints: ['630px', '1024px'],
   text: {
     heading1: {
       fontFamily: 'heading',
@@ -72,43 +86,68 @@ export const theme: Theme = {
     pushedIn: 'inset 0px 0px 15px -10px #000000',
     popover: '2px 2px 5px 2px rgba(0,0,0,0.6)',
   },
+  radii: {
+    small: '5px',
+    large: '10px',
+  },
+  // Variants
   buttons: {
     primary: {
-      color: 'text',
-      cursor: 'pointer',
       bg: 'primary',
+      color: 'text',
       padding: '0.5rem 1.5rem',
       '&:hover': { boxShadow: 'pushedIn' },
     },
+    secondary: {
+      bg: 'transparent',
+      color: 'secondary',
+      borderColor: 'secondary',
+      border: '1px solid',
+    },
+    bingoItem: {
+      alignItems: 'center',
+      bg: 'secondary',
+      blockSize: ['16px', '26px'],
+      borderRadius: 'small',
+      color: 'text',
+      display: 'flex',
+      inlineSize: ['38px', '60px'],
+      justifyContent: 'center',
+      '&:hover': { boxShadow: 'pushedIn' },
+    },
     settings: {
+      bg: 'transparent',
+      borderRadius: 'small',
+      color: 'text',
       fontWeight: 'heading',
       fontSize: [2, 3],
-      color: 'text',
-      cursor: 'pointer',
-      bg: 'transparent',
+      padding: '0.5rem 1rem',
       textAlign: 'left',
-      '&:hover': { bg: 'muted' },
+      '&:hover': { bg: 'highlight' },
     },
     cardOptions: {
       variant: 'buttons.settings',
       alignItems: 'center',
+      borderRadius: 'small',
       display: 'flex',
       gap: '1rem',
       justifyContent: 'flex-start',
       padding: '0.5rem 1.5rem',
-      borderRadius: '3px',
+    },
+    icon: {
+      blockSize: ['1.5rem', '1.75rem'],
+      inlineSize: ['1.5rem', '1.75rem'],
+      padding: 0,
+      '&:hover': {
+        color: 'primary',
+      },
     },
     closeModal: {
-      bg: 'primary',
-      color: 'text',
-      cursor: 'pointer',
+      variant: 'buttons.icon',
+      bg: 'muted',
       blockSize: ['1.5rem', '2.25rem'],
       inlineSize: ['1.5rem', '2.25rem'],
-      padding: '0px',
       '&:hover': { boxShadow: 'pushedIn' },
-    },
-    close: {
-      cursor: 'pointer',
     },
   },
   alerts: {
@@ -129,66 +168,104 @@ export const theme: Theme = {
       backgroundColor: '#4fa945',
     },
   },
-  layout: {
-    squareSide: {
+  cards: {
+    card: {
+      inlineSize: ['100%', 'min-content'],
+      minInlineSize: '320px',
+      mx: 'auto',
+      px: ['0.1rem', '0'],
+    },
+    baseItem: {
       alignItems: 'center',
-      backgroundColor: 'primary',
-      blockSize: '100%',
-      borderRadius: '5px',
+      bg: 'muted',
+      borderRadius: 'small',
       display: 'flex',
       flexDirection: 'column',
-      inlineSize: '100%',
       justifyContent: 'center',
-      padding: ['0.05rem', '0.1rem'],
     },
-    animatedSquareSide: {
-      variant: 'layout.squareSide',
+    oneSidedItem: {
+      variant: 'cards.baseItem',
+      border: (theme) => `solid 1px ${theme.colors?.secondary}`,
+      boxShadow: (theme) => `1px 1px 0px 1px ${theme.colors?.secondary}`,
+      overflow: 'hidden',
+      position: 'relative',
+    },
+    gridItem: {
+      variant: 'cards.oneSidedItem',
+      blockSize: ['100px', '138px'],
+      inlineSize: ['auto', '112px'],
+    },
+    listItem: {
+      variant: 'cards.oneSidedItem',
+      blockSize: '212px',
+      gap: '2rem',
+      inlineSize: ['98%', '512px'],
+      marginInline: 'auto',
+    },
+    gridItemSide: {
+      variant: 'cards.baseItem',
       backfaceVisibility: 'hidden',
+      blockSize: '100%',
+      inlineSize: '100%',
+      padding: ['0.05rem', '0.1rem'],
       position: 'absolute',
       transition: 'all .6s ease',
     },
+  },
+  layout: {
     form: {
       px: ['0.25rem', '0rem'],
       mx: 'auto',
       maxInlineSize: '512px',
       position: 'relative',
     },
+    nav: {
+      alignItems: 'center',
+      blockSize: '4.5rem',
+      display: 'flex',
+      inlineSize: '100%',
+      justifyContent: 'space-between',
+      padding: ['0 1rem', '0 2rem'],
+    },
+    popover: {
+      bg: 'muted',
+      border: (theme) => `1px solid ${theme.colors?.primary}`,
+      borderRadius: 'small',
+      display: 'flex',
+      flexDirection: 'column',
+      inlineSize: 'max-content',
+      padding: ['0.6rem', '1rem'],
+    },
   },
   links: {
-    item: {
-      bg: 'secondary',
-      blockSize: ['16px', '26px'],
-      borderRadius: '5px',
-      color: 'text',
-      inlineSize: ['38px', '60px'],
-      textAlign: 'center',
-      '&:hover': { boxShadow: 'pushedIn' },
+    bingoItem: {
+      variant: 'buttons.bingoItem',
     },
     settings: {
-      fontWeight: 'heading',
-      fontSize: [2, 3],
-      color: 'text',
-      cursor: 'pointer',
-      bg: 'transparent',
-      borderRadius: '4px',
-      padding: '0.5rem 1rem',
-      textAlign: 'left',
-      '&:hover': { bg: 'muted' },
+      variant: 'buttons.settings',
+    },
+    icon: {
+      variant: 'buttons.icon',
     },
     pagination: {
       alignItems: 'center',
-      bg: 'primary',
-      border: '2px solid #1A1A1A',
+      bg: 'secondary',
+      boxSizing: 'border-box',
       blockSize: ['24px', '32px'],
       display: 'flex',
       justifyContent: 'center',
-      borderRadius: '5px',
+      borderRadius: 'small',
       textAlign: 'center',
-      px: '13px',
+      px: '15px',
+      '&:hover': {
+        border: (theme) => `2px solid ${theme.colors?.accent}`,
+        px: '13px',
+      },
     },
     paginationActive: {
       variant: 'links.pagination',
-      border: '2px solid #FFCC33',
+      border: () => `2px solid ${theme.colors?.primary}`,
+      px: '13px',
     },
     paginationDisabled: {
       variant: 'links.pagination',
@@ -203,9 +280,14 @@ export const theme: Theme = {
   styles: {
     root: {
       fontFamily: 'body',
-      a: { textDecoration: 'none', color: 'inherit', fontSize: 4 },
+      a: {
+        cursor: 'pointer',
+        textDecoration: 'none',
+        color: 'inherit',
+        fontSize: 4,
+      },
       body: { minHeight: '100vh' },
-      button: { fontFamily: 'body' },
+      button: { fontFamily: 'body', cursor: 'pointer' },
       input: { '&:focus': { outline: 'none' } },
     },
   },

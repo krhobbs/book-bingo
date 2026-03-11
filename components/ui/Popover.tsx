@@ -27,7 +27,7 @@ export function Popover(props: PopoverProps) {
         left: `${left}px`,
         zIndex: 11,
         boxShadow: 'popover',
-        borderRadius: '5px',
+        borderRadius: 'small',
       }}
       ref={props.ref}
     >

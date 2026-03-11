@@ -38,16 +38,8 @@ function CardButtons({
 
   return (
     <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        background: 'primary',
-        padding: ['0.6rem', '1rem'],
-        borderRadius: '5px',
-        border: (theme) => `1px solid ${theme.colors?.accent}`,
-        inlineSize: 'max-content',
-        ...sx,
-      }}
+      variant="layout.popover"
+      sx={{ sx }}
     >
       <PDFDownloadLink
         document={<CardPdfDocument card={card} />}
@@ -102,6 +94,7 @@ function CardButtons({
         variant="cardOptions"
         onClick={() => handleDeleteCard()}
         aria-label="delete card"
+        color="destructive"
       >
         <TrashIcon style={{ inlineSize: iconSize, blockSize: iconSize }} />
         <Text>Delete Card</Text>
