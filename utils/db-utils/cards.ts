@@ -1,5 +1,8 @@
 import sql from '../db';
 
+/**
+ * Query fragment for `SELECT` for cards that will fit into the Card type
+ */
 const cardSelect = sql`
   cards.id,
   json_build_object('id', cards.user_id, 'name', users.username) as "user", 
@@ -14,6 +17,9 @@ const cardSelect = sql`
     ) ORDER BY card_squares.id
   ) AS squares`;
 
+/**
+ * Query fragment for `FROM` for cards that will fit into the Card type
+ */
 const cardFrom = sql`
   ((((bingo.cards INNER JOIN bingo.users ON cards.user_id = users.id)
   INNER JOIN bingo.templates ON cards.template_id = templates.id) 
