@@ -182,6 +182,7 @@ export const theme: Theme = {
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
+      textAlign: 'center',
     },
     oneSidedItem: {
       variant: 'cards.baseItem',
@@ -198,9 +199,11 @@ export const theme: Theme = {
     listItem: {
       variant: 'cards.oneSidedItem',
       blockSize: '212px',
+      flexDirection: 'row',
       gap: '2rem',
       inlineSize: ['98%', '512px'],
       marginInline: 'auto',
+      textAlign: 'center',
     },
     gridItemSide: {
       variant: 'cards.baseItem',

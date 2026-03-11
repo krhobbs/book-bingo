@@ -34,7 +34,7 @@ function ListComplete({
           />
         </Box>
       )}
-      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', textAlign: book.cover ? 'left' : 'center' }}>
         <Text as="h3" variant="subheading">
           {req}
         </Text>
