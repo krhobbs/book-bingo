@@ -88,11 +88,8 @@ function FriendsList({
               <Text variant="body1">{friend.username}</Text>
               <IconButton
                 sx={{
-                  color: 'text',
-                  cursor: 'pointer',
-                  padding: '0px',
                   width: ['16px', '22px'],
-                  height: ['18px', '24px'],
+                  height: ['16px', '22px'],
                 }}
                 onClick={() => onDeleteFriend(friend.id)}
               >

@@ -4,7 +4,6 @@ import {
   Box,
   Text,
   IconButton,
-  ThemeUICSSObject,
   useColorMode,
 } from 'theme-ui';
 import {

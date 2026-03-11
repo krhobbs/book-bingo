@@ -138,6 +138,9 @@ export const theme: Theme = {
       blockSize: ['1.5rem', '1.75rem'],
       inlineSize: ['1.5rem', '1.75rem'],
       padding: 0,
+      '&:hover': {
+        color: 'primary',
+      },
     },
     closeModal: {
       variant: 'buttons.icon',
