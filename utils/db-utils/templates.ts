@@ -80,5 +80,9 @@ export async function getTemplateById(templateId: string) {
     WHERE templates.id = ${templateId}
     GROUP BY users.username, templates.name, templates.id`;
 
+  if (!templateResult.length) {
+    throw new Error(`Unable to find template with ID: ${templateId}`);
+  }
+
   return templateResult[0];
 }

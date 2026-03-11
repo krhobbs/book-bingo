@@ -15,7 +15,7 @@ export const theme: Theme = {
   config: { initialColorModeName: 'light' },
   colors: {
     text: '#110E03',
-    mutedText: '#7A7160',
+    mutedText: '#878379',
     background: '#FCF8EE',
     muted: '#F2E8CC',
     primary: '#D6AF38',
@@ -26,7 +26,7 @@ export const theme: Theme = {
     modes: {
       dark: {
         text: '#F0EBE0',
-        mutedText: '#8A8070',
+        mutedText: '#949289',
         background: '#111009',
         muted: '#1E1C14',
         primary: '#D6AF38',
@@ -113,6 +113,7 @@ export const theme: Theme = {
       display: 'flex',
       inlineSize: ['38px', '60px'],
       justifyContent: 'center',
+      padding: 0,
       '&:hover': { boxShadow: 'pushedIn' },
     },
     settings: {

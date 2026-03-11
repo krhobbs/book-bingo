@@ -24,7 +24,7 @@ function Incomplete({
 
   return (
     <>
-      <Text variant="body1">{bookReq}</Text>
+      <Text variant="body1" color="mutedText">{bookReq}</Text>
       {usersCard && !archived && (
         <>
           <Spacer size={['1rem']} />
