@@ -1,4 +1,4 @@
-import React, { FormEvent, useRef, useState } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 import { Box, Button, Input, Label, Text, IconButton } from 'theme-ui';
 import { TrashIcon } from '@heroicons/react/20/solid';
 import { Alert, Spacer } from '../ui';
@@ -75,14 +75,14 @@ function FriendsList({
             <Box
               key={friend.id}
               sx={{
+                alignItems: 'center',
                 display: 'flex',
                 justifyContent: 'space-between',
-                alignItems: 'center',
-                borderTop: '1px solid white',
-                borderBottom: `${index === friends.length - 1 ? '1px solid white' : 'none'
-                  }`,
                 py: '.8rem',
-                minInlineSize: '200px',
+                '&:not(:first-of-type)': {
+                  borderTop: '1px solid',
+                  borderTopColor: 'secondary'
+                }
               }}
             >
               <Text variant="body1">{friend.username}</Text>

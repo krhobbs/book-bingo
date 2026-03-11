@@ -1,5 +1,5 @@
 import { ReactNode, useEffect } from 'react';
-import { Box, Button } from 'theme-ui';
+import { Box, IconButton } from 'theme-ui';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { FocusTrap } from 'focus-trap-react';
 
@@ -25,7 +25,7 @@ export function Modal({ closeModal, children }: ModalProps) {
           left: 0,
           blockSize: '100vh',
           inlineSize: '100%',
-          zIndex: 10,
+          zIndex: 20,
         }}
       >
         <Box
@@ -36,27 +36,27 @@ export function Modal({ closeModal, children }: ModalProps) {
             backdropFilter: 'blur(5px)',
             inlineSize: '100%',
             blockSize: '100%',
-            zIndex: 11,
+            zIndex: 21,
           }}
         />
-        <Button
+        <IconButton
           onClick={closeModal}
           variant="closeModal"
-          sx={{ position: 'absolute', top: '1rem', right: '1rem', zIndex: 15 }}
+          sx={{ position: 'absolute', top: '1rem', right: '1rem', zIndex: 23 }}
         >
           <XMarkIcon style={{ inlineSize: '100%' }} />
-        </Button>
+        </IconButton>
         <Box
           id="modal-content-wrapper"
           sx={{
             position: 'relative',
-            background: 'highlight',
-            borderRadius: '10px',
+            background: 'muted',
+            borderRadius: 'large',
             inlineSize: ['100%', 'max-content'],
             padding: '1.5rem',
             mx: 'auto',
             marginBlockStart: '4rem',
-            zIndex: 12,
+            zIndex: 22,
           }}
         >
           {children}

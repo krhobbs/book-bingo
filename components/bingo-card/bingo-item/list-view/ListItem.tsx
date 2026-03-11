@@ -12,7 +12,7 @@ function BingoListItem({
 }: ItemProps) {
   return (
     <Box
-      variant='layout.listItem'
+      variant='cards.listItem'
       sx={{
         justifyContent: () => (square?.book?.cover ? 'flex-start' : 'center'),
         border: (theme) =>

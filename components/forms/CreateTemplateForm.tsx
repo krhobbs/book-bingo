@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
-import { Box, Label, Input, Button, Text } from 'theme-ui';
+import { Box, Container, Label, Input, Button, Text } from 'theme-ui';
 import { Alert, Spacer } from '../ui';
 import { useRouter } from 'next/router';
 import { createTemplate } from '../../utils/fetchers';
@@ -32,9 +32,9 @@ function CreateTemplateForm() {
   }
 
   return (
-    <Box
+    <Container
       as="form"
-      variant='layout.form'
+      variant='form'
       onSubmit={handleSubmit(onSubmit)}
     >
       <Spacer size={['6rem']} />
@@ -279,7 +279,7 @@ function CreateTemplateForm() {
           ></Alert>
         </Box>
       )}
-    </Box>
+    </Container>
   );
 }
 

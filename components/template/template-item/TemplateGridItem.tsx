@@ -1,9 +1,9 @@
 import { Box, Text } from 'theme-ui';
 
-function TemplateItem({ req }: { req: string }) {
+function TemplateGridItem({ req }: { req: string }) {
   return (
     <Box
-      variant='layout.gridItem'
+      variant='cards.gridItem'
       sx={{
         padding: ['0.05rem', '0.1rem'],
       }}
@@ -13,4 +13,4 @@ function TemplateItem({ req }: { req: string }) {
   );
 }
 
-export default TemplateItem;
+export default TemplateGridItem;

@@ -8,7 +8,7 @@ interface CompleteFrontProps {
 function CompleteFront({ bookReq, flipped }: CompleteFrontProps) {
   return (
     <Box
-      variant="layout.gridItemSide"
+      variant="cards.gridItemSide"
       sx={{
         transform: flipped ? 'rotateY(-180deg)' : 'rotateY(0deg)',
       }}

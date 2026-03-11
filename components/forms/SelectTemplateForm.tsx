@@ -1,4 +1,4 @@
-import { Box, Button, Select } from "theme-ui";
+import { Button, Container, Select } from "theme-ui";
 import { useForm } from "react-hook-form";
 
 const SelectTemplateForm = ({
@@ -15,7 +15,7 @@ const SelectTemplateForm = ({
     onNewCard(templates[template], closeModal);
   };
   return (
-    <Box
+    <Container
       as="form"
       onSubmit={handleSubmit(onSubmit)}
       sx={{
@@ -34,7 +34,7 @@ const SelectTemplateForm = ({
         })}
       </Select>
       <Button>Create</Button>
-    </Box>
+    </Container>
   );
 };
 

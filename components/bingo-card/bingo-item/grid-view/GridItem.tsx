@@ -14,7 +14,7 @@ function BingoItem({
 }: GridItemProps) {
   return (
     <Box
-      variant='layout.gridItem'
+      variant='cards.gridItem'
       sx={{
         backgroundColor: square.book ? (square.color ?? 'primary') : 'muted',
         border: (theme) =>

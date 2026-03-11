@@ -38,16 +38,8 @@ function CardButtons({
 
   return (
     <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        background: 'muted',
-        padding: ['0.6rem', '1rem'],
-        borderRadius: '5px',
-        border: (theme) => `1px solid ${theme.colors?.primary}`,
-        inlineSize: 'max-content',
-        ...sx,
-      }}
+      variant="layout.popover"
+      sx={{ sx }}
     >
       <PDFDownloadLink
         document={<CardPdfDocument card={card} />}

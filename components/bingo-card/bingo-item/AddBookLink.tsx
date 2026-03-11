@@ -21,7 +21,7 @@ export default function AddBookLink({ cardId, squareId, page }: AddBookLinkProps
     aria-label="add new book"
   >
     <Box
-      variant="links.item"
+      variant="links.bingoItem"
       sx={{
         bottom: ['8px', '12px'],
         left: '0px',

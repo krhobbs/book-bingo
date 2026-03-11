@@ -1,7 +1,7 @@
 import { Modal, Spacer } from '../ui';
 import { Box, Flex, Text, Button } from 'theme-ui';
 import { useSession } from 'next-auth/react';
-import BingoCardTitle from './BingoCardTitle';
+import BingoCardHeader from './BingoCardHeader';
 import BingoCardSquares from './BingoCardSquares';
 import { createPortal } from 'react-dom';
 import { useState } from 'react';
@@ -53,14 +53,9 @@ function BingoCard({
     <Box
       key={card.id}
       as="article"
-      sx={{
-        inlineSize: ['100%', 'min-content'],
-        minInlineSize: '320px',
-        mx: 'auto',
-        px: ['0.1rem', '0'],
-      }}
+      variant="cards.card"
     >
-      <BingoCardTitle
+      <BingoCardHeader
         card={card}
         username={card.user.name}
         template={card.template.name}

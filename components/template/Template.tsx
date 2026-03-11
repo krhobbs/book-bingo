@@ -16,12 +16,7 @@ function Template({ template }: { template: Template }) {
     <Box
       as="article"
       key={template.id}
-      sx={{
-        inlineSize: ['100%', 'min-content'],
-        minInlineSize: '320px',
-        mx: 'auto',
-        px: ['0.1rem', '0'],
-      }}
+      variant="cards.card"
     >
       <TemplateHeader
         templateId={template.id}
